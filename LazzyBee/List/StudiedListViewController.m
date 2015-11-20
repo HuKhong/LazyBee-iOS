@@ -200,9 +200,12 @@
     NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
     
     NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";
     }
+    
+    curMajor = [curMajor lowercaseString];
     
     NSDictionary *dictSinglePackage = [dictPackages valueForKey:curMajor];
     

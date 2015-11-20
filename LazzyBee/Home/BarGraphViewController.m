@@ -143,7 +143,11 @@
 
 - (NSNumber *)valueForBarAtIndex:(NSInteger)index {
     NSInteger count = [[levelsDictionary objectForKey:[NSString stringWithFormat:@"%ld", (long)index +1]] count];
-    count = (int)(count*100/[wordList count]);
+    
+    if (count > 0 && [wordList count] > 0) {
+        count = (int)(count*100/[wordList count]);
+    }
+    
     return [NSNumber numberWithInteger:count];
 }
 

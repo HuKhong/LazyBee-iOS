@@ -106,6 +106,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSString *htmlString = @"";
     NSString *imageLink = @"";
     
+    package = [package lowercaseString];
     //parse the answer to dictionary object
     NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -168,7 +169,8 @@ static HTMLHelper* sharedHTMLHelper = nil;
     }
     
     if (strExample && strExample.length > 0) {
-        strExampleIconTag = @"<div style=\"float:left;width:90%%; font-size:14pt;\">"
+        strExampleIconTag = @"       <div style=\"width:90%%; font-size:13pt;\"><strong>Example: </strong></div>\n"
+                            "<div style=\"float:left;width:90%%; font-size:14pt;\">"
                             "   <em>%@</em> \n" //%@ will be replaced by strExample
                             "</div>\n"
                             "<div style=\"float:left;width:10%%\">\n "
@@ -235,8 +237,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
     "       <div style=\"width:100%%\"></div>\n"
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
-    
-    "       <div style=\"width:90%%; font-size:13pt;\"><strong>Example: </strong></div>\n"
+
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
 
     "       <div style='width:90%%'>\n"

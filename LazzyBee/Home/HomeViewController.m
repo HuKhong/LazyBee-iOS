@@ -208,7 +208,14 @@
     
 //    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:[[Common sharedCommon] getDailyTarget] withForceFlag:NO];
     
-    StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+    StudyWordViewController *studyViewController = nil;
+    
+    if (IS_IPAD) {
+        studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController_iPad" bundle:nil];
+    } else {
+        studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+    }
+    
     studyViewController.isReviewScreen = NO;
     
     [self.navigationController pushViewController:studyViewController animated:YES];
@@ -242,7 +249,14 @@
         [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:[[Common sharedCommon] getDailyTarget] withForceFlag:YES];
         
         //transfer to study screen
-        StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+        StudyWordViewController *studyViewController = nil;
+        
+        if (IS_IPAD) {
+            studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController_iPad" bundle:nil];
+        } else {
+            studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+        }
+        
         studyViewController.isReviewScreen = NO;
         
         [self.navigationController pushViewController:studyViewController animated:YES];
@@ -260,7 +274,14 @@
     if (alertView.tag == 1) {   //add more words alert
         if (buttonIndex != 0) {
             //transfer to study screen
-            StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+            StudyWordViewController *studyViewController = nil;
+            
+            if (IS_IPAD) {
+                studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController_iPad" bundle:nil];
+            } else {
+                studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+            }
+            
             studyViewController.isReviewScreen = NO;
             
             [self.navigationController pushViewController:studyViewController animated:YES];
@@ -388,6 +409,8 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";
+    } else {
+        curMajor = [curMajor lowercaseString];
     }
     [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE inPackage:curMajor];
 }

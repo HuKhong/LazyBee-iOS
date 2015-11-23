@@ -39,7 +39,28 @@ static HTMLHelper* sharedHTMLHelper = nil;
     return self;
 }
 
-- (NSString *)createHTMLForQuestion:(NSString *)word {
+- (NSString *)createHTMLForQuestion:(WordObject *)word withPackage:(NSString *)package {
+    NSString *packageLowcase = [package lowercaseString];
+    
+    if ([packageLowcase isEqualToString:@"common"]) {
+        package = @"";
+    } else {
+        package = [NSString stringWithFormat:@"[%@]", package];
+        //parse the answer to dictionary object
+        NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        //A word may has many meanings corresponding to many fields (common, it, economic...)
+        //The meaning of each field is considered as a package
+        NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
+        NSDictionary *dictSinglePackage = [dictPackages valueForKey:packageLowcase];
+        
+        if (dictSinglePackage == nil) {
+            
+            package = @"";
+        }
+    }
+    
     NSString *htmlString = @"<!DOCTYPE html>\n"
                             "<html>\n"
                             "<head>\n"
@@ -89,13 +110,16 @@ static HTMLHelper* sharedHTMLHelper = nil;
     float speed = 2*[speedNumberObj floatValue];
     
     NSString *strWordIconTag = @"<div style='float:left;width:90%%;text-align: center;'>\n"
-                        "<strong style='font-size:20pt;'> %@ </strong>\n"   //%@ will be replaced by word
+                        "<strong style='font-size:20pt;'> %@ </strong>\n"   //%@ will be replaced by word.question
                         "</div>\n"
                         "<div style='float:left;width:10%%'>\n"
                         "<a onclick='playText(\"%@\", %f);'><img src='ic_speaker.png'/><p>\n"
-                        "</div>\n";
+                        "</div>\n"
+                        "<div style='width:90%%'>"
+                        "<center>%@</center>"
+                        "</div>";
     
-    strWordIconTag = [NSString stringWithFormat:strWordIconTag, word, word, speed];
+    strWordIconTag = [NSString stringWithFormat:strWordIconTag, word.question, word.question, speed, package];
     
     htmlString = [NSString stringWithFormat:htmlString, strWordIconTag];
     
@@ -106,7 +130,9 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSString *htmlString = @"";
     NSString *imageLink = @"";
     
-    package = [package lowercaseString];
+    NSString *packageLowcase = [package lowercaseString];
+    
+    package = [NSString stringWithFormat:@"[%@]", package];
     //parse the answer to dictionary object
     NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -115,11 +141,18 @@ static HTMLHelper* sharedHTMLHelper = nil;
     //A word may has many meanings corresponding to many fields (common, it, economic...)
     //The meaning of each field is considered as a package
     NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
-    NSDictionary *dictSinglePackage = [dictPackages valueForKey:package];
+    NSDictionary *dictSinglePackage = [dictPackages valueForKey:packageLowcase];
     
     if (dictSinglePackage == nil) {
         dictSinglePackage = [dictPackages valueForKey:@"common"];
+        
+        package = @"";
     }
+    
+    if ([packageLowcase isEqualToString:@"common"]) {
+        package = @"";
+    }
+    
     //"common":{"meaning":"", "explain":"<p>The edge of something is the part of it that is farthest from the center.</p>", "example":"<p>He ran to the edge of the cliff.</p>"}}
     
     NSString *strExplanation = [dictSinglePackage valueForKey:@"explain"];
@@ -144,6 +177,12 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
     if ([dictSinglePackage valueForKey:@"meaning"]) {
         strMeaning = [dictSinglePackage valueForKey:@"meaning"];
+        
+        if (strMeaning) {
+            strMeaning = [[Common sharedCommon] stringByRemovingHTMLTag:strMeaning];
+        } else {
+            strMeaning = @"";
+        }
     }
     
     NSString *strExplainIconTag = @"";
@@ -241,13 +280,13 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
 
     "       <div style='width:90%%'>\n"
-    "           <br><br><br><br><center><font size='4' color='blue'><em> %@ </em></font></center>\n"    //%@ will be replaced by meaning
+    "           <br><br><br><br><center>%@<font size='4' color='blue'><em style='margin-left: 10px'> %@ </em></font></center>\n"    //%@ will be replaced by meaning
     "       </div>\n"
     "   </div>\n"
     "   </body>"
     "</html>\n";
 
-    htmlString = [NSString stringWithFormat:htmlString, word.question, strWordIconTag, strPronounciation, imageLink, strExplainIconTag, strExampleIconTag, strMeaning];
+    htmlString = [NSString stringWithFormat:htmlString, word.question, strWordIconTag, strPronounciation, imageLink, strExplainIconTag, strExampleIconTag, package, strMeaning];
     return htmlString;
     
 }

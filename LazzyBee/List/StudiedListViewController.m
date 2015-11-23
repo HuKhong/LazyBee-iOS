@@ -509,6 +509,9 @@
     
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";
+        
+    } else {
+        curMajor = [curMajor lowercaseString];
     }
     [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE inPackage:curMajor];
 }

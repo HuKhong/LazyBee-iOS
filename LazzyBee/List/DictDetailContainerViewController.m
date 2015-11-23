@@ -32,7 +32,7 @@
     
     [self setTitle:_wordObj.question];
     
-    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel)];
+    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel:)];
     
     self.navigationItem.rightBarButtonItems = @[actionButton];
     
@@ -118,11 +118,16 @@
 }
 */
 
-- (void)showActionsPanel {
+- (void)showActionsPanel:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to learn", @"Update", @"Report", nil];
 
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    [actionSheet showInView:self.view];
+//    [actionSheet showInView:self.view];
+    if (IS_IPAD) {
+        [actionSheet showFromBarButtonItem:sender animated:YES];
+    } else {
+        [actionSheet showInView:self.view];
+    }
 }
 
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

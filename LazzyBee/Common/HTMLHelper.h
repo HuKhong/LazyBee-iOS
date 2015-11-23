@@ -16,7 +16,7 @@
 // a singleton:
 + (HTMLHelper*) sharedHTMLHelper;
 
-- (NSString *)createHTMLForQuestion:(NSString *)word;
+- (NSString *)createHTMLForQuestion:(WordObject *)word withPackage:(NSString *)package;
 - (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(NSString *)package;
 - (NSString *)createHTMLDict:(WordObject *)wordObj dictType:(NSString *)dictType;
 @end

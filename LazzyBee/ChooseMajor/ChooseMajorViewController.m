@@ -143,7 +143,7 @@
     for (MajorObject *majorObj in majorsArr) {
         if (majorObj.checkFlag == YES) {
             found = YES;
-            [[Common sharedCommon] saveDataToUserDefaultStandard:[majorObj.majorName lowercaseString] withKey:KEY_SELECTED_MAJOR];
+            [[Common sharedCommon] saveDataToUserDefaultStandard:majorObj.majorName withKey:KEY_SELECTED_MAJOR];
             break;
         }
     }

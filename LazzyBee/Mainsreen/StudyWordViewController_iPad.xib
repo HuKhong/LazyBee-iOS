@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -7,49 +7,49 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudyWordViewController">
             <connections>
-                <outlet property="adBanner" destination="vxi-5A-nRf" id="Ya4-Fj-l5w"/>
-                <outlet property="btnAgain" destination="8ID-5O-DH1" id="Ely-hs-gOt"/>
-                <outlet property="btnEasy" destination="qJL-Ae-ZMZ" id="yeE-4c-g5m"/>
-                <outlet property="btnHard" destination="quq-gJ-D7i" id="Ibn-mv-Tf2"/>
-                <outlet property="btnNorm" destination="BTU-UK-4xW" id="d1Q-NL-76A"/>
-                <outlet property="lbAgainCount" destination="cFQ-92-Eku" id="mzp-aw-OFB"/>
-                <outlet property="lbNewCount" destination="dKV-fp-xDc" id="KTa-6D-MoD"/>
-                <outlet property="lbReviewCount" destination="IZy-ES-gsA" id="3Oc-CM-ooW"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="viewButtonsPanel" destination="hGJ-t1-liu" id="AHe-nd-XoM"/>
-                <outlet property="viewLearningInfo" destination="R1v-JI-ahT" id="vPH-u8-jDO"/>
-                <outlet property="viewReservationForAds" destination="vxi-5A-nRf" id="Hhb-hb-9Tq"/>
-                <outlet property="viewShowAnswer" destination="cHx-0s-h6i" id="VuF-Pj-aek"/>
-                <outlet property="webViewWord" destination="nfQ-5E-gvx" id="Eq5-Pn-6cz"/>
+                <outlet property="adBanner" destination="4Cu-bQ-Qxe" id="iwt-vz-o1b"/>
+                <outlet property="btnAgain" destination="sRG-De-3AI" id="ILa-7n-gxM"/>
+                <outlet property="btnEasy" destination="xPP-zK-Dug" id="T3w-ez-PRM"/>
+                <outlet property="btnHard" destination="MLm-18-boa" id="3dP-fJ-h2y"/>
+                <outlet property="btnNorm" destination="HDQ-rw-w8o" id="gvj-dm-alk"/>
+                <outlet property="lbAgainCount" destination="ibe-iP-d7k" id="wzn-6o-7xg"/>
+                <outlet property="lbNewCount" destination="EnL-K1-HzE" id="SaQ-gV-vCn"/>
+                <outlet property="lbReviewCount" destination="Nzw-Cp-VRt" id="mlx-LS-lJv"/>
+                <outlet property="view" destination="iN0-l3-epB" id="fLT-ag-chI"/>
+                <outlet property="viewButtonsPanel" destination="ffB-45-ji0" id="OYE-ma-eF3"/>
+                <outlet property="viewLearningInfo" destination="cp3-Og-rfU" id="PI8-l8-eJg"/>
+                <outlet property="viewReservationForAds" destination="4Cu-bQ-Qxe" id="oXG-h6-pHM"/>
+                <outlet property="viewShowAnswer" destination="Z3n-5D-pzz" id="wCa-d3-Iiv"/>
+                <outlet property="webViewWord" destination="dTl-Xk-dXl" id="ZGB-3O-Cal"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="R1v-JI-ahT">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                <view contentMode="scaleToFill" id="cp3-Og-rfU">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dKV-fp-xDc">
-                            <rect key="frame" x="8" y="4" width="76" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EnL-K1-HzE">
+                            <rect key="frame" x="8" y="6" width="90" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.3022726395" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Again: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cFQ-92-Eku">
-                            <rect key="frame" x="92" y="4" width="76" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Again: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ibe-iP-d7k">
+                            <rect key="frame" x="128" y="6" width="90" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.75808869950000002" green="0.0" blue="0.17734529260000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZy-ES-gsA">
-                            <rect key="frame" x="176" y="4" width="76" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nzw-Cp-VRt">
+                            <rect key="frame" x="248" y="6" width="90" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -60,97 +60,97 @@
                     <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="cHx-0s-h6i">
-                    <rect key="frame" x="0.0" y="513" width="320" height="55"/>
+                <view contentMode="scaleToFill" id="Z3n-5D-pzz">
+                    <rect key="frame" x="0.0" y="969" width="768" height="55"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="wTi-bV-m9R">
-                            <rect key="frame" x="8" y="4" width="304" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="Qsy-HG-cwO">
+                            <rect key="frame" x="8" y="4" width="752" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
-                            <state key="normal" title="Show answer" backgroundImage="button_long.png">
+                            <state key="normal" title="Show answer" backgroundImage="button_long_ipad.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnShowAnswerClick:" destination="-1" eventType="touchUpInside" id="oKi-9w-OtB"/>
+                                <action selector="btnShowAnswerClick:" destination="-1" eventType="touchUpInside" id="qBJ-3z-dJk"/>
                             </connections>
                         </button>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="vxi-5A-nRf" customClass="GADBannerView">
-                    <rect key="frame" x="0.0" y="458" width="320" height="50"/>
+                <view contentMode="scaleToFill" id="4Cu-bQ-Qxe" customClass="GADBannerView">
+                    <rect key="frame" x="0.0" y="911" width="768" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <webView contentMode="scaleToFill" id="nfQ-5E-gvx">
-                    <rect key="frame" x="0.0" y="30" width="320" height="425"/>
+                <webView contentMode="scaleToFill" id="dTl-Xk-dXl">
+                    <rect key="frame" x="0.0" y="30" width="768" height="879"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="lkA-kp-BH9"/>
+                        <outlet property="delegate" destination="-1" id="4iQ-ZH-ahO"/>
                     </connections>
                 </webView>
-                <view contentMode="scaleToFill" id="hGJ-t1-liu">
-                    <rect key="frame" x="0.0" y="513" width="320" height="55"/>
+                <view contentMode="scaleToFill" id="ffB-45-ji0">
+                    <rect key="frame" x="0.0" y="969" width="768" height="55"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="8ID-5O-DH1">
-                            <rect key="frame" x="6" y="4" width="75" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="sRG-De-3AI">
+                            <rect key="frame" x="8" y="4" width="180" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" backgroundImage="button_square.png">
+                            <state key="normal" backgroundImage="button_square_ipad.png">
                                 <string key="title">&lt; 10 Min
 Again</string>
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnAgainClick:" destination="-1" eventType="touchUpInside" id="Rrg-7T-fcj"/>
+                                <action selector="btnAgainClick:" destination="-1" eventType="touchUpInside" id="FWi-vv-jLe"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="quq-gJ-D7i">
-                            <rect key="frame" x="84" y="4" width="75" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="MLm-18-boa">
+                            <rect key="frame" x="198" y="4" width="180" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="1 day (hard)" backgroundImage="button_square.png">
+                            <state key="normal" title="1 day (hard)" backgroundImage="button_square_ipad.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnHardClick:" destination="-1" eventType="touchUpInside" id="cCi-rZ-sNp"/>
+                                <action selector="btnHardClick:" destination="-1" eventType="touchUpInside" id="S9W-cW-qYU"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="BTU-UK-4xW">
-                            <rect key="frame" x="162" y="4" width="75" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="HDQ-rw-w8o">
+                            <rect key="frame" x="389" y="4" width="180" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="5 days (norm)" backgroundImage="button_square.png">
+                            <state key="normal" title="5 days (norm)" backgroundImage="button_square_ipad.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnNormClick:" destination="-1" eventType="touchUpInside" id="9Su-A9-CHV"/>
+                                <action selector="btnNormClick:" destination="-1" eventType="touchUpInside" id="htH-n9-Lg0"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="qJL-Ae-ZMZ">
-                            <rect key="frame" x="240" y="4" width="75" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="xPP-zK-Dug">
+                            <rect key="frame" x="580" y="4" width="180" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="10 days (easy)" backgroundImage="button_square.png">
+                            <state key="normal" title="10 days (easy)" backgroundImage="button_square_ipad.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnEasyClick:" destination="-1" eventType="touchUpInside" id="64W-mU-m43"/>
+                                <action selector="btnEasyClick:" destination="-1" eventType="touchUpInside" id="hdc-Dy-iZ1"/>
                             </connections>
                         </button>
                     </subviews>
@@ -160,11 +160,11 @@ Again</string>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="381" y="375"/>
+            <point key="canvasLocation" x="686" y="334"/>
         </view>
     </objects>
     <resources>
-        <image name="button_long.png" width="334" height="40"/>
-        <image name="button_square.png" width="75" height="50"/>
+        <image name="button_long_ipad.png" width="667" height="40"/>
+        <image name="button_square_ipad.png" width="170" height="50"/>
     </resources>
 </document>

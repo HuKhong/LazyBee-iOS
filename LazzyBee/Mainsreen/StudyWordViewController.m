@@ -19,6 +19,8 @@
 #import "TagManagerHelper.h"
 #import "SVProgressHUD.h"
 #import "DictDetailContainerViewController.h"
+#import "NoteThumbnail.h"
+#import "NoteFullView.h"
 
 #define AS_TAG_SEARCH 1
 #define AS_TAG_LEARN 2
@@ -34,9 +36,14 @@
 #define AS_LEARN_BTN_REPORT_WORD   4
 #define AS_LEARN_BTN_CANCEL        5
 
+#define NOTE_WIDTH 200
+#define NOTE_HEIGHT 250
+
 @interface StudyWordViewController ()
 {
     SearchViewController *searchView;
+    NoteThumbnail *noteView;
+    NoteFullView *noteFullView;
 }
 
 @end
@@ -75,7 +82,7 @@
     }
     
     if (_isReviewScreen == YES) {
-        UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel)];
+        UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel:)];
         
         self.navigationItem.rightBarButtonItems = @[actionButton];
         
@@ -108,7 +115,7 @@
         
     } else {
         UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
-        UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel)];
+        UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel:)];
         
         self.navigationItem.rightBarButtonItems = @[actionButton, searchButton];
         
@@ -190,6 +197,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"noWordToStudyToday" object:nil];
         }
         
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(searchBarSearchButtonClicked:)
                                                      name:@"searchBarSearchButtonClicked"
@@ -226,6 +234,11 @@
 - (void)viewDidDisappear:(BOOL)animated {
     
     [self stopPlaySoundOnWebview];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
 }
 
 /*
@@ -285,13 +298,18 @@
     }];
 }
 
-- (void)showActionsPanel {
+- (void)showActionsPanel:(id)sender {
     if (_isReviewScreen) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to learn", @"Report", nil];
         
         actionSheet.tag = AS_TAG_SEARCH;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-        [actionSheet showInView:self.view];
+//        [actionSheet showInView:self.view];
+        if (IS_IPAD) {
+            [actionSheet showFromBarButtonItem:sender animated:YES];
+        } else {
+            [actionSheet showInView:self.view];
+        }
         
     } else {
 
@@ -301,7 +319,12 @@
         
         actionSheet.tag = AS_TAG_LEARN;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-        [actionSheet showInView:self.view];
+        //        [actionSheet showInView:self.view];
+        if (IS_IPAD) {
+            [actionSheet showFromBarButtonItem:sender animated:YES];
+        } else {
+            [actionSheet showInView:self.view];
+        }
     }
 }
 
@@ -340,7 +363,13 @@
     NSString *htmlString = @"";
     
     if (wordObj) {
-        htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:wordObj.question];
+        NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+        
+        if (curMajor == nil || curMajor.length == 0) {
+            curMajor = @"common";
+        }
+        
+        htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:wordObj withPackage:curMajor];
     }
     
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
@@ -368,9 +397,22 @@
         NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
         if (curMajor == nil || curMajor.length == 0) {
             curMajor = @"common";
+            
         }
         
         htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:wordObj withPackage:curMajor];
+        
+        //note view
+        
+        if (noteView == nil) {
+            noteView = [[NoteThumbnail alloc] initWithFrame:CGRectMake(webViewWord.frame.size.width -  50, webViewWord.frame.size.height - 50, 50, 50)];
+            noteView.delegate = (id)self;
+            
+            [webViewWord addSubview:noteView];
+            
+        } else {
+            [noteView reloadNote:@""];
+        }
     }
 
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
@@ -807,4 +849,27 @@
         }
     }
 }
+
+#pragma mark note delegate
+- (void)displayNote:(id)sender {
+    if (noteFullView == nil) {
+        noteFullView = [[NoteFullView alloc] initWithFrame:noteView.frame];
+        
+        [webViewWord addSubview:noteFullView];
+    } else {
+        [noteFullView setFrame:noteView.frame];
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        CGRect rect = noteFullView.frame;
+        
+        rect.size.width = NOTE_WIDTH;
+        rect.size.height = NOTE_HEIGHT;
+        
+        rect.origin.x = noteView.frame.origin.x + NOTE_WIDTH;
+        rect.origin.y = noteView.frame.origin.y + NOTE_HEIGHT;
+        
+    }];
+}
+
 @end

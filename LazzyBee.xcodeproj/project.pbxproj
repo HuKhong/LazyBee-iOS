@@ -69,6 +69,23 @@
 		55028A0E1BF092C2007181C3 /* bee_rotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 55028A0B1BF092C2007181C3 /* bee_rotate.png */; };
 		55028A0F1BF092C2007181C3 /* bee_rotate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55028A0C1BF092C2007181C3 /* bee_rotate@2x.png */; };
 		55028A101BF092C2007181C3 /* bee_rotate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55028A0D1BF092C2007181C3 /* bee_rotate@3x.png */; };
+		551FB8541C02F2B800C8B18C /* StudyWordViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8531C02F2B800C8B18C /* StudyWordViewController_iPad.xib */; };
+		551FB85E1C02F75B00C8B18C /* button_long_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8551C02F75B00C8B18C /* button_long_ipad.png */; };
+		551FB85F1C02F75B00C8B18C /* button_long_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8561C02F75B00C8B18C /* button_long_ipad@2x.png */; };
+		551FB8601C02F75B00C8B18C /* button_short_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8571C02F75B00C8B18C /* button_short_ipad.png */; };
+		551FB8611C02F75B00C8B18C /* button_short_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8581C02F75B00C8B18C /* button_short_ipad@2x.png */; };
+		551FB8621C02F75B00C8B18C /* button_square_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8591C02F75B00C8B18C /* button_square_ipad.png */; };
+		551FB8631C02F75B00C8B18C /* button_square_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB85A1C02F75B00C8B18C /* button_square_ipad@2x.png */; };
+		551FB8641C02F75B00C8B18C /* button_long_ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB85B1C02F75B00C8B18C /* button_long_ipad@3x.png */; };
+		551FB8651C02F75B00C8B18C /* button_square_ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB85C1C02F75B00C8B18C /* button_square_ipad@3x.png */; };
+		551FB8661C02F75B00C8B18C /* button_short_ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB85D1C02F75B00C8B18C /* button_short_ipad@3x.png */; };
+		551FB86B1C03014400C8B18C /* NoteThumbnail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8681C03014400C8B18C /* NoteThumbnail.xib */; };
+		551FB86C1C03014400C8B18C /* NoteThumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 551FB8691C03014400C8B18C /* NoteThumbnail.m */; };
+		551FB8701C03019800C8B18C /* note.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB86D1C03019700C8B18C /* note.png */; };
+		551FB8711C03019800C8B18C /* note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB86E1C03019700C8B18C /* note@2x.png */; };
+		551FB8721C03019800C8B18C /* note@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB86F1C03019800C8B18C /* note@3x.png */; };
+		551FB8761C031A1800C8B18C /* NoteFullView.m in Sources */ = {isa = PBXBuildFile; fileRef = 551FB8731C031A1800C8B18C /* NoteFullView.m */; };
+		551FB8771C031A1800C8B18C /* NoteFullView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8751C031A1800C8B18C /* NoteFullView.xib */; };
 		552BD5691BA1362A00BF316C /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552BD5601BA1362A00BF316C /* GoogleMobileAds.framework */; };
 		552BD56A1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5671BA1362A00BF316C /* README.txt */; };
 		552BD56B1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5681BA1362A00BF316C /* README.txt */; };
@@ -364,6 +381,25 @@
 		55028A0B1BF092C2007181C3 /* bee_rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bee_rotate.png; sourceTree = "<group>"; };
 		55028A0C1BF092C2007181C3 /* bee_rotate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee_rotate@2x.png"; sourceTree = "<group>"; };
 		55028A0D1BF092C2007181C3 /* bee_rotate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee_rotate@3x.png"; sourceTree = "<group>"; };
+		551FB8531C02F2B800C8B18C /* StudyWordViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StudyWordViewController_iPad.xib; path = Mainsreen/StudyWordViewController_iPad.xib; sourceTree = "<group>"; };
+		551FB8551C02F75B00C8B18C /* button_long_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_long_ipad.png; sourceTree = "<group>"; };
+		551FB8561C02F75B00C8B18C /* button_long_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_long_ipad@2x.png"; sourceTree = "<group>"; };
+		551FB8571C02F75B00C8B18C /* button_short_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_short_ipad.png; sourceTree = "<group>"; };
+		551FB8581C02F75B00C8B18C /* button_short_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_ipad@2x.png"; sourceTree = "<group>"; };
+		551FB8591C02F75B00C8B18C /* button_square_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_square_ipad.png; sourceTree = "<group>"; };
+		551FB85A1C02F75B00C8B18C /* button_square_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_square_ipad@2x.png"; sourceTree = "<group>"; };
+		551FB85B1C02F75B00C8B18C /* button_long_ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_long_ipad@3x.png"; sourceTree = "<group>"; };
+		551FB85C1C02F75B00C8B18C /* button_square_ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_square_ipad@3x.png"; sourceTree = "<group>"; };
+		551FB85D1C02F75B00C8B18C /* button_short_ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_ipad@3x.png"; sourceTree = "<group>"; };
+		551FB8681C03014400C8B18C /* NoteThumbnail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NoteThumbnail.xib; path = Note/NoteThumbnail.xib; sourceTree = "<group>"; };
+		551FB8691C03014400C8B18C /* NoteThumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteThumbnail.m; path = Note/NoteThumbnail.m; sourceTree = "<group>"; };
+		551FB86A1C03014400C8B18C /* NoteThumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteThumbnail.h; path = Note/NoteThumbnail.h; sourceTree = "<group>"; };
+		551FB86D1C03019700C8B18C /* note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = note.png; sourceTree = "<group>"; };
+		551FB86E1C03019700C8B18C /* note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note@2x.png"; sourceTree = "<group>"; };
+		551FB86F1C03019800C8B18C /* note@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note@3x.png"; sourceTree = "<group>"; };
+		551FB8731C031A1800C8B18C /* NoteFullView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteFullView.m; path = Note/NoteFullView.m; sourceTree = "<group>"; };
+		551FB8741C031A1800C8B18C /* NoteFullView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteFullView.h; path = Note/NoteFullView.h; sourceTree = "<group>"; };
+		551FB8751C031A1800C8B18C /* NoteFullView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NoteFullView.xib; path = Note/NoteFullView.xib; sourceTree = "<group>"; };
 		552BD5601BA1362A00BF316C /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		552BD5621BA1362A00BF316C /* GADMAdNetworkAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkAdapterProtocol.h; sourceTree = "<group>"; };
 		552BD5631BA1362A00BF316C /* GADMAdNetworkConnectorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkConnectorProtocol.h; sourceTree = "<group>"; };
@@ -699,6 +735,7 @@
 		4D35B3441B6BC7C600EA67C2 /* LazzyBee */ = {
 			isa = PBXGroup;
 			children = (
+				551FB8671C03010600C8B18C /* Note */,
 				55E106301BF1AF86008A6BEA /* ChooseMajor */,
 				55C0922F1BCF42BF005C78B5 /* Popup */,
 				4D7C285D1BABD18D005B274E /* GTools */,
@@ -1040,6 +1077,18 @@
 		4DD3C3CA1B6F218700B6DA71 /* others */ = {
 			isa = PBXGroup;
 			children = (
+				551FB86D1C03019700C8B18C /* note.png */,
+				551FB86E1C03019700C8B18C /* note@2x.png */,
+				551FB86F1C03019800C8B18C /* note@3x.png */,
+				551FB8551C02F75B00C8B18C /* button_long_ipad.png */,
+				551FB8561C02F75B00C8B18C /* button_long_ipad@2x.png */,
+				551FB8571C02F75B00C8B18C /* button_short_ipad.png */,
+				551FB8581C02F75B00C8B18C /* button_short_ipad@2x.png */,
+				551FB8591C02F75B00C8B18C /* button_square_ipad.png */,
+				551FB85A1C02F75B00C8B18C /* button_square_ipad@2x.png */,
+				551FB85B1C02F75B00C8B18C /* button_long_ipad@3x.png */,
+				551FB85C1C02F75B00C8B18C /* button_square_ipad@3x.png */,
+				551FB85D1C02F75B00C8B18C /* button_short_ipad@3x.png */,
 				55308B471BF0423A00FF0457 /* day_ring_gray.png */,
 				55308B481BF0423A00FF0457 /* day_ring_gray@2x.png */,
 				55308B491BF0423A00FF0457 /* day_ring_gray@3x.png */,
@@ -1095,6 +1144,19 @@
 				550289FD1BF0820D007181C3 /* magic.mp3 */,
 			);
 			name = Sound;
+			sourceTree = "<group>";
+		};
+		551FB8671C03010600C8B18C /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				551FB8731C031A1800C8B18C /* NoteFullView.m */,
+				551FB8741C031A1800C8B18C /* NoteFullView.h */,
+				551FB8751C031A1800C8B18C /* NoteFullView.xib */,
+				551FB8681C03014400C8B18C /* NoteThumbnail.xib */,
+				551FB8691C03014400C8B18C /* NoteThumbnail.m */,
+				551FB86A1C03014400C8B18C /* NoteThumbnail.h */,
+			);
+			name = Note;
 			sourceTree = "<group>";
 		};
 		552BD55F1BA1362A00BF316C /* GoogleMobileAdsSdkiOS-7.4.1 */ = {
@@ -1208,6 +1270,7 @@
 				557D7AC01B858BE300834A44 /* StudyWordViewController.h */,
 				557D7AC11B858BE300834A44 /* StudyWordViewController.m */,
 				557D7AC21B858BE300834A44 /* StudyWordViewController.xib */,
+				551FB8531C02F2B800C8B18C /* StudyWordViewController_iPad.xib */,
 				55B08BF11BBE6FAF00693411 /* ReportViewController.h */,
 				55B08BF21BBE6FAF00693411 /* ReportViewController.m */,
 				55B08BF31BBE6FAF00693411 /* ReportViewController.xib */,
@@ -1507,9 +1570,11 @@
 				559E67BA1BEF4E8800232439 /* StreakViewController.xib in Resources */,
 				55028A041BF08BAB007181C3 /* ic_help@2x.png in Resources */,
 				55F6C72A1BF5959C0084B369 /* blank.png in Resources */,
+				551FB8701C03019800C8B18C /* note.png in Resources */,
 				553F78301BA6D12800D15876 /* Images.xcassets in Resources */,
 				4DD3C3D41B6F218700B6DA71 /* ic_heart.png in Resources */,
 				559E67AA1BEB0A2600232439 /* button_short@2x.png in Resources */,
+				551FB8721C03019800C8B18C /* note@3x.png in Resources */,
 				552BD56B1BA1362A00BF316C /* README.txt in Resources */,
 				55FE8EA31BCF69AD00059AA7 /* bee@3x.png in Resources */,
 				55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */,
@@ -1519,6 +1584,7 @@
 				552DC77A1B87292F00770FA1 /* StudiedListViewController.xib in Resources */,
 				553F78351BA6D39400D15876 /* rearBanner@2x.png in Resources */,
 				55C1B21D1BF2F0C600D917EB /* checkmark@3x.png in Resources */,
+				551FB86B1C03014400C8B18C /* NoteThumbnail.xib in Resources */,
 				4DD3C3E21B6F218700B6DA71 /* avatarDefault@3x.png in Resources */,
 				55457CC31BA27DA100EFCD50 /* TimerViewController.xib in Resources */,
 				559E67B31BEB135F00232439 /* big_logo.png in Resources */,
@@ -1529,6 +1595,7 @@
 				55308B4D1BF0423A00FF0457 /* day_ring_gray.png in Resources */,
 				4DD3C3D81B6F218700B6DA71 /* ic_setting@2x.png in Resources */,
 				55308B501BF0423A00FF0457 /* day_ring.png in Resources */,
+				551FB8771C031A1800C8B18C /* NoteFullView.xib in Resources */,
 				55F7E6751BFB014300EB27A2 /* LICENSE in Resources */,
 				4DD3C39C1B6F191C00B6DA71 /* FBAudienceNetwork.README.txt in Resources */,
 				55E1063D1BF1DF18008A6BEA /* medicine.png in Resources */,
@@ -1553,6 +1620,7 @@
 				552BD5A71BA15FE600BF316C /* ic_home@3x.png in Resources */,
 				55452C621BC527CC00D6E430 /* DictDetailViewController.xib in Resources */,
 				4DD3C3E41B6F218700B6DA71 /* cancel@2x.png in Resources */,
+				551FB85E1C02F75B00C8B18C /* button_long_ipad.png in Resources */,
 				559E67A91BEB0A2600232439 /* button_short.png in Resources */,
 				4DD3C3DC1B6F218700B6DA71 /* ic_share@3x.png in Resources */,
 				55C1B2141BF2E21A00D917EB /* MajorCollectionViewCell.xib in Resources */,
@@ -1562,6 +1630,7 @@
 				557526A51BDF5308007810C7 /* InformationViewController.xib in Resources */,
 				552BD5B81BA175E300BF316C /* ic_turtle.png in Resources */,
 				552BD56A1BA1362A00BF316C /* README.txt in Resources */,
+				551FB8641C02F75B00C8B18C /* button_long_ipad@3x.png in Resources */,
 				557288EC1BB2844700EA0CE9 /* SVProgressHUD.bundle in Resources */,
 				559E67A81BEB0A2600232439 /* button_long@2x.png in Resources */,
 				55308B4F1BF0423A00FF0457 /* day_ring_gray@3x.png in Resources */,
@@ -1569,14 +1638,17 @@
 				55452C561BC5128700D6E430 /* ic_dictionary.png in Resources */,
 				552BD5A51BA15FE600BF316C /* ic_home.png in Resources */,
 				55028A101BF092C2007181C3 /* bee_rotate@3x.png in Resources */,
+				551FB8601C02F75B00C8B18C /* button_short_ipad.png in Resources */,
 				55C1B21F1BF2F0C600D917EB /* uncheck@2x.png in Resources */,
 				55028A0A1BF08C17007181C3 /* HelpViewController.xib in Resources */,
 				552BD5AE1BA1738D00BF316C /* SpeedTableViewCell.xib in Resources */,
 				554330411B8C21D5001DFB6F /* SearchViewController.xib in Resources */,
 				559E67C51BEF569100232439 /* hive.png in Resources */,
 				55F7E66F1BFB014300EB27A2 /* LICENSE in Resources */,
+				551FB8661C02F75B00C8B18C /* button_short_ipad@3x.png in Resources */,
 				559E67C01BEF526A00232439 /* streak_ring.png in Resources */,
 				552BD5B71BA175E300BF316C /* ic_rabbit@3x.png in Resources */,
+				551FB8541C02F2B800C8B18C /* StudyWordViewController_iPad.xib in Resources */,
 				4DD3C3E01B6F218700B6DA71 /* avatarDefault.png in Resources */,
 				55F6C72E1BF5959C0084B369 /* medicine@2x.png in Resources */,
 				55E1062D1BF18B14008A6BEA /* LICENSE in Resources */,
@@ -1588,6 +1660,7 @@
 				557526A91BDF54BA007810C7 /* ic_graph.png in Resources */,
 				559B2AFD1BC61344009AA150 /* DictDetailContainerViewController.xib in Resources */,
 				4DD3C3781B6F18D700B6DA71 /* SubRearViewController.xib in Resources */,
+				551FB85F1C02F75B00C8B18C /* button_long_ipad@2x.png in Resources */,
 				55F7E6731BFB014300EB27A2 /* LICENSE in Resources */,
 				55DFAB171BF9D6E700D51F54 /* HomeViewController_iPad.xib in Resources */,
 				55E1063B1BF1DF18008A6BEA /* economic.png in Resources */,
@@ -1614,6 +1687,7 @@
 				4DD3C39A1B6F191C00B6DA71 /* FacebookSDK.strings in Resources */,
 				559E67C41BEF569100232439 /* hive@3x.png in Resources */,
 				55F6C72B1BF5959C0084B369 /* blank@2x.png in Resources */,
+				551FB8651C02F75B00C8B18C /* button_square_ipad@3x.png in Resources */,
 				557288EA1BB2844700EA0CE9 /* LICENSE.txt in Resources */,
 				557D7ACB1B85B5B600834A44 /* ic_speaker.png in Resources */,
 				552BD5BA1BA175E300BF316C /* ic_turtle@3x.png in Resources */,
@@ -1629,15 +1703,19 @@
 				55E1063C1BF1DF18008A6BEA /* it.png in Resources */,
 				552BD5A11BA15F7200BF316C /* SettingsViewController.xib in Resources */,
 				4DD3C3DE1B6F218700B6DA71 /* arrow_white@2x.png in Resources */,
+				551FB8711C03019800C8B18C /* note@2x.png in Resources */,
 				559E67AB1BEB0A2600232439 /* button_square.png in Resources */,
 				4DD3C3E51B6F218700B6DA71 /* cancel@3x.png in Resources */,
 				55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */,
+				551FB8621C02F75B00C8B18C /* button_square_ipad.png in Resources */,
 				552BD5B91BA175E300BF316C /* ic_turtle@2x.png in Resources */,
 				559E67B51BEB135F00232439 /* big_logo@3x.png in Resources */,
+				551FB8611C02F75B00C8B18C /* button_short_ipad@2x.png in Resources */,
 				55C092341BCF431E005C78B5 /* PopupView.xib in Resources */,
 				55E106351BF1B0A5008A6BEA /* ChooseMajorViewController.xib in Resources */,
 				552BD5A61BA15FE600BF316C /* ic_home@2x.png in Resources */,
 				552BD5BF1BA178A500BF316C /* DailyTargetViewController.xib in Resources */,
+				551FB8631C02F75B00C8B18C /* button_square_ipad@2x.png in Resources */,
 				557526AB1BDF54BA007810C7 /* ic_graph@3x.png in Resources */,
 				4DD3C3D61B6F218700B6DA71 /* ic_heart@3x.png in Resources */,
 				557D7ABD1B8587AF00834A44 /* btnbg@2x.png in Resources */,
@@ -1687,10 +1765,12 @@
 				4DD3C3981B6F191C00B6DA71 /* LICENCE.md in Sources */,
 				557288CC1BB25DAA00EA0CE9 /* GTMGatherInputStream.m in Sources */,
 				3ED661881B8488C50030BB3F /* CommonSqlite.m in Sources */,
+				551FB86C1C03014400C8B18C /* NoteThumbnail.m in Sources */,
 				552DC7741B871C9900770FA1 /* Algorithm.m in Sources */,
 				55E1062F1BF18B14008A6BEA /* MGSwipeTableCell.m in Sources */,
 				4DD8CAE61BB0073100FED1C9 /* GTLDataServiceApi_Sources.m in Sources */,
 				557288D11BB25DAA00EA0CE9 /* GTMMIMEDocument.m in Sources */,
+				551FB8761C031A1800C8B18C /* NoteFullView.m in Sources */,
 				55452C611BC527CC00D6E430 /* DictDetailViewController.m in Sources */,
 				55C1B2131BF2E21A00D917EB /* MajorCollectionViewCell.m in Sources */,
 				557288DE1BB25DAA00EA0CE9 /* GTLService.m in Sources */,

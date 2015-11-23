@@ -1347,6 +1347,8 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";
+    } else {
+        curMajor = [curMajor lowercaseString];
     }
     
     NSMutableArray *resArr = [[NSMutableArray alloc] init];
@@ -1358,7 +1360,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
             strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND id IN %@", curMajor, strIDList];
             
         } else {
-            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@", curMajor, [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR], strIDList];
+            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@", curMajor, [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR] lowercaseString], strIDList];
         }
         
         charQuery = [strQuery UTF8String];

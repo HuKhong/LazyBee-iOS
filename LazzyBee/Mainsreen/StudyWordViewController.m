@@ -37,13 +37,15 @@
 #define AS_LEARN_BTN_CANCEL        5
 
 #define NOTE_WIDTH 200
-#define NOTE_HEIGHT 250
+#define NOTE_HEIGHT 180
+#define NOTE_THUMBNAIL_SIZE 70
 
 @interface StudyWordViewController ()
 {
     SearchViewController *searchView;
     NoteThumbnail *noteView;
     NoteFullView *noteFullView;
+    BOOL isShowNote;
 }
 
 @end
@@ -130,6 +132,8 @@
         
         [self setTitle:title];
         
+        
+        isShowNote = NO;
         //move buttons panel from the screen
         [self showHideButtonsPanel:NO];
         
@@ -238,7 +242,30 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return NO;
+    return YES;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        if (noteFullView != nil && isShowNote) {
+            CGRect fullNoteRect = noteFullView.frame;
+            
+            fullNoteRect.origin.x = (size.width - NOTE_WIDTH)/2;
+            fullNoteRect.origin.y = (size.height - NOTE_HEIGHT)/2 - 40;
+            
+            [noteFullView setFrame:fullNoteRect];
+        }
+        
+        if (noteView != nil) {
+            CGRect noteRect = noteView.frame;
+            
+            noteRect.origin.x = size.width - NOTE_THUMBNAIL_SIZE;
+            noteRect.origin.y = size.height - NOTE_THUMBNAIL_SIZE - 2*viewButtonsPanel.frame.size.height;
+            
+            [noteView setFrame:noteRect];
+        }
+    }];
 }
 
 /*
@@ -354,6 +381,9 @@
 }
 
 - (void)displayQuestion:(WordObject *)wordObj {
+    //close note
+    [self btnCloseClick];
+    
     [self stopPlaySoundOnWebview];
     
     //display question
@@ -405,13 +435,11 @@
         //note view
         
         if (noteView == nil) {
-            noteView = [[NoteThumbnail alloc] initWithFrame:CGRectMake(webViewWord.frame.size.width -  50, webViewWord.frame.size.height - 50, 50, 50)];
+            noteView = [[NoteThumbnail alloc] initWithFrame:CGRectMake(webViewWord.frame.size.width -  NOTE_THUMBNAIL_SIZE, webViewWord.frame.size.height - NOTE_THUMBNAIL_SIZE, NOTE_THUMBNAIL_SIZE, NOTE_THUMBNAIL_SIZE)];
             noteView.delegate = (id)self;
             
             [webViewWord addSubview:noteView];
             
-        } else {
-            [noteView reloadNote:@""];
         }
     }
 
@@ -852,24 +880,58 @@
 
 #pragma mark note delegate
 - (void)displayNote:(id)sender {
-    if (noteFullView == nil) {
-        noteFullView = [[NoteFullView alloc] initWithFrame:noteView.frame];
+    
+    if (isShowNote == NO) {
+        if (noteFullView == nil) {
+            noteFullView = [[NoteFullView alloc] initWithFrame:noteView.frame];
+            noteFullView.delegate = (id)self;
+            noteFullView.word = _wordObj;
+            [webViewWord addSubview:noteFullView];
+            
+        } else {
+            noteFullView.word = _wordObj;
+            [webViewWord addSubview:noteFullView];
+            [noteFullView setFrame:noteView.frame];
+        }
         
-        [webViewWord addSubview:noteFullView];
-    } else {
-        [noteFullView setFrame:noteView.frame];
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            CGRect rect = noteFullView.frame;
+            CGRect webRect = webViewWord.frame;
+            rect.size.width = NOTE_WIDTH;
+            rect.size.height = NOTE_HEIGHT;
+            
+            rect.origin.x = (webRect.size.width - NOTE_WIDTH)/2;
+            
+            rect.origin.y = (webRect.size.height - NOTE_HEIGHT)/2 - 40; //40 :: to move the save button from the keyboard
+            
+            [noteFullView setFrame:rect];
+            
+            isShowNote = YES;
+        }];
     }
+}
+
+- (void)btnCloseClick {
+    isShowNote = NO;
     
     [UIView animateWithDuration:0.3 animations:^(void) {
-        CGRect rect = noteFullView.frame;
+        [noteFullView setFrame:noteView.frame];
         
-        rect.size.width = NOTE_WIDTH;
-        rect.size.height = NOTE_HEIGHT;
-        
-        rect.origin.x = noteView.frame.origin.x + NOTE_WIDTH;
-        rect.origin.y = noteView.frame.origin.y + NOTE_HEIGHT;
-        
+    } completion:^(BOOL finished) {
+        [noteFullView removeFromSuperview];
     }];
 }
+
+- (void)btnSaveClick {
+    isShowNote = NO;
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        [noteFullView setFrame:noteView.frame];
+        
+    } completion:^(BOOL finished) {
+        [noteFullView removeFromSuperview];
+    }];
+}
+
 
 @end

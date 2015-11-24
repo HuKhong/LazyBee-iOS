@@ -7,6 +7,9 @@
 //
 
 #import "NoteFullView.h"
+#import "CommonSqlite.h"
+
+#define TEXT_PLACEHOLDER @"Note here..."
 
 @implementation NoteFullView
 {
@@ -24,6 +27,17 @@
         [self.view setFrame:rect];
         
         [self addSubview:self.view];
+        
+        self.view.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.view.layer.borderWidth = 1.0f;
+        
+        self.view.layer.cornerRadius = 5.0f;
+        self.view.clipsToBounds = YES;
+        
+        self.view.layer.masksToBounds = NO;
+        self.view.layer.shadowOffset = CGSizeMake(-5, 10);
+        self.view.layer.shadowRadius = 5;
+        self.view.layer.shadowOpacity = 0.5;
 
     }
     return self;
@@ -35,5 +49,64 @@
 //    // Drawing code
 //}
 
+- (void)setWord:(WordObject *)word {
+    _word = word;
+    
+    txtView.text = word.userNote;
+    
+    if (word.userNote == nil || word.userNote.length == 0) {
+        txtView.text = TEXT_PLACEHOLDER;
+        
+        txtView.textColor = [UIColor lightGrayColor];
+    } else {
+        txtView.textColor = [UIColor darkGrayColor];
+    }
+}
+
+- (IBAction)panGestureHandle:(id)sender {
+    CGPoint translation = [(UIPanGestureRecognizer*)sender translationInView:self.superview];
+    [self setCenter:CGPointMake([self center].x + translation.x,
+                                [self center].y + translation.y)];
+    [(UIPanGestureRecognizer*)sender setTranslation:CGPointMake(0, 0) inView:self.view];
+}
+
+- (IBAction)btnSaveClick:(id)sender {
+    if ([txtView.text isEqualToString:TEXT_PLACEHOLDER]) {
+        txtView.text = @"";
+    }
+    
+    _word.userNote = txtView.text;
+    [[CommonSqlite sharedCommonSqlite] saveNoteForWord:_word withNewNote:txtView.text];
+    
+    [self.delegate btnSaveClick];
+}
+
+
+- (IBAction)btnCloseClick:(id)sender {
+    [self.delegate btnCloseClick];
+}
+
+#pragma mark text view delegate
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    //set placeholder, because it's not support by default
+    if ([txtView.text isEqualToString:TEXT_PLACEHOLDER]) {
+        txtView.text = @"";
+        txtView.textColor = [UIColor darkGrayColor]; //optional
+    }
+    
+    [txtView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+
+    if ([txtView.text isEqualToString:@""]) {
+        txtView.text = TEXT_PLACEHOLDER;
+        txtView.textColor = [UIColor lightGrayColor]; //optional
+    }
+    
+    [textView resignFirstResponder];
+}
 
 @end

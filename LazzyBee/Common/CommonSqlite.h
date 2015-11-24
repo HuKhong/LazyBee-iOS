@@ -19,6 +19,7 @@
 - (WordObject *)getWordInformation:(NSString *)word;
 - (NSArray *)getStudiedList;
 - (void)updateWord:(WordObject *)wordObj;
+- (void)saveNoteForWord:(WordObject *)wordObj withNewNote:(NSString *)note;
 - (void)insertWordToDatabase:(WordObject *)wordObj;
 
 - (NSArray *)getNewWordsList;

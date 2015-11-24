@@ -43,6 +43,7 @@
         self.eFactor = @"";
         self.langEN = @"";
         self.langVN = @"";
+        self.userNote = @"";
         self.isFromServer = NO;
     }
     return self;
@@ -66,6 +67,7 @@
     [encoder encodeObject:self.eFactor forKey:@"eFactor"];
     [encoder encodeObject:self.langVN forKey:@"langVN"];
     [encoder encodeObject:self.langEN forKey:@"langEN"];
+    [encoder encodeObject:self.userNote forKey:@"userNote"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -86,6 +88,7 @@
         self.eFactor = [decoder decodeObjectForKey:@"eFactor"];
         self.langVN = [decoder decodeObjectForKey:@"langVN"];
         self.langEN = [decoder decodeObjectForKey:@"langEN"];
+        self.userNote = [decoder decodeObjectForKey:@"userNote"];
     }
     
     return self;

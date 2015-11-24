@@ -8,6 +8,8 @@
 
 #import "NoteThumbnail.h"
 
+#define OFFSET 5
+
 @implementation NoteThumbnail
 {
 }
@@ -46,9 +48,17 @@
             CGPoint center = [self center];
             
             if (center.x > self.superview.frame.size.width/2) {
-                center.x = self.superview.frame.size.width - 25;
+                center.x = self.superview.frame.size.width - self.view.frame.size.width/2 - OFFSET; //5 :: offset
+                
             } else {
-                center.x = 25;
+                center.x = self.view.frame.size.width/2 + OFFSET;
+            }
+            
+            if (center.y > self.superview.frame.size.height - self.view.frame.size.height/2 - OFFSET) {
+                center.y = self.superview.frame.size.height - self.view.frame.size.height/2 - OFFSET; //5 :: offset
+                
+            } else if (center.y < self.view.frame.size.height/2 + OFFSET) {
+                center.y = self.view.frame.size.height/2 + 5;
             }
             
             [self setCenter:center];
@@ -61,7 +71,4 @@
     [self.delegate displayNote:self];
 }
 
-- (void)reloadNote:(NSString *)note {
-    
-}
 @end

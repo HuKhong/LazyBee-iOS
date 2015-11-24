@@ -85,7 +85,7 @@
     NSString *searchText = [searchBarControl.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if (searchText.length > 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"searchBarSearchButtonClicked" object:searchBarControl.text];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"searchBarSearchButtonClicked" object:searchText];
     }
 }
 

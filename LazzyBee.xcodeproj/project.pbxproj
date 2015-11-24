@@ -278,6 +278,9 @@
 		55F7E67F1BFB014300EB27A2 /* UIColor+GraphKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F7E66A1BFB014300EB27A2 /* UIColor+GraphKit.m */; };
 		55F7E6831BFB036400EB27A2 /* BarGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F7E6811BFB036400EB27A2 /* BarGraphViewController.m */; };
 		55F7E6841BFB036400EB27A2 /* BarGraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F7E6821BFB036400EB27A2 /* BarGraphViewController.xib */; };
+		55F8864C1C0408890022E06D /* ic_holder.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F886491C0408890022E06D /* ic_holder.png */; };
+		55F8864D1C0408890022E06D /* ic_holder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F8864A1C0408890022E06D /* ic_holder@2x.png */; };
+		55F8864E1C0408890022E06D /* ic_holder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F8864B1C0408890022E06D /* ic_holder@3x.png */; };
 		55FE8EA11BCF69AD00059AA7 /* bee.png in Resources */ = {isa = PBXBuildFile; fileRef = 55FE8E9E1BCF69AD00059AA7 /* bee.png */; };
 		55FE8EA21BCF69AD00059AA7 /* bee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55FE8E9F1BCF69AD00059AA7 /* bee@2x.png */; };
 		55FE8EA31BCF69AD00059AA7 /* bee@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55FE8EA01BCF69AD00059AA7 /* bee@3x.png */; };
@@ -674,6 +677,9 @@
 		55F7E6801BFB036400EB27A2 /* BarGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarGraphViewController.h; path = Home/BarGraphViewController.h; sourceTree = "<group>"; };
 		55F7E6811BFB036400EB27A2 /* BarGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BarGraphViewController.m; path = Home/BarGraphViewController.m; sourceTree = "<group>"; };
 		55F7E6821BFB036400EB27A2 /* BarGraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BarGraphViewController.xib; path = Home/BarGraphViewController.xib; sourceTree = "<group>"; };
+		55F886491C0408890022E06D /* ic_holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_holder.png; sourceTree = "<group>"; };
+		55F8864A1C0408890022E06D /* ic_holder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_holder@2x.png"; sourceTree = "<group>"; };
+		55F8864B1C0408890022E06D /* ic_holder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_holder@3x.png"; sourceTree = "<group>"; };
 		55FE8E9E1BCF69AD00059AA7 /* bee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bee.png; sourceTree = "<group>"; };
 		55FE8E9F1BCF69AD00059AA7 /* bee@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee@2x.png"; sourceTree = "<group>"; };
 		55FE8EA01BCF69AD00059AA7 /* bee@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee@3x.png"; sourceTree = "<group>"; };
@@ -1018,6 +1024,9 @@
 		4DD3C3BF1B6F218700B6DA71 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				55F886491C0408890022E06D /* ic_holder.png */,
+				55F8864A1C0408890022E06D /* ic_holder@2x.png */,
+				55F8864B1C0408890022E06D /* ic_holder@3x.png */,
 				55E1063F1BF1E2DD008A6BEA /* ic_list.png */,
 				55E106401BF1E2DD008A6BEA /* ic_list@2x.png */,
 				55E106411BF1E2DD008A6BEA /* ic_list@3x.png */,
@@ -1680,6 +1689,7 @@
 				55452C571BC5128700D6E430 /* ic_dictionary@2x.png in Resources */,
 				552BD59F1BA15F7200BF316C /* AboutViewController.xib in Resources */,
 				55308B4E1BF0423A00FF0457 /* day_ring_gray@2x.png in Resources */,
+				55F8864E1C0408890022E06D /* ic_holder@3x.png in Resources */,
 				55F6C72C1BF5959C0084B369 /* blank@3x.png in Resources */,
 				55452C691BC528F600D6E430 /* MHTabBarIndicator.png in Resources */,
 				55F7E66E1BFB014300EB27A2 /* FontAwesome.ttf in Resources */,
@@ -1702,10 +1712,12 @@
 				55308B431BF03A2900FF0457 /* DayStatus.xib in Resources */,
 				55E1063C1BF1DF18008A6BEA /* it.png in Resources */,
 				552BD5A11BA15F7200BF316C /* SettingsViewController.xib in Resources */,
+				55F8864C1C0408890022E06D /* ic_holder.png in Resources */,
 				4DD3C3DE1B6F218700B6DA71 /* arrow_white@2x.png in Resources */,
 				551FB8711C03019800C8B18C /* note@2x.png in Resources */,
 				559E67AB1BEB0A2600232439 /* button_square.png in Resources */,
 				4DD3C3E51B6F218700B6DA71 /* cancel@3x.png in Resources */,
+				55F8864D1C0408890022E06D /* ic_holder@2x.png in Resources */,
 				55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */,
 				551FB8621C02F75B00C8B18C /* button_square_ipad.png in Resources */,
 				552BD5B91BA175E300BF316C /* ic_turtle@2x.png in Resources */,

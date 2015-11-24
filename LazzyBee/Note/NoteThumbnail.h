@@ -25,5 +25,4 @@
 
 @property(nonatomic, readwrite) id <NoteThumbnailDelegate> delegate;
 
-- (void)reloadNote:(NSString *)note;
 @end

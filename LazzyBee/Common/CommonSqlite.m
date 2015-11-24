@@ -46,7 +46,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 #pragma mark vocabulary
 - (NSArray *)getAllWords {
-    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\"";
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note FROM \"vocabulary\"";
     
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];
@@ -55,7 +55,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (WordObject *)getWordInformation:(NSString *)word {
-    NSString *strQuery = [NSString stringWithFormat: @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" WHERE question = '%@'", word];
+    NSString *strQuery = [NSString stringWithFormat: @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note FROM \"vocabulary\" WHERE question = '%@'", word];
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];
     
@@ -63,7 +63,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getStudiedList {
-    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" where queue = 1 OR queue = 2 ORDER BY level";
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note FROM \"vocabulary\" where queue = 1 OR queue = 2 ORDER BY level";
     
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];
@@ -84,7 +84,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getStudyAgainListWithLimit:(NSInteger)limit {
-    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" where queue = 1 ORDER BY level LIMIT %d";
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note FROM \"vocabulary\" where queue = 1 ORDER BY level LIMIT %d";
     strQuery = [NSString stringWithFormat:strQuery, limit];
     
     NSString *dbPath = [self getDatabasePath];
@@ -109,7 +109,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getSearchHintList:(NSString *)searchText {
-    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" where question like '%@%%' OR  question like '%% %@%%' ORDER BY level", searchText, searchText];
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note FROM \"vocabulary\" where question like '%@%%' OR  question like '%% %@%%' ORDER BY level", searchText, searchText];
     
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];
@@ -118,7 +118,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getSearchResultList:(NSString *)searchText {
-    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" where question like '%@%%' ORDER BY level", searchText];
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note FROM \"vocabulary\" where question like '%@%%' ORDER BY level", searchText];
     
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];
@@ -209,6 +209,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
         
         if (sqlite3_column_text(dbps, 14)) {
             wordObj.gid = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 14)];
+        }
+        
+        if (sqlite3_column_text(dbps, 15)) {
+            wordObj.userNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 15)];
         }
         
         [resArr addObject:wordObj];
@@ -312,6 +316,36 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 }
 
+- (void)saveNoteForWord:(WordObject *)wordObj withNewNote:(NSString *)note {
+    NSString *dbPath = [self getDatabasePath];
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return;
+    }
+    sqlite3_stmt *dbps;
+    
+    NSString *formattedNote = [note stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+    
+    NSString *strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET user_note = \'%@\' where question = \'%@\'", formattedNote, wordObj.question];
+    const char *charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    
+    if(SQLITE_DONE != sqlite3_step(dbps)) {
+        NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+    }
+    
+    sqlite3_finalize(dbps);
+    sqlite3_close(db);
+    
+}
+
 - (void)insertWordToDatabase:(WordObject *)wordObj {
     NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
@@ -355,7 +389,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getReviewListFromVocabulary {
-    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" where queue = %d AND due <= %f ORDER BY level LIMIT %ld", QUEUE_REVIEW, [self getEndOfDayInSec], (long)TOTAL_WORDS_A_DAY_MAX];
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note FROM \"vocabulary\" where queue = %d AND due <= %f ORDER BY level LIMIT %ld", QUEUE_REVIEW, [self getEndOfDayInSec], (long)TOTAL_WORDS_A_DAY_MAX];
     
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];
@@ -611,7 +645,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     if (oldDate == curDate) {     //get if it is new. If review list is old, get review list from vocabulary table
         //get word object  from vocabulary with id from system
-        strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid from \"vocabulary\" WHERE id IN %@", strIDList];
+        strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE id IN %@", strIDList];
         charQuery = [strQuery UTF8String];
         
         sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -677,6 +711,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
             
             if (sqlite3_column_text(dbps, 14)) {
                 wordObj.gid = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 14)];
+            }
+            
+            if (sqlite3_column_text(dbps, 15)) {
+                wordObj.userNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 15)];
             }
             
             [resArr addObject:wordObj];
@@ -1357,10 +1395,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
         //get word object  from vocabulary
         
         if (![curMajor isEqualToString:@"common"]) {
-            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND id IN %@", curMajor, strIDList];
+            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND id IN %@", curMajor, strIDList];
             
         } else {
-            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@", curMajor, [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR] lowercaseString], strIDList];
+            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@", curMajor, [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR] lowercaseString], strIDList];
         }
         
         charQuery = [strQuery UTF8String];
@@ -1428,6 +1466,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
             
             if (sqlite3_column_text(dbps, 14)) {
                 wordObj.gid = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 14)];
+            }
+            
+            if (sqlite3_column_text(dbps, 15)) {
+                wordObj.userNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 15)];
             }
             
             [resArr addObject:wordObj];

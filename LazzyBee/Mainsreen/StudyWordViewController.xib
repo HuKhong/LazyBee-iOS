@@ -60,6 +60,21 @@
                     <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <view contentMode="scaleToFill" id="vxi-5A-nRf" customClass="GADBannerView">
+                    <rect key="frame" x="0.0" y="458" width="320" height="50"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <webView contentMode="scaleToFill" id="nfQ-5E-gvx">
+                    <rect key="frame" x="0.0" y="30" width="320" height="425"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="lkA-kp-BH9"/>
+                    </connections>
+                </webView>
                 <view contentMode="scaleToFill" id="cHx-0s-h6i">
                     <rect key="frame" x="0.0" y="513" width="320" height="55"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -80,21 +95,6 @@
                     <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="vxi-5A-nRf" customClass="GADBannerView">
-                    <rect key="frame" x="0.0" y="458" width="320" height="50"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <webView contentMode="scaleToFill" id="nfQ-5E-gvx">
-                    <rect key="frame" x="0.0" y="30" width="320" height="425"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="lkA-kp-BH9"/>
-                    </connections>
-                </webView>
                 <view contentMode="scaleToFill" id="hGJ-t1-liu">
                     <rect key="frame" x="0.0" y="513" width="320" height="55"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>

@@ -119,10 +119,26 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             TAGContainer *container = appDelegate.container;
-            NSString *popupText = [container stringForKey:@"popup_text"];
-            NSString *popupURL = [container stringForKey:@"popup_url"];
-            NSLog(@"popupText :: %@", popupText);
-            NSLog(@"popupURL :: %@", popupURL);
+            NSString *popupText = nil;
+            NSString *popupURL = nil;
+            NSString *popupNumber = [container stringForKey:@"popup_maxnum"];
+            
+            if (popupNumber != nil && popupNumber.length > 0) {
+                int randomIndex = arc4random() % [popupNumber intValue];
+                popupText = [container stringForKey:[NSString stringWithFormat:@"popup_text_%d", randomIndex]];
+                popupURL = [container stringForKey:[NSString stringWithFormat:@"popup_url_%d", randomIndex]];
+                NSLog(@"popupText :: %@", popupText);
+                NSLog(@"popupURL :: %@", popupURL);
+                
+            }
+            
+            if (popupText == nil || popupURL == nil ||
+                popupText.length == 0 || popupURL.length == 0) {
+                popupText = [container stringForKey:@"popup_text"];
+                popupURL = [container stringForKey:@"popup_url"];
+                NSLog(@"popupText :: %@", popupText);
+                NSLog(@"popupURL :: %@", popupURL);
+            }
             
             if (popupText && popupURL &&
                 popupText.length > 0 && popupURL.length > 0) {

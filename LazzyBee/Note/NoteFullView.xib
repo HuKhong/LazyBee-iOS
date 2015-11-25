@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoteFullView">
             <connections>
+                <outlet property="btnSave" destination="zMx-qF-ry5" id="vBU-bv-WFg"/>
                 <outlet property="txtView" destination="BYV-nj-Vng" id="H9W-eB-GP2"/>
                 <outlet property="view" destination="img-Ve-RfE" id="Jdx-uS-Ve9"/>
             </connections>

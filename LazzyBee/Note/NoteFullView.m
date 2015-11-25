@@ -39,6 +39,7 @@
         self.view.layer.shadowRadius = 5;
         self.view.layer.shadowOpacity = 0.5;
 
+        btnSave.enabled = NO;
     }
     return self;
 }
@@ -61,6 +62,8 @@
     } else {
         txtView.textColor = [UIColor darkGrayColor];
     }
+    
+    btnSave.enabled = NO;
 }
 
 - (IBAction)panGestureHandle:(id)sender {
@@ -101,12 +104,25 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
 
-    if ([txtView.text isEqualToString:@""]) {
-        txtView.text = TEXT_PLACEHOLDER;
-        txtView.textColor = [UIColor lightGrayColor]; //optional
+//    if ([txtView.text isEqualToString:@""]) {
+//        txtView.text = TEXT_PLACEHOLDER;
+//        txtView.textColor = [UIColor lightGrayColor]; //optional
+//    }
+    if (![txtView.text isEqualToString:_word.userNote]) {
+        btnSave.enabled = YES;
+    } else {
+        btnSave.enabled = NO;
     }
     
     [textView resignFirstResponder];
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if (![txtView.text isEqualToString:_word.userNote]) {
+        btnSave.enabled = YES;
+    } else {
+        btnSave.enabled = NO;
+    }
 }
 
 @end

@@ -886,12 +886,12 @@
             noteFullView = [[NoteFullView alloc] initWithFrame:noteView.frame];
             noteFullView.delegate = (id)self;
             noteFullView.word = _wordObj;
-            [webViewWord addSubview:noteFullView];
+            [self.view insertSubview:noteFullView belowSubview:viewShowAnswer];
             
         } else {
             noteFullView.word = _wordObj;
-            [webViewWord addSubview:noteFullView];
             [noteFullView setFrame:noteView.frame];
+            [self.view insertSubview:noteFullView belowSubview:viewShowAnswer];
         }
         
         [UIView animateWithDuration:0.3 animations:^(void) {
@@ -908,6 +908,19 @@
             
             isShowNote = YES;
         }];
+    } else {
+        if (noteFullView != nil) {
+            [UIView animateWithDuration:0.3 animations:^(void) {
+                CGRect rect = noteFullView.frame;
+                CGRect webRect = webViewWord.frame;
+                
+                rect.origin.x = (webRect.size.width - NOTE_WIDTH)/2;
+                
+                rect.origin.y = (webRect.size.height - NOTE_HEIGHT)/2 - 40; //40 :: to move the save button from the keyboard
+                
+                [noteFullView setFrame:rect];
+            }];
+        }
     }
 }
 

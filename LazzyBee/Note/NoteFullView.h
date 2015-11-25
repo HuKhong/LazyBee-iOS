@@ -22,6 +22,8 @@
 {
 
     IBOutlet UITextView *txtView;
+    IBOutlet UIButton *btnSave;
+    
     
 }
 @property (strong, nonatomic) IBOutlet UIView *view;

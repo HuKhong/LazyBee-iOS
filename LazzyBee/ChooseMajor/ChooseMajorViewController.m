@@ -10,6 +10,7 @@
 #import "MajorCollectionViewCell.h"
 #import "MajorObject.h"
 #import "Common.h"
+#import "TagManagerHelper.h"
 
 
 #define COLLCECTIONVIEW_CELL_OFFSET 10
@@ -29,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [TagManagerHelper pushOpenScreenEvent:@"iChooseMajor"];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {

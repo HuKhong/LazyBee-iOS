@@ -8,6 +8,7 @@
 
 #import "NoteFullView.h"
 #import "CommonSqlite.h"
+#import "TagManagerHelper.h"
 
 #define TEXT_PLACEHOLDER @"Note here..."
 
@@ -74,6 +75,8 @@
 }
 
 - (IBAction)btnSaveClick:(id)sender {
+    [TagManagerHelper pushOpenScreenEvent:@"iNote"];
+    
     if ([txtView.text isEqualToString:TEXT_PLACEHOLDER]) {
         txtView.text = @"";
     }

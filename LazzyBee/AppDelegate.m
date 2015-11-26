@@ -226,7 +226,7 @@
     if (reminderNumberObj) {
         notificationFlag = [reminderNumberObj boolValue];
     }
-    
+
     NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfPickedWord];    
     count = count + [[CommonSqlite sharedCommonSqlite] getCountOfInreview];
     count = count + [[CommonSqlite sharedCommonSqlite] getCountOfStudyAgain];

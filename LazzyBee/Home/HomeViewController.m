@@ -124,11 +124,16 @@
             NSString *popupNumber = [container stringForKey:@"popup_maxnum"];
             
             if (popupNumber != nil && popupNumber.length > 0) {
-                int randomIndex = arc4random() % [popupNumber intValue];
-                popupText = [container stringForKey:[NSString stringWithFormat:@"popup_text_%d", randomIndex]];
-                popupURL = [container stringForKey:[NSString stringWithFormat:@"popup_url_%d", randomIndex]];
-                NSLog(@"popupText :: %@", popupText);
-                NSLog(@"popupURL :: %@", popupURL);
+                int popupInt = [popupNumber intValue];
+                if (popupInt < 1) {
+                    popupInt = 1;
+                }
+                
+                int randomIndex = arc4random() % (popupInt - 1);
+                popupText = [container stringForKey:[NSString stringWithFormat:@"popup_text%d", randomIndex + 1]];
+                popupURL = [container stringForKey:[NSString stringWithFormat:@"popup_url%d", randomIndex + 1]];
+//                NSLog(@"popupText :: %@", popupText);
+//                NSLog(@"popupURL :: %@", popupURL);
                 
             }
             
@@ -136,8 +141,8 @@
                 popupText.length == 0 || popupURL.length == 0) {
                 popupText = [container stringForKey:@"popup_text"];
                 popupURL = [container stringForKey:@"popup_url"];
-                NSLog(@"popupText :: %@", popupText);
-                NSLog(@"popupURL :: %@", popupURL);
+//                NSLog(@"popupText :: %@", popupText);
+//                NSLog(@"popupURL :: %@", popupURL);
             }
             
             if (popupText && popupURL &&

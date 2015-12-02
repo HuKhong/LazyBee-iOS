@@ -67,7 +67,7 @@
     
     CGRect rect = scrollViewContainer.frame;
     
-    rect.size.height = streakView.frame.origin.y + streakView.frame.size.height + 10;
+    rect.size.height = btnShare.frame.origin.y + btnShare.frame.size.height + 10;
     [scrollViewContainer setContentSize:rect.size];
     
     [self rotateImage:imgRingStreak duration:2.0
@@ -179,4 +179,20 @@
 - (NSString *)valueLabelForBarAtIndex:(NSInteger)index {
     return [NSString stringWithFormat:@"%ld", [[levelsDictionary objectForKey:[NSString stringWithFormat:@"%ld", (long)index + 1]] count]];
 }
+
+- (IBAction)btnShareClick:(id)sender {
+    NSString * message = @"My learning progress with Lazzy Bee app.\n\n"
+                        "http://www.lazzybee.com/blog/release_notes";
+    graphView.backgroundColor = [UIColor whiteColor];
+    
+    UIImage * image = [[Common sharedCommon] createImageFromView:graphView];
+    graphView.backgroundColor = [UIColor clearColor];
+    NSArray * shareItems = @[message, image];
+    
+    UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+    avc.excludedActivityTypes = @[ UIActivityTypeAssignToContact, UIActivityTypePrint ];
+    
+    [self presentViewController:avc animated:YES completion:nil];
+}
+
 @end

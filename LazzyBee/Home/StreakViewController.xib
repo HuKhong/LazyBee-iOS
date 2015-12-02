@@ -132,10 +132,10 @@ You have got 4 days streak.</string>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="K14-fp-W0y">
-                            <rect key="frame" x="95" y="418" width="130" height="38"/>
+                            <rect key="frame" x="85" y="418" width="150" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
-                            <state key="normal" title="Continue" backgroundImage="button_long.png">
+                            <state key="normal" title="Continue" backgroundImage="button_short.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -153,7 +153,7 @@ You have got 4 days streak.</string>
     </objects>
     <resources>
         <image name="bee_rotate.png" width="120" height="120"/>
-        <image name="button_long.png" width="334" height="40"/>
+        <image name="button_short.png" width="150" height="40"/>
         <image name="hive.png" width="60" height="60"/>
         <image name="streak_ring.png" width="200" height="200"/>
     </resources>

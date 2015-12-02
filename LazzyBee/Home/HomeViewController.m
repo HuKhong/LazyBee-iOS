@@ -409,6 +409,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
         [self.navigationController pushViewController:studyViewController animated:YES];*/
         DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
         dictDetailContainer.wordObj = wordObj;
+        dictDetailContainer.showLazzyBeeTab = YES;
         [self.navigationController pushViewController:dictDetailContainer animated:YES];
     }
 }

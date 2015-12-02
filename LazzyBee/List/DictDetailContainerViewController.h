@@ -16,6 +16,7 @@
 }
 
 @property (nonatomic, strong) WordObject *wordObj;
+@property (nonatomic, assign) BOOL showLazzyBeeTab;
 
 @property (weak, nonatomic) IBOutlet GADBannerView *adBanner;
 @end

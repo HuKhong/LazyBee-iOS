@@ -529,6 +529,21 @@
     return res;
 }
 
+#pragma mark gesture handle
+- (IBAction)edgePanHandle:(id)sender {
+    UIScreenEdgePanGestureRecognizer *edgeGest = (UIScreenEdgePanGestureRecognizer *)sender;
+    
+    if (edgeGest.state == UIGestureRecognizerStateBegan) {
+        if (_isAnswerScreen) {
+            DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
+            dictDetailContainer.wordObj = _wordObj;
+            dictDetailContainer.showLazzyBeeTab = NO;
+            [self.navigationController pushViewController:dictDetailContainer animated:YES];
+        }
+    }
+}
+
+
 #pragma mark buttons handle
 - (IBAction)btnShowAnswerClick:(id)sender {
     if (_wordObj) {
@@ -758,6 +773,8 @@
         } else if (buttonIndex == AS_LEARN_BTN_DICTIONARY) {
             DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
             dictDetailContainer.wordObj = _wordObj;
+            dictDetailContainer.showLazzyBeeTab = NO;
+            
             [self.navigationController pushViewController:dictDetailContainer animated:YES];
             
             
@@ -804,6 +821,7 @@
         [self.navigationController pushViewController:studyViewController animated:YES];*/
         DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
         dictDetailContainer.wordObj = wordObj;
+        dictDetailContainer.showLazzyBeeTab = YES;
         [self.navigationController pushViewController:dictDetailContainer animated:YES];
     }
 }
@@ -837,9 +855,18 @@
         WordObject *newWord = (WordObject *)notification.object;
         
         if (newWord) {
-            [_nwordList addObject:newWord];
+            BOOL found = NO;
+            for (WordObject *word in _nwordList) {
+                if ([newWord.question isEqualToString:word.question]) {
+                    found = YES;
+                }
+            }
             
-            lbNewCount.text = [NSString stringWithFormat:@"New: %ld", (unsigned long)[_nwordList count]];
+            if (found == NO) {
+                [_nwordList addObject:newWord];
+                
+                lbNewCount.text = [NSString stringWithFormat:@"New: %ld", (unsigned long)[_nwordList count]];
+            }
         }
     }
 }

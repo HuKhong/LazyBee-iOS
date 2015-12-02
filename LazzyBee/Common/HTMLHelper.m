@@ -110,7 +110,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     float speed = 2*[speedNumberObj floatValue];
     
     NSString *strWordIconTag = @"<div style='float:left;width:90%%;text-align: center;'>\n"
-                        "<strong style='font-size:20pt;'> %@ </strong>\n"   //%@ will be replaced by word.question
+                        "<strong style='font-size:18pt;'> %@ </strong>\n"   //%@ will be replaced by word.question
                         "</div>\n"
                         "<div style='float:left;width:10%%'>\n"
                         "<a onclick='playText(\"%@\", %f);'><img src='ic_speaker.png'/><p>\n"
@@ -137,6 +137,10 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     NSString *strPronounciation = [dictAnswer valueForKey:@"pronoun"];
+    
+    if ([strPronounciation isEqualToString:@"//"]) {
+        strPronounciation = @"";
+    }
     
     //A word may has many meanings corresponding to many fields (common, it, economic...)
     //The meaning of each field is considered as a package
@@ -208,7 +212,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     }
     
     if (strExample && strExample.length > 0) {
-        strExampleIconTag = @"       <div style=\"width:90%%; font-size:13pt;\"><strong>Example: </strong></div>\n"
+        strExampleIconTag = @"       <div style=\"width:90%%; font-size:14pt;\"><strong>Example: </strong></div>\n"
                             "<div style=\"float:left;width:90%%; font-size:14pt;\">"
                             "   <em>%@</em> \n" //%@ will be replaced by strExample
                             "</div>\n"
@@ -263,7 +267,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "   <div style='width:100%%'>\n"
     
     "       <div style='float:left;width:90%%;text-align: center;'>\n"
-    "           <strong style='font-size:20pt;'> %@ </strong>\n"    //%@ will be replaced by word
+    "           <strong style='font-size:18pt;'> %@ </strong>\n"    //%@ will be replaced by word
     "       </div>\n"
     
     "       %@\n"   //%@ will be replaced by strWordIconTag

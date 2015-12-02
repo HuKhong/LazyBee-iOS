@@ -75,7 +75,13 @@
     lazzyViewController.wordObj = _wordObj;
     lazzyViewController.title = @"Lazzy Bee";
     
-    NSArray *viewControllers = @[vnViewController, enViewController, lazzyViewController];
+    NSArray *viewControllers = nil;
+    
+    if (_showLazzyBeeTab) {
+        viewControllers = @[vnViewController, enViewController, lazzyViewController];
+    } else {
+        viewControllers = @[vnViewController, enViewController];
+    }
     
     tabViewController = [[MHTabBarController alloc] init];
     
@@ -119,8 +125,15 @@
 */
 
 - (void)showActionsPanel:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to learn", @"Update", @"Report", nil];
+    UIActionSheet *actionSheet = nil;
+    
+    if (_showLazzyBeeTab) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to learn", @"Update", @"Report", nil];
+    } else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Update", @"Report", nil];
 
+    }
+    
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
 //    [actionSheet showInView:self.view];
     if (IS_IPAD) {
@@ -131,44 +144,65 @@
 }
 
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+
+    //in case showing Lazzybee tab, have 3 buttons on actionsheet
     if (buttonIndex == 0) {
-        NSLog(@"Add to learn");
-        //update queue value to 3 to consider this word as a new word in DB
-        _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
-        
-        if (_wordObj.isFromServer) {
-            [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:_wordObj];
+        if (_showLazzyBeeTab) {
+            NSLog(@"Add to learn");
+            //update queue value to 3 to consider this word as a new word in DB
+            _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
             
-            //because word-id is blank so need to get again after insert it into db
-            _wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:_wordObj.question];
+            if (_wordObj.isFromServer) {
+                [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:_wordObj];
+                
+                //because word-id is blank so need to get again after insert it into db
+                _wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:_wordObj.question];
+                
+                [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
+                
+            } else {
+                [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
+                
+                //remove from buffer
+                [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:_wordObj];
+                
+                [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+            }
             
-            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
+            //update incoming list
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToLearn" object:_wordObj];
             
         } else {
-            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
-            
-            //remove from buffer
-            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:_wordObj];
-            
-            [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+            [self updateWordFromGAE];
         }
         
-        //update incoming list
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToLearn" object:_wordObj];
         
     } else if (buttonIndex == 1) {
-        NSLog(@"Update");
-        [self updateWordFromGAE];
+        if (_showLazzyBeeTab) {
+            NSLog(@"Update");
+            [self updateWordFromGAE];
+            
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Open facebook to report this word?" delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
+            alert.tag = 1;
+            
+            [alert show];
+        }
         
     } else if (buttonIndex == 2) {
-        NSLog(@"Report");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Open facebook to report this word?" delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
-        alert.tag = 1;
         
-        [alert show];
+        if (_showLazzyBeeTab) {
+            NSLog(@"Report");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Open facebook to report this word?" delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
+            alert.tag = 1;
+            
+            [alert show];
+            
+        } else {
+            NSLog(@"Cancel");
+        }
         
-    } else if (buttonIndex == 3) {
+    } else if (buttonIndex == [actionSheet cancelButtonIndex]) {
         
         NSLog(@"Cancel");
     }

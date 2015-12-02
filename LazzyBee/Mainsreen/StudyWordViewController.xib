@@ -161,8 +161,18 @@ Again</string>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="JbB-ID-DNj" appends="YES" id="Vk2-ZT-UEj"/>
+            </connections>
             <point key="canvasLocation" x="381" y="375"/>
         </view>
+        <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="JbB-ID-DNj">
+            <rectEdge key="edges" right="YES"/>
+            <connections>
+                <action selector="edgePanHandle:" destination="-1" id="99c-3F-fhx"/>
+                <outlet property="delegate" destination="-1" id="oQj-gL-yuz"/>
+            </connections>
+        </screenEdgePanGestureRecognizer>
     </objects>
     <resources>
         <image name="button_long.png" width="334" height="40"/>

@@ -16,6 +16,8 @@
     IBOutlet UILabel *lbStreakCount;
     IBOutlet UIImageView *imgRingStreak;
     IBOutlet UIView *streakView;
+    IBOutlet UIButton *btnShare;
+    
     
     IBOutlet UIScrollView *scrollViewContainer;
 }

@@ -569,6 +569,7 @@
     NSLog(@"db version:: %@", [container stringForKey:@"gae_db_version"]);
     
     NSInteger serverVersion = [[container stringForKey:@"gae_db_version"] integerValue];
+
     __block NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
 
     [SVProgressHUD showWithStatus:@"Updating..."];

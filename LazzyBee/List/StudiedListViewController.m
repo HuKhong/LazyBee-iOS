@@ -195,6 +195,10 @@
     NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     NSString *strPronounciation = [dictAnswer valueForKey:@"pronoun"];
     
+    if ([strPronounciation isEqualToString:@"//"]) {
+        strPronounciation = @"";
+    }
+    
     //A word may has many meanings corresponding to many fields (common, it, economic...)
     //The meaning of each field is considered as a package
     NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
@@ -278,6 +282,7 @@
         
         DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
         dictDetailContainer.wordObj = wordObj;
+        dictDetailContainer.showLazzyBeeTab = YES;
         
         [self.navigationController pushViewController:dictDetailContainer animated:YES];
     }

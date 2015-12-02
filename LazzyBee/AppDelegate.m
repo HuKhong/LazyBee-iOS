@@ -207,7 +207,7 @@
     NSNumber *dbVersion = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION];
     
     if (!dbVersion) {
-        dbVersion = [NSNumber numberWithInteger:2];
+        dbVersion = [NSNumber numberWithInteger:3];
         [[Common sharedCommon] saveDataToUserDefaultStandard:dbVersion withKey:KEY_DB_VERSION];
     }
     

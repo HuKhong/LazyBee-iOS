@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BarGraphViewController">
             <connections>
+                <outlet property="btnShare" destination="t7l-uw-22v" id="wrY-E0-JeS"/>
                 <outlet property="graphView" destination="322-XD-c5X" id="edw-GG-Hln"/>
                 <outlet property="imgRingStreak" destination="H20-2j-5F0" id="51Z-31-k1W"/>
                 <outlet property="lbStreakCount" destination="CbS-VQ-UW5" id="kjG-fP-yTO"/>
@@ -31,7 +32,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="uEk-Vh-I42">
-                            <rect key="frame" x="60" y="252" width="200" height="200"/>
+                            <rect key="frame" x="60" y="240" width="200" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hive.png" id="AyP-SB-OhA">
@@ -56,6 +57,17 @@
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t7l-uw-22v">
+                            <rect key="frame" x="85" y="455" width="150" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <state key="normal" title="Share" backgroundImage="button_short.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnShareClick:" destination="-1" eventType="touchUpInside" id="HeE-ly-AZr"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <animations/>
                 </scrollView>
@@ -66,6 +78,7 @@
         </view>
     </objects>
     <resources>
+        <image name="button_short.png" width="150" height="40"/>
         <image name="hive.png" width="60" height="60"/>
         <image name="streak_ring.png" width="200" height="200"/>
     </resources>

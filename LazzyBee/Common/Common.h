@@ -87,6 +87,7 @@ typedef enum {
 
 - (UIImage *)scaleAndRotateImage:(UIImage *)image withMaxSize:(int)kMaxResolution;
 - (UIImage *)imageFromText:(NSString *)text;
+- (UIImage *)createImageFromView:(UIView *)view;
 
 - (BOOL)validateEmailWithString:(NSString*)email;
 - (NSString *)hidePhoneNumber:(NSString *)phonenumber;

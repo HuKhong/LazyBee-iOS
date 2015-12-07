@@ -135,6 +135,12 @@
             NSString *currentMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
             
             if (currentMajor && currentMajor.length > 0) {
+                
+                if ([[currentMajor lowercaseString] isEqualToString:@"economic"]) {
+                    
+                    currentMajor = @"Economy";
+                }
+                
                 text = [NSString stringWithFormat:@"Majors list (%@)", currentMajor];
             } else {
                 text = @"Majors list";

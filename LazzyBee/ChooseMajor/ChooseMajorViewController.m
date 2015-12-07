@@ -185,7 +185,13 @@
     
     MajorObject *majorObject = [majorsArr objectAtIndex:indexPath.row];
     
-    majorCell.lbMajorName.text = majorObject.majorName;
+    if ([[majorObject.majorName lowercaseString] isEqualToString:@"economic"]) {
+        
+        majorCell.lbMajorName.text = @"Economy";
+    } else {
+        majorCell.lbMajorName.text = majorObject.majorName;
+    }
+    
     majorCell.imgThumbnail.image = [UIImage imageNamed:majorObject.majorThumbnail];
     majorCell.imgCheck.hidden = !majorObject.checkFlag;
     majorCell.userInteractionEnabled = majorObject.enabled;

@@ -218,7 +218,7 @@
             //[GTMHTTPFetcher setLoggingEnabled:YES];
         }
         
-        [SVProgressHUD showWithStatus:nil];
+        [SVProgressHUD show];
         GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByQWithQ:self.wordObj.question];
         //TODO: Add waiting progress here
         [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {

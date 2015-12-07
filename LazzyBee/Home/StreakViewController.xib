@@ -86,7 +86,7 @@
                             <rect key="frame" x="60" y="3" width="200" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hive.png" id="ysk-KA-R5d">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bee60.png" id="ysk-KA-R5d">
                                     <rect key="frame" x="69" y="52" width="60" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <animations/>
@@ -152,9 +152,9 @@ You have got 4 days streak.</string>
         </view>
     </objects>
     <resources>
+        <image name="bee60.png" width="60" height="60"/>
         <image name="bee_rotate.png" width="120" height="120"/>
         <image name="button_short.png" width="150" height="40"/>
-        <image name="hive.png" width="60" height="60"/>
         <image name="streak_ring.png" width="200" height="200"/>
     </resources>
 </document>

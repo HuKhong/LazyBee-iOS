@@ -384,6 +384,12 @@
     //close note
     [self btnCloseClick];
     
+    //hide note button
+    if (noteView != nil) {
+        noteView.delegate = nil;
+        [noteView removeFromSuperview];
+    }
+    
     [self stopPlaySoundOnWebview];
     
     //display question
@@ -440,6 +446,9 @@
             
             [webViewWord addSubview:noteView];
             
+        } else {
+            noteView.delegate = (id)self;
+            [webViewWord addSubview:noteView];
         }
     }
 
@@ -497,31 +506,30 @@
         //check if the list is not empty to switch screen mode, review is the highest priority
         if ([_reviewWordList count] > 0) {
             self.studyScreenMode = Mode_Review;
+            res = [_reviewWordList objectAtIndex:0];
             
         } else if ([_studyAgainList count] > 0) {
             self.studyScreenMode = Mode_Study;
+            res = [_studyAgainList objectAtIndex:0];
             
         } else if ([_nwordList count] > 0) {
             self.studyScreenMode = Mode_New_Word;
-        } else {
-            return nil; //back to home in this case
-        }
-        
-        //get next word again
-        if (_studyScreenMode == Mode_New_Word) {
             res = [_nwordList objectAtIndex:0];
             
-        } else if (_studyScreenMode == Mode_Study) {
-            res = [_studyAgainList objectAtIndex:0];
-            
-        } else if (_studyScreenMode == Mode_Review) {
-            res = [_reviewWordList objectAtIndex:0];
+        } else {
+            //back to home in this case
         }
+
     }
     
     //re-add old to again list after set screen mode
     if ([sender isEqual:btnAgain]) {
         [_studyAgainList addObject:_wordObj];
+        
+        if (res == nil) {
+            self.studyScreenMode = Mode_Study;
+            res = [_studyAgainList objectAtIndex:0];
+        }
     }
     
     [self updateHeaderInfo];
@@ -656,7 +664,7 @@
             //[GTMHTTPFetcher setLoggingEnabled:YES];
         }
         
-        [SVProgressHUD showWithStatus:nil];
+        [SVProgressHUD show];
         GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByQWithQ:self.wordObj.question];
         //TODO: Add waiting progress here
         [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
@@ -675,9 +683,11 @@
                 if (_isAnswerScreen == YES) {
                     [self displayAnswer:_wordObj];
                 }
+                
+                [SVProgressHUD showSuccessWithStatus:@"Update successfully"];
+            } else {
+                [SVProgressHUD showSuccessWithStatus:@"Update failed"];
             }
-            
-            [SVProgressHUD dismiss];
         }];
         
     } else {

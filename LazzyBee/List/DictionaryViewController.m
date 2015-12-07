@@ -57,7 +57,7 @@
         wordsArray = [[NSMutableArray alloc] init];
     }
     
-    [SVProgressHUD showWithStatus:nil];
+    [SVProgressHUD show];
     dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_async(taskQ, ^{
         [wordsArray addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getAllWords]];

@@ -12,6 +12,7 @@
 #import "Common.h"
 #import "PlaySoundLib.h"
 #import "TagManagerHelper.h"
+#import "SVProgressHUD.h"
 
 #define NUMBER_OF_DAYS 7
 // This is defined in Math.h
@@ -132,6 +133,7 @@
     
     lbStreakCount.text = [NSString stringWithFormat:@"%ld day(s)", (long)streakCount];
 
+    lbTotal.text = [NSString stringWithFormat:@"Total: %ld word(s)", (long)[wordList count]];
 }
 
 
@@ -181,18 +183,32 @@
 }
 
 - (IBAction)btnShareClick:(id)sender {
-    NSString * message = @"My learning progress with Lazzy Bee app.\n\n"
-                        "http://www.lazzybee.com/blog/release_notes";
-    graphView.backgroundColor = [UIColor whiteColor];
-    
-    UIImage * image = [[Common sharedCommon] createImageFromView:graphView];
-    graphView.backgroundColor = [UIColor clearColor];
-    NSArray * shareItems = @[message, image];
-    
-    UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
-    avc.excludedActivityTypes = @[ UIActivityTypeAssignToContact, UIActivityTypePrint ];
-    
-    [self presentViewController:avc animated:YES completion:nil];
+    [SVProgressHUD show];
+    dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    dispatch_async(taskQ, ^{
+        NSString * message = @"My learning progress with Lazzy Bee app.\n\n"
+                            "http://www.lazzybee.com/blog/release_notes";
+        btnShare.hidden = YES;
+        UILabel *lbTemp = [[UILabel alloc] initWithFrame:btnShare.frame];
+        lbTemp.text = @"www.lazzybee.com";
+        lbTemp.textAlignment = NSTextAlignmentCenter;
+        [scrollViewContainer addSubview:lbTemp];
+
+        UIImage * image = [[Common sharedCommon] createImageFromView:scrollViewContainer];
+        
+        [lbTemp removeFromSuperview];
+        btnShare.hidden = NO;
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            NSArray * shareItems = @[message, image];
+            
+            UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+            avc.excludedActivityTypes = @[ UIActivityTypeAssignToContact, UIActivityTypePrint ];
+            
+            [self presentViewController:avc animated:YES completion:nil];
+            [SVProgressHUD dismiss];
+        });
+    });
 }
 
 @end

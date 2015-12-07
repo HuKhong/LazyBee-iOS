@@ -11,6 +11,7 @@
 
 @interface BarGraphViewController : UIViewController<GKBarGraphDataSource>
 {
+    IBOutlet UILabel *lbTotal;
     IBOutlet GKBarGraph *graphView;
     
     IBOutlet UILabel *lbStreakCount;

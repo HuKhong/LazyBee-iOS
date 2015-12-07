@@ -45,6 +45,11 @@ static HTMLHelper* sharedHTMLHelper = nil;
     if ([packageLowcase isEqualToString:@"common"]) {
         package = @"";
     } else {
+        if ([[package lowercaseString] isEqualToString:@"economic"]) {
+            
+            package = @"Economy";
+        }
+        
         package = [NSString stringWithFormat:@"[%@]", package];
         //parse the answer to dictionary object
         NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
@@ -132,6 +137,11 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
     NSString *packageLowcase = [package lowercaseString];
     
+    if ([[package lowercaseString] isEqualToString:@"economic"]) {
+        
+        package = @"Economy";
+    }
+    
     package = [NSString stringWithFormat:@"[%@]", package];
     //parse the answer to dictionary object
     NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
@@ -212,7 +222,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     }
     
     if (strExample && strExample.length > 0) {
-        strExampleIconTag = @"       <div style=\"width:90%%; font-size:14pt;\"><strong>Example: </strong></div>\n"
+        strExampleIconTag = @"       <div style=\"width:90%%; font-size:12pt;\"><strong>Example: </strong></div>\n"
                             "<div style=\"float:left;width:90%%; font-size:14pt;\">"
                             "   <em>%@</em> \n" //%@ will be replaced by strExample
                             "</div>\n"
@@ -281,7 +291,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "       <div style=\"width:100%%\"></div>\n"
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
 
-    "            %@ \n"     //%@ will be replaced by strExplainIconTag
+    "            %@ \n"     //%@ will be replaced by strExampleIconTag
 
     "       <div style='width:90%%'>\n"
     "           <br><br><br><br><center>%@<font size='4' color='blue'><em style='margin-left: 10px'> %@ </em></font></center>\n"    //%@ will be replaced by meaning

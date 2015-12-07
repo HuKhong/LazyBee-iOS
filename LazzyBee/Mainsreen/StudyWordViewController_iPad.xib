@@ -160,8 +160,19 @@ Again</string>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="ESs-9l-OGz" appends="YES" id="dvx-WO-OMF"/>
+            </connections>
             <point key="canvasLocation" x="686" y="334"/>
         </view>
+        <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="ESs-9l-OGz">
+            <rectEdge key="edges" right="YES"/>
+            <connections>
+                <action selector="edgePanHandle:" destination="-1" id="6CN-Ro-U4V"/>
+                <outlet property="delegate" destination="-1" id="mt5-nD-mgO"/>
+            </connections>
+        </screenEdgePanGestureRecognizer>
     </objects>
     <resources>
         <image name="button_long_ipad.png" width="667" height="40"/>

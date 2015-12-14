@@ -139,6 +139,10 @@
                 if ([[currentMajor lowercaseString] isEqualToString:@"economic"]) {
                     
                     currentMajor = @"Economy";
+                    
+                } else if ([[currentMajor lowercaseString] isEqualToString:@"ielts"]) {
+                    
+                    currentMajor = @"IELTS";
                 }
                 
                 text = [NSString stringWithFormat:@"Majors list (%@)", currentMajor];

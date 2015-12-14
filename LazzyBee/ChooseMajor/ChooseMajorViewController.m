@@ -125,6 +125,15 @@
     
     [majorsArr addObject:medObj];
     
+    //IELTS
+    MajorObject *ieltsObj = [[MajorObject alloc] initWithName:@"IELTS" thumbnail:@"ielts.png" andCheckFlag:NO];
+    
+    if ([[currentMajor lowercaseString]isEqualToString:@"ielts"]) {
+        ieltsObj.checkFlag = YES;
+    }
+    
+    [majorsArr addObject:ieltsObj];
+    
     //blank
     MajorObject *blankObj = [[MajorObject alloc] initWithName:@"Coming soon" thumbnail:@"blank.png" andCheckFlag:NO];
     blankObj.enabled = NO;
@@ -188,7 +197,12 @@
     if ([[majorObject.majorName lowercaseString] isEqualToString:@"economic"]) {
         
         majorCell.lbMajorName.text = @"Economy";
-    } else {
+        
+    } else if ([[majorObject.majorName lowercaseString] isEqualToString:@"ielts"]) {
+        
+        majorCell.lbMajorName.text = @"IELTS";
+        
+    } else  {
         majorCell.lbMajorName.text = majorObject.majorName;
     }
     

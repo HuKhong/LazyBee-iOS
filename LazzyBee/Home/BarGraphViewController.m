@@ -205,7 +205,14 @@
             UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
             avc.excludedActivityTypes = @[ UIActivityTypeAssignToContact, UIActivityTypePrint ];
             
-            [self presentViewController:avc animated:YES completion:nil];
+            if (IS_IPAD) {
+                UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:avc];
+                [popup presentPopoverFromRect:btnShare.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+                
+            } else {
+                [self presentViewController:avc animated:YES completion:nil];
+            }
+            
             [SVProgressHUD dismiss];
         });
     });

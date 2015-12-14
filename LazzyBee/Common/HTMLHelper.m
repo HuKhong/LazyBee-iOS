@@ -48,6 +48,10 @@ static HTMLHelper* sharedHTMLHelper = nil;
         if ([[package lowercaseString] isEqualToString:@"economic"]) {
             
             package = @"Economy";
+            
+        } else if ([[package lowercaseString] isEqualToString:@"ielts"]) {
+            
+            package = @"IELTS";
         }
         
         package = [NSString stringWithFormat:@"[%@]", package];
@@ -140,6 +144,10 @@ static HTMLHelper* sharedHTMLHelper = nil;
     if ([[package lowercaseString] isEqualToString:@"economic"]) {
         
         package = @"Economy";
+        
+    } else if ([[package lowercaseString] isEqualToString:@"ielts"]) {
+        
+        package = @"IELTS";
     }
     
     package = [NSString stringWithFormat:@"[%@]", package];
@@ -193,7 +201,11 @@ static HTMLHelper* sharedHTMLHelper = nil;
         strMeaning = [dictSinglePackage valueForKey:@"meaning"];
         
         if (strMeaning) {
-            strMeaning = [[Common sharedCommon] stringByRemovingHTMLTag:strMeaning];
+//            strMeaning = [[Common sharedCommon] stringByRemovingHTMLTag:strMeaning];
+            //remove <p>, keep <br>
+            strMeaning = [strMeaning stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+            strMeaning = [strMeaning stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+            
         } else {
             strMeaning = @"";
         }

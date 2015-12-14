@@ -247,6 +247,9 @@
 		55E106421BF1E2DD008A6BEA /* ic_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 55E1063F1BF1E2DD008A6BEA /* ic_list.png */; };
 		55E106431BF1E2DD008A6BEA /* ic_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55E106401BF1E2DD008A6BEA /* ic_list@2x.png */; };
 		55E106441BF1E2DD008A6BEA /* ic_list@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55E106411BF1E2DD008A6BEA /* ic_list@3x.png */; };
+		55F2FA9A1C1EC0130028F561 /* ielts@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA971C1EC0130028F561 /* ielts@3x.png */; };
+		55F2FA9B1C1EC0130028F561 /* ielts.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA981C1EC0130028F561 /* ielts.png */; };
+		55F2FA9C1C1EC0130028F561 /* ielts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA991C1EC0130028F561 /* ielts@2x.png */; };
 		55F6C72A1BF5959C0084B369 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F6C71F1BF5959C0084B369 /* blank.png */; };
 		55F6C72B1BF5959C0084B369 /* blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F6C7201BF5959C0084B369 /* blank@2x.png */; };
 		55F6C72C1BF5959C0084B369 /* blank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F6C7211BF5959C0084B369 /* blank@3x.png */; };
@@ -631,6 +634,9 @@
 		55E1063F1BF1E2DD008A6BEA /* ic_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_list.png; sourceTree = "<group>"; };
 		55E106401BF1E2DD008A6BEA /* ic_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_list@2x.png"; sourceTree = "<group>"; };
 		55E106411BF1E2DD008A6BEA /* ic_list@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_list@3x.png"; sourceTree = "<group>"; };
+		55F2FA971C1EC0130028F561 /* ielts@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ielts@3x.png"; sourceTree = "<group>"; };
+		55F2FA981C1EC0130028F561 /* ielts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ielts.png; sourceTree = "<group>"; };
+		55F2FA991C1EC0130028F561 /* ielts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ielts@2x.png"; sourceTree = "<group>"; };
 		55F6C71F1BF5959C0084B369 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		55F6C7201BF5959C0084B369 /* blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank@2x.png"; sourceTree = "<group>"; };
 		55F6C7211BF5959C0084B369 /* blank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank@3x.png"; sourceTree = "<group>"; };
@@ -1336,6 +1342,9 @@
 		55E106361BF1DF18008A6BEA /* majors */ = {
 			isa = PBXGroup;
 			children = (
+				55F2FA971C1EC0130028F561 /* ielts@3x.png */,
+				55F2FA981C1EC0130028F561 /* ielts.png */,
+				55F2FA991C1EC0130028F561 /* ielts@2x.png */,
 				55F6C71F1BF5959C0084B369 /* blank.png */,
 				55F6C7201BF5959C0084B369 /* blank@2x.png */,
 				55F6C7211BF5959C0084B369 /* blank@3x.png */,
@@ -1596,6 +1605,7 @@
 				552BD56B1BA1362A00BF316C /* README.txt in Resources */,
 				55FE8EA31BCF69AD00059AA7 /* bee@3x.png in Resources */,
 				55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */,
+				55F2FA9A1C1EC0130028F561 /* ielts@3x.png in Resources */,
 				552DC77F1B872A4F00770FA1 /* StudiedTableViewCell.xib in Resources */,
 				55C1B21E1BF2F0C600D917EB /* uncheck.png in Resources */,
 				4DD3C3DF1B6F218700B6DA71 /* arrow_white@3x.png in Resources */,
@@ -1643,6 +1653,7 @@
 				4DD3C3DC1B6F218700B6DA71 /* ic_share@3x.png in Resources */,
 				55C1B2141BF2E21A00D917EB /* MajorCollectionViewCell.xib in Resources */,
 				55F6C72F1BF5959C0084B369 /* it@2x.png in Resources */,
+				55F2FA9B1C1EC0130028F561 /* ielts.png in Resources */,
 				55C1B2161BF2F00300D917EB /* checkmark.png in Resources */,
 				55FE8EA11BCF69AD00059AA7 /* bee.png in Resources */,
 				557526A51BDF5308007810C7 /* InformationViewController.xib in Resources */,
@@ -1751,6 +1762,7 @@
 				552CBC021BF48FEF00120B2C /* lazzybee_guide.htm in Resources */,
 				5597EC421BCE090700E1F779 /* ic_about@2x.png in Resources */,
 				559E67AE1BEB0A2600232439 /* button_short@3x.png in Resources */,
+				55F2FA9C1C1EC0130028F561 /* ielts@2x.png in Resources */,
 				55308B511BF0423A00FF0457 /* day_ring@2x.png in Resources */,
 				55E1063E1BF1DF18008A6BEA /* science.png in Resources */,
 				4DD3C3A21B6F191C00B6DA71 /* README.txt in Resources */,

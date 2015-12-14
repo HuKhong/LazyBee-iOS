@@ -103,7 +103,7 @@
                             <rect key="frame" x="6" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" backgroundImage="button_square.png">
                                 <string key="title">&lt; 10 Min
 Again</string>
@@ -118,7 +118,7 @@ Again</string>
                             <rect key="frame" x="84" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="1 day (hard)" backgroundImage="button_square.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -131,7 +131,7 @@ Again</string>
                             <rect key="frame" x="162" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="5 days (norm)" backgroundImage="button_square.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,7 +144,7 @@ Again</string>
                             <rect key="frame" x="240" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="10 days (easy)" backgroundImage="button_square.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -163,6 +163,7 @@ Again</string>
             <gestureRecognizers/>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="JbB-ID-DNj" appends="YES" id="Vk2-ZT-UEj"/>
+                <outletCollection property="gestureRecognizers" destination="b5w-Un-KDn" appends="YES" id="zAd-fZ-y7G"/>
             </connections>
             <point key="canvasLocation" x="381" y="375"/>
         </view>
@@ -173,6 +174,12 @@ Again</string>
                 <outlet property="delegate" destination="-1" id="oQj-gL-yuz"/>
             </connections>
         </screenEdgePanGestureRecognizer>
+        <swipeGestureRecognizer direction="left" id="b5w-Un-KDn">
+            <connections>
+                <action selector="swipeHandle:" destination="-1" id="ciz-op-hAV"/>
+                <outlet property="delegate" destination="-1" id="Neh-21-Tzv"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="button_long.png" width="334" height="40"/>

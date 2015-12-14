@@ -78,6 +78,8 @@ static const NSInteger TagOffset = 1000;
     if (gesture.direction == UISwipeGestureRecognizerDirectionRight) {
         if (_selectedIndex <= 0) {
             //do nothing
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"swipeToBackToPrevious" object:nil];
+            
         } else {
             NSInteger newIndex = _selectedIndex - 1;
             if (newIndex < [_viewControllers count]) {

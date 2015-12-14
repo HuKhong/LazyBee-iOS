@@ -163,6 +163,7 @@ Again</string>
             <gestureRecognizers/>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="ESs-9l-OGz" appends="YES" id="dvx-WO-OMF"/>
+                <outletCollection property="gestureRecognizers" destination="h3L-bu-8jo" appends="YES" id="LKB-5j-1zR"/>
             </connections>
             <point key="canvasLocation" x="686" y="334"/>
         </view>
@@ -173,6 +174,12 @@ Again</string>
                 <outlet property="delegate" destination="-1" id="mt5-nD-mgO"/>
             </connections>
         </screenEdgePanGestureRecognizer>
+        <swipeGestureRecognizer direction="left" id="h3L-bu-8jo">
+            <connections>
+                <action selector="swipeHandle:" destination="-1" id="1Ui-Mx-H5v"/>
+                <outlet property="delegate" destination="-1" id="g3O-KQ-b8F"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="button_long_ipad.png" width="667" height="40"/>

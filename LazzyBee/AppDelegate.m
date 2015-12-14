@@ -165,7 +165,7 @@
     NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
     
     if (!remindTime) {
-        remindTime = @"08:00";
+        remindTime = @"13:30";
         [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:KEY_REMIND_TIME];
     }
     

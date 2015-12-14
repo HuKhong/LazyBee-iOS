@@ -381,9 +381,16 @@
                 
                 wordObj.package    = object.packages;
                 wordObj.eFactor    = @"2500";
-                wordObj.queue      = @"0";
-                wordObj.isFromServer = YES;
-
+//                wordObj.queue      = @"0";
+//                wordObj.isFromServer = YES;   //set YES if dont insert this word to db right here
+                wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
+               
+                //insert to db, no need to get from server next time
+                [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
+                
+                //because word-id is blank so need to get again after insert it into db
+                wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:wordObj.question];
+                
                 [wordList addObject:wordObj];
                 
                 //group by level

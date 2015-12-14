@@ -227,6 +227,11 @@
                                                  selector:@selector(refreshScreenAfterUpdateWord:)
                                                      name:@"UpdateWord"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(swipeToBackToPrevious)
+                                                     name:@"swipeToBackToPrevious"
+                                                   object:nil];
     }
 }
 
@@ -551,6 +556,18 @@
     }
 }
 
+- (IBAction)swipeHandle:(id)sender {
+    if (_isAnswerScreen) {
+        DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
+        dictDetailContainer.wordObj = _wordObj;
+        dictDetailContainer.showLazzyBeeTab = NO;
+        [self.navigationController pushViewController:dictDetailContainer animated:YES];
+    }
+}
+
+- (void)swipeToBackToPrevious {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark buttons handle
 - (IBAction)btnShowAnswerClick:(id)sender {
@@ -686,7 +703,7 @@
                 
                 [SVProgressHUD showSuccessWithStatus:@"Update successfully"];
             } else {
-                [SVProgressHUD showSuccessWithStatus:@"Update failed"];
+                [SVProgressHUD showErrorWithStatus:@"Update failed"];
             }
         }];
         
@@ -884,11 +901,14 @@
 - (void)refreshScreenAfterUpdateWord:(NSNotification *)notification {
     WordObject *newWord = (WordObject *)notification.object;
     
-    _wordObj = newWord;
-    
-    if (_isAnswerScreen == YES) {
-        [self displayAnswer:_wordObj];
+    if ([_wordObj.question isEqualToString:newWord.question]) {
+        _wordObj = newWord;
+        
+        if (_isAnswerScreen == YES) {
+            [self displayAnswer:_wordObj];
+        }
     }
+    
 }
 
 #pragma mark alert delegate

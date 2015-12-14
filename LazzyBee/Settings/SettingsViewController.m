@@ -599,7 +599,7 @@
                 if (updatedFlag) {
                     [SVProgressHUD showSuccessWithStatus:@"Update successfully"];
                 } else {
-                    [SVProgressHUD showSuccessWithStatus:@"Update failed"];
+                    [SVProgressHUD showErrorWithStatus:@"Update failed"];
                 }
                 
             } else {

@@ -206,8 +206,14 @@
             avc.excludedActivityTypes = @[ UIActivityTypeAssignToContact, UIActivityTypePrint ];
             
             if (IS_IPAD) {
-                UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:avc];
-                [popup presentPopoverFromRect:btnShare.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+                    UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:avc];
+                    [popup presentPopoverFromRect:btnShare.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+                
+                } else {
+                
+                    [self presentViewController:avc animated:YES completion:nil];
+                }
                 
             } else {
                 [self presentViewController:avc animated:YES completion:nil];

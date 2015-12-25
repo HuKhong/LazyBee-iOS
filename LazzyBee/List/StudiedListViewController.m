@@ -16,6 +16,7 @@
 #import "DictDetailContainerViewController.h"
 #import "MGSwipeTableCell.h"
 #import "MGSwipeButton.h"
+#import "MajorObject.h"
 
 @interface StudiedListViewController ()
 {
@@ -203,7 +204,9 @@
     //The meaning of each field is considered as a package
     NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
     
-    NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    
+    NSString *curMajor = curMajorObj.majorName;
     
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";
@@ -383,7 +386,7 @@
                 wordObj.eFactor    = @"2500";
 //                wordObj.queue      = @"0";
 //                wordObj.isFromServer = YES;   //set YES if dont insert this word to db right here
-                wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
+                wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_UNKNOWN];
                
                 //insert to db, no need to get from server next time
                 [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
@@ -517,7 +520,9 @@
 }
 
 - (void)prepareWordsToStudyingQueue {
-    NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    
+    NSString *curMajor = curMajorObj.majorName;
     
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";

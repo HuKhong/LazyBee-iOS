@@ -14,6 +14,7 @@
 #import "MHTabBarController.h"
 #import "DictDetailContainerViewController.h"
 #import "TagManagerHelper.h"
+#import "LocalizeHelper.h"
 
 @interface DictionaryViewController ()
 {
@@ -43,7 +44,8 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"Dictionary"];
+    [self setTitle:LocalizedString(@"Dictionary")];
+    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     
     if (searchResults == nil) {
         searchResults = [[NSMutableArray alloc] init];

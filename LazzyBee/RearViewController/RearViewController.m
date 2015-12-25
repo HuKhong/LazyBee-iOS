@@ -20,6 +20,9 @@
 #import "HelpViewController.h"
 #import "ChooseMajorViewController.h"
 #import "BarGraphViewController.h"
+#import "TagManagerHelper.h"
+#import "LocalizeHelper.h"
+#import "MajorObject.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
@@ -55,11 +58,16 @@
     
     NSString *appVer = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
     
-    lbVersion.text = [NSString stringWithFormat:@"Version %@", appVer];
+    lbVersion.text = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"Version"), appVer];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeMajor)
                                                  name:@"ChangeMajor"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hideUpdateAlert)
+                                                 name:@"UpdateDatabaseCompleted"
                                                object:nil];
 }
 
@@ -127,58 +135,54 @@
     
     if (indexPath.section == RearTable_Section_Home) {
         if (indexPath.row == HomeSection_Home) {
-            text = @"Home";
+            text = LocalizedString(@"Home");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_home"];
             
         } else if (indexPath.row == HomeSection_MajorList) {
             
-            NSString *currentMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+            MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
             
-            if (currentMajor && currentMajor.length > 0) {
+            if (curMajorObj) {
                 
-                if ([[currentMajor lowercaseString] isEqualToString:@"economic"]) {
-                    
-                    currentMajor = @"Economy";
-                    
-                } else if ([[currentMajor lowercaseString] isEqualToString:@"ielts"]) {
-                    
-                    currentMajor = @"IELTS";
-                }
+                NSString *currentMajor = [curMajorObj displayName];
                 
-                text = [NSString stringWithFormat:@"Majors list (%@)", currentMajor];
+                text = [NSString stringWithFormat:@"%@ (%@)", LocalizedString(@"Majors list"), currentMajor];
             } else {
-                text = @"Majors list";
+                text = LocalizedString(@"Majors list");
             }
             
             cell.imgIcon.image = [UIImage imageNamed:@"ic_list"];
             
         } else if (indexPath.row == HomeSection_Dictionary) {
-            text = @"Dictionary";
+            text = LocalizedString(@"Dictionary");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_dictionary"];
             
         } else if (indexPath.row == HomeSection_Progress) {
-            text = @"Learning progress";
+            text = LocalizedString(@"Learning progress");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_graph"];
         }
         
     } else if(indexPath.section == RearTable_Section_Support) {
         
         if (indexPath.row == SupportSection_Settings) {
-            text = @"Settings";
+            text = LocalizedString(@"Settings");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_setting"];
             
+            //display update alert
+            [self displayUpdateAlert:cell];
+            
         } else if (indexPath.row == SupportSection_Help) {
-            text = @"Help";
+            text = LocalizedString(@"Help");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_help"];
         }
         
     } else if(indexPath.section == RearTable_Section_Share) {
         if (indexPath.row == About_App) {
-            text = @"About";
+            text = LocalizedString(@"About");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_about"];
             
         } else if (indexPath.row == ShareSection_ShareFB) {
-            text = @"Share";
+            text = LocalizedString(@"Share");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_share"];
         }
     }
@@ -189,6 +193,27 @@
 	return cell;
 }
 
+- (void)displayUpdateAlert:(RearTableViewCell *)cell {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+    
+    NSLog(@"db version:: %@", [container stringForKey:@"gae_db_version"]);
+    
+    NSInteger serverVersion = [[container stringForKey:@"gae_db_version"] integerValue];
+    
+    NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
+
+    if (serverVersion > dbVersion) {
+        [cell startAlertAnimation];
+    }
+}
+
+- (void)hideUpdateAlert {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:SupportSection_Settings inSection:RearTable_Section_Support];
+    RearTableViewCell *cell = [_rearTableView cellForRowAtIndexPath:indexPath];
+    
+    [cell stopAlertAnimation];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

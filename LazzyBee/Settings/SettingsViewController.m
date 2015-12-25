@@ -15,6 +15,7 @@
 #import "NotificationTableViewCell.h"
 #import "TimerViewController.h"
 #import "LevelPickerViewController.h"
+#import "SettingCustomTableViewCell.h"
 #import "TAGContainer.h"
 #import "SVProgressHUD.h"
 #import "TagManagerHelper.h"
@@ -101,8 +102,11 @@
     } else if (section == SettingsTableViewSectionNotification) {
         return NotificationSectionMax;
         
-    } else if (section == SettingsTableViewSectionReset) {
-        return ResetSectionMax;
+    } else if (section == SettingsTableViewSectionUpdate) {
+        return UpdateSectionMax;
+        
+    } else if (section == SettingsTableViewSectionBackup) {
+        return BackupSectionMax;
     }
     
     
@@ -125,6 +129,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *normalCellIdentifier = @"NormalCell";
+    
+    UITableViewCell *norCell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
+    if (norCell == nil) {
+        norCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
+        norCell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    norCell.textLabel.textAlignment = NSTextAlignmentLeft;
+    norCell.textLabel.textColor = [UIColor blackColor];
+    norCell.textLabel.font = [UIFont systemFontOfSize:16];
     
     switch (indexPath.section) {
         /*case SettingsTableViewSectionAbout:
@@ -171,73 +185,69 @@
             switch (indexPath.row) {
                 case DailyNewWordTarget:
                     {
-                        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
-                        if (cell == nil) {
-                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
-                            cell.accessoryType = UITableViewCellAccessoryNone;
-                        }
-                        
-                        cell.textLabel.textColor = [UIColor blackColor];
-                        cell.textLabel.font = [UIFont systemFontOfSize:16];
-                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        norCell.accessoryType = UITableViewCellAccessoryNone;
                         
                         NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
                         
                         if (targetNumberObj) {
-                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            cell.textLabel.text = [NSString stringWithFormat:@"Daily new words: %ld words", [targetNumberObj integerValue]];
+                            norCell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            norCell.textLabel.text = [NSString stringWithFormat:@"Daily new words: %ld words", [targetNumberObj integerValue]];
                         }
                         
-                        return cell;
+                        return norCell;
                     }
                     break;
                     
                 case DailyTotalWordsTarget:
                     {
-                        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
-                        if (cell == nil) {
-                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
-                            cell.accessoryType = UITableViewCellAccessoryNone;
-                        }
-                        
-                        cell.textLabel.textColor = [UIColor blackColor];
-                        cell.textLabel.font = [UIFont systemFontOfSize:16];
-                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        norCell.accessoryType = UITableViewCellAccessoryNone;
                         
                         NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET];
                         
                         if (targetNumberObj) {
-                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            cell.textLabel.text = [NSString stringWithFormat:@"Daily total words: %ld words", [targetNumberObj integerValue]];
+                            norCell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            norCell.textLabel.text = [NSString stringWithFormat:@"Daily total words: %ld words", [targetNumberObj integerValue]];
                         }
                         
-                        return cell;
+                        return norCell;
                     }
                         break;
                     
                 case LowestLevel:
                     {
-                        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
-                        if (cell == nil) {
-                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
-                            cell.accessoryType = UITableViewCellAccessoryNone;
-                        }
-                        
-                        cell.textLabel.textColor = [UIColor blackColor];
-                        cell.textLabel.font = [UIFont systemFontOfSize:16];
-                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        norCell.accessoryType = UITableViewCellAccessoryNone;
                         
                         NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
                         
                         if (level) {
-                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            cell.textLabel.text = [NSString stringWithFormat:@"Level: %@", level];
+                            norCell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            norCell.textLabel.text = [NSString stringWithFormat:@"Level: %@", level];
                         }
                         
-                        return cell;
+                        return norCell;
                     }
                     break;
                     
+                case TimeToShowAnswer:
+                {
+                    norCell.accessoryType = UITableViewCellAccessoryNone;
+                    
+                    NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_TIME_TO_SHOW_ANSWER];
+                    
+                    if (time) {
+                        norCell.textLabel.textAlignment = NSTextAlignmentCenter;
+                        
+                        if ([time intValue] == 0) {
+                            norCell.textLabel.text = [NSString stringWithFormat:@"Waiting time to show answer: immediately"];
+                            
+                        } else {
+                            norCell.textLabel.text = [NSString stringWithFormat:@"Waiting time to show answer: %@s", time];
+                        }
+                    }
+                    
+                    return norCell;
+                }
+                    break;
                 default:
                     break;
             }
@@ -298,24 +308,16 @@
                     
                 case NotificationTime:
                     {
-                        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
-                        if (cell == nil) {
-                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
-                            cell.accessoryType = UITableViewCellAccessoryNone;
-                        }
-                        
-                        cell.textLabel.textColor = [UIColor blackColor];
-                        cell.textLabel.font = [UIFont systemFontOfSize:16];
-                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        norCell.accessoryType = UITableViewCellAccessoryNone;
                         
                         NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
                         
                         if (time) {
-                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            cell.textLabel.text = [NSString stringWithFormat:@"Time to remind: %@", time];
+                            norCell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            norCell.textLabel.text = [NSString stringWithFormat:@"Time to remind: %@", time];
                         }
                         
-                        return cell;
+                        return norCell;
                     }
                     break;
                 default:
@@ -323,7 +325,7 @@
             }
             break;
             
-            case SettingsTableViewSectionReset:
+            case SettingsTableViewSectionUpdate:
                 switch (indexPath.row) {
 /*                    case UpdateCurrentDate:
                         {
@@ -346,18 +348,18 @@
                         
                     case UpdateDatabase:
                         {
-                            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
+                            NSString *updateDBCell = @"UpdateDBCell";
+                            
+                            SettingCustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:updateDBCell];
                             if (cell == nil) {
-                                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
+                                NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SettingCustomTableViewCell" owner:nil options:nil];
+                                cell = [nib objectAtIndex:0];
                                 cell.accessoryType = UITableViewCellAccessoryNone;
                             }
                             
-                            cell.textLabel.textAlignment = NSTextAlignmentLeft;
-                            cell.textLabel.textColor = [UIColor blackColor];
-                            cell.textLabel.font = [UIFont systemFontOfSize:16];
-                            cell.accessoryType = UITableViewCellAccessoryNone;
+                            cell.lbTitle.text = @"Update database";
                             
-                            cell.textLabel.text = @"Update database";
+                            [self displayUpdateAlert:cell];
                             
                             return cell;
                         }
@@ -365,6 +367,27 @@
                     default:
                         break;
                 }
+            
+        case SettingsTableViewSectionBackup:
+        {
+            norCell.accessoryType = UITableViewCellAccessoryNone;
+            
+            switch (indexPath.row) {
+                case BackUpDatabase:
+                {
+                    norCell.textLabel.text = @"Backup database";
+                    return norCell;
+                }
+                    
+                case RestoreDatabase:
+                {
+                    norCell.textLabel.text = @"Restore database";
+                    return norCell;
+                }
+                default:
+                    break;
+            }
+        }
             
         default:
             break;
@@ -432,6 +455,12 @@
                         [self showLevelPicker];
                     }
                     break;
+                    
+                case TimeToShowAnswer:
+                    {
+                        [self showSelectTimePicker];
+                    }
+                    break;
                 default:
                     break;
             }
@@ -452,7 +481,7 @@
             }
             break;
             
-        case SettingsTableViewSectionReset:
+        case SettingsTableViewSectionUpdate:
             switch (indexPath.row) {
 /*                case UpdateCurrentDate:
                 {
@@ -478,6 +507,22 @@
                     }
                 }
                     break;
+                default:
+                    break;
+            }
+            break;
+            
+        case SettingsTableViewSectionBackup:
+            switch (indexPath.row) {
+                case BackUpDatabase:
+                {
+                    [[CommonSqlite sharedCommonSqlite] backupData];
+                }
+                    
+                case RestoreDatabase:
+                {
+                    
+                }
                 default:
                     break;
             }
@@ -548,7 +593,23 @@
 
 - (void)showLevelPicker {
     levelView = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    levelView.pickerType = LevelPicker;
+    levelView.view.alpha = 0;
     
+    CGRect rect = self.view.frame;
+    rect.origin.y = 0;
+    [levelView.view setFrame:rect];
+    
+    [self.view addSubview:levelView.view];
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        levelView.view.alpha = 1;
+    }];
+}
+
+- (void)showSelectTimePicker {
+    levelView = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    levelView.pickerType = WaitingTimePicker;
     levelView.view.alpha = 0;
     
     CGRect rect = self.view.frame;
@@ -598,6 +659,9 @@
                 
                 if (updatedFlag) {
                     [SVProgressHUD showSuccessWithStatus:@"Update successfully"];
+                    [self hideUpdateAlert];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateDatabaseCompleted" object:nil];
+                    
                 } else {
                     [SVProgressHUD showErrorWithStatus:@"Update failed"];
                 }
@@ -607,5 +671,27 @@
             }
         });
     });
+}
+
+- (void)displayUpdateAlert:(SettingCustomTableViewCell *)cell {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+    
+    NSLog(@"db version:: %@", [container stringForKey:@"gae_db_version"]);
+    
+    NSInteger serverVersion = [[container stringForKey:@"gae_db_version"] integerValue];
+    
+    NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
+
+    if (serverVersion > dbVersion) {
+        [cell startAlertAnimation];
+    }
+}
+
+- (void)hideUpdateAlert {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:UpdateDatabase inSection:SettingsTableViewSectionUpdate];
+    SettingCustomTableViewCell *cell = [settingsTableView cellForRowAtIndexPath:indexPath];
+    
+    [cell stopAlertAnimation];
 }
 @end

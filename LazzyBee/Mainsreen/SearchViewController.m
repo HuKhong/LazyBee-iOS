@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "StudiedListViewController.h"
 #import "CommonDefine.h"
+#import "LocalizeHelper.h"
 
 @interface SearchViewController ()
 {
@@ -24,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    lbGuide.text = LocalizedString(@"Search Guide");
+    
     [searchBarControl becomeFirstResponder];
     
     searchBarControl.autocapitalizationType = UITextAutocapitalizationTypeNone;

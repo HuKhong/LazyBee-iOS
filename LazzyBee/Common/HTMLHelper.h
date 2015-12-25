@@ -10,14 +10,15 @@
 #define LazzyBee_HTMLHelper_h
 #import <Foundation/Foundation.h>
 #import "WordObject.h"
+#import "MajorObject.h"
 
 @interface HTMLHelper : NSObject
 
 // a singleton:
 + (HTMLHelper*) sharedHTMLHelper;
 
-- (NSString *)createHTMLForQuestion:(WordObject *)word withPackage:(NSString *)package;
-- (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(NSString *)package;
+- (NSString *)createHTMLForQuestion:(WordObject *)word withPackage:(MajorObject *)majorObj;
+- (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(MajorObject *)majorObj;
 - (NSString *)createHTMLDict:(WordObject *)wordObj dictType:(NSString *)dictType;
 @end
 

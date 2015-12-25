@@ -21,6 +21,7 @@
 #import "DictDetailContainerViewController.h"
 #import "NoteThumbnail.h"
 #import "NoteFullView.h"
+#import "MajorObject.h"
 
 #define AS_TAG_SEARCH 1
 #define AS_TAG_LEARN 2
@@ -46,6 +47,9 @@
     NoteThumbnail *noteView;
     NoteFullView *noteFullView;
     BOOL isShowNote;
+    
+    NSTimer *timer;
+    int countDown;
 }
 
 @end
@@ -63,22 +67,32 @@
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
+//    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
+    BOOL enableAds = YES;
+//    if (enableAds) {
+//        viewReservationForAds.hidden = NO;
+    NSString *pub_id = [container stringForKey:@"admob_pub_id"];
+    NSString *default_id = [container stringForKey:@"adv_default_id"];
 
-    if (enableAds) {
-        viewReservationForAds.hidden = NO;
-        NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"admob_pub_id"],[container stringForKey:@"adv_default_id"] ];
+        NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id, default_id ];
         
         self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
         
         self.adBanner.rootViewController = self;
         
         request.testDevices = @[
-                                @"8466af21f9717b97f0ba30fa23e53e1ba94d3422"
+                                @"687f0b503566ebb7d84524c1f15e1d16"
                                 ];
         
         [self.adBanner loadRequest:request];
-        
+    
+    if (pub_id == nil || pub_id.length == 0 ||
+        default_id == nil || default_id.length == 0) {
+        enableAds = NO;
+    }
+    
+    if (enableAds) {
+        viewReservationForAds.hidden = NO;
     } else {
         viewReservationForAds.hidden = YES;
     }
@@ -395,6 +409,26 @@
         [noteView removeFromSuperview];
     }
     
+    //set timer
+    if (timer) {
+        [timer invalidate];
+    }
+
+    NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_TIME_TO_SHOW_ANSWER];
+    
+    if ([time intValue] == 0) {
+        btnShowAnswer.enabled = YES;
+        [btnShowAnswer setTitle:@"Show answer" forState:UIControlStateNormal];
+        
+    } else {
+        countDown = [time intValue];
+        
+        btnShowAnswer.enabled = NO;
+        [btnShowAnswer setTitle:[NSString stringWithFormat:@"%d", countDown] forState:UIControlStateNormal];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:nil repeats:YES];
+    }
+    
     [self stopPlaySoundOnWebview];
     
     //display question
@@ -404,13 +438,9 @@
     NSString *htmlString = @"";
     
     if (wordObj) {
-        NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+        MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
         
-        if (curMajor == nil || curMajor.length == 0) {
-            curMajor = @"common";
-        }
-        
-        htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:wordObj withPackage:curMajor];
+        htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:wordObj withPackage:curMajorObj];
     }
     
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
@@ -425,6 +455,18 @@
     _isAnswerScreen = NO;
 }
 
+- (void)timerHandler {
+    countDown--;
+    
+    [btnShowAnswer setTitle:[NSString stringWithFormat:@"%d", countDown] forState:UIControlStateNormal];
+    
+    if (countDown == 0) {
+        [timer invalidate];
+        [btnShowAnswer setTitle:@"Show answer" forState:UIControlStateNormal];
+        btnShowAnswer.enabled = YES;
+    }
+}
+
 - (void)displayAnswer:(WordObject *)wordObj {
     [self stopPlaySoundOnWebview];
     
@@ -435,13 +477,9 @@
     NSString *htmlString = @"";
     
     if (wordObj) {
-        NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
-        if (curMajor == nil || curMajor.length == 0) {
-            curMajor = @"common";
-            
-        }
+        MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
         
-        htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:wordObj withPackage:curMajor];
+        htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:wordObj withPackage:curMajorObj];
         
         //note view
         

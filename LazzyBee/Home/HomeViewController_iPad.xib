@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
                 <outlet property="adBanner" destination="cNc-Ou-6Yi" id="E0y-WP-JaN"/>
+                <outlet property="btnIncoming" destination="K0P-2z-oXD" id="REA-7a-Js8"/>
+                <outlet property="btnMore" destination="E9M-1w-NbD" id="8HZ-2X-tVV"/>
                 <outlet property="btnStudy" destination="ENb-XN-REN" id="RgC-QT-ydm"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Nhc-yv-rys"/>
             </connections>
@@ -20,13 +22,11 @@
                 <view contentMode="scaleToFill" id="cNc-Ou-6Yi" customClass="GADBannerView">
                     <rect key="frame" x="0.0" y="974" width="768" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_logo.png" id="RYI-sT-16O">
                     <rect key="frame" x="224" y="31" width="320" height="350"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
                 </imageView>
                 <view contentMode="scaleToFill" id="Gbu-YY-Ul2">
                     <rect key="frame" x="0.0" y="404" width="768" height="116"/>
@@ -35,7 +35,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K0P-2z-oXD">
                             <rect key="frame" x="8" y="58" width="374" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" title="Incoming List" backgroundImage="button_short_ipad.png"/>
                             <connections>
@@ -45,7 +44,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="E9M-1w-NbD">
                             <rect key="frame" x="386" y="58" width="374" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" title="More Words" backgroundImage="button_short_ipad.png"/>
                             <connections>
@@ -55,7 +53,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ENb-XN-REN">
                             <rect key="frame" x="8" y="0.0" width="752" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" title="Start Learning" backgroundImage="button_long_ipad.png"/>
                             <connections>
@@ -63,11 +60,9 @@
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="259" y="336"/>
         </view>

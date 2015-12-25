@@ -11,7 +11,7 @@
 #import "MajorObject.h"
 #import "Common.h"
 #import "TagManagerHelper.h"
-
+#import "LocalizeHelper.h"
 
 #define COLLCECTIONVIEW_CELL_OFFSET 10
 #define CELL_WIDTH 125
@@ -41,12 +41,13 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"Major List"];
+    [self setTitle:LocalizedString(@"Majors list")];
+    lbGuide.text = LocalizedString(@"Choose a major");
     
-    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     self.navigationItem.leftBarButtonItem = btnCancel;
     
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:(id)self  action:@selector(doneButtonClick)];
+    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Done") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(doneButtonClick)];
     self.navigationItem.rightBarButtonItem = btnDone;
     
     [collectionView registerNib:[UINib nibWithNibName:@"MajorCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"MajorCollectionViewCell"];
@@ -85,8 +86,9 @@
 }
 */
 - (void)initialMajorData {
-    NSString *currentMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *currentMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
     
+    NSString *currentMajor = currentMajorObj.majorName;
     majorsArr = [[NSMutableArray alloc] init];
     
     //IT
@@ -154,7 +156,7 @@
     for (MajorObject *majorObj in majorsArr) {
         if (majorObj.checkFlag == YES) {
             found = YES;
-            [[Common sharedCommon] saveDataToUserDefaultStandard:majorObj.majorName withKey:KEY_SELECTED_MAJOR];
+            [[Common sharedCommon] saveDataToUserDefaultStandard:majorObj withKey:KEY_SELECTED_MAJOR];
             break;
         }
     }
@@ -194,17 +196,7 @@
     
     MajorObject *majorObject = [majorsArr objectAtIndex:indexPath.row];
     
-    if ([[majorObject.majorName lowercaseString] isEqualToString:@"economic"]) {
-        
-        majorCell.lbMajorName.text = @"Economy";
-        
-    } else if ([[majorObject.majorName lowercaseString] isEqualToString:@"ielts"]) {
-        
-        majorCell.lbMajorName.text = @"IELTS";
-        
-    } else  {
-        majorCell.lbMajorName.text = majorObject.majorName;
-    }
+    majorCell.lbMajorName.text = [majorObject displayName];
     
     majorCell.imgThumbnail.image = [UIImage imageNamed:majorObject.majorThumbnail];
     majorCell.imgCheck.hidden = !majorObject.checkFlag;

@@ -204,6 +204,13 @@
         [[Common sharedCommon] saveDataToUserDefaultStandard:totalWordObj withKey:KEY_DAILY_TOTAL_TARGET];
     }
     
+    NSNumber *timeShowAnswer = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_TIME_TO_SHOW_ANSWER];
+    
+    if (!timeShowAnswer) {
+        timeShowAnswer = [NSNumber numberWithInteger:3];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:timeShowAnswer withKey:KEY_TIME_TO_SHOW_ANSWER];
+    }
+    
     NSNumber *dbVersion = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION];
     
     if (!dbVersion) {

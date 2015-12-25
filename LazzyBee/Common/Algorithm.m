@@ -196,7 +196,7 @@ static Algorithm* sharedAlgorithm = nil;
         /*User forget card or just learnt
          * We don't re-count 'due', because app will put it back to learnt queue
          * */
-        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_LEARNT];
+        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_AGAIN];
         //Reset last-interval to reduce next review
         wordObj.lastInterval = @"0";
         

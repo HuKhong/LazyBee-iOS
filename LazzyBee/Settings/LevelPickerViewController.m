@@ -10,6 +10,7 @@
 #import "Common.h"
 
 #define MAX_LEVEL 6
+#define MAX_TIME 11
 
 @interface LevelPickerViewController ()
 
@@ -20,14 +21,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
     
-    if (!level) {
-        level = @"2";
-        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
+    if (_pickerType == LevelPicker) {
+        NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
+        
+        if (!level) {
+            level = @"2";
+            [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
+        }
+        
+        [levelPicker selectRow:[level integerValue] - 1 inComponent:0 animated:YES];
+        
+    } else if (_pickerType == WaitingTimePicker) {
+        NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_TIME_TO_SHOW_ANSWER];
+        
+        if (!time) {
+            time = @"3";
+            [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
+        }
+        
+        [levelPicker selectRow:[time integerValue] inComponent:0 animated:YES];
     }
-    
-    [levelPicker selectRow:[level integerValue] - 1 inComponent:0 animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,8 +68,14 @@
 }
 
 - (IBAction)btnDoneClick:(id)sender {
-    NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
-    [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
+    if (_pickerType == LevelPicker) {
+        NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
+
+    } else if (_pickerType == WaitingTimePicker) {
+        NSString *time = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0]];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
     
@@ -72,12 +92,26 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return MAX_LEVEL;
+    if (_pickerType == LevelPicker) {
+        return MAX_LEVEL;
+        
+    } else if (_pickerType == WaitingTimePicker) {
+        return MAX_TIME;
+    }
+    
+    return 0;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [NSString stringWithFormat:@"%ld", row + 1];
+    if (_pickerType == LevelPicker) {
+        return [NSString stringWithFormat:@"%ld", row + 1];
+        
+    } else if (_pickerType == WaitingTimePicker) {
+        return [NSString stringWithFormat:@"%ld", row];
+    }
+    
+    return @"";
 }
 
 #pragma mark picker delegate

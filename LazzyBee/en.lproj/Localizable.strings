@@ -1,0 +1,61 @@
+/* 
+  Localizable.strings
+  LazzyBee
+
+  Created by HuKhong on 12/25/15.
+  Copyright © 2015 Born2go. All rights reserved.
+*/
+
+//Rear
+"Version" = "Version";
+"Home" = "Home";
+"Economy" = "Economy";
+"IELTS" = "IELTS";
+"Majors list" = "Majors list";
+"Dictionary" = "Dictionary";
+"Learning progress" = "Learning progress";
+"Settings" = "Settings";
+"Help" = "Help";
+"About" = "About";
+"Share" = "Share";
+
+
+//Home
+"Lazzy Bee" = "Lazzy Bee";
+"Start learning" = "Start learning";
+"Incoming list" = "Incoming list";
+"More words" = "More words";
+"Notice" = "Notice";
+"Cancel" = "Cancel";
+"Learn now" = "Learn now";
+"Need to complete current taret" = "You need to complete your current target before adding more words.";
+"Learnt hard. Relax now" = "You have learnt very hard. Now is the time to relax.";
+"Congratulation" = "Congratulation";
+"OK" = "OK";
+"Oops!" = "Oops!";
+"No more word. Click More Words" = "There is no more word to learn today. Click \"More Words\" if you really want to learn more.";
+
+//Major
+"Close" = "Close";
+"Done" = "Done";
+"Economy" = "Economy";
+"IELTS" = "IELTS";
+"IT" = "IT";
+"Science" = "Science";
+"Medicine" = "Medicine";
+"Coming soon" = "Coming soon";
+"Choose a major" = "Choose a major you want to focus on.";
+
+
+//Dictionary
+"Dictionary" = "Dictionary";
+"Search" = "Search";
+"Add to learn" = "Add to learn";
+"Update" = "Update";
+"Report" = "Report";
+"No connection" = "No connection";
+"Please double check" = "Please double check wifi/3G connection.";
+
+//Search
+"Search Guide" = "Tap \"Search\" to start searching";
+

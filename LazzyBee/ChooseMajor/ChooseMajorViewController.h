@@ -12,6 +12,7 @@
 {
     
     IBOutlet UICollectionView *collectionView;
+    IBOutlet UILabel *lbGuide;
     
 }
 @end

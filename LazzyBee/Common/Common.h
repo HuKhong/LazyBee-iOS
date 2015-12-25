@@ -34,6 +34,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *tmpFolder;
 @property (nonatomic, strong) NSString *privateDocumentsFolder;
 @property (nonatomic, strong) NSString *trashFolder;
+@property (nonatomic, strong) NSString *backupFolder;
 
 @property (nonatomic, assign) BOOL isBuffeAcc;
 
@@ -44,6 +45,7 @@ typedef enum {
 - (NSString *)tmpFolder;
 - (NSString *)privateDocumentsFolder;
 - (NSString *)trashFolder;
+- (NSString *)backupFolder;
 
 + (Common *)sharedCommon;
 
@@ -56,6 +58,9 @@ typedef enum {
 - (id)loadDataFromUserDefaultStandardWithKey:(NSString *)key;
 - (void)clearUserDefaultStandardWithKey:(NSString *)key;
 - (NSInteger)getDailyTarget;
+
+- (void)saveDataToGroupUserDefaultStandard:(id)data withKey:(NSString *)key;
+- (id)loadDataFromGroupUserDefaultStandardWithKey:(NSString *)key;
 
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString;
 - (NSString *)getNextDatetimeWithFormat:(NSString *)formatString;

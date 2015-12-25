@@ -14,7 +14,8 @@ typedef enum {
     SettingsTableViewSectionDailyTarget,
     SettingsTableViewSectionAutoPlay,
     SettingsTableViewSectionNotification,
-    SettingsTableViewSectionReset,
+    SettingsTableViewSectionUpdate,
+    SettingsTableViewSectionBackup,
     SettingsTableViewSectionMax
 } SETTINGS_TABLEVIEW_SECTION;
 
@@ -32,6 +33,7 @@ typedef enum {
     DailyNewWordTarget = 0,
     DailyTotalWordsTarget,
     LowestLevel,
+    TimeToShowAnswer,
     DailyTargetSectionMax
 } DAILY_SECTION;
 
@@ -49,8 +51,15 @@ typedef enum {
 typedef enum {
 //    UpdateCurrentDate = 0,
     UpdateDatabase = 0,
-    ResetSectionMax
-} RESET_SECTION;
+    UpdateSectionMax
+} UPDATE_SECTION;
+
+typedef enum {
+    //    UpdateCurrentDate = 0,
+    BackUpDatabase = 0,
+    RestoreDatabase,
+    BackupSectionMax
+} BACKUP_SECTION;
 
 @interface SettingsViewController : UIViewController
 {

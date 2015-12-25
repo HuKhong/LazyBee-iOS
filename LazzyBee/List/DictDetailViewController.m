@@ -10,6 +10,7 @@
 #import "HTMLHelper.h"
 #import "Common.h"
 #import "CommonDefine.h"
+#import "MajorObject.h"
 
 @interface DictDetailViewController ()
 
@@ -72,13 +73,9 @@
             htmlString = [[HTMLHelper sharedHTMLHelper] createHTMLDict:_wordObj dictType:@"en"];
             
         } else if (_dictType == DictLazzyBee) {
-            NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+            MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
             
-            if (curMajor == nil || curMajor.length == 0) {
-                curMajor = @"common";
-            }
-            
-            htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:_wordObj withPackage:curMajor];
+            htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:_wordObj withPackage:curMajorObj];
         }
     }
     

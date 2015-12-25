@@ -45,6 +45,8 @@
 - (void)addMoreFieldToTable;
 - (void)removeWordFromBuffer:(WordObject *)wordObj;
 - (NSTimeInterval)getDateInBuffer;
+
+- (void)backupData;
 @end
 
 #endif

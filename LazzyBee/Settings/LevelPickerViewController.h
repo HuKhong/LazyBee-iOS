@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    LevelPicker = 0,
+    WaitingTimePicker
+} PICKER_TYPE;
+
 @interface LevelPickerViewController : UIViewController
 {
     IBOutlet UIPickerView *levelPicker;
     
 }
+
+@property (nonatomic, assign) PICKER_TYPE pickerType;
 @end

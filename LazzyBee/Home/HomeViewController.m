@@ -19,7 +19,8 @@
 #import "DictDetailContainerViewController.h"
 #import "StreakViewController.h"
 #import "PopupView.h"
-
+#import "LocalizeHelper.h"
+#import "MajorObject.h"
 
 @interface HomeViewController ()<GADInterstitialDelegate>
 {
@@ -49,7 +50,10 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"Lazzy Bee"];
+    [self setTitle:LocalizedString(@"Lazzy Bee")];
+    [btnStudy setTitle:LocalizedString(@"Start learning") forState:UIControlStateNormal];
+    [btnIncoming setTitle:LocalizedString(@"Incoming list") forState:UIControlStateNormal];
+    [btnMore setTitle:LocalizedString(@"More words") forState:UIControlStateNormal];
 
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
     
@@ -255,7 +259,7 @@
     count = count + [[CommonSqlite sharedCommonSqlite] getCountOfStudyAgain];
     
     if (count > 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"You need to complete your current target before adding more words." delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Learn now", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Notice") message:LocalizedString(@"Need to complete current taret") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") otherButtonTitles:LocalizedString(@"Learn now"), nil];
         alert.tag = 1;
         
         [alert show];
@@ -311,7 +315,7 @@
 }
 
 - (void)completedDailyTarget {
-    NSNumber *completeTargetFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"CompletedDailyTargetFlag"];
+    NSNumber *completeTargetFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_COMPLETED_FLAG];
     NSString *alertContent = @"";
     
     if (![completeTargetFlag boolValue]) {
@@ -322,7 +326,7 @@
         
         
         if (curDate == oldDate) {
-            [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:YES] withKey:@"CompletedDailyTargetFlag"];
+            [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:YES] withKey:KEY_COMPLETED_FLAG];
             
             //save streak info
             [[Common sharedCommon] saveStreak:curDate];
@@ -345,10 +349,10 @@
         NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];
         
         if (curDate == oldDate) {
-            alertContent = @"You have learnt very hard. Now is the time to relax.";
+            alertContent = LocalizedString(@"Learnt hard. Relax now");
             
             //show alert to congrat
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulation" message:alertContent delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
             alert.tag = 2;
             
             [alert show];
@@ -358,7 +362,7 @@
 
 - (void)noWordToStudyToday {
     //show alert to congrat
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There is no more word to learn today. Click \"More Words\" if you really want to learn more." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Oops!") message:LocalizedString(@"No more word. Click More Words") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 3;
     
     [alert show];
@@ -368,12 +372,12 @@
 - (void)createAndLoadInterstitial {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
-    
-    if (enableAds) {
+//    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
+
+//    if (enableAds) {
         NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"admob_pub_id"],[container stringForKey:@"adv_fullscreen_id"] ];
-        
-        self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:advStr];
+//        advStr = @"ca-app-pub-5245864792816840/9210342219";
+        self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:advStr]; //@"ca-app-pub-3940256099942544/4411468910"
         self.interstitial.delegate = self;
     
         GADRequest *request = [GADRequest request];
@@ -381,10 +385,10 @@
         // an ad request is made. GADInterstitial automatically returns test ads when running on a
         // simulator.
         request.testDevices = @[
-                                @"8466af21f9717b97f0ba30fa23e53e1ba94d3422"
+                                @"687f0b503566ebb7d84524c1f15e1d16"
                                 ];
         [self.interstitial loadRequest:request];
-    }
+//    }
 }
 
 - (void)interstitial:(GADInterstitial *)interstitial
@@ -427,7 +431,9 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 }
 
 - (void)prepareWordsToStudyingQueue {
-    NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    
+    NSString *curMajor = curMajorObj.majorName;
     
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";

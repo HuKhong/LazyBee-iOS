@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudyWordViewController">
@@ -12,6 +12,7 @@
                 <outlet property="btnEasy" destination="qJL-Ae-ZMZ" id="yeE-4c-g5m"/>
                 <outlet property="btnHard" destination="quq-gJ-D7i" id="Ibn-mv-Tf2"/>
                 <outlet property="btnNorm" destination="BTU-UK-4xW" id="d1Q-NL-76A"/>
+                <outlet property="btnShowAnswer" destination="wTi-bV-m9R" id="NZl-H6-INV"/>
                 <outlet property="lbAgainCount" destination="cFQ-92-Eku" id="mzp-aw-OFB"/>
                 <outlet property="lbNewCount" destination="dKV-fp-xDc" id="KTa-6D-MoD"/>
                 <outlet property="lbReviewCount" destination="IZy-ES-gsA" id="3Oc-CM-ooW"/>
@@ -35,7 +36,6 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dKV-fp-xDc">
                             <rect key="frame" x="8" y="4" width="76" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.3022726395" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -43,7 +43,6 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Again: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cFQ-92-Eku">
                             <rect key="frame" x="92" y="4" width="76" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.75808869950000002" green="0.0" blue="0.17734529260000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -51,25 +50,21 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZy-ES-gsA">
                             <rect key="frame" x="176" y="4" width="76" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="vxi-5A-nRf" customClass="GADBannerView">
                     <rect key="frame" x="0.0" y="458" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <webView contentMode="scaleToFill" id="nfQ-5E-gvx">
                     <rect key="frame" x="0.0" y="30" width="320" height="425"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="lkA-kp-BH9"/>
@@ -82,7 +77,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="wTi-bV-m9R">
                             <rect key="frame" x="8" y="4" width="304" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <state key="normal" title="Show answer" backgroundImage="button_long.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -92,7 +86,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="hGJ-t1-liu">
@@ -102,7 +95,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="8ID-5O-DH1">
                             <rect key="frame" x="6" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" backgroundImage="button_square.png">
                                 <string key="title">&lt; 10 Min
@@ -117,7 +109,6 @@ Again</string>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="quq-gJ-D7i">
                             <rect key="frame" x="84" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="1 day (hard)" backgroundImage="button_square.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -130,7 +121,6 @@ Again</string>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="BTU-UK-4xW">
                             <rect key="frame" x="162" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="5 days (norm)" backgroundImage="button_square.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,7 +133,6 @@ Again</string>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="qJL-Ae-ZMZ">
                             <rect key="frame" x="240" y="4" width="75" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="10 days (easy)" backgroundImage="button_square.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -154,26 +143,16 @@ Again</string>
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <connections>
-                <outletCollection property="gestureRecognizers" destination="JbB-ID-DNj" appends="YES" id="Vk2-ZT-UEj"/>
                 <outletCollection property="gestureRecognizers" destination="b5w-Un-KDn" appends="YES" id="zAd-fZ-y7G"/>
             </connections>
             <point key="canvasLocation" x="381" y="375"/>
         </view>
-        <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="JbB-ID-DNj">
-            <rectEdge key="edges" right="YES"/>
-            <connections>
-                <action selector="edgePanHandle:" destination="-1" id="99c-3F-fhx"/>
-                <outlet property="delegate" destination="-1" id="oQj-gL-yuz"/>
-            </connections>
-        </screenEdgePanGestureRecognizer>
         <swipeGestureRecognizer direction="left" id="b5w-Un-KDn">
             <connections>
                 <action selector="swipeHandle:" destination="-1" id="ciz-op-hAV"/>

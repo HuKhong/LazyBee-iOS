@@ -30,6 +30,8 @@
 
 #define DATABASENAME @"english.db"
 #define DATABASENAME_NEW @"new_english.db"
+#define DATABASENAME_BACKUP @"backup.txt"
+#define DATABASENAME_BACKUPZIP @"backup.zip"
 
 #define BUFFER_SIZE 100
 #define TOTAL_WORDS_A_DAY_MAX [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET] integerValue]
@@ -43,6 +45,8 @@
 #define KEY_DAILY_TARGET @"DailyTarget"
 #define KEY_DAILY_TOTAL_TARGET @"DailyTotalTarget"
 #define KEY_DB_VERSION @"DatabaseVersion"
+#define KEY_COMPLETED_FLAG @"CompletedDailyTargetFlag"
+#define KEY_TIME_TO_SHOW_ANSWER @"TimeToShowAnswer"
 #define IS_FIRST_RUN @"IsFirstRun"
 #define KEY_SELECTED_MAJOR @"SelectedMajor"
 @interface CommonDefine : NSObject

@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 
 #define QUEUE_UNKNOWN 0
-#define QUEUE_LEARNT 1
+#define QUEUE_AGAIN 1
 #define QUEUE_REVIEW 2
 #define QUEUE_NEW_WORD 3
 #define QUEUE_SUSPENDED -1      //ignore

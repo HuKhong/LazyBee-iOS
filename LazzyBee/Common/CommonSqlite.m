@@ -13,6 +13,8 @@
 #import "Common.h"
 #import "Algorithm.h"
 #import "WordObject.h"
+#import "ZipArchive.h"
+#import "MajorObject.h"
 
 // Singleton
 static CommonSqlite* sharedCommonSqlite = nil;
@@ -360,19 +362,45 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     sqlite3_stmt *dbps;
 
-    NSString *formattedAnswer = [wordObj.answers stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-    NSString *formattedVN = [wordObj.langVN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-    NSString *formattedEN = [wordObj.langEN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-    
-    NSString *strQuery = @"INSERT INTO 'vocabulary' (question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid) VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@')";
-    strQuery = [NSString stringWithFormat:strQuery, wordObj.question, formattedAnswer, wordObj.subcats, wordObj.status, wordObj.package, wordObj.level, wordObj.queue, wordObj.due, wordObj.revCount, wordObj.lastInterval, wordObj.eFactor, formattedVN, formattedEN, wordObj.gid];
-
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = %@", wordObj.gid];
     const char *charQuery = [strQuery UTF8String];
+    NSInteger count = 0;
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
     
     if(SQLITE_DONE != sqlite3_step(dbps)) {
-        NSLog(@"Error while inserting. %s", sqlite3_errmsg(db));
+        if (sqlite3_column_int(dbps, 0)) {
+            count = sqlite3_column_int(dbps, 0);
+        }
+    }
+    sqlite3_finalize(dbps);
+    
+    NSString *formattedAnswer = [wordObj.answers stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+    NSString *formattedVN = [wordObj.langVN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+    NSString *formattedEN = [wordObj.langEN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+    
+    if (count == 0) {
+        
+        strQuery = @"INSERT INTO 'vocabulary' (question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid) VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@')";
+        strQuery = [NSString stringWithFormat:strQuery, wordObj.question, formattedAnswer, wordObj.subcats, wordObj.status, wordObj.package, wordObj.level, wordObj.queue, wordObj.due, wordObj.revCount, wordObj.lastInterval, wordObj.eFactor, formattedVN, formattedEN, wordObj.gid];
+        
+        charQuery = [strQuery UTF8String];
+        
+        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+        
+        if(SQLITE_DONE != sqlite3_step(dbps)) {
+            NSLog(@"Error while inserting. %s", sqlite3_errmsg(db));
+        }
+        
+    } else {
+        strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, answers = \'%@\', l_vn = \'%@\', l_en = \'%@\' where question = \'%@\'", [wordObj.queue intValue], [wordObj.due intValue], [wordObj.revCount intValue], [wordObj.lastInterval intValue], [wordObj.eFactor intValue], formattedAnswer, formattedVN, formattedEN, wordObj.question];
+        const char *charQuery = [strQuery UTF8String];
+        
+        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+        
+        if(SQLITE_DONE != sqlite3_step(dbps)) {
+            NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+        }
     }
     
     sqlite3_finalize(dbps);
@@ -450,6 +478,9 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSArray *newWordsArr = [self getWordByQueryString:strQuery fromDatabase:dbPathNew];
     
     NSLog(@"count :: %lu", (unsigned long)[newWordsArr  count]);
+    
+    //remove the new file after reading
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:dbPathNew];
     
     //update old db
     NSString *dbPathOld = [self getDatabasePath];
@@ -862,6 +893,22 @@ static CommonSqlite* sharedCommonSqlite = nil;
                 [resArr addObject:wordID];
             }
         }
+        
+        sqlite3_finalize(dbps);
+    }
+    
+    //if there is no word with queue = QUEUE_UNKNOWN, reset all words with queue = NEW_WORD to UNKNOWN
+    if ([resArr count] < amount) {
+        strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET queue = %d where queue = %d", QUEUE_UNKNOWN, QUEUE_NEW_WORD];
+        const char *charQuery = [strQuery UTF8String];
+        
+        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+        
+        if(SQLITE_DONE != sqlite3_step(dbps)) {
+            NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+        }
+        
+        sqlite3_finalize(dbps);
     }
     
     //create json to re-add to db
@@ -945,7 +992,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     if (force == YES || (oldDate == 0 || curDate != oldDate)) {
         //reset flag if it's new day
         if ((oldDate == 0 || curDate != oldDate)) {
-            [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:@"CompletedDailyTargetFlag"];
+            [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:KEY_COMPLETED_FLAG];
         }
         
         //get random 10 words in buffer from system table
@@ -1381,7 +1428,8 @@ static CommonSqlite* sharedCommonSqlite = nil;
         }
     }
     
-    NSString *curMajor = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    NSString *curMajor = curMajorObj.majorName;
     
     if (curMajor == nil || curMajor.length == 0) {
         curMajor = @"common";
@@ -1398,7 +1446,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
             strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND id IN %@ ORDER BY level", curMajor, strIDList];
             
         } else {
-            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@ ORDER BY level", curMajor, [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR] lowercaseString], strIDList];
+            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@ ORDER BY level", curMajor, [[[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR] majorName] lowercaseString], strIDList];
         }
         
         charQuery = [strQuery UTF8String];
@@ -1578,6 +1626,12 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 - (NSString *)getNewDatabasePath {
     NSString *dbPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME_NEW];
+    
+    return dbPath;
+}
+
+- (NSString *)getBackupDatabasePath {
+    NSString *dbPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
     
     return dbPath;
 }
@@ -1791,4 +1845,93 @@ static CommonSqlite* sharedCommonSqlite = nil;
     return dateInterval;
 }
 
+#pragma mark export database
+- (NSArray *)fetchDataNeedToBackup {
+    NSString *dbPath = [self getDatabasePath];
+    
+    NSString *strQuery = @"SELECT queue, due, rev_count, last_ivl, e_factor, question, user_note FROM \"vocabulary\"";
+    
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return nil;
+    }
+    sqlite3_stmt *dbps;
+    
+    const char *charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    
+    NSMutableArray *resArr = [[NSMutableArray alloc] init];
+    
+    //    NSMutableDictionary *log = [[NSMutableDictionary alloc] init];//for test
+    while(sqlite3_step(dbps) == SQLITE_ROW) {
+        WordObject *wordObj = [[WordObject alloc] init];
+        
+        //queue, due, rev_count, last_ivl, e_factor, gid, user_note
+        if (sqlite3_column_text(dbps, 0)) {
+            wordObj.queue = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
+        }
+        
+        if (sqlite3_column_text(dbps, 1)) {
+            wordObj.due = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 1)];
+        }
+        
+        if (sqlite3_column_text(dbps, 2)) {
+            wordObj.revCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 2)];
+        }
+        
+        if (sqlite3_column_text(dbps, 3)) {
+            wordObj.lastInterval = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 3)];
+        }
+        
+        if (sqlite3_column_text(dbps, 4)) {
+            wordObj.eFactor = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 4)];
+        }
+
+        if (sqlite3_column_text(dbps, 5)) {
+            wordObj.question = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 5)];
+        }
+        
+        if (sqlite3_column_text(dbps, 6)) {
+            wordObj.userNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 6)];
+        }
+        
+        [resArr addObject:wordObj];
+    }
+    
+    sqlite3_finalize(dbps);
+    sqlite3_close(db);
+    
+    return resArr;
+}
+
+- (void)writeDataToFile:(NSArray *)dataArr {
+    NSString *path = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:path];
+    
+    NSMutableString *strData = [[NSMutableString alloc] init];
+    for (WordObject *word in dataArr) {
+        [strData appendFormat:@"%@,%@,%@,%@,%@,%@,%@;\n", word.question, word.queue, word.due,word.revCount, word.lastInterval, word.eFactor, word.userNote];
+    }
+    NSError *error = nil;
+    [strData writeToFile:path
+              atomically:YES
+                encoding:NSUTF8StringEncoding
+                   error:&error];
+    NSLog(@"%@", error.description);
+    
+    NSString *pathZip = [[[Common sharedCommon] privateDocumentsFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathZip];
+    [SSZipArchive createZipFileAtPath: pathZip withContentsOfDirectory: [path stringByDeletingLastPathComponent]];
+}
+
+- (void)backupData {
+    NSArray *data = [self fetchDataNeedToBackup];
+    [self writeDataToFile:data];
+}
 @end

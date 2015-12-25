@@ -31,6 +31,7 @@ typedef enum {
     IBOutlet UIButton *btnHard;
     IBOutlet UIButton *btnNorm;
     IBOutlet UIButton *btnEasy;
+    IBOutlet UIButton *btnShowAnswer;
     
     IBOutlet UILabel *lbNewCount;
     IBOutlet UILabel *lbAgainCount;

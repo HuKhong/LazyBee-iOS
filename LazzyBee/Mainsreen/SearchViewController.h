@@ -13,6 +13,7 @@
     IBOutlet UIView *searchBarContainer;
     IBOutlet UISearchBar *searchBarControl;
     IBOutlet UIView *searchResultView;
+    IBOutlet UILabel *lbGuide;
     
 }
 @end

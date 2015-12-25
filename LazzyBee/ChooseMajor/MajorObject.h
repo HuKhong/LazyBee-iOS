@@ -24,6 +24,8 @@
 @property (nonatomic, assign) BOOL enabled;
 
 - (id)initWithName:(NSString *)majorName thumbnail:(NSString *)thumbnail andCheckFlag:(BOOL)flag;
+
+- (NSString *)displayName;
 @end
 
 #endif

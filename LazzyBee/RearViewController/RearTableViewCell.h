@@ -14,4 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle;
 @property (strong, nonatomic) IBOutlet UIImageView *imgArrow;
 
+- (void)startAlertAnimation;
+- (void)stopAlertAnimation;
 @end

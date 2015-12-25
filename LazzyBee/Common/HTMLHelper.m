@@ -10,6 +10,7 @@
 #import "UIKit/UIKit.h"
 #import "sqlite3.h"
 #import "Common.h"
+
 // Singleton
 static HTMLHelper* sharedHTMLHelper = nil;
 
@@ -39,22 +40,20 @@ static HTMLHelper* sharedHTMLHelper = nil;
     return self;
 }
 
-- (NSString *)createHTMLForQuestion:(WordObject *)word withPackage:(NSString *)package {
-    NSString *packageLowcase = [package lowercaseString];
+- (NSString *)createHTMLForQuestion:(WordObject *)word withPackage:(MajorObject *)majorObj {
+    NSString *package = @"";
+    NSString *packageLowcase = @"";
     
-    if ([packageLowcase isEqualToString:@"common"]) {
-        package = @"";
-    } else {
-        if ([[package lowercaseString] isEqualToString:@"economic"]) {
-            
-            package = @"Economy";
-            
-        } else if ([[package lowercaseString] isEqualToString:@"ielts"]) {
-            
-            package = @"IELTS";
-        }
+    if (majorObj) {
+        package = [NSString stringWithFormat:@"[%@]", [majorObj displayName]];
+        packageLowcase = [majorObj.majorName lowercaseString];
         
-        package = [NSString stringWithFormat:@"[%@]", package];
+    } else {
+        packageLowcase = @"common";
+    }
+    
+    if (![packageLowcase isEqualToString:@"common"]) {
+
         //parse the answer to dictionary object
         NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -135,22 +134,20 @@ static HTMLHelper* sharedHTMLHelper = nil;
     return htmlString;
 }
 
-- (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(NSString *)package {
+- (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(MajorObject *)majorObj {
     NSString *htmlString = @"";
     NSString *imageLink = @"";
+    NSString *package = @"";
+    NSString *packageLowcase = @"";
     
-    NSString *packageLowcase = [package lowercaseString];
-    
-    if ([[package lowercaseString] isEqualToString:@"economic"]) {
+    if (majorObj) {
+        package = [NSString stringWithFormat:@"[%@]", [majorObj displayName]];
+        packageLowcase = [majorObj.majorName lowercaseString];
         
-        package = @"Economy";
-        
-    } else if ([[package lowercaseString] isEqualToString:@"ielts"]) {
-        
-        package = @"IELTS";
+    } else {
+        packageLowcase = @"common";
     }
     
-    package = [NSString stringWithFormat:@"[%@]", package];
     //parse the answer to dictionary object
     NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -168,10 +165,6 @@ static HTMLHelper* sharedHTMLHelper = nil;
     if (dictSinglePackage == nil) {
         dictSinglePackage = [dictPackages valueForKey:@"common"];
         
-        package = @"";
-    }
-    
-    if ([packageLowcase isEqualToString:@"common"]) {
         package = @"";
     }
     

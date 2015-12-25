@@ -14,7 +14,7 @@
 @import MessageUI;
 
 @implementation Common
-@synthesize downloadFolder, documentsFolder, libraryFolder, tmpFolder, privateDocumentsFolder, trashFolder;
+@synthesize downloadFolder, documentsFolder, libraryFolder, tmpFolder, privateDocumentsFolder, trashFolder, backupFolder;
 
 - (id)init {
     self = [super init];
@@ -109,6 +109,21 @@
 
 - (id)loadDataFromUserDefaultStandardWithKey:(NSString *)key {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    id data = [defaults objectForKey:key];
+    
+    return data;
+}
+
+- (void)saveDataToGroupUserDefaultStandard:(id)data withKey:(NSString *)key {
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.born2go.lazzybee"];
+    
+    [defaults setObject:data forKey:key];
+    
+    [defaults synchronize];
+}
+
+- (id)loadDataFromGroupUserDefaultStandardWithKey:(NSString *)key {
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.born2go.lazzybee"];
     id data = [defaults objectForKey:key];
     
     return data;
@@ -408,6 +423,19 @@
     return trashFolder;
 }
 
+/*
+ Return the path to the backup folder
+ */
+-(NSString *)backupFolder {
+    if (backupFolder == nil) {
+        backupFolder = [[self libraryFolder] stringByAppendingPathComponent:@"Backup"];
+        [[NSFileManager defaultManager] createDirectoryAtPath:backupFolder withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    //    NSLog(@"backupFolder: %@", backupFolder);
+    return backupFolder;
+}
+
 - (BOOL) networkIsActive {
     //Attempt to connect to sample host using Reachability
     Reachability* reachability = [Reachability reachabilityWithHostName:@"www.google.com"];
@@ -457,7 +485,7 @@
 //        return YES;
 //    }
 //    return YES;
-    BOOL res = YES;
+/*    BOOL res = YES;
     NSArray *subviews = [[[[UIApplication sharedApplication] valueForKey:@"statusBar"] valueForKey:@"foregroundView"]subviews];
     NSNumber *dataNetworkItemView = nil;
     
@@ -501,7 +529,7 @@
         default:
             break;
     };
-    
+*/    
     return NO;
 }
 

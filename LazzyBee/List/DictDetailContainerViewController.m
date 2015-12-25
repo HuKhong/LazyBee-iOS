@@ -16,6 +16,7 @@
 #import "SVProgressHUD.h"
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
+#import "LocalizeHelper.h"
 
 @interface DictDetailContainerViewController ()
 {
@@ -40,22 +41,32 @@
     GADRequest *request = [GADRequest request];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
+//    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
+    BOOL enableAds = YES;
+//    if (enableAds) {
+    
+        NSString *pub_id = [container stringForKey:@"admob_pub_id"];
+        NSString *dictionary_id = [container stringForKey:@"adv_dictionary_id"];
 
-    if (enableAds) {
-        _adBanner.hidden = NO;
-        NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"admob_pub_id"],[container stringForKey:@"adv_dictionary_id"] ];
+        NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id,dictionary_id ];
         
         self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
         
         self.adBanner.rootViewController = self;
         
         request.testDevices = @[
-                                @"8466af21f9717b97f0ba30fa23e53e1ba94d3422"
+                                @"687f0b503566ebb7d84524c1f15e1d16"
                                 ];
         
         [self.adBanner loadRequest:request];
-        
+    
+    if (pub_id == nil || pub_id.length == 0 ||
+        dictionary_id == nil || dictionary_id.length == 0) {
+        enableAds = NO;
+    }
+    
+    if (enableAds) {
+        _adBanner.hidden = NO;
     } else {
         _adBanner.hidden = YES;
     }
@@ -92,7 +103,7 @@
 
     if (enableAds) {
         rect = self.view.frame;
-        rect.size.height = _adBanner.frame.origin.y;
+        rect.size.height = _adBanner.frame.origin.y - 10;
     } else {
         rect = self.view.frame;
     }
@@ -128,9 +139,9 @@
     UIActionSheet *actionSheet = nil;
     
     if (_showLazzyBeeTab) {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to learn", @"Update", @"Report", nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Add to learn"), LocalizedString(@"Update"), LocalizedString(@"Report"), nil];
     } else {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Update", @"Report", nil];
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Update"), LocalizedString(@"Report"), nil];
 
     }
     
@@ -183,20 +194,14 @@
             [self updateWordFromGAE];
             
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Open facebook to report this word?" delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
-            alert.tag = 1;
-            
-            [alert show];
+            [self openFacebookToReport];
         }
         
     } else if (buttonIndex == 2) {
         
         if (_showLazzyBeeTab) {
             NSLog(@"Report");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Open facebook to report this word?" delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
-            alert.tag = 1;
-            
-            [alert show];
+            [self openFacebookToReport];
             
         } else {
             NSLog(@"Cancel");
@@ -241,7 +246,7 @@
         }];
         
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No connection" message:@"Please double check wifi/3G connection." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
         alert.tag = 2;
         
         [alert show];
@@ -253,15 +258,19 @@
     
     if (alertView.tag == 1) {   //report
         if (buttonIndex != 0) {
-            NSString *postLink = @"fb://profile/1012100435467230";
             
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:postLink]]) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:postLink]];
-                
-            } else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/lazzybees"]];
-            }
         }
+    }
+}
+
+- (void)openFacebookToReport {
+    NSString *postLink = @"fb://profile/1012100435467230";
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:postLink]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:postLink]];
+        
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/lazzybees"]];
     }
 }
 @end

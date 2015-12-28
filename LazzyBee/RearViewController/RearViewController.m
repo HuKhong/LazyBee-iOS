@@ -69,6 +69,11 @@
                                              selector:@selector(hideUpdateAlert)
                                                  name:@"UpdateDatabaseCompleted"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeLanguageHandle)
+                                                 name:@"changeLanguage"
+                                               object:nil];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -140,7 +145,7 @@
             
         } else if (indexPath.row == HomeSection_MajorList) {
             
-            MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+            MajorObject *curMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
             
             if (curMajorObj) {
                 
@@ -372,6 +377,11 @@
 
 - (IBAction)tapOnHeader:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.lazzybee.com"]];
+}
+
+- (void)changeLanguageHandle {
+    [_rearTableView reloadData];
+    
 }
 
 @end

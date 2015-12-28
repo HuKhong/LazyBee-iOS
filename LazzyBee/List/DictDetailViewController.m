@@ -67,13 +67,13 @@
     
     if (_wordObj) {
         if (_dictType == DictVietnam) {
-            htmlString = [[HTMLHelper sharedHTMLHelper] createHTMLDict:_wordObj dictType:@"vn"];
+            htmlString = [[HTMLHelper sharedHTMLHelper] createHTMLDict:_wordObj dictType:@"vi"];
             
         } else if (_dictType == DictEnglish) {
             htmlString = [[HTMLHelper sharedHTMLHelper] createHTMLDict:_wordObj dictType:@"en"];
             
         } else if (_dictType == DictLazzyBee) {
-            MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+            MajorObject *curMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
             
             htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:_wordObj withPackage:curMajorObj];
         }

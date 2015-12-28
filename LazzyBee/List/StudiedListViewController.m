@@ -17,6 +17,7 @@
 #import "MGSwipeTableCell.h"
 #import "MGSwipeButton.h"
 #import "MajorObject.h"
+#import "LocalizeHelper.h"
 
 @interface StudiedListViewController ()
 {
@@ -36,17 +37,17 @@
     if (_screenType == List_Incoming) {
         [TagManagerHelper pushOpenScreenEvent:@"iIncomingScreen"];
         
-        [self setTitle:@"Incoming List"];
+        [self setTitle:LocalizedString(@"Incoming list")];
         
         refreshControl = [[UIRefreshControl alloc] init];
-        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to re-fill"];
+        refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:LocalizedString(@"Pull to re-fill")];
         [refreshControl addTarget:self action:@selector(refreshIncomingTable) forControlEvents:UIControlEventValueChanged];
         [wordsTableView addSubview:refreshControl];
         
     } else if (_screenType == List_StudiedList) {
         [TagManagerHelper pushOpenScreenEvent:@"iLeantScreen"];
         
-        [self setTitle:@"Learnt List"];
+        [self setTitle:LocalizedString(@"Learnt List")];
         
     } else if (_screenType == List_SearchHint) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
@@ -54,7 +55,7 @@
     } else if (_screenType == List_SearchResult) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchResultScreen"];
         
-        [self setTitle:@"Search Result"];
+        [self setTitle:LocalizedString(@"Search Result")];
     }
     
     levelsDictionary = [[NSMutableDictionary alloc] init];
@@ -113,7 +114,7 @@
         if (section < [keyArr count]) {
             NSString *key = [keyArr objectAtIndex:section];
             
-            headerTitle = [NSString stringWithFormat:@"Level %@: %ld word(s)", key, [[levelsDictionary objectForKey:key] count]];
+            headerTitle = [NSString stringWithFormat:@"%@ %@: %u %@(s)", LocalizedString(@"Level"), key, [[levelsDictionary objectForKey:key] count], LocalizedString(@"word")];
         }
         
         return headerTitle;
@@ -204,7 +205,7 @@
     //The meaning of each field is considered as a package
     NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
     
-    MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *curMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
     
     NSString *curMajor = curMajorObj.majorName;
     
@@ -339,7 +340,7 @@
         keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     }
     
-    lbHeaderInfo.text = [NSString stringWithFormat:@"Total: %lu", (unsigned long)[wordList count]];
+    lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
         
     
     [wordsTableView reloadData];
@@ -411,7 +412,7 @@
                     keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
                 }
                 
-                lbHeaderInfo.text = [NSString stringWithFormat:@"Total: %lu", (unsigned long)[wordList count]];
+                lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
                 [wordsTableView reloadData];
                 
                 [SVProgressHUD dismiss];
@@ -422,7 +423,7 @@
             
             if ([wordList count] == 0) {
                 viewNoresult.hidden = NO;
-                lbNoresult.text = [NSString stringWithFormat:@"No result for \"%@\"\nWe will update soon.", _searchText];
+                lbNoresult.text = [NSString stringWithFormat:LocalizedString(@"No result format"), _searchText];
             } else {
                 viewNoresult.hidden = YES;
             }
@@ -453,14 +454,14 @@
 
             MGSwipeButton *btnDone = nil;
 
-            btnDone = [MGSwipeButton buttonWithTitle:@"Done" backgroundColor:BLUE_COLOR padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
+            btnDone = [MGSwipeButton buttonWithTitle:LocalizedString(@"Done") backgroundColor:BLUE_COLOR padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
                 
                 return NO;
             }];
             
             MGSwipeButton *btnIgnore = nil;
             
-            btnIgnore = [MGSwipeButton buttonWithTitle:@"Ignore" backgroundColor:[UIColor lightGrayColor] padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
+            btnIgnore = [MGSwipeButton buttonWithTitle:LocalizedString(@"Ignore") backgroundColor:[UIColor lightGrayColor] padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
                 
                 return NO;
             }];
@@ -503,7 +504,7 @@
             
             [wordList removeObject:wordObj];
             
-            lbHeaderInfo.text = [NSString stringWithFormat:@"Total: %lu", (unsigned long)[wordList count]];
+            lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
             [wordsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
     }
@@ -520,7 +521,7 @@
 }
 
 - (void)prepareWordsToStudyingQueue {
-    MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *curMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
     
     NSString *curMajor = curMajorObj.majorName;
     

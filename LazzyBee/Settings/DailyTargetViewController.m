@@ -8,6 +8,7 @@
 
 #import "DailyTargetViewController.h"
 #import "Common.h"
+#import "LocalizeHelper.h"
 
 #define NEW_WORD_OPTION_MAX 5
 #define TOTAL_OPTION_MAX 5
@@ -41,7 +42,7 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     if (_targetType == NewWordTargetType) {
-        [self setTitle:@"New Words"];
+        [self setTitle:LocalizedString(@"Daily new words")];
         
         NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
         
@@ -50,7 +51,7 @@
         }
         
     } else {
-        [self setTitle:@"Total Words"];
+        [self setTitle:LocalizedString(@"Daily total words")];
         
         NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET];
         
@@ -59,10 +60,10 @@
         }
     }
     
-    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:(id)self  action:@selector(cancelButtonClick)];
+    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Cancel") style:UIBarButtonItemStylePlain target:(id)self  action:@selector(cancelButtonClick)];
     self.navigationItem.leftBarButtonItem = btnCancel;
     
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:(id)self  action:@selector(doneButtonClick)];
+    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Done") style:UIBarButtonItemStylePlain target:(id)self  action:@selector(doneButtonClick)];
     self.navigationItem.rightBarButtonItem = btnDone;
 }
 
@@ -149,36 +150,36 @@
     
     if (_targetType == NewWordTargetType) {
         if (indexPath.row == OPTION_VERY_EASY) {
-            cell.textLabel.text = [NSString stringWithFormat:@"0 words - Relax"];
+            cell.textLabel.text = [NSString stringWithFormat:@"0 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Relax")];
             
         } else if (indexPath.row == OPTION_EASY) {
-            cell.textLabel.text = [NSString stringWithFormat:@"5 words - Easy"];
+            cell.textLabel.text = [NSString stringWithFormat:@"5 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Easy")];
             
         } else if (indexPath.row == OPTION_NORMAL) {
-            cell.textLabel.text = [NSString stringWithFormat:@"10 words - Normal"];
+            cell.textLabel.text = [NSString stringWithFormat:@"10 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Normal")];
             
         } else if (indexPath.row == OPTION_HARD) {
-            cell.textLabel.text = [NSString stringWithFormat:@"15 words - Hard"];
+            cell.textLabel.text = [NSString stringWithFormat:@"15 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Hard")];
             
         } else if (indexPath.row == OPTION_IMPOSSIBLE) {
-            cell.textLabel.text = [NSString stringWithFormat:@"20 words - Impossible"];
+            cell.textLabel.text = [NSString stringWithFormat:@"20 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Impossible")];
         }
         
     } else {
         if (indexPath.row == OPTION_VERY_EASY) {
-            cell.textLabel.text = [NSString stringWithFormat:@"10 words - Very easy"];
+            cell.textLabel.text = [NSString stringWithFormat:@"10 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Very easy")];
             
         } else if (indexPath.row == OPTION_EASY) {
-            cell.textLabel.text = [NSString stringWithFormat:@"20 words - Easy"];
+            cell.textLabel.text = [NSString stringWithFormat:@"20 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Easy")];
             
         } else if (indexPath.row == OPTION_NORMAL) {
-            cell.textLabel.text = [NSString stringWithFormat:@"30 words - Normal"];
+            cell.textLabel.text = [NSString stringWithFormat:@"30 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Normal")];
             
         } else if (indexPath.row == OPTION_HARD) {
-            cell.textLabel.text = [NSString stringWithFormat:@"40 words - Hard"];
+            cell.textLabel.text = [NSString stringWithFormat:@"40 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Hard")];
             
         } else if (indexPath.row == OPTION_IMPOSSIBLE) {
-            cell.textLabel.text = [NSString stringWithFormat:@"50 words - Impossible"];
+            cell.textLabel.text = [NSString stringWithFormat:@"50 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Impossible")];
         }
     }
     

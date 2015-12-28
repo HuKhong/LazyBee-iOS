@@ -16,6 +16,7 @@ typedef enum {
 @interface LevelPickerViewController : UIViewController
 {
     IBOutlet UIPickerView *levelPicker;
+    IBOutlet UIButton *btnDone;
     
 }
 

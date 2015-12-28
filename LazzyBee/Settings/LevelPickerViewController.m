@@ -8,6 +8,7 @@
 
 #import "LevelPickerViewController.h"
 #import "Common.h"
+#import "LocalizeHelper.h"
 
 #define MAX_LEVEL 6
 #define MAX_TIME 11
@@ -21,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [btnDone setTitle:LocalizedString(@"Done") forState:UIControlStateNormal];
     
     if (_pickerType == LevelPicker) {
         NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
@@ -69,11 +71,11 @@
 
 - (IBAction)btnDoneClick:(id)sender {
     if (_pickerType == LevelPicker) {
-        NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
+        NSString *level = [NSString stringWithFormat:@"%d", [levelPicker selectedRowInComponent:0] + 1];
         [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
 
     } else if (_pickerType == WaitingTimePicker) {
-        NSString *time = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0]];
+        NSString *time = [NSString stringWithFormat:@"%ld", (long)[levelPicker selectedRowInComponent:0]];
         [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
     }
     
@@ -105,10 +107,10 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (_pickerType == LevelPicker) {
-        return [NSString stringWithFormat:@"%ld", row + 1];
+        return [NSString stringWithFormat:@"%d", row + 1];
         
     } else if (_pickerType == WaitingTimePicker) {
-        return [NSString stringWithFormat:@"%ld", row];
+        return [NSString stringWithFormat:@"%ld", (long)row];
     }
     
     return @"";

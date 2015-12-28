@@ -86,7 +86,7 @@
 }
 */
 - (void)initialMajorData {
-    MajorObject *currentMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *currentMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
     
     NSString *currentMajor = currentMajorObj.majorName;
     majorsArr = [[NSMutableArray alloc] init];
@@ -145,6 +145,11 @@
     MajorObject *blankObj2 = [[MajorObject alloc] initWithName:@"Coming soon" thumbnail:@"blank.png" andCheckFlag:NO];
     blankObj2.enabled = NO;
     [majorsArr addObject:blankObj2];
+    
+    //blank
+    MajorObject *blankObj3 = [[MajorObject alloc] initWithName:@"Coming soon" thumbnail:@"blank.png" andCheckFlag:NO];
+    blankObj3.enabled = NO;
+    [majorsArr addObject:blankObj3];
 }
 
 - (void)cancelButtonClick {
@@ -156,7 +161,7 @@
     for (MajorObject *majorObj in majorsArr) {
         if (majorObj.checkFlag == YES) {
             found = YES;
-            [[Common sharedCommon] saveDataToUserDefaultStandard:majorObj withKey:KEY_SELECTED_MAJOR];
+            [[Common sharedCommon] savePersonalData:majorObj withKey:KEY_SELECTED_MAJOR];
             break;
         }
     }

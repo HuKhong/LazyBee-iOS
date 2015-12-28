@@ -131,6 +131,8 @@
 		552DC77A1B87292F00770FA1 /* StudiedListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552DC7781B87292F00770FA1 /* StudiedListViewController.xib */; };
 		552DC77E1B872A4F00770FA1 /* StudiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */; };
 		552DC77F1B872A4F00770FA1 /* StudiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */; };
+		552E2B7A1C31151A0074E49D /* ChangeLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E2B771C31151A0074E49D /* ChangeLanguageViewController.m */; };
+		552E2B7B1C31151A0074E49D /* ChangeLanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552E2B791C31151A0074E49D /* ChangeLanguageViewController.xib */; };
 		55308B431BF03A2900FF0457 /* DayStatus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55308B421BF03A2900FF0457 /* DayStatus.xib */; };
 		55308B461BF03A7500FF0457 /* DayStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 55308B451BF03A7500FF0457 /* DayStatus.m */; };
 		55308B4D1BF0423A00FF0457 /* day_ring_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 55308B471BF0423A00FF0457 /* day_ring_gray.png */; };
@@ -527,6 +529,9 @@
 		552DC77B1B872A4F00770FA1 /* StudiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudiedTableViewCell.h; path = List/StudiedTableViewCell.h; sourceTree = "<group>"; };
 		552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StudiedTableViewCell.m; path = List/StudiedTableViewCell.m; sourceTree = "<group>"; };
 		552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StudiedTableViewCell.xib; path = List/StudiedTableViewCell.xib; sourceTree = "<group>"; };
+		552E2B771C31151A0074E49D /* ChangeLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeLanguageViewController.m; sourceTree = "<group>"; };
+		552E2B781C31151A0074E49D /* ChangeLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeLanguageViewController.h; sourceTree = "<group>"; };
+		552E2B791C31151A0074E49D /* ChangeLanguageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeLanguageViewController.xib; sourceTree = "<group>"; };
 		55308B421BF03A2900FF0457 /* DayStatus.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DayStatus.xib; path = StreakStatus/DayStatus.xib; sourceTree = "<group>"; };
 		55308B441BF03A7500FF0457 /* DayStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DayStatus.h; path = StreakStatus/DayStatus.h; sourceTree = "<group>"; };
 		55308B451BF03A7500FF0457 /* DayStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DayStatus.m; path = StreakStatus/DayStatus.m; sourceTree = "<group>"; };
@@ -1379,6 +1384,9 @@
 		552BD5971BA15F7200BF316C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				552E2B771C31151A0074E49D /* ChangeLanguageViewController.m */,
+				552E2B781C31151A0074E49D /* ChangeLanguageViewController.h */,
+				552E2B791C31151A0074E49D /* ChangeLanguageViewController.xib */,
 				552BD5981BA15F7200BF316C /* AboutViewController.h */,
 				552BD5991BA15F7200BF316C /* AboutViewController.m */,
 				552BD59A1BA15F7200BF316C /* AboutViewController.xib */,
@@ -1922,6 +1930,7 @@
 				55308B431BF03A2900FF0457 /* DayStatus.xib in Resources */,
 				55E1063C1BF1DF18008A6BEA /* it.png in Resources */,
 				552BD5A11BA15F7200BF316C /* SettingsViewController.xib in Resources */,
+				552E2B7B1C31151A0074E49D /* ChangeLanguageViewController.xib in Resources */,
 				55F8864C1C0408890022E06D /* ic_holder.png in Resources */,
 				4DD3C3DE1B6F218700B6DA71 /* arrow_white@2x.png in Resources */,
 				551FB8711C03019800C8B18C /* note@2x.png in Resources */,
@@ -2068,6 +2077,7 @@
 				55F7E6741BFB014300EB27A2 /* README.md in Sources */,
 				557288DD1BB25DAA00EA0CE9 /* GTLRuntimeCommon.m in Sources */,
 				55264C6F1C23E70C0059CF55 /* aestab.c in Sources */,
+				552E2B7A1C31151A0074E49D /* ChangeLanguageViewController.m in Sources */,
 				55264C7B1C23E70C0059CF55 /* SSZipArchive.m in Sources */,
 				55264C741C23E70C0059CF55 /* pwd2key.c in Sources */,
 				55E1062E1BF18B14008A6BEA /* MGSwipeButton.m in Sources */,

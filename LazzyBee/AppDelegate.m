@@ -13,6 +13,7 @@
 #import "CommonSqlite.h"
 #import "CommonDefine.h"
 #import "Common.h"
+#import "LocalizeHelper.h"
 
 #import "TAGContainer.h"
 #import "TAGContainerOpener.h"
@@ -155,6 +156,18 @@
 }
 
 - (void)initialConfiguration {
+    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    if (curLang == nil) {
+        LocalizationSetLanguage(@"vi");
+        [[NSUserDefaults standardUserDefaults] setObject:@"vi" forKey:@"CurrentLanguageInApp"];
+    } else {
+        if ([curLang isEqualToString:@"vi"]) {
+            LocalizationSetLanguage(@"vi");
+        } else if ([curLang isEqualToString:@"en"]) {
+            LocalizationSetLanguage(@"en");
+        }
+    }
+    
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     
     if (!speedNumberObj) {

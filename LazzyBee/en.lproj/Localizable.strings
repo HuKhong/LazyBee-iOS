@@ -19,6 +19,7 @@
 "About" = "About";
 "Share" = "Share";
 
+"Help" = "Help";
 
 //Home
 "Lazzy Bee" = "Lazzy Bee";
@@ -54,8 +55,57 @@
 "Update" = "Update";
 "Report" = "Report";
 "No connection" = "No connection";
-"Please double check" = "Please double check wifi/3G connection.";
+"Please double check wifi/3G connection" = "Please double check wifi/3G connection.";
 
 //Search
 "Search Guide" = "Tap \"Search\" to start searching";
+
+//Study screen
+"Learn" = "Learn";
+"New Word" = "New word";
+"Learn Again" = "Learn again";
+"Review" = "Review";
+"Ignore" = "Ignore";
+"Show answer" = "Show answer";
+"New" = "New";
+"Again" = "Again";
+"Hard" = "Hard";
+"Normal" = "Normal";
+"Easy" = "Easy";
+"Update successfully" = "Update successfully";
+"Update failed" = "Update failed";
+"Search" = "Search";
+"Search" = "Search";
+
+//List
+"Pull to re-fill" = "Pull to re-fill";
+"Learnt List" = "Learnt List";
+"Search Result" = "Search Result";
+"word" = "word";
+"Level" = "Level";
+"Total" = "Total";
+"No result format" = "No result for \"%@\"\nWe will update soon.";
+
+//Settings
+"Change language" = "Change language";
+"Language" = "Language";
+"Speaking speed" = "Speaking speed";
+"Target" = "Target";
+"Reminder" = "Reminder";
+"words" = "words";
+"Daily new words" = "Daily new words";
+"Daily total words" = "Daily total words";
+"Waiting time to show answer" = "Waiting time to show answer";
+"Autoplay sound" = "Autoplay sound";
+"Turn on reminder" = "Turn on reminder";
+"Time to remind" = "Time to remind";
+"Update database" = "Update database";
+"Backup database" = "Backup database";
+"Restore database" = "Restore database";
+"Updating" = "Updating...";
+"Database is up-to-date" = "Database is up-to-date";
+
+"Relax" = "Relax";
+"Impossible" = "Impossible";
+"Very easy" = "Very easy";
 

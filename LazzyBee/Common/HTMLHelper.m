@@ -354,7 +354,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "   </body>"
     "</html>\n";
     
-    if ([dictType isEqualToString:@"vn"]) {
+    if ([dictType isEqualToString:@"vi"]) {
         htmlString = [NSString stringWithFormat:htmlString, wordObj.langVN];
         
     } else if ([dictType isEqualToString:@"en"]) {

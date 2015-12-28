@@ -57,11 +57,14 @@ typedef enum {
 - (void)saveDataToUserDefaultStandard:(id)data withKey:(NSString *)key;
 - (id)loadDataFromUserDefaultStandardWithKey:(NSString *)key;
 - (void)clearUserDefaultStandardWithKey:(NSString *)key;
-- (NSInteger)getDailyTarget;
 
 - (void)saveDataToGroupUserDefaultStandard:(id)data withKey:(NSString *)key;
 - (id)loadDataFromGroupUserDefaultStandardWithKey:(NSString *)key;
 
+- (void)savePersonalData:(NSObject *)personObject withKey:(NSString *)key;
+- (NSObject *)loadPersonalDataWithKey:(NSString *)key;
+
+- (NSInteger)getDailyTarget;
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString;
 - (NSString *)getNextDatetimeWithFormat:(NSString *)formatString;
 - (NSString *)dateStringFromDate:(NSDate *)date withFormat:(NSString *)formatString;

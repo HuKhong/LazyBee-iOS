@@ -9,6 +9,7 @@
 #import "AboutViewController.h"
 #import "TagManagerHelper.h"
 #import "Common.h"
+#import "LocalizeHelper.h"
 
 @interface AboutViewController ()
 
@@ -31,7 +32,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"About"];
+    [self setTitle:LocalizedString(@"About")];
     
     [self getAboutFromFile];
     

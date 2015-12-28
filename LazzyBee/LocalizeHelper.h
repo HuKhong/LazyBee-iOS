@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 HuKhong. All rights reserved.
 //
 
-#ifndef CRBT_LanguageHelper_h
-#define CRBT_LanguageHelper_h
+#ifndef LazzyBee_LanguageHelper_h
+#define LazzyBee_LanguageHelper_h
 
 #import <Foundation/Foundation.h>
 

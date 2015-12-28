@@ -22,6 +22,7 @@
 #import "NoteThumbnail.h"
 #import "NoteFullView.h"
 #import "MajorObject.h"
+#import "LocalizeHelper.h"
 
 #define AS_TAG_SEARCH 1
 #define AS_TAG_LEARN 2
@@ -135,13 +136,13 @@
         
         self.navigationItem.rightBarButtonItems = @[actionButton, searchButton];
         
-        NSString *title = @"Learn";
+        NSString *title = LocalizedString(@"Learn");
         if (_studyScreenMode == Mode_New_Word) {
-            title = @"New Word";
+            title = LocalizedString(@"New word");
         } else if (_studyScreenMode == Mode_Study) {
-            title = @"Learn Again";
+            title = LocalizedString(@"Learn again");
         } else if (_studyScreenMode == Mode_Review) {
-            title = @"Review";
+            title = LocalizedString(@"Review");
         }
         
         [self setTitle:title];
@@ -304,21 +305,21 @@
 - (void)setStudyScreenMode:(STUDY_SCREEN_MODE)studyScreenMode {
     _studyScreenMode = studyScreenMode;
     
-    NSString *title = @"Learn";
+    NSString *title = LocalizedString(@"Learn");
     if (_studyScreenMode == Mode_New_Word) {
-        title = @"New Word";
+        title = LocalizedString(@"New word");
         
         btnEasy.enabled = YES;
         btnNorm.enabled = YES;
         
     } else if (_studyScreenMode == Mode_Study) {
-        title = @"Learn Again";
+        title = LocalizedString(@"Learn again");
         
         btnEasy.enabled = NO;
         btnNorm.enabled = NO;
         
     } else if (_studyScreenMode == Mode_Review) {
-        title = @"Review";
+        title = LocalizedString(@"Review");
         
         btnEasy.enabled = YES;
         btnNorm.enabled = YES;
@@ -346,7 +347,7 @@
 
 - (void)showActionsPanel:(id)sender {
     if (_isReviewScreen) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to learn", @"Report", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Add to learn"), LocalizedString(@"Report"), nil];
         
         actionSheet.tag = AS_TAG_SEARCH;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -359,7 +360,7 @@
         
     } else {
 
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore", @"Done", @"Dictionary", @"Update", @"Report", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Ignore"), LocalizedString(@"Done"), LocalizedString(@"Dictionary"), LocalizedString(@"Update"), LocalizedString(@"Report"), nil];
 
 //        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore", @"Done", @"Update", nil];
         
@@ -378,10 +379,13 @@
     //update buttons's title
     NSArray *arrTitle = [[Algorithm sharedAlgorithm] nextIvlStrLst:_wordObj];
     
-    [btnAgain setTitle:[NSString stringWithFormat:@"%@\n(Again)", [arrTitle objectAtIndex:0]] forState:UIControlStateNormal];
-    [btnHard setTitle:[NSString stringWithFormat:@"%@\n(Hard)", [arrTitle objectAtIndex:1]] forState:UIControlStateNormal];
-    [btnNorm setTitle:[NSString stringWithFormat:@"%@\n(Norm)", [arrTitle objectAtIndex:2]] forState:UIControlStateNormal];
-    [btnEasy setTitle:[NSString stringWithFormat:@"%@\n(Easy)", [arrTitle objectAtIndex:3]] forState:UIControlStateNormal];
+    [btnAgain setTitle:[NSString stringWithFormat:@"%@\n(%@)", [arrTitle objectAtIndex:0], LocalizedString(@"Again")] forState:UIControlStateNormal];
+    
+    [btnHard setTitle:[NSString stringWithFormat:@"%@\n(%@)", [arrTitle objectAtIndex:1], LocalizedString(@"Hard")] forState:UIControlStateNormal];
+    
+    [btnNorm setTitle:[NSString stringWithFormat:@"%@\n(%@)", [arrTitle objectAtIndex:2], LocalizedString(@"Normal")] forState:UIControlStateNormal];
+    
+    [btnEasy setTitle:[NSString stringWithFormat:@"%@\n(%@)", [arrTitle objectAtIndex:3], LocalizedString(@"Easy")] forState:UIControlStateNormal];
     
     [UIView animateWithDuration:0.3 animations:^(void) {
         CGRect showAnswerrect = viewShowAnswer.frame;
@@ -418,7 +422,7 @@
     
     if ([time intValue] == 0) {
         btnShowAnswer.enabled = YES;
-        [btnShowAnswer setTitle:@"Show answer" forState:UIControlStateNormal];
+        [btnShowAnswer setTitle:LocalizedString(@"Show answer") forState:UIControlStateNormal];
         
     } else {
         countDown = [time intValue];
@@ -438,7 +442,7 @@
     NSString *htmlString = @"";
     
     if (wordObj) {
-        MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+        MajorObject *curMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
         
         htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:wordObj withPackage:curMajorObj];
     }
@@ -462,7 +466,7 @@
     
     if (countDown == 0) {
         [timer invalidate];
-        [btnShowAnswer setTitle:@"Show answer" forState:UIControlStateNormal];
+        [btnShowAnswer setTitle:LocalizedString(@"Show answer") forState:UIControlStateNormal];
         btnShowAnswer.enabled = YES;
     }
 }
@@ -477,7 +481,7 @@
     NSString *htmlString = @"";
     
     if (wordObj) {
-        MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+        MajorObject *curMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
         
         htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:wordObj withPackage:curMajorObj];
         
@@ -704,9 +708,9 @@
 }
 
 - (void)updateHeaderInfo {
-    lbNewCount.text = [NSString stringWithFormat:@"New: %ld", (unsigned long)[_nwordList count]];
-    lbAgainCount.text = [NSString stringWithFormat:@"Again: %ld", (unsigned long)[_studyAgainList count]];
-    lbReviewCount.text = [NSString stringWithFormat:@"Review: %ld", (unsigned long)[_reviewWordList count]];
+    lbNewCount.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"New"), (unsigned long)[_nwordList count]];
+    lbAgainCount.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"Again"),(unsigned long)[_studyAgainList count]];
+    lbReviewCount.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"Review"),(unsigned long)[_reviewWordList count]];
 }
 
 - (void)updateWordFromGAE {
@@ -739,14 +743,14 @@
                     [self displayAnswer:_wordObj];
                 }
                 
-                [SVProgressHUD showSuccessWithStatus:@"Update successfully"];
+                [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Update successfully")];
             } else {
-                [SVProgressHUD showErrorWithStatus:@"Update failed"];
+                [SVProgressHUD showErrorWithStatus:LocalizedString(@"Update failed")];
             }
         }];
         
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No connection" message:@"Please double check wifi/3G connection." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check wifi/3G connection") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
         alert.tag = 2;
         
         [alert show];
@@ -785,10 +789,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToLearn" object:_wordObj];
             
         } else if (buttonIndex == AS_SEARCH_BTN_REPORT) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Open facebook to report this word?" delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
-            alert.tag = 1;
-            
-            [alert show];
+            [self openFacebookToReport];
             
         } else if (buttonIndex == AS_SEARCH_BTN_CANCEL) {
 
@@ -859,10 +860,7 @@
             
             [self.navigationController presentViewController:nav animated:YES completion:nil];*/
 
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Open facebook to report this word?" delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open", nil];
-            alert.tag = 1;
-            
-            [alert show];
+            [self openFacebookToReport];
             
             
         } else if (buttonIndex == AS_LEARN_BTN_CANCEL) {
@@ -930,7 +928,7 @@
             if (found == NO) {
                 [_nwordList addObject:newWord];
                 
-                lbNewCount.text = [NSString stringWithFormat:@"New: %ld", (unsigned long)[_nwordList count]];
+                lbNewCount.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"New"), (unsigned long)[_nwordList count]];
             }
         }
     }
@@ -954,22 +952,26 @@
     
     if (alertView.tag == 1) {   //report
         if (buttonIndex != 0) {
-            NSString *postLink = @"fb://profile/1012100435467230";//fb_comment_url
-            
-            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            TAGContainer *container = appDelegate.container;
-            postLink = [container stringForKey:@"fb_comment_url"];
-
-            if (postLink == nil || postLink.length == 0) {
-                postLink = @"fb://profile/1012100435467230";
-            }
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:postLink]]) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:postLink]];
-                
-            } else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/lazzybees"]];
-            }
+//            [self openFacebookToReport];
         }
+    }
+}
+
+- (void)openFacebookToReport {
+    NSString *postLink = @"fb://profile/1012100435467230";//fb_comment_url
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+    postLink = [container stringForKey:@"fb_comment_url"];
+    
+    if (postLink == nil || postLink.length == 0) {
+        postLink = @"fb://profile/1012100435467230";
+    }
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:postLink]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:postLink]];
+        
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/lazzybees"]];
     }
 }
 

@@ -9,6 +9,7 @@
 #import "HelpViewController.h"
 #import "CommonDefine.h"
 #import "HTMLHelper.h"
+#import "LocalizeHelper.h"
 
 @interface HelpViewController ()
 
@@ -29,9 +30,9 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"Help"];
+    [self setTitle:LocalizedString(@"Help")];
     
-    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     self.navigationItem.leftBarButtonItem = btnCancel;
     
 //    NSString *path = [[NSBundle mainBundle] bundlePath];

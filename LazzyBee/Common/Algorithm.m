@@ -10,6 +10,7 @@
 #import "UIKit/UIKit.h"
 #import "sqlite3.h"
 #import "Common.h"
+#import "LocalizeHelper.h"
 // Singleton
 static Algorithm* sharedAlgorithm = nil;
 
@@ -79,15 +80,15 @@ static Algorithm* sharedAlgorithm = nil;
     else {
         int day = ivl / SECONDS_PERDAY;
         if (day <= 30)
-            str = [NSString stringWithFormat:@"%d day(s)", (int)round(day)];
+            str = [NSString stringWithFormat:@"%d %@(s)", (int)round(day), LocalizedString(@"day")];
         else {
             float month = (float)day / 30;
-            str = [NSString stringWithFormat:@"%0.1f month(s)", month];
+            str = [NSString stringWithFormat:@"%0.1f %@(s)", month, LocalizedString(@"month")];
             
             if (month > 12) {
                 float year = month / 12;
 
-                str = [NSString stringWithFormat:@"%0.1f year(s)", year];
+                str = [NSString stringWithFormat:@"%0.1f %@(s)", year, LocalizedString(@"year")];
             }
         }
     }

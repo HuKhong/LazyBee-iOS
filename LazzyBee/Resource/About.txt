@@ -1,15 +1,15 @@
 LEARN SMART, NOT LEARN HARD !!!
 
-Lazzy Bee is to help you to enhance your vocabulary with only 5 minutes each day. With improved algorithm SuperMemo 2, learning new words is simplified and optimized but amazing result.
-
-- Words are arranged by popularity, from more popular words to less popular words.
-- Automatically evaluate your vocabulary to propose corresponding words
-- You can learn everywhere, everytime.
-
-/*************************************/
-
 Lazzy Bee giúp bạn xây dựng vốn từ tiếng Anh chỉ với 5 phút mỗi ngày. Với thuật toán SuperMemo 2 đã cải tiến, việc học được đơn giản và tối ưu hóa tới mức tối đa và hiệu quả không ngờ:
 
 - Các từ được sắp xếp theo mức độ phổ dụng. Bạn sẽ được học các từ phổ biến trước, sau đó nâng dần lên các từ ít thông dụng hơn
 - Tự động đánh giá vốn từ vựng của bạn để sắp xếp nội dung tương ứng.
 - Bạn có thể học mọi lúc, mọi nơi, ... dù chỉ với 30s rảnh rỗi.
+
+/*************************************/
+
+Lazzy Bee is to help you to enhance your vocabulary with only 5 minutes each day. With improved algorithm SuperMemo 2, learning new words is simplified and optimized but amazing result.
+
+- Words are arranged by popularity, from more popular words to less popular words.
+- Automatically evaluate your vocabulary to propose corresponding words
+- You can learn everywhere, everytime.

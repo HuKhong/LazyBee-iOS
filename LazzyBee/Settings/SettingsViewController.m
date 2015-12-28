@@ -16,9 +16,11 @@
 #import "TimerViewController.h"
 #import "LevelPickerViewController.h"
 #import "SettingCustomTableViewCell.h"
+#import "ChangeLanguageViewController.h"
 #import "TAGContainer.h"
 #import "SVProgressHUD.h"
 #import "TagManagerHelper.h"
+#import "LocalizeHelper.h"
 
 @interface SettingsViewController ()
 {
@@ -45,11 +47,16 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"Settings"];
+    [self setTitle:LocalizedString(@"Settings")];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateSettingsScreen)
                                                  name:@"updateSettingsScreen"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeLanguageHandle)
+                                                 name:@"changeLanguage"
                                                object:nil];
 }
 
@@ -86,11 +93,10 @@
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
     
-//    if (section == SettingsTableViewSectionAbout) {
-//        return AboutSectionMax;
-//        
-//    } else
-    if (section == SettingsTableViewSectionSpeech) {
+    if (section == SettingsTableViewSectionLanguage) {
+        return LanguageSectionMax;
+        
+    } else if (section == SettingsTableViewSectionSpeech) {
         return SpeechSectionMax;
         
     } else if (section == SettingsTableViewSectionDailyTarget) {
@@ -115,13 +121,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == SettingsTableViewSectionSpeech) {
-        return @"Speaking Speed";
+        return LocalizedString(@"Speaking speed");
         
     } else if (section == SettingsTableViewSectionDailyTarget) {
-        return @"Target";
+        return LocalizedString(@"Target");
         
     } else if (section == SettingsTableViewSectionNotification) {
-        return @"Reminder";
+        return LocalizedString(@"Reminder");
     }
     
     return @"";
@@ -141,23 +147,12 @@
     norCell.textLabel.font = [UIFont systemFontOfSize:16];
     
     switch (indexPath.section) {
-        /*case SettingsTableViewSectionAbout:
+        case SettingsTableViewSectionLanguage:
             {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                }
-                
-                cell.textLabel.textColor = [UIColor blackColor];
-                cell.textLabel.font = [UIFont systemFontOfSize:16];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                cell.textLabel.text = @"About";
-                
-                return cell;
+                norCell.textLabel.text = LocalizedString(@"Change language");
+                return norCell;
             }
-            break;*/
+            break;
         
         case SettingsTableViewSectionSpeech:
             switch (indexPath.row) {
@@ -191,7 +186,7 @@
                         
                         if (targetNumberObj) {
                             norCell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            norCell.textLabel.text = [NSString stringWithFormat:@"Daily new words: %ld words", [targetNumberObj integerValue]];
+                            norCell.textLabel.text = [NSString stringWithFormat:@"%@: %ld %@", LocalizedString(@"Daily new words"), (long)[targetNumberObj integerValue], LocalizedString(@"words")];
                         }
                         
                         return norCell;
@@ -206,7 +201,7 @@
                         
                         if (targetNumberObj) {
                             norCell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            norCell.textLabel.text = [NSString stringWithFormat:@"Daily total words: %ld words", [targetNumberObj integerValue]];
+                            norCell.textLabel.text = [NSString stringWithFormat:@"%@: %ld %@", LocalizedString(@"Daily total words"), (long)[targetNumberObj integerValue], LocalizedString(@"words")];
                         }
                         
                         return norCell;
@@ -221,7 +216,7 @@
                         
                         if (level) {
                             norCell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            norCell.textLabel.text = [NSString stringWithFormat:@"Level: %@", level];
+                            norCell.textLabel.text = [NSString stringWithFormat:@"%@: %@", LocalizedString(@"Level"), level];
                         }
                         
                         return norCell;
@@ -237,12 +232,7 @@
                     if (time) {
                         norCell.textLabel.textAlignment = NSTextAlignmentCenter;
                         
-                        if ([time intValue] == 0) {
-                            norCell.textLabel.text = [NSString stringWithFormat:@"Waiting time to show answer: immediately"];
-                            
-                        } else {
-                            norCell.textLabel.text = [NSString stringWithFormat:@"Waiting time to show answer: %@s", time];
-                        }
+                        norCell.textLabel.text = [NSString stringWithFormat:@"%@: %@s", LocalizedString(@"Waiting time to show answer"), time];
                     }
                     
                     return norCell;
@@ -270,7 +260,7 @@
                 cell.textLabel.font = [UIFont systemFontOfSize:16];
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
-                cell.lbTitle.text = @"Autoplay sound";
+                cell.lbTitle.text = LocalizedString(@"Autoplay sound");
                 
                 NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_AUTOPLAY];
                 
@@ -296,7 +286,7 @@
                     cell.tag = SettingsTableViewSectionNotification;
                     cell.delegate = (id)self;
                     
-                    cell.lbTitle.text = @"Turn on reminder";
+                    cell.lbTitle.text = LocalizedString(@"Turn on reminder");
                     
                     NSNumber *reminderFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMINDER_ONOFF];
                     
@@ -314,7 +304,7 @@
                         
                         if (time) {
                             norCell.textLabel.textAlignment = NSTextAlignmentCenter;
-                            norCell.textLabel.text = [NSString stringWithFormat:@"Time to remind: %@", time];
+                            norCell.textLabel.text = [NSString stringWithFormat:@"%@: %@", LocalizedString(@"Time to remind"), time];
                         }
                         
                         return norCell;
@@ -357,7 +347,7 @@
                                 cell.accessoryType = UITableViewCellAccessoryNone;
                             }
                             
-                            cell.lbTitle.text = @"Update database";
+                            cell.lbTitle.text = LocalizedString(@"Update database");
                             
                             [self displayUpdateAlert:cell];
                             
@@ -375,13 +365,13 @@
             switch (indexPath.row) {
                 case BackUpDatabase:
                 {
-                    norCell.textLabel.text = @"Backup database";
+                    norCell.textLabel.text = LocalizedString(@"Backup database");
                     return norCell;
                 }
                     
                 case RestoreDatabase:
                 {
-                    norCell.textLabel.text = @"Restore database";
+                    norCell.textLabel.text = LocalizedString(@"Restore database");
                     return norCell;
                 }
                 default:
@@ -402,13 +392,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.section) {
-        /*case SettingsTableViewSectionAbout:
+        case SettingsTableViewSectionLanguage:
             {
-                AboutViewController *aboutView = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
+                ChangeLanguageViewController *changeLangView = [[ChangeLanguageViewController alloc] initWithNibName:@"ChangeLanguageViewController" bundle:nil];
                 
-                [self.navigationController pushViewController:aboutView animated:YES];
+                [self.navigationController pushViewController:changeLangView animated:YES];
             }
-            break;*/
+            break;
             
         case SettingsTableViewSectionSpeech:
             switch (indexPath.row) {
@@ -500,7 +490,7 @@
                         [self updateDatabaseFromServer];
                         
                     } else {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No connection" message:@"Please double check wifi/3G connection." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check wifi/3G connection") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
                         alert.tag = 2;
                         
                         [alert show];
@@ -633,7 +623,7 @@
 
     __block NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
 
-    [SVProgressHUD showWithStatus:@"Updating..."];
+    [SVProgressHUD showWithStatus:LocalizedString(@"Updating")];
     dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(taskQ, ^{
         [NSThread sleepForTimeInterval:0.1];
@@ -658,16 +648,16 @@
                 }
                 
                 if (updatedFlag) {
-                    [SVProgressHUD showSuccessWithStatus:@"Update successfully"];
+                    [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Update successfully")];
                     [self hideUpdateAlert];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateDatabaseCompleted" object:nil];
                     
                 } else {
-                    [SVProgressHUD showErrorWithStatus:@"Update failed"];
+                    [SVProgressHUD showErrorWithStatus:LocalizedString(@"Update failed")];
                 }
                 
             } else {
-                [SVProgressHUD showSuccessWithStatus:@"Database is up-to-date"];
+                [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Database is up-to-date")];
             }
         });
     });
@@ -693,5 +683,11 @@
     SettingCustomTableViewCell *cell = [settingsTableView cellForRowAtIndexPath:indexPath];
     
     [cell stopAlertAnimation];
+}
+
+- (void)changeLanguageHandle {
+    [self setTitle:LocalizedString(@"Settings")];
+    [settingsTableView reloadData];
+    
 }
 @end

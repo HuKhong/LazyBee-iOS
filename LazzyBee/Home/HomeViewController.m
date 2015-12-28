@@ -431,7 +431,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 }
 
 - (void)prepareWordsToStudyingQueue {
-    MajorObject *curMajorObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+    MajorObject *curMajorObj = (MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR];
     
     NSString *curMajor = curMajorObj.majorName;
     

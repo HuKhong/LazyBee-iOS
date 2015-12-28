@@ -26,13 +26,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     lbGuide.text = LocalizedString(@"Search Guide");
-    
+
     [searchBarControl becomeFirstResponder];
     
     searchBarControl.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [searchBarControl setShowsCancelButton:YES animated:NO];
+    for (UIView *subView in searchBarControl.subviews){
+        for (UIView *subView2 in subView.subviews){
+            if([subView2 isKindOfClass:[UIButton class]]){
+                [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
+            }
+        }
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didSelectRowFromSearch:)

@@ -5,3 +5,105 @@
   Created by HuKhong on 12/25/15.
   Copyright © 2015 Born2go. All rights reserved.
 */
+
+//Rear
+"Version" = "Phiên bản";
+"Home" = "Trang chủ";
+"Economy" = "Kinh tế";
+"IELTS" = "IELTS";
+"Majors list" = "Danh sách chủ đề";
+"Dictionary" = "Từ điển";
+"Learning progress" = "Quá trình học tập";
+"Settings" = "Thiết lập";
+"Help" = "Trợ giúp";
+"About" = "Giới thiệu";
+"Share" = "Chia sẻ";
+
+"Help" = "Trợ giúp";
+
+//Home
+"Lazzy Bee" = "Lazzy Bee";
+"Start learning" = "Bắt đầu học";
+"Incoming list" = "Danh sách sắp học";
+"More words" = "Thêm từ";
+"Notice" = "Thông báo";
+"Cancel" = "Huỷ";
+"Learn now" = "Học luôn";
+"Need to complete current taret" = "Bạn cần hoàn thành mục tiêu hiện tại trước khi thêm từ mới.";
+"Learnt hard. Relax now" = "Bạn đã học rất chăm chỉ. Bạn nên thư giãn trước khi học thêm.";
+"Congratulation" = "Chúc mừng bạn";
+"OK" = "OK";
+"Oops!" = "Ô!";
+"No more word. Click More Words" = "Bạn đã học hết từ ngày hôm nay. Ấn \"Thêm từ\" nếu bạn thực sự muốn học thêm.";
+
+//Major
+"Close" = "Đóng";
+"Done" = "Xong";
+"Economy" = "Kinh tế";
+"IELTS" = "IELTS";
+"IT" = "IT";
+"Science" = "Khoa học";
+"Medicine" = "Y học";
+"Coming soon" = "Sắp có";
+"Choose a major" = "Chọn một chủ đề bạn muốn tập trung học.";
+
+
+//Dictionary
+"Dictionary" = "Từ điển";
+"Search" = "Tìm kiếm";
+"Add to learn" = "Thêm để học";
+"Update" = "Cập nhật";
+"Report" = "Báo lỗi";
+"No connection" = "Mất kết nối";
+"Please double check wifi/3G connection" = "Vui lòng kiểm tra lại kết nối wifi/3G.";
+
+//Search
+"Search Guide" = "Ấn nút \"Tìm kiếm\" để thực hiện tìm kiếm";
+
+//Study screen
+"Learn" = "Học";
+"New Word" = "Từ mới";
+"Learn Again" = "Học lại";
+"Review" = "Ôn lại";
+"Ignore" = "Bỏ qua";
+"Show answer" = "Hiện trả lời";
+"New" = "Mới";
+"Again" = "Học lại";
+"Hard" = "Khó";
+"Normal" = "Bình thường";
+"Easy" = "Dễ";
+"Update successfully" = "Cập nhật thành công";
+"Update failed" = "Cập nhật lỗi";
+"Search" = "Tìm kiếm";
+
+//List
+"Pull to re-fill" = "Kéo để cập nhật danh sách";
+"Learnt List" = "Danh sách từ đã học";
+"Search Result" = "Kết quả tìm kiếm";
+"word" = "từ";
+"Level" = "Mức độ";
+"Total" = "Tổng số từ";
+"No result format" = "Không tìm thấy kết quả với từ khoá \"%@\"\nChúng tôi sẽ sớm cập nhật.";
+
+//Settings
+"Change language" = "Thay đổi ngôn ngữ hiển thị";
+"Language" = "Ngôn ngữ";
+"Speaking speed" = "Tốc độ đọc";
+"Target" = "Mục tiêu";
+"Reminder" = "Nhắc nhở";
+"words" = "từ";
+"Daily new words" = "Số từ mới mỗi ngày";
+"Daily total words" = "Tổng số từ mỗi ngày";
+"Waiting time to show answer" = "Thời gian chờ để hiện trả lời";
+"Autoplay sound" = "Tự động đọc từ";
+"Turn on reminder" = "Bật nhắc nhở";
+"Time to remind" = "Giờ nhắc nhở";
+"Update database" = "Cập nhật dữ liệu";
+"Backup database" = "Sao lưu dữ liệu";
+"Restore database" = "Khôi phục dữ liệu";
+"Updating" = "Cập nhật...";
+"Database is up-to-date" = "Dữ liệu đã được cập nhật";
+
+"Relax" = "Nghỉ ngơi";
+"Impossible" = "Rất khó";
+"Very easy" = "Rất dễ";

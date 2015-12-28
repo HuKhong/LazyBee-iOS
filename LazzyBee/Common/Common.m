@@ -101,6 +101,7 @@
     return resArr;
 }
 
+#pragma mark user default
 - (void)saveDataToUserDefaultStandard:(id)data withKey:(NSString *)key {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
    
@@ -134,6 +135,23 @@
     [defaults removeObjectForKey:key];
 }
 
+- (void)savePersonalData:(NSObject *)personObject withKey:(NSString *)key {
+
+    NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:personObject];
+    
+    NSUserDefaults *userData = [NSUserDefaults standardUserDefaults];
+    [userData setObject:personEncodedObject forKey:key];
+}
+
+- (NSObject *)loadPersonalDataWithKey:(NSString *)key {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [defaults objectForKey:key];
+    
+    NSObject *res = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    return res;
+}
+
+//
 - (NSInteger)getDailyTarget {
     NSNumber *target  = [self loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
     

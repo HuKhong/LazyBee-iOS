@@ -58,7 +58,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Cyx-GS-o4g">
                             <rect key="frame" x="8" y="47" width="149" height="38"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Incoming List" backgroundImage="button_short.png"/>
                             <connections>
                                 <action selector="btnStudiedListClick:" destination="-1" eventType="touchUpInside" id="kFI-dv-jRg"/>
@@ -67,7 +67,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sLV-yZ-Cel">
                             <rect key="frame" x="163" y="47" width="149" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="More Words" backgroundImage="button_short.png"/>
                             <connections>
                                 <action selector="btnMoreWordClick:" destination="-1" eventType="touchUpInside" id="55I-dy-5Kg"/>

@@ -30,10 +30,10 @@
 "Cancel" = "Huỷ";
 "Learn now" = "Học luôn";
 "Need to complete current taret" = "Bạn cần hoàn thành mục tiêu hiện tại trước khi thêm từ mới.";
-"Learnt hard. Relax now" = "Bạn đã học rất chăm chỉ. Bạn nên thư giãn trước khi học thêm.";
+"Learnt hard. Relax now" = "Bạn đã học rất tốt. Hãy thư giãn trước khi học thêm.";
 "Congratulation" = "Chúc mừng bạn";
 "OK" = "OK";
-"Oops!" = "Ô!";
+"Oops!" = "Hết từ";
 "No more word. Click More Words" = "Bạn đã học hết từ ngày hôm nay. Ấn \"Thêm từ\" nếu bạn thực sự muốn học thêm.";
 
 //Major
@@ -58,11 +58,11 @@
 "Please double check wifi/3G connection" = "Vui lòng kiểm tra lại kết nối wifi/3G.";
 
 //Search
-"Search Guide" = "Ấn nút \"Tìm kiếm\" để thực hiện tìm kiếm";
+"Search Guide" = "Ấn nút \"Tìm\" để thực hiện tìm kiếm";
 
 //Study screen
 "Learn" = "Học";
-"New Word" = "Từ mới";
+"New word" = "Từ mới";
 "Learn Again" = "Học lại";
 "Review" = "Ôn lại";
 "Ignore" = "Bỏ qua";
@@ -70,11 +70,15 @@
 "New" = "Mới";
 "Again" = "Học lại";
 "Hard" = "Khó";
-"Normal" = "Bình thường";
+"Normal" = "Trung bình";
 "Easy" = "Dễ";
 "Update successfully" = "Cập nhật thành công";
 "Update failed" = "Cập nhật lỗi";
 "Search" = "Tìm kiếm";
+"day" = "ngày";
+"month" = "tháng";
+"year" = "năm";
+"10min" = "< 10 phút";
 
 //List
 "Pull to re-fill" = "Kéo để cập nhật danh sách";
@@ -107,3 +111,13 @@
 "Relax" = "Nghỉ ngơi";
 "Impossible" = "Rất khó";
 "Very easy" = "Rất dễ";
+
+//streak and learning progress
+"Daily target completed" = "Hoàn thành mục tiêu";
+"Streack congratulation" = "Chúc mừng bạn!\nBạn đã có %ld ngày hoàn thành mục tiêu.";
+"Continue" = "Continue";
+
+//note
+"User note" = "Ghi chú";
+"Save" = "Lưu";
+"Note here" = "Ghi chú...";

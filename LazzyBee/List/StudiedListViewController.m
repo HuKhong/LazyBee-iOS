@@ -114,7 +114,7 @@
         if (section < [keyArr count]) {
             NSString *key = [keyArr objectAtIndex:section];
             
-            headerTitle = [NSString stringWithFormat:@"%@ %@: %u %@(s)", LocalizedString(@"Level"), key, [[levelsDictionary objectForKey:key] count], LocalizedString(@"word")];
+            headerTitle = [NSString stringWithFormat:@"%@ %@: %lu %@", LocalizedString(@"Level"), key, [[levelsDictionary objectForKey:key] count], LocalizedString(@"word")];
         }
         
         return headerTitle;
@@ -320,6 +320,18 @@
         
         if ([wordList count] == 0) {
             [self searchOnServer];
+        } else {
+            BOOL found = NO;
+            for (WordObject *wordObj in wordList) {
+                if ([wordObj.question isEqualToString:_searchText]) {
+                    found = YES;
+                    break;
+                }
+            }
+            
+            if (found ==  NO) {
+                [self searchOnServer];
+            }
         }
     }
     
@@ -398,6 +410,7 @@
                 [wordList addObject:wordObj];
                 
                 //group by level
+                [levelsDictionary removeAllObjects];
                 for (WordObject *wordObj in wordList) {
                     NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
                     

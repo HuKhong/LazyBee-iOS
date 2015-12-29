@@ -62,7 +62,7 @@
 
 //Study screen
 "Learn" = "Learn";
-"New Word" = "New word";
+"New word" = "New word";
 "Learn Again" = "Learn again";
 "Review" = "Review";
 "Ignore" = "Ignore";
@@ -75,13 +75,16 @@
 "Update successfully" = "Update successfully";
 "Update failed" = "Update failed";
 "Search" = "Search";
-"Search" = "Search";
+"day" = "day(s)";
+"month" = "month(s)";
+"year" = "year(s)";
+"10min" = "< 10min";
 
 //List
 "Pull to re-fill" = "Pull to re-fill";
 "Learnt List" = "Learnt List";
 "Search Result" = "Search Result";
-"word" = "word";
+"word" = "word(s)";
 "Level" = "Level";
 "Total" = "Total";
 "No result format" = "No result for \"%@\"\nWe will update soon.";
@@ -108,4 +111,18 @@
 "Relax" = "Relax";
 "Impossible" = "Impossible";
 "Very easy" = "Very easy";
+
+//streak and learning progress
+"Daily target completed" = "Daily target completed";
+"Streack congratulation" = "Congratulation!\nYou have got %ld day(s) streak.";
+"Continue" = "Continue";
+
+//note
+"User note" = "User note";
+"Save" = "Save";
+"Note here" = "Note here...";
+
+
+
+
 

@@ -76,6 +76,7 @@ typedef enum {
 - (NSTimeInterval)getCurrentDatetimeInSec;
 - (NSTimeInterval)getBeginOfDayInSec;
 - (NSString *)getDayOfWeek:(NSDate *)date;
+- (NSString *)convertDateOfWeekToVN:(NSString *)dateOfWeek;
 
 - (void)trashFileAtPathAndEmpptyTrash:(NSString *)path;
 - (NSString *)trashFileAtPath:(NSString *)path;

@@ -23,6 +23,7 @@
 
     IBOutlet UITextView *txtView;
     IBOutlet UIButton *btnSave;
+    IBOutlet UILabel *lbTitle;
     
     
 }

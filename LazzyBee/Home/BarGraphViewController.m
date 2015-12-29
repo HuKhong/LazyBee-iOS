@@ -13,6 +13,7 @@
 #import "PlaySoundLib.h"
 #import "TagManagerHelper.h"
 #import "SVProgressHUD.h"
+#import "LocalizeHelper.h"
 
 #define NUMBER_OF_DAYS 7
 // This is defined in Math.h
@@ -45,9 +46,10 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"Learning progress"];
+    [self setTitle:LocalizedString(@"Learning progress")];
+    [btnShare setTitle:LocalizedString(@"Share") forState:UIControlStateNormal];
     
-    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
     self.navigationItem.leftBarButtonItem = btnCancel;
     
     // Do any additional setup after loading the view from its nib.
@@ -131,9 +133,9 @@
     
     NSInteger streakCount = [[Common sharedCommon] getCountOfStreak];
     
-    lbStreakCount.text = [NSString stringWithFormat:@"%ld day(s)", (long)streakCount];
+    lbStreakCount.text = [NSString stringWithFormat:@"%ld %@", (long)streakCount, LocalizedString(@"day")];
 
-    lbTotal.text = [NSString stringWithFormat:@"Total: %ld word(s)", (long)[wordList count]];
+    lbTotal.text = [NSString stringWithFormat:@"%@: %ld %@", LocalizedString(@"Total"), (long)[wordList count], LocalizedString(@"word")];
 }
 
 

@@ -357,10 +357,42 @@
 //    NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
 //    [dateFormatter setLocale:currentLocale];
 //    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    NSString *res = @"";
     
-    return [dateFormatter stringFromDate:date];
+    NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    if (curLang == nil) {
+        res = [self convertDateOfWeekToVN:[dateFormatter stringFromDate:date]];
+    } else {
+        if ([curLang isEqualToString:@"vi"]) {
+            res = [self convertDateOfWeekToVN:[dateFormatter stringFromDate:date]];
+        } else if ([curLang isEqualToString:@"en"]) {
+            res = [dateFormatter stringFromDate:date];
+        }
+    }
+    return res;
 }
 
+- (NSString *)convertDateOfWeekToVN:(NSString *)dateOfWeek {
+    NSString *res = dateOfWeek;
+    
+    if ([[res lowercaseString] isEqualToString:@"monday"]) {
+        res = @"T2";
+    } else if ([[res lowercaseString] isEqualToString:@"tuesday"]) {
+        res = @"T3";
+    } else if ([[res lowercaseString] isEqualToString:@"wednesday"]) {
+        res = @"T4";
+    } else if ([[res lowercaseString] isEqualToString:@"thursday"]) {
+        res = @"T5";
+    } else if ([[res lowercaseString] isEqualToString:@"friday"]) {
+        res = @"T6";
+    } else if ([[res lowercaseString] isEqualToString:@"saturday"]) {
+        res = @"T7";
+    } else if ([[res lowercaseString] isEqualToString:@"sunday"]) {
+        res = @"CN";
+    }
+    
+    return res;
+}
 
 //folder
 -(NSString *)applicationSupportFolder {

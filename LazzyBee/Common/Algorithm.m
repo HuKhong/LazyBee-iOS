@@ -75,20 +75,20 @@ static Algorithm* sharedAlgorithm = nil;
     int ivl = [self nextIntervalBySeconds:wordObj withEaseLevel:ease];
     
     if (ivl < SECONDS_PERDAY)
-        str =  @"< 10min";
+        str =  LocalizedString(@"10min");
     
     else {
         int day = ivl / SECONDS_PERDAY;
         if (day <= 30)
-            str = [NSString stringWithFormat:@"%d %@(s)", (int)round(day), LocalizedString(@"day")];
+            str = [NSString stringWithFormat:@"%d %@", (int)round(day), LocalizedString(@"day")];
         else {
             float month = (float)day / 30;
-            str = [NSString stringWithFormat:@"%0.1f %@(s)", month, LocalizedString(@"month")];
+            str = [NSString stringWithFormat:@"%0.1f %@", month, LocalizedString(@"month")];
             
             if (month > 12) {
                 float year = month / 12;
 
-                str = [NSString stringWithFormat:@"%0.1f %@(s)", year, LocalizedString(@"year")];
+                str = [NSString stringWithFormat:@"%0.1f %@", year, LocalizedString(@"year")];
             }
         }
     }

@@ -9,8 +9,9 @@
 #import "NoteFullView.h"
 #import "CommonSqlite.h"
 #import "TagManagerHelper.h"
+#import "LocalizeHelper.h"
 
-#define TEXT_PLACEHOLDER @"Note here..."
+#define TEXT_PLACEHOLDER LocalizedString(@"Note here")
 
 @implementation NoteFullView
 {
@@ -52,6 +53,9 @@
 //}
 
 - (void)setWord:(WordObject *)word {
+    [btnSave setTitle:LocalizedString(@"Save") forState:UIControlStateNormal];
+    lbTitle.text = LocalizedString(@"User note");
+    
     _word = word;
     
     txtView.text = word.userNote;

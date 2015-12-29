@@ -200,4 +200,16 @@
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
+
+- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    self.searchDisplayController.searchBar.showsCancelButton = YES;
+    
+    for (UIView *subView in self.searchDisplayController.searchBar.subviews){
+        for (UIView *subView2 in subView.subviews){
+            if([subView2 isKindOfClass:[UIButton class]]){
+                [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
+            }
+        }
+    }
+}
 @end

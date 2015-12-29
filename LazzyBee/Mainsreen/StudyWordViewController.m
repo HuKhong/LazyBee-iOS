@@ -147,6 +147,10 @@
         
         [self setTitle:title];
         
+        btnAgain.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btnEasy.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btnNorm.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btnHard.titleLabel.textAlignment = NSTextAlignmentCenter;
         
         isShowNote = NO;
         //move buttons panel from the screen

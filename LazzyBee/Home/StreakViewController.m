@@ -11,6 +11,7 @@
 #import "Common.h"
 #import "PlaySoundLib.h"
 #import "TagManagerHelper.h"
+#import "LocalizeHelper.h"
 
 #define NUMBER_OF_DAYS 7
 // This is defined in Math.h
@@ -39,13 +40,13 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"Daily target completed"];
+    [self setTitle:LocalizedString(@"Daily target completed")];
     
     NSInteger streakCount = [[Common sharedCommon] getCountOfStreak];
     
-    lbStreakCount.text = [NSString stringWithFormat:@"%ld day(s)", (long)streakCount];
+    lbStreakCount.text = [NSString stringWithFormat:@"%ld %@", (long)streakCount, LocalizedString(@"day")];
     
-    lbCongratulation.text = [NSString stringWithFormat:@"Congratulation!\nYou have got %ld day(s) streak.", (long)streakCount];
+    lbCongratulation.text = [NSString stringWithFormat:LocalizedString(@"Streack congratulation"), (long)streakCount];
     
     [self displayDaysWithStreakStatus];
 }

@@ -63,4 +63,15 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (request.URL.path && request.URL.path.length > 0) {
+        [[UIApplication sharedApplication] openURL:request.URL];
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+
 @end

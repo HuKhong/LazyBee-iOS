@@ -545,7 +545,8 @@ static char ja_kvoContext;
             if (deltaX > 0.0f) {
                 [self _showLeftPanel:YES bounce:self.bounceOnSidePanelOpen];
             } else {
-                [self _showRightPanel:YES bounce:self.bounceOnSidePanelOpen];
+//                [self _showRightPanel:YES bounce:self.bounceOnSidePanelOpen];
+                [self _showCenterPanel:YES bounce:self.bounceOnSidePanelClose];
             }
             break;
 		}

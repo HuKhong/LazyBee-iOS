@@ -67,7 +67,7 @@
 "Review" = "Ôn lại";
 "Ignore" = "Bỏ qua";
 "Show answer" = "Hiện trả lời";
-"New" = "Mới";
+"New" = "Từ mới";
 "Again" = "Học lại";
 "Hard" = "Khó";
 "Normal" = "Trung bình";
@@ -98,7 +98,7 @@
 "words" = "từ";
 "Daily new words" = "Số từ mới mỗi ngày";
 "Daily total words" = "Tổng số từ mỗi ngày";
-"Waiting time to show answer" = "Thời gian chờ để hiện trả lời";
+"Waiting time to show answer" = "Thời gian chờ hiện trả lời";
 "Autoplay sound" = "Tự động đọc từ";
 "Turn on reminder" = "Bật nhắc nhở";
 "Time to remind" = "Giờ nhắc nhở";
@@ -115,7 +115,7 @@
 //streak and learning progress
 "Daily target completed" = "Hoàn thành mục tiêu";
 "Streack congratulation" = "Chúc mừng bạn!\nBạn đã có %ld ngày hoàn thành mục tiêu.";
-"Continue" = "Continue";
+"Continue" = "Tiếp tục";
 
 //note
 "User note" = "Ghi chú";

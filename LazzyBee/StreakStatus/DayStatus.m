@@ -63,7 +63,12 @@
 
 - (void)setStrDay:(NSString *)strDay {
     _strDay = strDay;
-    lbDay.text = [strDay substringToIndex:3];
+    
+    if (strDay && strDay.length > 3) {
+        lbDay.text = [strDay substringToIndex:3];
+    } else {
+        lbDay.text = strDay;
+    }
 }
 
 - (void)setStreakStatus:(BOOL)streakStatus {

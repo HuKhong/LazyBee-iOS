@@ -1614,7 +1614,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSString *)getDatabasePath {
-    NSString *dbPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [[[Common sharedCommon] dataFolder] stringByAppendingPathComponent:DATABASENAME];
     
 //    [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME]
     if ([[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
@@ -1625,13 +1625,13 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSString *)getNewDatabasePath {
-    NSString *dbPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME_NEW];
+    NSString *dbPath = [[[Common sharedCommon] dataFolder] stringByAppendingPathComponent:DATABASENAME_NEW];
     
     return dbPath;
 }
 
 - (NSString *)getBackupDatabasePath {
-    NSString *dbPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
+    NSString *dbPath = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
     
     return dbPath;
 }
@@ -1849,7 +1849,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 - (NSArray *)fetchDataNeedToBackup {
     NSString *dbPath = [self getDatabasePath];
     
-    NSString *strQuery = @"SELECT queue, due, rev_count, last_ivl, e_factor, question, user_note FROM \"vocabulary\"";
+    NSString *strQuery = @"SELECT queue, due, rev_count, last_ivl, e_factor, gid, user_note FROM 'vocabulary' WHERE queue = 1 OR queue = 2 OR queue = -1 OR queue = -2";
     
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -1894,7 +1894,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         }
 
         if (sqlite3_column_text(dbps, 5)) {
-            wordObj.question = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 5)];
+            wordObj.gid = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 5)];
         }
         
         if (sqlite3_column_text(dbps, 6)) {
@@ -1916,7 +1916,9 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     NSMutableString *strData = [[NSMutableString alloc] init];
     for (WordObject *word in dataArr) {
-        [strData appendFormat:@"%@,%@,%@,%@,%@,%@,%@;\n", word.question, word.queue, word.due,word.revCount, word.lastInterval, word.eFactor, word.userNote];
+        NSString *userNote = [word.userNote stringByReplacingOccurrencesOfString:@"," withString:@"*#*"];
+        
+        [strData appendFormat:@"%@,%@,%@,%@,%@,%@,%@,\n", word.gid, word.queue, word.due,word.revCount, word.lastInterval, word.eFactor, userNote];
     }
     NSError *error = nil;
     [strData writeToFile:path
@@ -1950,7 +1952,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     //read file
     NSString *fileContent = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
     
-    NSArray *rows = [fileContent componentsSeparatedByString:@";"];
+    NSArray *rows = [fileContent componentsSeparatedByString:@",\n"];
     
     //open db
     NSString *dbPath = [self getDatabasePath];
@@ -1973,7 +1975,9 @@ static CommonSqlite* sharedCommonSqlite = nil;
         //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote
         
         if ([values count] == 7) {
-            strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, user_note = \'%@\' where question = \'%@\'", [[values objectAtIndex:1] intValue], [[values objectAtIndex:2] intValue], [[values objectAtIndex:3] intValue], [[values objectAtIndex:4] intValue], [[values objectAtIndex:5] intValue], [values objectAtIndex:6], [values objectAtIndex:0]];
+            NSString *userNote = [[values objectAtIndex:6] stringByReplacingOccurrencesOfString:@"*#*" withString:@","];
+            
+            strQuery = [NSString stringWithFormat:@"UPDATE 'vocabulary' SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, user_note = '%@' where gid = '%@'", [[values objectAtIndex:1] intValue], [[values objectAtIndex:2] intValue], [[values objectAtIndex:3] intValue], [[values objectAtIndex:4] intValue], [[values objectAtIndex:5] intValue], userNote, [values objectAtIndex:0]];
             
             charQuery = [strQuery UTF8String];
             
@@ -1984,9 +1988,31 @@ static CommonSqlite* sharedCommonSqlite = nil;
             }
             
             sqlite3_finalize(dbps);
+            
+            //for test
+//            strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = %@", [values objectAtIndex:0]];
+//            charQuery = [strQuery UTF8String];
+//            NSInteger count = 0;
+//            
+//            sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+//            
+//            if(SQLITE_DONE != sqlite3_step(dbps)) {
+//                if (sqlite3_column_int(dbps, 0)) {
+//                    count = sqlite3_column_int(dbps, 0);
+//                }
+//            }
+//            sqlite3_finalize(dbps);
+//            
+//            if (count == 0) {
+//                NSLog(@"Error while updating. %@", values);
+//            }
+            
         }
     }
     
     sqlite3_close(db);
+    
+    //remove file after restore
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:path];
 }
 @end

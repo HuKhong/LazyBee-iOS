@@ -36,6 +36,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *trashFolder;
 @property (nonatomic, strong) NSString *backupFolder;
 @property (nonatomic, strong) NSString *restoreFolder;
+@property (nonatomic, strong) NSString *dataFolder;
 
 @property (nonatomic, assign) BOOL isBuffeAcc;
 
@@ -48,6 +49,7 @@ typedef enum {
 - (NSString *)trashFolder;
 - (NSString *)backupFolder;
 - (NSString *)restoreFolder;
+- (NSString *)dataFolder;
 
 + (Common *)sharedCommon;
 

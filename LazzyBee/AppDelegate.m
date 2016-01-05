@@ -140,17 +140,29 @@
 
 
 - (void)copyDatabaseIntoDocumentsDirectory {
-    NSString *destinationPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME];
+    NSString *oldPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME];
+    NSString *destinationPath = [[[Common sharedCommon] dataFolder] stringByAppendingPathComponent:DATABASENAME];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]) {
     
-        NSString *sourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
-
+        //if user had installed previous version, need to move db to new location
+        //else copy from main bundle
         NSError *error;
-        [[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:oldPath]) {
+            [[NSFileManager defaultManager] moveItemAtPath:oldPath toPath:destinationPath error:&error];
+            
+            if (error != nil) {
+                NSLog(@"%@", [error localizedDescription]);
+            }
+            
+        } else {
+            NSString *sourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
 
-        if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            [[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+
+            if (error != nil) {
+                NSLog(@"%@", [error localizedDescription]);
+            }
         }
     }
 }

@@ -30,7 +30,7 @@
 
 #define DATABASENAME @"english.db"
 #define DATABASENAME_NEW @"new_english.db"
-#define DATABASENAME_BACKUP @"backup.txt"
+#define DATABASENAME_BACKUP @"backup.csv"
 #define DATABASENAME_BACKUPZIP @"backup.zip"
 
 #define BUFFER_SIZE 100

@@ -14,7 +14,7 @@
 @import MessageUI;
 
 @implementation Common
-@synthesize downloadFolder, documentsFolder, libraryFolder, tmpFolder, privateDocumentsFolder, trashFolder, backupFolder, restoreFolder;
+@synthesize downloadFolder, documentsFolder, libraryFolder, tmpFolder, privateDocumentsFolder, trashFolder, backupFolder, restoreFolder, dataFolder;
 
 - (id)init {
     self = [super init];
@@ -494,6 +494,16 @@
     
     //    NSLog(@"restoreFolder: %@", restoreFolder);
     return restoreFolder;
+}
+
+-(NSString *)dataFolder {
+    if (dataFolder == nil) {
+        dataFolder = [[self libraryFolder] stringByAppendingPathComponent:@"Data"];
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataFolder withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    //    NSLog(@"dataFolder: %@", dataFolder);
+    return dataFolder;
 }
 
 - (BOOL) networkIsActive {

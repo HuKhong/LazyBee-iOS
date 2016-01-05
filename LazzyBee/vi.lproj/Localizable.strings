@@ -27,14 +27,16 @@
 "Incoming list" = "Danh sách sắp học";
 "More words" = "Thêm từ";
 "Notice" = "Thông báo";
+"Later" = "Để sau";
 "Cancel" = "Huỷ";
 "Learn now" = "Học luôn";
-"Need to complete current taret" = "Bạn cần hoàn thành mục tiêu hiện tại trước khi thêm từ mới.";
+"Need to complete current taret" = "Bạn vẫn còn một số từ cần ôn lại. Hãy hoàn thành trước khi thêm từ mới.";
 "Learnt hard. Relax now" = "Bạn đã học rất tốt. Hãy thư giãn trước khi học thêm.";
 "Congratulation" = "Chúc mừng bạn";
 "OK" = "OK";
 "Oops!" = "Hết từ";
 "No more word. Click More Words" = "Bạn đã học hết từ ngày hôm nay. Ấn \"Thêm từ\" nếu bạn thực sự muốn học thêm.";
+"Still have some words need to review" = "Bạn vẫn còn một số từ cần phải ôn lại ngày hôm nay.";
 
 //Major
 "Close" = "Đóng";
@@ -54,7 +56,7 @@
 "Add to learn" = "Thêm để học";
 "Update" = "Cập nhật";
 "Report" = "Báo lỗi";
-"No connection" = "Mất kết nối";
+"No connection" = "Lỗi kết nối";
 "Please double check wifi/3G connection" = "Vui lòng kiểm tra lại kết nối wifi/3G.";
 
 //Search
@@ -63,7 +65,7 @@
 //Study screen
 "Learn" = "Học";
 "New word" = "Từ mới";
-"Learn Again" = "Học lại";
+"Learn again" = "Học lại";
 "Review" = "Ôn lại";
 "Ignore" = "Bỏ qua";
 "Show answer" = "Hiện trả lời";

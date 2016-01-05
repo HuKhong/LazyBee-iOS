@@ -47,6 +47,7 @@
 - (NSTimeInterval)getDateInBuffer;
 
 - (void)backupData;
+- (void)restoreData;
 @end
 
 #endif

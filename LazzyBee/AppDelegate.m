@@ -213,7 +213,7 @@
     NSNumber *totalWordObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET];
     
     if (!totalWordObj) {
-        totalWordObj = [NSNumber numberWithInteger:30];
+        totalWordObj = [NSNumber numberWithInteger:40];
         [[Common sharedCommon] saveDataToUserDefaultStandard:totalWordObj withKey:KEY_DAILY_TOTAL_TARGET];
     }
     
@@ -247,8 +247,9 @@
         notificationFlag = [reminderNumberObj boolValue];
     }
 
+    NSArray *reviewList = [[CommonSqlite sharedCommonSqlite] getReviewList];
     NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfPickedWord];    
-    count = count + [[CommonSqlite sharedCommonSqlite] getCountOfInreview];
+    count = count + [reviewList count];
     count = count + [[CommonSqlite sharedCommonSqlite] getCountOfStudyAgain];
     
     if (notificationFlag) {

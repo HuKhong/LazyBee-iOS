@@ -14,7 +14,7 @@
 @import MessageUI;
 
 @implementation Common
-@synthesize downloadFolder, documentsFolder, libraryFolder, tmpFolder, privateDocumentsFolder, trashFolder, backupFolder;
+@synthesize downloadFolder, documentsFolder, libraryFolder, tmpFolder, privateDocumentsFolder, trashFolder, backupFolder, restoreFolder;
 
 - (id)init {
     self = [super init];
@@ -484,6 +484,16 @@
     
     //    NSLog(@"backupFolder: %@", backupFolder);
     return backupFolder;
+}
+
+-(NSString *)restoreFolder {
+    if (restoreFolder == nil) {
+        restoreFolder = [[self libraryFolder] stringByAppendingPathComponent:@"Restore"];
+        [[NSFileManager defaultManager] createDirectoryAtPath:restoreFolder withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    //    NSLog(@"restoreFolder: %@", restoreFolder);
+    return restoreFolder;
 }
 
 - (BOOL) networkIsActive {

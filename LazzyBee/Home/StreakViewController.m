@@ -41,6 +41,7 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     [self setTitle:LocalizedString(@"Daily target completed")];
+    [btnContinue setTitle:LocalizedString(@"Continue") forState:UIControlStateNormal];
     
     NSInteger streakCount = [[Common sharedCommon] getCountOfStreak];
     
@@ -172,5 +173,7 @@
 
 - (IBAction)btnContinueClick:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToCheckReviewList" object:nil];
 }
 @end

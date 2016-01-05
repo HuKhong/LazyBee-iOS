@@ -61,7 +61,8 @@
         [self.adBanner loadRequest:request];
     
     if (pub_id == nil || pub_id.length == 0 ||
-        dictionary_id == nil || dictionary_id.length == 0) {
+        dictionary_id == nil || dictionary_id.length == 0 ||
+        ![[Common sharedCommon] networkIsActive]) {
         enableAds = NO;
     }
     

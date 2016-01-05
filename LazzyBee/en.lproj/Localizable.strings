@@ -27,14 +27,16 @@
 "Incoming list" = "Incoming list";
 "More words" = "More words";
 "Notice" = "Notice";
+"Later" = "Later";
 "Cancel" = "Cancel";
 "Learn now" = "Learn now";
-"Need to complete current taret" = "You need to complete your current target before adding more words.";
+"Need to complete current taret" = "You still have a few words need to review. Complete them before adding more words.";
 "Learnt hard. Relax now" = "You have learnt very hard. Now is the time to relax.";
 "Congratulation" = "Congratulation";
 "OK" = "OK";
 "Oops!" = "Oops!";
 "No more word. Click More Words" = "There is no more word to learn today. Click \"More Words\" if you really want to learn more.";
+"Still have some words need to review" = "You still have a few words need to review today.";
 
 //Major
 "Close" = "Close";
@@ -63,7 +65,7 @@
 //Study screen
 "Learn" = "Learn";
 "New word" = "New word";
-"Learn Again" = "Learn again";
+"Learn again" = "Learn again";
 "Review" = "Review";
 "Ignore" = "Ignore";
 "Show answer" = "Show answer";

@@ -508,10 +508,10 @@
                 {
                     [[CommonSqlite sharedCommonSqlite] backupData];
                 }
-                    
+                    break;
                 case RestoreDatabase:
                 {
-                    
+                    [[CommonSqlite sharedCommonSqlite] restoreData];
                 }
                 default:
                     break;

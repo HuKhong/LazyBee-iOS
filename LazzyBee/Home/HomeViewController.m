@@ -89,6 +89,11 @@
                                                  name:@"ChangeMajor"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(needToCheckReviewList)
+                                                 name:@"NeedToCheckReviewList"
+                                               object:nil];
+    
     NSNumber *isFirstRunObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:IS_FIRST_RUN];
     
     if (isFirstRunObj == nil || [isFirstRunObj boolValue] == YES) {
@@ -311,6 +316,22 @@
             
             [self.navigationController pushViewController:studyViewController animated:YES];
         }
+        
+    } else if (alertView.tag == 4) {   //still have a few words need to review
+        if (buttonIndex != 0) {
+            //transfer to study screen
+            StudyWordViewController *studyViewController = nil;
+            
+            if (IS_IPAD) {
+                studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController_iPad" bundle:nil];
+            } else {
+                studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+            }
+            
+            studyViewController.isReviewScreen = NO;
+            
+            [self.navigationController pushViewController:studyViewController animated:YES];
+        }
     }
 }
 
@@ -345,18 +366,29 @@
         
     } else {
         
-        NSTimeInterval oldDate = [[CommonSqlite sharedCommonSqlite] getDateInBuffer];
-        NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];
-        
-        if (curDate == oldDate) {
-            alertContent = LocalizedString(@"Learnt hard. Relax now");
+//        NSArray *reviewList = [[CommonSqlite sharedCommonSqlite] getReviewList];
+//        
+//        if ([reviewList count] > 0) {
+//            NSString *alertContent = LocalizedString(@"Still have some words need to review");
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Notice") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"Later") otherButtonTitles:LocalizedString(@"Learn now"), nil];
+//            alert.tag = 4;
+//            
+//            [alert show];
+//            
+//        } else {
+            NSTimeInterval oldDate = [[CommonSqlite sharedCommonSqlite] getDateInBuffer];
+            NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];
             
-            //show alert to congrat
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
-            alert.tag = 2;
-            
-            [alert show];
-        }
+            if (curDate == oldDate) {
+                alertContent = LocalizedString(@"Learnt hard. Relax now");
+                
+                //show alert to congrat
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+                alert.tag = 2;
+                
+                [alert show];
+            }
+//        }
     }
 }
 
@@ -441,5 +473,17 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
         curMajor = [curMajor lowercaseString];
     }
     [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE inPackage:curMajor];
+}
+
+- (void)needToCheckReviewList {
+    NSArray *reviewList = [[CommonSqlite sharedCommonSqlite] getReviewList];
+    
+    if ([reviewList count] > 0) {
+        NSString *alertContent = LocalizedString(@"Still have some words need to review");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Notice") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"Later") otherButtonTitles:LocalizedString(@"Learn now"), nil];
+        alert.tag = 4;
+        
+        [alert show];
+    }
 }
 @end

@@ -1925,13 +1925,68 @@ static CommonSqlite* sharedCommonSqlite = nil;
                    error:&error];
     NSLog(@"%@", error.description);
     
-    NSString *pathZip = [[[Common sharedCommon] privateDocumentsFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
     [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathZip];
-    [SSZipArchive createZipFileAtPath: pathZip withContentsOfDirectory: [path stringByDeletingLastPathComponent]];
+    [SSZipArchive createZipFileAtPath: pathZip withFilesAtPaths:[NSArray arrayWithObject:path]];
 }
 
 - (void)backupData {
     NSArray *data = [self fetchDataNeedToBackup];
     [self writeDataToFile:data];
+}
+
+- (void)restoreData {
+    //download restored file
+    
+    //unzip
+    NSString *pathZip = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSString *path = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
+    //remove old file before unzipping for sure
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:path];
+    
+    [SSZipArchive unzipFileAtPath:pathZip toDestination:[path stringByDeletingLastPathComponent]];
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathZip];
+    
+    //read file
+    NSString *fileContent = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+    
+    NSArray *rows = [fileContent componentsSeparatedByString:@";"];
+    
+    //open db
+    NSString *dbPath = [self getDatabasePath];
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return;
+    }
+    sqlite3_stmt *dbps;
+    
+    NSString *strQuery = @"";
+    const char *charQuery = nil;
+    for (NSString *row in rows) {
+        NSArray *values = [row componentsSeparatedByString:@","];
+        //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote
+        
+        if ([values count] == 7) {
+            strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, user_note = \'%@\' where question = \'%@\'", [[values objectAtIndex:1] intValue], [[values objectAtIndex:2] intValue], [[values objectAtIndex:3] intValue], [[values objectAtIndex:4] intValue], [[values objectAtIndex:5] intValue], [values objectAtIndex:6], [values objectAtIndex:0]];
+            
+            charQuery = [strQuery UTF8String];
+            
+            sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+            
+            if(SQLITE_DONE != sqlite3_step(dbps)) {
+                NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+            }
+            
+            sqlite3_finalize(dbps);
+        }
+    }
+    
+    sqlite3_close(db);
 }
 @end

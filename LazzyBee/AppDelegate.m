@@ -140,6 +140,12 @@
 
 
 - (void)copyDatabaseIntoDocumentsDirectory {
+    NSString *tmpDataPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME_NEW];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:tmpDataPath]) {
+        [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:tmpDataPath];
+    }
+    
     NSString *oldPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME];
     NSString *destinationPath = [[[Common sharedCommon] dataFolder] stringByAppendingPathComponent:DATABASENAME];
     

@@ -507,6 +507,8 @@
                 case BackUpDatabase:
                 {
                     [[CommonSqlite sharedCommonSqlite] backupData];
+                    
+                    [self uploadDatabaseToServer];
                 }
                     break;
                 case RestoreDatabase:
@@ -689,5 +691,133 @@
     [self setTitle:LocalizedString(@"Settings")];
     [settingsTableView reloadData];
     
+}
+
+
+#pragma mark post
+- (void)uploadDatabaseToServer{
+    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:pathZip]) {
+        [self sendRequestToGetPostLink];
+    }
+    
+}
+
+- (void)sendRequestToGetPostLink {
+    [SVProgressHUD showWithStatus:LocalizedString(@"Back up...")];
+    
+    NSString *reqest = @"https://lazeebee-977.appspot.com/_ah/api/dataServiceApi/v1.1/uploadtarget";
+    
+    //for test
+    NSURL *url = [NSURL URLWithString:reqest];
+    NSURLRequest *urlReq = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlReq queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         dispatch_sync(dispatch_get_main_queue(), ^{
+             if (error == nil && data != nil) {
+                 [self didReceivePostLink:data];
+                 
+             } else {
+                 
+             }
+         });
+     }];
+    
+    
+}
+
+- (void)didReceivePostLink:(NSData *)data {
+    NSDictionary* postJson = [NSJSONSerialization
+                              JSONObjectWithData:data
+                              options:0
+                              error:nil];
+    
+    if (postJson == nil) {
+        return;
+    }
+    
+    NSString *postLink = [postJson valueForKey:@"url"];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:postLink]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    // Specify that it will be a POST request
+    [request setHTTPMethod:@"POST"];
+    //—————————
+    //    NSString *boundary = @"---------------------------14737809831466499882746641449";
+    NSString *boundary = @"born2go14737809831466499882746641449";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    /* adding content as a body to post */
+    
+    NSMutableData *body = [NSMutableData data];
+    
+    //data files
+    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSData *dataZip = [NSData dataWithContentsOfFile:pathZip];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", DATABASENAME_BACKUPZIP]] dataUsingEncoding:NSUTF8StringEncoding]];
+    //[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", view.txtCaption.text]
+    
+    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[NSData dataWithData:dataZip]];
+    
+    //finish
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request setHTTPBody:body];
+    
+    //    NSString* test = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+    //    NSLog(@"test ::: %@", test);
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         dispatch_sync(dispatch_get_main_queue(), ^{
+             [SVProgressHUD dismiss];
+             if (error == nil && data != nil) {
+                 [self didPostingResponse:data];
+                 
+             } else {
+                 //                 [[CommonAlert sharedCommonAlert] showServerCommonErrorAlert];
+             }
+         });
+     }];
+}
+
+- (void)didPostingResponse:(NSData *)data {
+    NSString *status = @"ok";
+    NSString *err_msg = @"no error";
+    
+    NSString* test = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"test ::: %@", test);
+    
+    NSError *error;
+    NSDictionary *jsonObj = nil;
+    if (data) {
+        jsonObj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        
+        if (error == nil && [jsonObj count] > 0) {
+            status = [jsonObj objectForKey:@"status"];
+            err_msg = [jsonObj objectForKey:@"err_msg"];
+            if (status && err_msg) {
+                if ([[status lowercaseString] isEqualToString:@"ok"]) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTrip" object:nil];
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:err_msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    alert.tag = 1;
+                    
+                    [alert show];
+                }
+            }
+        }
+    }
 }
 @end

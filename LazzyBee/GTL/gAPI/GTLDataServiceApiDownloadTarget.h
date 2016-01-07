@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLDataServiceApiVocaCollection.h
+//  GTLDataServiceApiDownloadTarget.h
 //
 
 // ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 // Description:
 //   This is an API
 // Classes:
-//   GTLDataServiceApiVocaCollection (0 custom class methods, 1 custom properties)
+//   GTLDataServiceApiDownloadTarget (0 custom class methods, 1 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -21,16 +21,11 @@
   #import "GTLObject.h"
 #endif
 
-@class GTLDataServiceApiVoca;
-
 // ----------------------------------------------------------------------------
 //
-//   GTLDataServiceApiVocaCollection
+//   GTLDataServiceApiDownloadTarget
 //
 
-// This class supports NSFastEnumeration over its "items" property. It also
-// supports -itemAtIndex: to retrieve individual objects from "items".
-
-@interface GTLDataServiceApiVocaCollection : GTLCollectionObject
-@property (nonatomic, retain) NSArray *items;  // of GTLDataServiceApiVoca
+@interface GTLDataServiceApiDownloadTarget : GTLObject
+@property (nonatomic, copy) NSString *url;
 @end

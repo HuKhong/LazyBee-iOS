@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLDataServiceApiConstants.h
+//  GTLDataServiceApiUploadTarget.h
 //
 
 // ----------------------------------------------------------------------------
@@ -12,15 +12,20 @@
 //   LazzyBee Backend Api (dataServiceApi/v1.1)
 // Description:
 //   This is an API
-
-#import <Foundation/Foundation.h>
+// Classes:
+//   GTLDataServiceApiUploadTarget (0 custom class methods, 1 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
-  #import "GTL/GTLDefines.h"
+  #import "GTL/GTLObject.h"
 #else
-  #import "GTLDefines.h"
+  #import "GTLObject.h"
 #endif
 
-// Authorization scope
-// View your email address
-GTL_EXTERN NSString * const kGTLAuthScopeDataServiceApiUserinfoEmail;  // "https://www.googleapis.com/auth/userinfo.email"
+// ----------------------------------------------------------------------------
+//
+//   GTLDataServiceApiUploadTarget
+//
+
+@interface GTLDataServiceApiUploadTarget : GTLObject
+@property (nonatomic, copy) NSString *url;
+@end

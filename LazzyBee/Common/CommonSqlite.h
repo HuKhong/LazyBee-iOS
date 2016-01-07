@@ -47,7 +47,8 @@
 - (NSTimeInterval)getDateInBuffer;
 
 - (void)backupData;
-- (void)restoreData;
+- (BOOL)restoreData;
+- (NSString *)getBackupDatabasePath;
 @end
 
 #endif

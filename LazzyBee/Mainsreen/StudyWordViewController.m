@@ -16,6 +16,8 @@
 #import "CommonDefine.h"
 #import "Algorithm.h"
 #import "Common.h"
+#import "GTMHTTPFetcher.h"
+#import "GTLDataServiceApi.h"
 #import "TagManagerHelper.h"
 #import "SVProgressHUD.h"
 #import "DictDetailContainerViewController.h"

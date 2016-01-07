@@ -18,6 +18,8 @@
 #import "MGSwipeButton.h"
 #import "MajorObject.h"
 #import "LocalizeHelper.h"
+#import "GTMHTTPFetcher.h"
+#import "GTLDataServiceApi.h"
 
 @interface StudiedListViewController ()
 {

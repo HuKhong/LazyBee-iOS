@@ -21,6 +21,10 @@
 #import "SVProgressHUD.h"
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
+#import "GTMHTTPFetcher.h"
+#import "GTLDataServiceApi.h"
+
+#define BACKUP_CODE_LENGTH 6
 
 @interface SettingsViewController ()
 {
@@ -490,10 +494,7 @@
                         [self updateDatabaseFromServer];
                         
                     } else {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check wifi/3G connection") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
-                        alert.tag = 2;
-                        
-                        [alert show];
+                        [self noConnectionAlert];
                     }
                 }
                     break;
@@ -506,14 +507,26 @@
             switch (indexPath.row) {
                 case BackUpDatabase:
                 {
-                    [[CommonSqlite sharedCommonSqlite] backupData];
-                    
-                    [self uploadDatabaseToServer];
+                    if ([[Common sharedCommon] networkIsActive]) {
+                        [[CommonSqlite sharedCommonSqlite] backupData];
+                        
+                        [self uploadDatabaseToServer];
+                        
+                    } else {
+                        [self noConnectionAlert];
+                    }
                 }
                     break;
+                    
                 case RestoreDatabase:
                 {
-                    [[CommonSqlite sharedCommonSqlite] restoreData];
+                    if ([[Common sharedCommon] networkIsActive]) {
+                        //input code to download restored file
+                        [self inputCodeToDownloadAlert];
+                        
+                    } else {
+                        [self noConnectionAlert];
+                    }
                 }
                 default:
                     break;
@@ -555,11 +568,23 @@
     }
 }
 
-
+#pragma mark alert delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if (alertView.tag == 1) {
         if (buttonIndex != 0) {
+        }
+        
+    } else if (alertView.tag == 7) {    //input code
+        if (buttonIndex != 0) {
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            
+            [self downloadFileFromServerWithCode:textField.text];
+        }
+        
+    } else if (alertView.tag == 8) {    //wrong code
+        if (buttonIndex != 0) {
+            [self inputCodeToDownloadAlert];
         }
         
     }
@@ -694,7 +719,7 @@
 }
 
 
-#pragma mark post
+#pragma mark backup and restore
 - (void)uploadDatabaseToServer{
     NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
     
@@ -705,43 +730,30 @@
 }
 
 - (void)sendRequestToGetPostLink {
-    [SVProgressHUD showWithStatus:LocalizedString(@"Back up...")];
+    [SVProgressHUD showWithStatus:LocalizedString(@"Backing up...")];
+
+    static GTLServiceDataServiceApi *service = nil;
+    if (!service) {
+        service = [[GTLServiceDataServiceApi alloc] init];
+        service.retryEnabled = YES;
+        //[GTMHTTPFetcher setLoggingEnabled:YES];
+    }
     
-    NSString *reqest = @"https://lazeebee-977.appspot.com/_ah/api/dataServiceApi/v1.1/uploadtarget";
-    
-    //for test
-    NSURL *url = [NSURL URLWithString:reqest];
-    NSURLRequest *urlReq = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
-    
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection sendAsynchronousRequest:urlReq queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
-         dispatch_sync(dispatch_get_main_queue(), ^{
-             if (error == nil && data != nil) {
-                 [self didReceivePostLink:data];
-                 
-             } else {
-                 
-             }
-         });
-     }];
-    
+    [SVProgressHUD show];
+    GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetUploadUrl];
+    //TODO: Add waiting progress here
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiUploadTarget *object, NSError *error) {
+        if (object != NULL){
+            [self didReceivePostLink:object.url];
+            
+        } else {
+            [self failedToConnectToServerAlert];
+        }
+    }];
     
 }
 
-- (void)didReceivePostLink:(NSData *)data {
-    NSDictionary* postJson = [NSJSONSerialization
-                              JSONObjectWithData:data
-                              options:0
-                              error:nil];
-    
-    if (postJson == nil) {
-        return;
-    }
-    
-    NSString *postLink = [postJson valueForKey:@"url"];
-    
+- (void)didReceivePostLink:(NSString *)postLink {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:postLink]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
@@ -768,6 +780,16 @@
     [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[NSData dataWithData:dataZip]];
     
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[@"Content-Type: text/plain\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition:form-data; name=\"device_id\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    [body appendData:[[NSString stringWithFormat:@"%@", uniqueIdentifier] dataUsingEncoding:NSUTF8StringEncoding]];
+    
     //finish
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -785,39 +807,146 @@
                  [self didPostingResponse:data];
                  
              } else {
-                 //                 [[CommonAlert sharedCommonAlert] showServerCommonErrorAlert];
+                 [self failedToConnectToServerAlert];
              }
          });
      }];
 }
 
 - (void)didPostingResponse:(NSData *)data {
-    NSString *status = @"ok";
-    NSString *err_msg = @"no error";
+//    NSString *status = @"ok";
+//    NSString *err_msg = @"no error";
+//    
+//    NSString* test = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//    NSLog(@"test ::: %@", test);
+//    
+//    NSError *error;
+//    NSDictionary *jsonObj = nil;
+//    if (data) {
+//        jsonObj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+//        
+//        if (error == nil && [jsonObj count] > 0) {
+//            
+//        }
+//    }
+    [self backupSuccessfullyAlert];
+}
+
+//restore
+- (void)downloadFileFromServerWithCode:(NSString *)code {
+    [SVProgressHUD showWithStatus:LocalizedString(@"Restoring...")];
     
-    NSString* test = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"test ::: %@", test);
-    
-    NSError *error;
-    NSDictionary *jsonObj = nil;
-    if (data) {
-        jsonObj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        
-        if (error == nil && [jsonObj count] > 0) {
-            status = [jsonObj objectForKey:@"status"];
-            err_msg = [jsonObj objectForKey:@"err_msg"];
-            if (status && err_msg) {
-                if ([[status lowercaseString] isEqualToString:@"ok"]) {
-                    [self.navigationController popViewControllerAnimated:YES];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTrip" object:nil];
-                } else {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:err_msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    alert.tag = 1;
-                    
-                    [alert show];
-                }
-            }
-        }
+    static GTLServiceDataServiceApi *service = nil;
+    if (!service) {
+        service = [[GTLServiceDataServiceApi alloc] init];
+        service.retryEnabled = YES;
+        //[GTMHTTPFetcher setLoggingEnabled:YES];
     }
+    
+    [SVProgressHUD show];
+    GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetDownloadUrlWithCode:code];
+    //TODO: Add waiting progress here
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiDownloadTarget *object, NSError *error) {
+        if (object != NULL){
+            [self didReceiveDownloadLink:object.url];
+            
+        } else {
+            [self wrongCodeAlert];
+        }
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)didReceiveDownloadLink:(NSString *)downloadLink {
+    NSURL *storeURL = [NSURL URLWithString:downloadLink];
+    
+    NSData *data = [NSData dataWithContentsOfURL:storeURL];
+    NSString *dbPathNew = [[CommonSqlite sharedCommonSqlite] getBackupDatabasePath];
+    
+    //remove the existing file
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:dbPathNew];
+    
+    if (data) {
+        [data writeToFile:dbPathNew atomically:YES];
+        
+        //unzip and restore
+        BOOL res = [[CommonSqlite sharedCommonSqlite] restoreData];
+        
+        if (res == NO) {
+            [self failedToRestoreAlert];
+        } else {
+            [self restoreSuccessfullyAlert];
+        }
+        
+    } else {
+        [self failedToDownloadFromServerAlert];
+        return;
+    }
+}
+
+- (void)noConnectionAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check wifi/3G connection") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 2;
+    
+    [alert show];
+}
+
+- (void)failedToConnectToServerAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server. Can not back up database, please try later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)backupSuccessfullyAlert {
+    NSString *content = @"";
+    NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *code = [uniqueIdentifier substringFromIndex:(uniqueIdentifier.length - BACKUP_CODE_LENGTH)];
+    
+    content = [NSString stringWithFormat:@"%@:\n%@", LocalizedString(@"Your database will be archived on server in 7 days. To restore your database, use this code:"), code];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
+    alert.tag = 5;
+    
+    [alert show];
+}
+
+- (void)failedToDownloadFromServerAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server. Can not restore database, please try later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 4;
+    
+    [alert show];
+}
+
+- (void)failedToRestoreAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Can not restore database, please try later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 4;
+    
+    [alert show];
+}
+
+- (void)restoreSuccessfullyAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:LocalizedString(@"Your database have been restored successfully.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
+    alert.tag = 6;
+    
+    [alert show];
+}
+- (void)inputCodeToDownloadAlert {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Restore database"
+                                                        message:@"Input code that you achieved when backing up database"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"OK", nil];
+    
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alertView.tag = 7;
+    [alertView show];
+}
+
+- (void)wrongCodeAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Wrong code. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") otherButtonTitles:LocalizedString(@"Try again"), nil];
+    alert.tag = 8;
+    
+    [alert show];
 }
 @end

@@ -124,6 +124,21 @@
 "Save" = "Save";
 "Note here" = "Note here...";
 
+//back up and restore
+"Restoring" = "Restoring...";
+"Failed" = "Failed";
+"Successfully" = "Successfully";
+"Try again" = "Try again";
+"Failed to connect to server" = "Failed to connect to server. Can not back up database, please try again.";
+"Your database will be archived on server in 7 days" = "Your database will be archived on server in 7 days. To restore your database, use below code";
+"Can not download the backed up database" = "Can not download the backed up database, please try again.";
+"Can not restore database" = "Can not restore database, please try again.";
+"Your database have been restored successfully" = "Your database have been restored successfully.";
+"Restore database" = "Restore database";
+"Input code that you achieved when backing up database" = "Input code that you achieved when backing up database";
+"Wrong code, please try again" = "Wrong code, please try again.";
+
+
 
 
 

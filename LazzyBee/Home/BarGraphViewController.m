@@ -16,6 +16,7 @@
 #import "LocalizeHelper.h"
 
 #define NUMBER_OF_DAYS 7
+#define NUMBER_OF_BARS 8
 // This is defined in Math.h
 #define M_PI   3.14159265358979323846264338327950288   /* pi */
 
@@ -142,7 +143,7 @@
 #pragma mark - GKBarGraphDataSource
 
 - (NSInteger)numberOfBars {
-    return 6;
+    return NUMBER_OF_BARS;
 }
 
 - (NSNumber *)valueForBarAtIndex:(NSInteger)index {
@@ -161,7 +162,9 @@
                   [UIColor gk_alizarinColor],
                   [UIColor gk_amethystColor],
                   [UIColor gk_emerlandColor],
-                  [UIColor gk_sunflowerColor]
+                  [UIColor gk_sunflowerColor],
+                  [UIColor gk_wisteriaColor],
+                  [UIColor gk_wetAsphaltColor]
                   ];
     return [colors objectAtIndex:index];
 }

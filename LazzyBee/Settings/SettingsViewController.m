@@ -730,7 +730,7 @@
 }
 
 - (void)sendRequestToGetPostLink {
-    [SVProgressHUD showWithStatus:LocalizedString(@"Backing up...")];
+    [SVProgressHUD show];
 
     static GTLServiceDataServiceApi *service = nil;
     if (!service) {
@@ -743,7 +743,7 @@
     GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetUploadUrl];
     //TODO: Add waiting progress here
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiUploadTarget *object, NSError *error) {
-        if (object != NULL){
+        if (object && object.url && object.url.length > 0){
             [self didReceivePostLink:object.url];
             
         } else {
@@ -834,7 +834,7 @@
 
 //restore
 - (void)downloadFileFromServerWithCode:(NSString *)code {
-    [SVProgressHUD showWithStatus:LocalizedString(@"Restoring...")];
+    [SVProgressHUD showWithStatus:LocalizedString(@"Restoring")];
     
     static GTLServiceDataServiceApi *service = nil;
     if (!service) {
@@ -842,12 +842,11 @@
         service.retryEnabled = YES;
         //[GTMHTTPFetcher setLoggingEnabled:YES];
     }
-    
-    [SVProgressHUD show];
+
     GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetDownloadUrlWithCode:code];
     //TODO: Add waiting progress here
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiDownloadTarget *object, NSError *error) {
-        if (object != NULL){
+        if (object && object.url && object.url.length > 0){
             [self didReceiveDownloadLink:object.url];
             
         } else {
@@ -892,8 +891,22 @@
 }
 
 - (void)failedToConnectToServerAlert {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server. Can not back up database, please try later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)failedToDownloadFromServerAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Can not download the backed up database") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 4;
+    
+    [alert show];
+}
+
+- (void)failedToRestoreAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Can not restore database, please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 4;
     
     [alert show];
 }
@@ -903,40 +916,26 @@
     NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString *code = [uniqueIdentifier substringFromIndex:(uniqueIdentifier.length - BACKUP_CODE_LENGTH)];
     
-    content = [NSString stringWithFormat:@"%@:\n%@", LocalizedString(@"Your database will be archived on server in 7 days. To restore your database, use this code:"), code];
+    content = [NSString stringWithFormat:@"%@:\n%@", LocalizedString(@"Your database will be archived on server in 7 days"), code];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 5;
     
     [alert show];
 }
 
-- (void)failedToDownloadFromServerAlert {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server. Can not restore database, please try later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
-    alert.tag = 4;
-    
-    [alert show];
-}
-
-- (void)failedToRestoreAlert {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Can not restore database, please try later.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
-    alert.tag = 4;
-    
-    [alert show];
-}
-
 - (void)restoreSuccessfullyAlert {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:LocalizedString(@"Your database have been restored successfully.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:LocalizedString(@"Your database have been restored successfully") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 6;
     
     [alert show];
 }
 - (void)inputCodeToDownloadAlert {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Restore database"
-                                                        message:@"Input code that you achieved when backing up database"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Restore database")
+                                                        message:LocalizedString(@"Input code that you achieved when backing up database")
                                                        delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"OK", nil];
+                                              cancelButtonTitle:LocalizedString(@"Cancel")
+                                              otherButtonTitles:LocalizedString(@"OK"), nil];
     
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     alertView.tag = 7;
@@ -944,7 +943,7 @@
 }
 
 - (void)wrongCodeAlert {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Wrong code. Please try again.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") otherButtonTitles:LocalizedString(@"Try again"), nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Wrong code, please try again") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") otherButtonTitles:LocalizedString(@"Try again"), nil];
     alert.tag = 8;
     
     [alert show];

@@ -31,8 +31,8 @@
 #import "GKBar.h"
 
 static CGFloat kDefaultBarHeight = 150;
-static CGFloat kDefaultBarWidth = 22;
-static CGFloat kDefaultBarMargin = 20;
+static CGFloat kDefaultBarWidth = 20;
+static CGFloat kDefaultBarMargin = 18;
 static CGFloat kDefaultLabelWidth = 40;
 static CGFloat kDefaultLabelHeight = 15;
 

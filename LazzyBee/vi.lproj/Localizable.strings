@@ -123,3 +123,17 @@
 "User note" = "Ghi chú";
 "Save" = "Lưu";
 "Note here" = "Ghi chú...";
+
+//back up and restore
+"Restoring" = "Khôi phục dữ liệu...";
+"Failed" = "Lỗi";
+"Successfully" = "Thành công";
+"Try again" = "Thử lại";
+"Failed to connect to server" = "Lỗi kết nối. Không thể sao lưu dữ liệu, vui lòng thử lại.";
+"Your database will be archived on server in 7 days" = "Dữ liệu học tập của bạn sẽ được lưu trữ trong 7 ngày. Để khôi phục dữ liệu xin hãy sử dụng mã dưới đây";
+"Can not download the backed up database" = "Không thể tải được dữ liệu, vui lòng thử lại.";
+"Can not restore database" = "Không thể khôi phục dữ liệu, vui lòng thử lại.";
+"Your database have been restored successfully" = "Dữ liệu của bạn đã được khôi phục thành công.";
+"Restore database" = "Khôi phục dữ liệu";
+"Input code that you achieved when backing up database" = "Nhập mã bạn đã nhận được khi sao lưu dữ liệu";
+"Wrong code, please try again" = "Sai mã, vui lòng thử lại.";

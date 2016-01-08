@@ -171,7 +171,7 @@
     
     static NSString *studiedCellIdentifier = @"StudiedTableViewCell";
     
-    StudiedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:studiedCellIdentifier];
+    StudiedTableViewCell *cell = [wordsTableView dequeueReusableCellWithIdentifier:studiedCellIdentifier];
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StudiedTableViewCell" owner:nil options:nil];
         cell = [nib objectAtIndex:0];

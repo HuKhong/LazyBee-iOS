@@ -146,8 +146,11 @@
 - (NSObject *)loadPersonalDataWithKey:(NSString *)key {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [defaults objectForKey:key];
+    NSObject *res =  nil;
     
-    NSObject *res = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (data) {
+        res = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
     return res;
 }
 

@@ -1441,13 +1441,14 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     while (([resArr count] < [idListArr count])) {
         //get word object  from vocabulary
+        strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE id IN %@ ORDER BY level", strIDList];
         
-        if (![curMajor isEqualToString:@"common"]) {
-            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND id IN %@ ORDER BY level", curMajor, strIDList];
-            
-        } else {
-            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@ ORDER BY level", curMajor, [[(MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR] majorName] lowercaseString], strIDList];
-        }
+//        if (![curMajor isEqualToString:@"common"]) {
+//            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND id IN %@ ORDER BY level", curMajor, strIDList];
+        
+//        } else {
+//            strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND id IN %@ ORDER BY level", curMajor, [[(MajorObject *)[[Common sharedCommon] loadPersonalDataWithKey:KEY_SELECTED_MAJOR] majorName] lowercaseString], strIDList];
+//        }
         
         charQuery = [strQuery UTF8String];
         
@@ -1991,22 +1992,22 @@ static CommonSqlite* sharedCommonSqlite = nil;
                 sqlite3_finalize(dbps);
                 
                 //for test
-    //            strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = %@", [values objectAtIndex:0]];
-    //            charQuery = [strQuery UTF8String];
-    //            NSInteger count = 0;
-    //            
-    //            sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-    //            
-    //            if(SQLITE_DONE != sqlite3_step(dbps)) {
-    //                if (sqlite3_column_int(dbps, 0)) {
-    //                    count = sqlite3_column_int(dbps, 0);
-    //                }
-    //            }
-    //            sqlite3_finalize(dbps);
-    //            
-    //            if (count == 0) {
-    //                NSLog(@"Error while updating. %@", values);
-    //            }
+                strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = %@", [values objectAtIndex:0]];
+                charQuery = [strQuery UTF8String];
+                NSInteger count = 0;
+                
+                sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+                
+                if(SQLITE_DONE != sqlite3_step(dbps)) {
+                    if (sqlite3_column_int(dbps, 0)) {
+                        count = sqlite3_column_int(dbps, 0);
+                    }
+                }
+                sqlite3_finalize(dbps);
+                
+                if (count == 0) {
+                    NSLog(@"Error while updating. %@", values);
+                }
                 
             }
         }

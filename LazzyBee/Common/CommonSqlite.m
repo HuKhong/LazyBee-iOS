@@ -1992,22 +1992,22 @@ static CommonSqlite* sharedCommonSqlite = nil;
                 sqlite3_finalize(dbps);
                 
                 //for test
-                strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = %@", [values objectAtIndex:0]];
-                charQuery = [strQuery UTF8String];
-                NSInteger count = 0;
-                
-                sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-                
-                if(SQLITE_DONE != sqlite3_step(dbps)) {
-                    if (sqlite3_column_int(dbps, 0)) {
-                        count = sqlite3_column_int(dbps, 0);
-                    }
-                }
-                sqlite3_finalize(dbps);
-                
-                if (count == 0) {
-                    NSLog(@"Error while updating. %@", values);
-                }
+//                strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = %@", [values objectAtIndex:0]];
+//                charQuery = [strQuery UTF8String];
+//                NSInteger count = 0;
+//                
+//                sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+//                
+//                if(SQLITE_DONE != sqlite3_step(dbps)) {
+//                    if (sqlite3_column_int(dbps, 0)) {
+//                        count = sqlite3_column_int(dbps, 0);
+//                    }
+//                }
+//                sqlite3_finalize(dbps);
+//                
+//                if (count == 0) {
+//                    NSLog(@"Error while updating. %@", values);
+//                }
                 
             }
         }

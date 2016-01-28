@@ -12,6 +12,7 @@
 
 @interface DictDetailContainerViewController : UIViewController
 {
+    IBOutlet UIView *viewContainer;
     
 }
 

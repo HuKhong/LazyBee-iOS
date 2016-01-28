@@ -100,16 +100,16 @@
     tabViewController.delegate = (id)self;
     tabViewController.viewControllers = viewControllers;
     
-    CGRect rect;
-
-    if (enableAds) {
-        rect = self.view.frame;
-        rect.size.height = _adBanner.frame.origin.y - 10;
-    } else {
-        rect = self.view.frame;
-    }
+//    CGRect rect;
+//
+//    if (enableAds) {
+//        rect = self.view.frame;
+//        rect.size.height = _adBanner.frame.origin.y - 5;
+//    } else {
+//        rect = self.view.frame;
+//    }
     
-    [tabViewController.view setFrame:rect];
+    [tabViewController.view setFrame:viewContainer.frame];
     
     tabViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |
                                                 UIViewAutoresizingFlexibleHeight |
@@ -118,7 +118,7 @@
                                                 UIViewAutoresizingFlexibleBottomMargin |
                                                 UIViewAutoresizingFlexibleTopMargin;
     
-    [self.view addSubview:tabViewController.view];
+    [viewContainer addSubview:tabViewController.view];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -49,6 +49,8 @@
 - (void)backupData;
 - (BOOL)restoreData;
 - (NSString *)getBackupDatabasePath;
+
+- (NSString *)getDatabasePath;
 @end
 
 #endif

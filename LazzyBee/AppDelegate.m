@@ -79,6 +79,10 @@
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
     
+    //prevent backup icloud
+//    NSString *dbPath = [[CommonSqlite sharedCommonSqlite] getDatabasePath];
+    [self addSkipBackupAttributeToItemAtPath:[[Common sharedCommon] libraryFolder]];
+    
     self.tagManager = [TAGManager instance];
     
     // Optional: Change the LogLevel to Verbose to enable logging at VERBOSE and higher levels.
@@ -317,5 +321,17 @@
                                                        annotation:annotation];
 }
 
-
+- (BOOL)addSkipBackupAttributeToItemAtPath:(NSString *) filePathString
+{
+    NSURL* URL= [NSURL fileURLWithPath: filePathString];
+    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
+    
+    NSError *error = nil;
+    BOOL success = [URL setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if(!success){
+        NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
+    }
+    return success;
+}
 @end

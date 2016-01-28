@@ -94,7 +94,7 @@
         ![[Common sharedCommon] networkIsActive]) {
         enableAds = NO;
     }
-    
+//    enableAds = YES; //for test
     if (enableAds) {
         viewReservationForAds.hidden = NO;
     } else {

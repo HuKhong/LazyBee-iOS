@@ -274,6 +274,12 @@
 		55E106421BF1E2DD008A6BEA /* ic_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 55E1063F1BF1E2DD008A6BEA /* ic_list.png */; };
 		55E106431BF1E2DD008A6BEA /* ic_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55E106401BF1E2DD008A6BEA /* ic_list@2x.png */; };
 		55E106441BF1E2DD008A6BEA /* ic_list@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55E106411BF1E2DD008A6BEA /* ic_list@3x.png */; };
+		55EBA3E71C74126A006B4A5A /* ic_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 55EBA3E41C74126A006B4A5A /* ic_search.png */; };
+		55EBA3E81C74126A006B4A5A /* ic_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55EBA3E51C74126A006B4A5A /* ic_search@2x.png */; };
+		55EBA3E91C74126A006B4A5A /* ic_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55EBA3E61C74126A006B4A5A /* ic_search@3x.png */; };
+		55EBA3ED1C74137F006B4A5A /* ic_search_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 55EBA3EA1C74137F006B4A5A /* ic_search_gray.png */; };
+		55EBA3EE1C74137F006B4A5A /* ic_search_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55EBA3EB1C74137F006B4A5A /* ic_search_gray@2x.png */; };
+		55EBA3EF1C74137F006B4A5A /* ic_search_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55EBA3EC1C74137F006B4A5A /* ic_search_gray@3x.png */; };
 		55F2FA9A1C1EC0130028F561 /* ielts@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA971C1EC0130028F561 /* ielts@3x.png */; };
 		55F2FA9B1C1EC0130028F561 /* ielts.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA981C1EC0130028F561 /* ielts.png */; };
 		55F2FA9C1C1EC0130028F561 /* ielts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA991C1EC0130028F561 /* ielts@2x.png */; };
@@ -729,6 +735,12 @@
 		55E1063F1BF1E2DD008A6BEA /* ic_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_list.png; sourceTree = "<group>"; };
 		55E106401BF1E2DD008A6BEA /* ic_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_list@2x.png"; sourceTree = "<group>"; };
 		55E106411BF1E2DD008A6BEA /* ic_list@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_list@3x.png"; sourceTree = "<group>"; };
+		55EBA3E41C74126A006B4A5A /* ic_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_search.png; sourceTree = "<group>"; };
+		55EBA3E51C74126A006B4A5A /* ic_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_search@2x.png"; sourceTree = "<group>"; };
+		55EBA3E61C74126A006B4A5A /* ic_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_search@3x.png"; sourceTree = "<group>"; };
+		55EBA3EA1C74137F006B4A5A /* ic_search_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_search_gray.png; sourceTree = "<group>"; };
+		55EBA3EB1C74137F006B4A5A /* ic_search_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_search_gray@2x.png"; sourceTree = "<group>"; };
+		55EBA3EC1C74137F006B4A5A /* ic_search_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_search_gray@3x.png"; sourceTree = "<group>"; };
 		55F2FA971C1EC0130028F561 /* ielts@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ielts@3x.png"; sourceTree = "<group>"; };
 		55F2FA981C1EC0130028F561 /* ielts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ielts.png; sourceTree = "<group>"; };
 		55F2FA991C1EC0130028F561 /* ielts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ielts@2x.png"; sourceTree = "<group>"; };
@@ -1137,6 +1149,12 @@
 		4DD3C3BF1B6F218700B6DA71 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				55EBA3EA1C74137F006B4A5A /* ic_search_gray.png */,
+				55EBA3EB1C74137F006B4A5A /* ic_search_gray@2x.png */,
+				55EBA3EC1C74137F006B4A5A /* ic_search_gray@3x.png */,
+				55EBA3E41C74126A006B4A5A /* ic_search.png */,
+				55EBA3E51C74126A006B4A5A /* ic_search@2x.png */,
+				55EBA3E61C74126A006B4A5A /* ic_search@3x.png */,
 				55DC32681C2BCE7000D56D39 /* ic_alert_white.png */,
 				55DC32691C2BCE7000D56D39 /* ic_alert_white@2x.png */,
 				55DC326A1C2BCE7000D56D39 /* ic_alert_white@3x.png */,
@@ -1804,6 +1822,7 @@
 				551FB86B1C03014400C8B18C /* NoteThumbnail.xib in Resources */,
 				4DD3C3E21B6F218700B6DA71 /* avatarDefault@3x.png in Resources */,
 				55457CC31BA27DA100EFCD50 /* TimerViewController.xib in Resources */,
+				55EBA3ED1C74137F006B4A5A /* ic_search_gray.png in Resources */,
 				559E67B31BEB135F00232439 /* big_logo.png in Resources */,
 				55452C6A1BC528F600D6E430 /* MHTabBarIndicator@2x.png in Resources */,
 				552BD5A91BA1621500BF316C /* About.txt in Resources */,
@@ -1881,6 +1900,7 @@
 				557526A91BDF54BA007810C7 /* ic_graph.png in Resources */,
 				559B2AFD1BC61344009AA150 /* DictDetailContainerViewController.xib in Resources */,
 				55DC32721C2BCE7000D56D39 /* ic_alert@2x.png in Resources */,
+				55EBA3EF1C74137F006B4A5A /* ic_search_gray@3x.png in Resources */,
 				4DD3C3781B6F18D700B6DA71 /* SubRearViewController.xib in Resources */,
 				551FB85F1C02F75B00C8B18C /* button_long_ipad@2x.png in Resources */,
 				55F7E6731BFB014300EB27A2 /* LICENSE in Resources */,
@@ -1903,9 +1923,11 @@
 				55DCB8931C2D20A700ADEF18 /* Localizable.strings in Resources */,
 				55452C571BC5128700D6E430 /* ic_dictionary@2x.png in Resources */,
 				552BD59F1BA15F7200BF316C /* AboutViewController.xib in Resources */,
+				55EBA3EE1C74137F006B4A5A /* ic_search_gray@2x.png in Resources */,
 				55308B4E1BF0423A00FF0457 /* day_ring_gray@2x.png in Resources */,
 				55F8864E1C0408890022E06D /* ic_holder@3x.png in Resources */,
 				55F6C72C1BF5959C0084B369 /* blank@3x.png in Resources */,
+				55EBA3E81C74126A006B4A5A /* ic_search@2x.png in Resources */,
 				55452C691BC528F600D6E430 /* MHTabBarIndicator.png in Resources */,
 				55F7E66E1BFB014300EB27A2 /* FontAwesome.ttf in Resources */,
 				55F6C7301BF5959C0084B369 /* economic@2x.png in Resources */,
@@ -1928,6 +1950,7 @@
 				559E67A71BEB0A2600232439 /* button_long.png in Resources */,
 				559E67C61BEF569100232439 /* hive@2x.png in Resources */,
 				55308B431BF03A2900FF0457 /* DayStatus.xib in Resources */,
+				55EBA3E91C74126A006B4A5A /* ic_search@3x.png in Resources */,
 				55E1063C1BF1DF18008A6BEA /* it.png in Resources */,
 				552BD5A11BA15F7200BF316C /* SettingsViewController.xib in Resources */,
 				552E2B7B1C31151A0074E49D /* ChangeLanguageViewController.xib in Resources */,
@@ -1941,6 +1964,7 @@
 				55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */,
 				551FB8621C02F75B00C8B18C /* button_square_ipad.png in Resources */,
 				552BD5B91BA175E300BF316C /* ic_turtle@2x.png in Resources */,
+				55EBA3E71C74126A006B4A5A /* ic_search.png in Resources */,
 				559E67B51BEB135F00232439 /* big_logo@3x.png in Resources */,
 				551FB8611C02F75B00C8B18C /* button_short_ipad@2x.png in Resources */,
 				55C092341BCF431E005C78B5 /* PopupView.xib in Resources */,
@@ -2226,7 +2250,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2254,7 +2278,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

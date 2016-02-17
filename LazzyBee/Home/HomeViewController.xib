@@ -11,7 +11,9 @@
                 <outlet property="btnIncoming" destination="Cyx-GS-o4g" id="csQ-70-mzH"/>
                 <outlet property="btnMore" destination="sLV-yZ-Cel" id="yPk-4A-1wS"/>
                 <outlet property="btnStudy" destination="w5M-iS-gU2" id="aeA-3x-rLB"/>
+                <outlet property="txtSearchbox" destination="523-A7-uj3" id="3CX-Cb-VDx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewResultContainer" destination="SxF-k5-VMT" id="EmM-x4-HPy"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,7 +27,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" id="zqf-3s-PsK">
-                    <rect key="frame" x="8" y="127" width="304" height="106"/>
+                    <rect key="frame" x="8" y="169" width="304" height="106"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vocabulary Learning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YHU-Sf-9ds">
@@ -39,11 +41,11 @@
                     <color key="backgroundColor" red="0.95294117649999999" green="0.43529411759999997" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_logo.png" id="vXe-kW-w7z">
-                    <rect key="frame" x="85" y="34" width="150" height="180"/>
+                    <rect key="frame" x="85" y="76" width="150" height="180"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="3Ya-xE-VYf">
-                    <rect key="frame" x="0.0" y="241" width="320" height="93"/>
+                    <rect key="frame" x="0.0" y="283" width="320" height="93"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w5M-iS-gU2">
@@ -76,14 +78,41 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="523-A7-uj3">
+                    <rect key="frame" x="8" y="10" width="275" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                    <connections>
+                        <action selector="textEditingChanged:" destination="-1" eventType="editingChanged" id="RqF-pQ-BhA"/>
+                        <action selector="textEditingChanged:" destination="-1" eventType="editingDidBegin" id="pLa-Js-xAe"/>
+                        <action selector="textEditingExit:" destination="-1" eventType="editingDidEnd" id="Unn-Nq-bPt"/>
+                        <outlet property="delegate" destination="-1" id="fau-lT-3Oe"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0vZ-Ul-0pa">
+                    <rect key="frame" x="282" y="10" width="30" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.23529411759999999" green="0.62745098040000002" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="ic_search_gray.png"/>
+                    <connections>
+                        <action selector="btnSearchClick:" destination="-1" eventType="touchUpInside" id="IhJ-99-6v2"/>
+                    </connections>
+                </button>
+                <view hidden="YES" contentMode="scaleToFill" id="SxF-k5-VMT">
+                    <rect key="frame" x="8" y="41" width="304" height="180"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="310" y="251"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="443" y="219"/>
         </view>
     </objects>
     <resources>
         <image name="big_logo.png" width="1024" height="1024"/>
         <image name="button_long.png" width="334" height="40"/>
         <image name="button_short.png" width="150" height="40"/>
+        <image name="ic_search_gray.png" width="25" height="25"/>
     </resources>
 </document>

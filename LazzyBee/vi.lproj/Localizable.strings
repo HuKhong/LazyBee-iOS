@@ -90,6 +90,8 @@
 "Level" = "Mức độ";
 "Total" = "Tổng số từ";
 "No result format" = "Không tìm thấy kết quả với từ khoá \"%@\"\nChúng tôi sẽ sớm cập nhật.";
+"Add" = "Học";
+"Added" = "Đã thêm vào danh sách học";
 
 //Settings
 "Change language" = "Thay đổi ngôn ngữ hiển thị";

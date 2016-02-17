@@ -26,6 +26,11 @@
 {
     SearchViewController *searchView;
     PopupView *popupView;
+    
+    NSTimer *hintTimer;
+    NSInteger hintCountDown;
+    
+    StudiedListViewController *searchHintViewController;
 }
 
 /// The interstitial ad.
@@ -57,9 +62,16 @@
 
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
     
-    self.navigationItem.rightBarButtonItem = searchButton;
+//    self.navigationItem.rightBarButtonItem = searchButton;
+//    [txtSearchbox setLeftViewMode:UITextFieldViewModeAlways];
+//    txtSearchbox.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search_gray"]];
     
 //    [viewInformation setBackgroundColor:COMMON_COLOR];
+    
+    txtSearchbox.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    txtSearchbox.layer.borderWidth = 1.0f;
+    
+    [txtSearchbox setPlaceholder:LocalizedString(@"Dictionary")];
     
     //prepare 100 words
     [self prepareWordsToStudyingQueue];
@@ -93,6 +105,17 @@
                                              selector:@selector(needToCheckReviewList)
                                                  name:@"NeedToCheckReviewList"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(toggleView)
+                                                 name:@"toggleView"
+                                               object:nil];
+    
     
     NSNumber *isFirstRunObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:IS_FIRST_RUN];
     
@@ -201,7 +224,14 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"rotateScreen" object:nil];
 
+    [txtSearchbox resignFirstResponder];
 }
+
+//tap on left top button
+- (void)toggleView {
+    [txtSearchbox resignFirstResponder];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -211,6 +241,26 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [txtSearchbox resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField isEqual:txtSearchbox]) {
+        [textField resignFirstResponder];
+        
+        NSString *searchText = [txtSearchbox.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        if (searchText.length > 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"searchBarSearchButtonClicked" object:searchText];
+        }
+        
+    }
+    
+    return NO;
+}
 
 - (void)showSearchBar {
     searchView = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
@@ -229,8 +279,68 @@
     }];
 }
 
+- (IBAction)textEditingExit:(id)sender {
+//    [searchHintViewController.view removeFromSuperview];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [searchHintViewController.view removeFromSuperview];
+}
+
+- (IBAction)textEditingChanged:(id)sender {
+    hintCountDown = 1;
+    [hintTimer invalidate];
+    hintTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hintCounter) userInfo:nil repeats:YES];
+    [self hintCounter];
+}
+
+- (void)hintCounter {
+    hintCountDown--;
+    
+    if (hintCountDown == 0) {
+        [hintTimer invalidate];
+        NSString *searchText = [txtSearchbox.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        if (searchText.length > 0) {
+            
+            if (!searchHintViewController) {
+                //add searching result view, use studiedlistviewcontroller
+                searchHintViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
+                searchHintViewController.screenType = List_SearchHintHome;
+                
+                searchHintViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |                                             UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+            }
+            
+            [searchHintViewController.view setFrame:viewResultContainer.frame];
+            
+            [self.view insertSubview:searchHintViewController.view aboveSubview:viewResultContainer];
+            
+            
+            searchHintViewController.searchText = searchText;
+            
+            [searchHintViewController tableReload];
+            
+        } else {
+            [searchHintViewController.view removeFromSuperview];
+        }
+    }
+}
+
+- (IBAction)btnSearchClick:(id)sender {
+    [txtSearchbox resignFirstResponder];
+    
+    NSString *searchText = [txtSearchbox.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (searchText.length > 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"searchBarSearchButtonClicked" object:searchText];
+    }
+}
+
+
 #pragma mark buttons handle
 - (IBAction)btnStudyClick:(id)sender {
+    [txtSearchbox resignFirstResponder];
+    
     //check and pick new words
     if ([[CommonSqlite sharedCommonSqlite] getCountOfBuffer] < [[Common sharedCommon] getDailyTarget]) {
         [self prepareWordsToStudyingQueue];
@@ -252,6 +362,8 @@
 }
 
 - (IBAction)btnStudiedListClick:(id)sender {
+    [txtSearchbox resignFirstResponder];
+    
     StudiedListViewController *studiedListViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
     studiedListViewController.screenType = List_Incoming;
     
@@ -259,6 +371,8 @@
 }
 
 - (IBAction)btnMoreWordClick:(id)sender {
+    [txtSearchbox resignFirstResponder];
+    
     NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfPickedWord];
     count = count + [[CommonSqlite sharedCommonSqlite] getCountOfInreview];
     count = count + [[CommonSqlite sharedCommonSqlite] getCountOfStudyAgain];
@@ -434,6 +548,8 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 
 #pragma mark handle notification
 - (void)didSelectRowFromSearch:(NSNotification *)notification {
+    [txtSearchbox resignFirstResponder];
+    [searchHintViewController.view removeFromSuperview];
     
     if ([self.navigationController.topViewController isEqual:self]) {
         WordObject *wordObj = (WordObject *)notification.object;

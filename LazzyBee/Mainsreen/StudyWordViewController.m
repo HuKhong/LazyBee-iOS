@@ -739,7 +739,7 @@
                 //TODO: Update word: q, a, level, package, (and ee, ev)
                 _wordObj.question   = object.q;
                 _wordObj.answers    = object.a;
-                _wordObj.level      = object.level;
+                _wordObj.level      = [NSString stringWithFormat:@"%ld", (long)[object.level integerValue]];
                 _wordObj.package    = object.packages;
                 _wordObj.langEN     = object.lEn;
                 _wordObj.langVN     = object.lVn;
@@ -794,6 +794,8 @@
             
             //update incoming list
             [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToLearn" object:_wordObj];
+            
+            [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Added")];
             
         } else if (buttonIndex == AS_SEARCH_BTN_REPORT) {
             [self openFacebookToReport];

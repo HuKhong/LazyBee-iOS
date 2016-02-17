@@ -90,6 +90,8 @@
 "Level" = "Level";
 "Total" = "Total";
 "No result format" = "No result for \"%@\"\nWe will update soon.";
+"Add" = "Add";
+"Added" = "Added to learn";
 
 //Settings
 "Change language" = "Change language";

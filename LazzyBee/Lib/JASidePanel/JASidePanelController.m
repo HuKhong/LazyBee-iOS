@@ -926,6 +926,8 @@ static char ja_kvoContext;
         [self _toggleScrollsToTop:left forView:self.leftPanelContainer];
         [self _toggleScrollsToTop:right forView:self.rightPanelContainer];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleView" object:nil];
 }
 
 - (BOOL)_toggleScrollsToTop:(BOOL)enabled forView:(UIView *)view {

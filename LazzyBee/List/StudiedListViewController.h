@@ -13,6 +13,7 @@ typedef enum {
     List_Incoming,
     List_StudiedList,
     List_SearchHint,
+    List_SearchHintHome,
     List_SearchResult,
     List_Max
 } SCREEN_TYPE;

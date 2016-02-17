@@ -15,6 +15,8 @@
     IBOutlet UIButton *btnIncoming;
     IBOutlet UIButton *btnMore;
     IBOutlet UIView *viewInformation;
+    IBOutlet UITextField *txtSearchbox;
+    IBOutlet UIView *viewResultContainer;
 
 }
 

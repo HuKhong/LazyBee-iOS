@@ -35,6 +35,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [wordsTableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
     // Do any additional setup after loading the view from its nib.
     if (_screenType == List_Incoming) {
         [TagManagerHelper pushOpenScreenEvent:@"iIncomingScreen"];
@@ -53,6 +55,13 @@
         
     } else if (_screenType == List_SearchHint) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
+        
+    } else if (_screenType == List_SearchHintHome) {
+        [self.view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+        [self.view.layer setBorderWidth:1];
+        
+        [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
+        [wordsTableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeNone];
         
     } else if (_screenType == List_SearchResult) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchResultScreen"];
@@ -97,6 +106,7 @@
     // Return the number of sections.
     if (_screenType == List_StudiedList ||
         _screenType == List_SearchHint ||
+        _screenType == List_SearchHintHome ||
         _screenType == List_SearchResult) {
         return [[levelsDictionary allKeys] count];
         
@@ -110,6 +120,7 @@
     
     if (_screenType == List_StudiedList ||
         _screenType == List_SearchHint ||
+        _screenType == List_SearchHintHome ||
         _screenType == List_SearchResult) {
         NSString *headerTitle = @"";
         
@@ -128,6 +139,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     if (_screenType == List_StudiedList ||
        _screenType == List_SearchHint ||
+        _screenType == List_SearchHintHome ||
        _screenType == List_SearchResult) {
         
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
@@ -148,6 +160,7 @@
     // If you're serving data from an array, return the length of the array:
     if (_screenType == List_StudiedList ||
         _screenType == List_SearchHint ||
+        _screenType == List_SearchHintHome ||
         _screenType == List_SearchResult) {
         
         if (section < [keyArr count]) {
@@ -184,6 +197,7 @@
     
     if (_screenType == List_StudiedList ||
         _screenType == List_SearchHint ||
+        _screenType == List_SearchHintHome ||
         _screenType == List_SearchResult) {
         NSString *key = [keyArr objectAtIndex:indexPath.section];
         
@@ -266,6 +280,7 @@
     
     if (_screenType == List_StudiedList ||
         _screenType == List_SearchHint ||
+        _screenType == List_SearchHintHome ||
         _screenType == List_SearchResult) {
         NSString *key = [keyArr objectAtIndex:indexPath.section];
         
@@ -276,7 +291,7 @@
         wordObj = [wordList objectAtIndex:indexPath.row];
     }
     
-    if (_screenType == List_SearchHint) {
+    if (_screenType == List_SearchHint || _screenType == List_SearchHintHome) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectRowFromSearch" object:wordObj];
         
     } else {
@@ -310,7 +325,7 @@
     } else if (_screenType == List_StudiedList) {
         [wordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getStudiedList]];
         
-    } else if (_screenType == List_SearchHint) {
+    } else if (_screenType == List_SearchHint || _screenType == List_SearchHintHome) {
         [wordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getSearchHintList:_searchText]];
         
         if ([wordList count] == 0) {
@@ -385,7 +400,7 @@
                 WordObject *wordObj = [[WordObject alloc] init];
                 wordObj.question   = object.q;
                 wordObj.answers    = object.a;
-                wordObj.level      = object.level;
+                wordObj.level      = [NSString stringWithFormat:@"%ld", (long)[object.level integerValue]];
                 wordObj.package    = object.packages;
                 wordObj.gid        = [NSString stringWithFormat:@"%@", object.gid];
                 
@@ -400,7 +415,7 @@
                 wordObj.package    = object.packages;
                 wordObj.eFactor    = @"2500";
 //                wordObj.queue      = @"0";
-//                wordObj.isFromServer = YES;   //set YES if dont insert this word to db right here
+//                wordObj.isFromServer = YES;   //set YES if dont insert this word to db right here //dont need to do this because we add it right here
                 wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_UNKNOWN];
                
                 //insert to db, no need to get from server next time
@@ -484,6 +499,24 @@
             return @[btnDone, btnIgnore];
         }
         
+    } else if (_screenType == List_SearchResult ||
+               _screenType == List_SearchHint ||
+               _screenType == List_SearchHintHome) {
+        swipeSettings.transition = MGSwipeTransitionStatic;
+        
+        if (direction == MGSwipeDirectionRightToLeft) {
+            expansionSettings.fillOnTrigger = NO;
+            expansionSettings.threshold = 1.1;
+            
+            MGSwipeButton *btnAdd = nil;
+            
+            btnAdd = [MGSwipeButton buttonWithTitle:LocalizedString(@"Add") backgroundColor:GREEN_COLOR padding:20 callback:^BOOL(MGSwipeTableCell *sender) {
+                
+                return NO;
+            }];
+            
+            return @[btnAdd];
+        }
     }
     
     return nil;
@@ -522,6 +555,40 @@
             lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
             [wordsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
+        
+    } else if (_screenType == List_SearchResult ||
+               _screenType == List_SearchHint ||
+               _screenType == List_SearchHintHome) {
+        NSLog(@"Add to learn");
+        WordObject *wordObj = nil;
+        NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
+        
+        indexPath = [wordsTableView indexPathForCell:cell];
+        wordObj = [wordList objectAtIndex:indexPath.row];
+        
+        //update queue value to 3 to consider this word as a new word in DB
+        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
+        
+        if (wordObj.isFromServer) {
+            [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
+            
+            //because word-id is blank so need to get again after insert it into db
+            wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:wordObj.question];
+            
+            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
+            
+        } else {
+            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
+            
+            //remove from buffer
+            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
+            
+            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
+        }
+        
+        [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Added")];
+        
+        return YES;
     }
     
     return NO;  //Don't autohide

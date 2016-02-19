@@ -204,6 +204,13 @@ static HTMLHelper* sharedHTMLHelper = nil;
         }
     }
     
+    NSNumber *displayMeaningFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DISPLAYMEANING];
+    
+    if ([displayMeaningFlag boolValue] == NO) {
+        
+        strMeaning = @"";
+    }
+    
     NSString *strExplainIconTag = @"";
     NSString *strExampleIconTag = @"";
     

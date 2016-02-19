@@ -60,7 +60,7 @@
     [btnIncoming setTitle:LocalizedString(@"Incoming list") forState:UIControlStateNormal];
     [btnMore setTitle:LocalizedString(@"More words") forState:UIControlStateNormal];
 
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
+//    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
     
 //    self.navigationItem.rightBarButtonItem = searchButton;
 //    [txtSearchbox setLeftViewMode:UITextFieldViewModeAlways];
@@ -311,10 +311,11 @@
                 searchHintViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |                                             UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
             }
             
-            [searchHintViewController.view setFrame:viewResultContainer.frame];
+            CGRect rect = viewResultContainer.frame;
+            
+            [searchHintViewController.view setFrame:rect];
             
             [self.view insertSubview:searchHintViewController.view aboveSubview:viewResultContainer];
-            
             
             searchHintViewController.searchText = searchText;
             

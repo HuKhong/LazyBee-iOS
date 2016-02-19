@@ -90,7 +90,7 @@
 "Level" = "Level";
 "Total" = "Total";
 "No result format" = "No result for \"%@\"\nWe will update soon.";
-"Add" = "Add";
+"Add" = "Learn";
 "Added" = "Added to learn";
 
 //Settings
@@ -104,6 +104,7 @@
 "Daily total words" = "Daily total words";
 "Waiting time to show answer" = "Waiting time to show answer";
 "Autoplay sound" = "Autoplay sound";
+"Display meaning" = "Display meaning";
 "Turn on reminder" = "Turn on reminder";
 "Time to remind" = "Time to remind";
 "Update database" = "Update database";

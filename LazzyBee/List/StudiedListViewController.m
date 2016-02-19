@@ -20,6 +20,9 @@
 #import "LocalizeHelper.h"
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
+#import "AppDelegate.h"
+
+@import GoogleMobileAds;
 
 @interface StudiedListViewController ()
 {
@@ -28,6 +31,10 @@
     NSArray *keyArr;
     
     UIRefreshControl *refreshControl;
+    
+    IBOutlet GADBannerView *adBanner;
+    IBOutlet UIView *viewHeaderContainer;
+    
 }
 @end
 
@@ -37,6 +44,36 @@
     [super viewDidLoad];
     
     [wordsTableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+    
+    //admob
+    GADRequest *request = [GADRequest request];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+    
+    BOOL enableAds = YES;
+    
+    NSString *pub_id = [container stringForKey:@"admob_pub_id"];
+    NSString *dictionary_id = [container stringForKey:@"adv_dictionary_id"];
+    
+    NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id,dictionary_id ];
+    
+    adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
+    
+    adBanner.rootViewController = self;
+    
+    request.testDevices = @[
+                            @"687f0b503566ebb7d84524c1f15e1d16",
+                            kGADSimulatorID
+                            ];
+    
+    [adBanner loadRequest:request];
+    
+    if (pub_id == nil || pub_id.length == 0 ||
+        dictionary_id == nil || dictionary_id.length == 0 ||
+        ![[Common sharedCommon] networkIsActive]) {
+        enableAds = NO;
+    }
+    
     // Do any additional setup after loading the view from its nib.
     if (_screenType == List_Incoming) {
         [TagManagerHelper pushOpenScreenEvent:@"iIncomingScreen"];
@@ -49,7 +86,7 @@
         [wordsTableView addSubview:refreshControl];
         
     } else if (_screenType == List_StudiedList) {
-        [TagManagerHelper pushOpenScreenEvent:@"iLeantScreen"];
+        [TagManagerHelper pushOpenScreenEvent:@"iLearntScreen"];
         
         [self setTitle:LocalizedString(@"Learnt List")];
         
@@ -63,10 +100,24 @@
         [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
         [wordsTableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeNone];
         
+        enableAds = NO;
+        
     } else if (_screenType == List_SearchResult) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchResultScreen"];
         
         [self setTitle:LocalizedString(@"Search Result")];
+    }
+    
+    if (enableAds) {
+        adBanner.hidden = NO;
+        
+        viewTableContainer.layer.masksToBounds = NO;
+        viewTableContainer.layer.shadowOffset = CGSizeMake(0, 5);
+        viewTableContainer.layer.shadowRadius = 5;
+        viewTableContainer.layer.shadowOpacity = 0.5;
+        
+    } else {
+        adBanner.hidden = YES;
     }
     
     levelsDictionary = [[NSMutableDictionary alloc] init];
@@ -89,6 +140,30 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (_screenType == List_SearchHintHome ||
+        _screenType == List_SearchHint) {
+        CGRect tableRect = viewTableContainer.frame;
+        CGRect headerRect = viewHeaderContainer.frame;
+        CGRect adRect = adBanner.frame;
+        
+        tableRect.origin.x = headerRect.origin.x;
+        tableRect.origin.y = headerRect.origin.y;
+        tableRect.size.height = adRect.origin.y - 3; //offset for separating
+        
+        [viewTableContainer setFrame:tableRect];
+    }
+    
+    if (adBanner.hidden == YES) {
+        CGRect tableRect = viewTableContainer.frame;
+        CGRect adRect = adBanner.frame;
+        
+        tableRect.size.height = adRect.origin.y + adRect.size.height - tableRect.origin.y;
+        
+        [viewTableContainer setFrame:tableRect];
+    }
 }
 
 /*

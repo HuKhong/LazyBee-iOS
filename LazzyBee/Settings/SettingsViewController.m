@@ -105,9 +105,12 @@
         
     } else if (section == SettingsTableViewSectionDailyTarget) {
         return DailyTargetSectionMax;
-        
+      
     } else if (section == SettingsTableViewSectionAutoPlay) {
         return AutoPlayMax;
+        
+    } else if (section == SettingsTableViewSectionDisplayMeaning) {
+        return DisplayMeaningMax;
         
     } else if (section == SettingsTableViewSectionNotification) {
         return NotificationSectionMax;
@@ -248,32 +251,78 @@
             
         case SettingsTableViewSectionAutoPlay:
             {
-                NSString *autoPlayCellIdentifier = @"AutoPlayCell";
-                
-                NotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:autoPlayCellIdentifier];
-                if (cell == nil) {
-                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationTableViewCell" owner:nil options:nil];
-                    cell = [nib objectAtIndex:0];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
+                switch (indexPath.row) {
+                    case AutoPlaySound:
+                    {
+                        NSString *autoPlayCellIdentifier = @"AutoPlayCell";
+                        
+                        NotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:autoPlayCellIdentifier];
+                        if (cell == nil) {
+                            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationTableViewCell" owner:nil options:nil];
+                            cell = [nib objectAtIndex:0];
+                            cell.accessoryType = UITableViewCellAccessoryNone;
+                        }
+                        
+                        cell.tag = SettingsTableViewSectionAutoPlay;
+                        cell.delegate = (id)self;
+                        
+                        cell.textLabel.textColor = [UIColor blackColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        
+                        cell.lbTitle.text = LocalizedString(@"Autoplay sound");
+                        
+                        NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_AUTOPLAY];
+                        
+                        cell.swControl.on = [autoPlayFlag boolValue];
+                        
+                        return cell;
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
-                
-                cell.tag = SettingsTableViewSectionAutoPlay;
-                cell.delegate = (id)self;
-                
-                cell.textLabel.textColor = [UIColor blackColor];
-                cell.textLabel.font = [UIFont systemFontOfSize:16];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                
-                cell.lbTitle.text = LocalizedString(@"Autoplay sound");
-                
-                NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_AUTOPLAY];
-                
-                cell.swControl.on = [autoPlayFlag boolValue];
-                
-                return cell;
             }
             break;
            
+        case SettingsTableViewSectionDisplayMeaning:
+        {
+            switch (indexPath.row) {
+                case DisplayVietnamese:
+                {
+                    NSString *displayMeaningCellIdentifier = @"DisplayMeaningCell";
+                    
+                    NotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:displayMeaningCellIdentifier];
+                    if (cell == nil) {
+                        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationTableViewCell" owner:nil options:nil];
+                        cell = [nib objectAtIndex:0];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    
+                    cell.tag = SettingsTableViewSectionDisplayMeaning;
+                    cell.delegate = (id)self;
+                    
+                    cell.textLabel.textColor = [UIColor blackColor];
+                    cell.textLabel.font = [UIFont systemFontOfSize:16];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    
+                    cell.lbTitle.text = LocalizedString(@"Display meaning");
+                    
+                    NSNumber *displayMeaningFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DISPLAYMEANING];
+                    
+                    cell.swControl.on = [displayMeaningFlag boolValue];
+                    
+                    return cell;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
         case SettingsTableViewSectionNotification:
             switch (indexPath.row) {
                 case NotificationOnOff:
@@ -553,6 +602,17 @@
         }
         
         [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayNumberObj withKey:KEY_AUTOPLAY];
+        
+    } else if (cell.tag == SettingsTableViewSectionDisplayMeaning) {
+        NSNumber *displayMeaningNumberObj = nil;
+        
+        if (sw.isOn) {
+            displayMeaningNumberObj = [NSNumber numberWithBool:YES];
+        } else {
+            displayMeaningNumberObj = [NSNumber numberWithBool:NO];
+        }
+        
+        [[Common sharedCommon] saveDataToUserDefaultStandard:displayMeaningNumberObj withKey:KEY_DISPLAYMEANING];
         
     } else if (cell.tag == SettingsTableViewSectionNotification) {
         

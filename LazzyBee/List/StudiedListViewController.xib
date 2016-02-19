@@ -7,10 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudiedListViewController">
             <connections>
+                <outlet property="adBanner" destination="Yde-n8-Hqm" id="3aH-my-zOH"/>
                 <outlet property="lbHeaderInfo" destination="pvN-VC-hL3" id="QaK-eN-aUx"/>
                 <outlet property="lbNoresult" destination="FxU-Vh-TGS" id="olQ-dB-y8X"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewHeaderContainer" destination="QFh-NY-co4" id="fpP-Fg-Vyi"/>
                 <outlet property="viewNoresult" destination="3mX-g2-j1A" id="ZU5-9f-rbb"/>
+                <outlet property="viewTableContainer" destination="cWc-G0-zBn" id="wOE-Ov-WrE"/>
                 <outlet property="wordsTableView" destination="1iq-o0-t9r" id="nkA-Ql-L5Q"/>
             </connections>
         </placeholder>
@@ -32,15 +35,22 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="1iq-o0-t9r">
-                    <rect key="frame" x="0.0" y="30" width="320" height="538"/>
+                <view contentMode="scaleToFill" id="cWc-G0-zBn">
+                    <rect key="frame" x="0.0" y="30" width="320" height="485"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="1iq-o0-t9r">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="485"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="daL-YN-eK9"/>
+                                <outlet property="delegate" destination="-1" id="1hq-QY-cZd"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="daL-YN-eK9"/>
-                        <outlet property="delegate" destination="-1" id="1hq-QY-cZd"/>
-                    </connections>
-                </tableView>
+                </view>
                 <view hidden="YES" contentMode="scaleToFill" id="3mX-g2-j1A">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -56,6 +66,11 @@ We will update soon.</string>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="Yde-n8-Hqm" customClass="GADBannerView">
+                    <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -65,15 +65,23 @@
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iStudyScreen"];
     
+    //border webview
+//    webViewWord.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    webViewWord.layer.borderWidth = 1.0f;
+//
+    webViewWord.layer.masksToBounds = NO;
+    webViewWord.layer.shadowOffset = CGSizeMake(0, 5);
+    webViewWord.layer.shadowRadius = 5;
+    webViewWord.layer.shadowOpacity = 0.5;
+    
     //admob
     GADRequest *request = [GADRequest request];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-//    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
+
     BOOL enableAds = YES;
-//    if (enableAds) {
-//        viewReservationForAds.hidden = NO;
+
     NSString *pub_id = [container stringForKey:@"admob_pub_id"];
     NSString *default_id = [container stringForKey:@"adv_default_id"];
 
@@ -84,7 +92,8 @@
         self.adBanner.rootViewController = self;
         
         request.testDevices = @[
-                                @"687f0b503566ebb7d84524c1f15e1d16"
+                                @"687f0b503566ebb7d84524c1f15e1d16",
+                                kGADSimulatorID
                                 ];
         
         [self.adBanner loadRequest:request];

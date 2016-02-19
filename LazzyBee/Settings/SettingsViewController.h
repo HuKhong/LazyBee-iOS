@@ -11,8 +11,9 @@
 typedef enum {
     SettingsTableViewSectionLanguage = 0,
     SettingsTableViewSectionSpeech,
-    SettingsTableViewSectionDailyTarget,
     SettingsTableViewSectionAutoPlay,
+    SettingsTableViewSectionDisplayMeaning,
+    SettingsTableViewSectionDailyTarget,
     SettingsTableViewSectionNotification,
     SettingsTableViewSectionUpdate,
     SettingsTableViewSectionBackup,
@@ -41,6 +42,11 @@ typedef enum {
     AutoPlaySound = 0,
     AutoPlayMax
 } AUTOPLAY_SECTION;
+
+typedef enum {
+    DisplayVietnamese = 0,
+    DisplayMeaningMax
+} DISPLAYMEANING_SECTION;
 
 typedef enum {
     NotificationOnOff = 0,

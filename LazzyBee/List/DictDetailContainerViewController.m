@@ -33,6 +33,15 @@
     
     [self setTitle:_wordObj.question];
     
+    //border webview
+    //    viewContainer.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    //    viewContainer.layer.borderWidth = 1.0f;
+    //
+    viewContainer.layer.masksToBounds = NO;
+    viewContainer.layer.shadowOffset = CGSizeMake(0, 5);
+    viewContainer.layer.shadowRadius = 5;
+    viewContainer.layer.shadowOpacity = 0.5;
+    
     UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel:)];
     
     self.navigationItem.rightBarButtonItems = @[actionButton];
@@ -41,24 +50,38 @@
     GADRequest *request = [GADRequest request];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-//    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
-    BOOL enableAds = YES;
-//    if (enableAds) {
-    
-        NSString *pub_id = [container stringForKey:@"admob_pub_id"];
-        NSString *dictionary_id = [container stringForKey:@"adv_dictionary_id"];
 
-        NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id,dictionary_id ];
+    BOOL enableAds = YES;
+    
+    //if it is the learning screen, show default ads
+    //else show dictionary ads
+    NSString *pubKey = @"admob_pub_id";
+    NSString *adsKey = @"adv_dictionary_id";
+    
+    if (_showLazzyBeeTab) {
+        pubKey = @"admob_pub_id";
+        adsKey = @"adv_dictionary_id";
         
-        self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
-        
-        self.adBanner.rootViewController = self;
-        
-        request.testDevices = @[
-                                @"687f0b503566ebb7d84524c1f15e1d16"
-                                ];
-        
-        [self.adBanner loadRequest:request];
+    } else {
+        pubKey = @"admob_pub_id";
+        adsKey = @"adv_default_id";
+    }
+    
+    NSString *pub_id = [container stringForKey:pubKey];
+    NSString *dictionary_id = [container stringForKey:adsKey];
+
+    NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id,dictionary_id ];
+    
+    self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
+    
+    self.adBanner.rootViewController = self;
+    
+    request.testDevices = @[
+                            @"687f0b503566ebb7d84524c1f15e1d16",
+                            kGADSimulatorID
+                            ];
+    
+    [self.adBanner loadRequest:request];
     
     if (pub_id == nil || pub_id.length == 0 ||
         dictionary_id == nil || dictionary_id.length == 0 ||

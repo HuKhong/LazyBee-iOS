@@ -225,6 +225,13 @@
         [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayFlag withKey:KEY_AUTOPLAY];
     }
     
+    NSNumber *displayMeaningFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DISPLAYMEANING];
+    
+    if (!displayMeaningFlag) {
+        displayMeaningFlag = [NSNumber numberWithBool:YES];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:displayMeaningFlag withKey:KEY_DISPLAYMEANING];
+    }
+    
     NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
     
     if (!targetNumberObj) {

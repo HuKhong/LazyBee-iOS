@@ -21,6 +21,7 @@ typedef enum {
 @interface StudiedListViewController : UIViewController
 {
     IBOutlet UILabel *lbHeaderInfo;
+    IBOutlet UIView *viewTableContainer;
     IBOutlet UITableView *wordsTableView;
     IBOutlet UIView *viewNoresult;
     

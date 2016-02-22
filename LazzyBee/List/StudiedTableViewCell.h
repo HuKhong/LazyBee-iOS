@@ -17,5 +17,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbWord;
 @property (strong, nonatomic) IBOutlet UILabel *lbPronounce;
 @property (strong, nonatomic) IBOutlet UILabel *lbMeaning;
+@property (strong, nonatomic) IBOutlet UILabel *lbLevel;
 
 @end

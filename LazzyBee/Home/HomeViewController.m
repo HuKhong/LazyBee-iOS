@@ -68,8 +68,8 @@
     
 //    [viewInformation setBackgroundColor:COMMON_COLOR];
     
-    txtSearchbox.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    txtSearchbox.layer.borderWidth = 1.0f;
+    viewSearchContainer.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    viewSearchContainer.layer.borderWidth = 1.0f;
     
     [txtSearchbox setPlaceholder:LocalizedString(@"Dictionary")];
     
@@ -532,7 +532,8 @@
         // an ad request is made. GADInterstitial automatically returns test ads when running on a
         // simulator.
         request.testDevices = @[
-                                @"687f0b503566ebb7d84524c1f15e1d16"
+                                @"687f0b503566ebb7d84524c1f15e1d16",
+                                kGADSimulatorID
                                 ];
         [self.interstitial loadRequest:request];
 //    }

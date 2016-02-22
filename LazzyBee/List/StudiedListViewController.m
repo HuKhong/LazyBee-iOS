@@ -279,8 +279,12 @@
         NSArray *arrWords = [levelsDictionary objectForKey:key];
         wordObj = [arrWords objectAtIndex:indexPath.row];
         
+        cell.lbLevel.hidden = YES;
+        
     } else {
         wordObj = [wordList objectAtIndex:indexPath.row];
+        
+        cell.lbLevel.hidden = NO;
     }
     
     //parse the answer to dictionary object
@@ -320,6 +324,8 @@
     cell.lbWord.text = wordObj.question;
     cell.lbPronounce.text = strPronounciation;
 //    cell.lbMeaning.text = strMeaning;
+    
+    cell.lbLevel.text = [NSString stringWithFormat:@"Level: %@", wordObj.level];
     
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[strMeaning dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     

@@ -17,6 +17,7 @@
     IBOutlet UIView *viewInformation;
     IBOutlet UITextField *txtSearchbox;
     IBOutlet UIView *viewResultContainer;
+    IBOutlet UIView *viewSearchContainer;
 
 }
 

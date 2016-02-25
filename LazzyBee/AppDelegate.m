@@ -244,6 +244,18 @@
     if (!totalWordObj) {
         totalWordObj = [NSNumber numberWithInteger:40];
         [[Common sharedCommon] saveDataToUserDefaultStandard:totalWordObj withKey:KEY_DAILY_TOTAL_TARGET];
+        
+    } else {
+        //this is to re-save value for old app version
+        if (totalWordObj.integerValue == 10) {
+            totalWordObj = [NSNumber numberWithInteger:20];
+            [[Common sharedCommon] saveDataToUserDefaultStandard:totalWordObj withKey:KEY_DAILY_TOTAL_TARGET];
+            
+        } else if (totalWordObj.integerValue == 50) {
+            totalWordObj = [NSNumber numberWithInteger:60];
+            [[Common sharedCommon] saveDataToUserDefaultStandard:totalWordObj withKey:KEY_DAILY_TOTAL_TARGET];
+            
+        }
     }
     
     NSNumber *timeShowAnswer = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_TIME_TO_SHOW_ANSWER];

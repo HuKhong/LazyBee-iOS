@@ -19,6 +19,12 @@
 #define OPTION_HARD 3
 #define OPTION_IMPOSSIBLE 4
 
+#define TOTAL_OPTION_VERY_EASY 20
+#define TOTAL_OPTION_EASY 30
+#define TOTAL_OPTION_NORMAL 40
+#define TOTAL_OPTION_HARD 60
+#define TOTAL_OPTION_IMPOSSIBLE 80
+
 @interface DailyTargetViewController ()
 {
     NSIndexPath *selectedIndexPath;
@@ -56,7 +62,7 @@
         NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET];
         
         if (targetNumberObj) {
-            selectedIndexPath = [NSIndexPath indexPathForRow:(([targetNumberObj integerValue]/10) - 1) inSection:0];
+            selectedIndexPath = [NSIndexPath indexPathForRow:[self whatRowItIs:[targetNumberObj integerValue]] inSection:0];
         }
     }
     
@@ -94,7 +100,7 @@
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TARGET];
         
     } else {
-        NSInteger target = (selectedIndexPath.row + 1) * 10;
+        NSInteger target = [self whatValueItIs:selectedIndexPath.row];
         NSNumber *targetNumberObj = [NSNumber numberWithInteger:target];
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TOTAL_TARGET];
     }
@@ -167,19 +173,19 @@
         
     } else {
         if (indexPath.row == OPTION_VERY_EASY) {
-            cell.textLabel.text = [NSString stringWithFormat:@"10 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Very easy")];
+            cell.textLabel.text = [NSString stringWithFormat:@"%d %@ - %@", TOTAL_OPTION_VERY_EASY, LocalizedString(@"words"), LocalizedString(@"Very easy")];
             
         } else if (indexPath.row == OPTION_EASY) {
-            cell.textLabel.text = [NSString stringWithFormat:@"20 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Easy")];
+            cell.textLabel.text = [NSString stringWithFormat:@"%d %@ - %@", TOTAL_OPTION_EASY, LocalizedString(@"words"), LocalizedString(@"Easy")];
             
         } else if (indexPath.row == OPTION_NORMAL) {
-            cell.textLabel.text = [NSString stringWithFormat:@"30 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Normal")];
+            cell.textLabel.text = [NSString stringWithFormat:@"%d %@ - %@", TOTAL_OPTION_NORMAL, LocalizedString(@"words"), LocalizedString(@"Normal")];
             
         } else if (indexPath.row == OPTION_HARD) {
-            cell.textLabel.text = [NSString stringWithFormat:@"40 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Hard")];
+            cell.textLabel.text = [NSString stringWithFormat:@"%d %@ - %@", TOTAL_OPTION_HARD, LocalizedString(@"words"), LocalizedString(@"Hard")];
             
         } else if (indexPath.row == OPTION_IMPOSSIBLE) {
-            cell.textLabel.text = [NSString stringWithFormat:@"50 %@ - %@", LocalizedString(@"words"), LocalizedString(@"Impossible")];
+            cell.textLabel.text = [NSString stringWithFormat:@"%d %@ - %@", TOTAL_OPTION_IMPOSSIBLE, LocalizedString(@"words"), LocalizedString(@"Impossible")];
         }
     }
     
@@ -196,5 +202,48 @@
         
         [tableView reloadData];
     }
+}
+
+- (NSInteger)whatRowItIs:(NSInteger)value {
+    NSInteger row = 0;
+    
+    if (value == TOTAL_OPTION_VERY_EASY) {
+        row = 0;
+        
+    } else if (value == TOTAL_OPTION_EASY) {
+        row = 1;
+        
+    } else if (value == TOTAL_OPTION_NORMAL) {
+        row = 2;
+    } else if (value == TOTAL_OPTION_HARD) {
+        row = 3;
+        
+    } else if (value == TOTAL_OPTION_IMPOSSIBLE) {
+        row = 4;
+    }
+    
+    return row;
+}
+
+- (NSInteger)whatValueItIs:(NSInteger)row {
+    NSInteger value = 0;
+    
+    if (row == 0) {
+        value = TOTAL_OPTION_VERY_EASY;
+        
+    } else if (row == 1) {
+        value = TOTAL_OPTION_EASY;
+        
+    } else if (row == 2) {
+        value = TOTAL_OPTION_NORMAL;
+        
+    } else if (row == 3) {
+        value = TOTAL_OPTION_HARD;
+        
+    } else if (row == 4) {
+        value = TOTAL_OPTION_IMPOSSIBLE;
+    }
+    
+    return value;
 }
 @end

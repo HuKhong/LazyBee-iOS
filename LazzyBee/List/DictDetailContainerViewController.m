@@ -64,13 +64,13 @@
         
     } else {
         pubKey = @"admob_pub_id";
-        adsKey = @"adv_default_id";
+        adsKey = @"adv_learndetail_id";
     }
     
     NSString *pub_id = [container stringForKey:pubKey];
-    NSString *dictionary_id = [container stringForKey:adsKey];
+    NSString *adv_id = [container stringForKey:adsKey];
 
-    NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id,dictionary_id ];
+    NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id,adv_id ];
     
     self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
     
@@ -84,11 +84,11 @@
     [self.adBanner loadRequest:request];
     
     if (pub_id == nil || pub_id.length == 0 ||
-        dictionary_id == nil || dictionary_id.length == 0 ||
+        adv_id == nil || adv_id.length == 0 ||
         ![[Common sharedCommon] networkIsActive]) {
         enableAds = NO;
     }
-    
+//    enableAds = YES; //for test
     if (enableAds) {
         _adBanner.hidden = NO;
     } else {
@@ -158,6 +158,22 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)viewWillAppear:(BOOL)animated {
+    CGRect rect;
+    
+    if (_adBanner.hidden == NO) {
+        rect = self.view.frame;
+        rect.origin.y = 0;
+        rect.size.height = _adBanner.frame.origin.y - 3;
+        
+    } else {
+        rect = self.view.frame;
+        rect.origin.y = 0;
+    }
+    
+    [viewContainer setFrame:rect];
+}
 
 - (void)showActionsPanel:(id)sender {
     UIActionSheet *actionSheet = nil;

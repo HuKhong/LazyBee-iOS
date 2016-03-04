@@ -7,7 +7,10 @@
 */
 
 //Rear
-"Version" = "Version";
+"App info" = "App info";
+"App version" = "App version";
+"Database version" = "Database version";
+"CopyRight" = "Copyright © 2016 Born2go";
 "Home" = "Home";
 "Economy" = "Economy";
 "IELTS" = "IELTS";
@@ -94,7 +97,7 @@
 "Added" = "Added to learn";
 
 //Settings
-"Change language" = "Change language";
+"Change language" = "Thay đổi ngôn ngữ hiển thị";
 "Language" = "Language";
 "Speaking speed" = "Speaking speed";
 "Target" = "Target";
@@ -119,7 +122,7 @@
 
 //streak and learning progress
 "Daily target completed" = "Daily target completed";
-"Streack congratulation" = "Congratulation!\nYou have got %ld day(s) streak.";
+"Streack congratulation" = "Congratulation!\nYou have got %ld day streak.";
 "Continue" = "Continue";
 
 //note

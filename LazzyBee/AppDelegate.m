@@ -21,7 +21,7 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-@interface AppDelegate () <UISplitViewControllerDelegate>
+@interface AppDelegate () <UISplitViewControllerDelegate, TAGContainerOpenerNotifier>
 
 @end
 
@@ -55,7 +55,7 @@
     }
     
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-        
+    
     RearViewController *rearViewController = [[RearViewController alloc] init];
     UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
     

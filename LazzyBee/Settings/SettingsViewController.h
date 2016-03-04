@@ -17,6 +17,7 @@ typedef enum {
     SettingsTableViewSectionNotification,
     SettingsTableViewSectionUpdate,
     SettingsTableViewSectionBackup,
+    SettingsTableViewSectionAbout,
     SettingsTableViewSectionMax
 } SETTINGS_TABLEVIEW_SECTION;
 
@@ -66,6 +67,11 @@ typedef enum {
     RestoreDatabase,
     BackupSectionMax
 } BACKUP_SECTION;
+
+typedef enum {
+    About = 0,
+    AboutMax
+} ABOUT_SECTION;
 
 @interface SettingsViewController : UIViewController
 {

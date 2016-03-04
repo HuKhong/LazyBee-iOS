@@ -58,7 +58,7 @@
     
     NSString *appVer = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
     
-    lbVersion.text = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"Version"), appVer];
+    lbVersion.text = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"App version"), appVer];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeMajor)
@@ -182,11 +182,12 @@
         }
         
     } else if(indexPath.section == RearTable_Section_Share) {
-        if (indexPath.row == About_App) {
-            text = LocalizedString(@"About");
-            cell.imgIcon.image = [UIImage imageNamed:@"ic_about"];
-            
-        } else if (indexPath.row == ShareSection_ShareFB) {
+//        if (indexPath.row == About_App) {
+//            text = LocalizedString(@"About");
+//            cell.imgIcon.image = [UIImage imageNamed:@"ic_about"];
+//            
+//        } else
+        if (indexPath.row == ShareSection_ShareFB) {
             text = LocalizedString(@"Share");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_share"];
         }
@@ -301,16 +302,17 @@
         }
         
     } else if (indexPath.section == RearTable_Section_Share) {
-        if (indexPath.row == About_App) {
-            AboutViewController *aboutView = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
-            
-            newFrontController = [[UINavigationController alloc] initWithRootViewController:aboutView];
-            
-            self.sidePanelController.centerPanel = newFrontController;
-            
-            presentedCell = indexPath;  // <- store the presented row
-            
-        } else if (indexPath.row == ShareSection_ShareFB) {
+//        if (indexPath.row == About_App) {
+//            AboutViewController *aboutView = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
+//            
+//            newFrontController = [[UINavigationController alloc] initWithRootViewController:aboutView];
+//            
+//            self.sidePanelController.centerPanel = newFrontController;
+//            
+//            presentedCell = indexPath;  // <- store the presented row
+//            
+//        } else
+        if (indexPath.row == ShareSection_ShareFB) {
             FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
             content.contentURL = [NSURL URLWithString:@"http://www.lazzybee.com"];
 //            content.imageURL = [NSURL URLWithString:@"http://www.lazzybee.com/favicon.png"];
@@ -381,6 +383,10 @@
 
 - (void)changeLanguageHandle {
     [_rearTableView reloadData];
+    
+    NSString *appVer = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    
+    lbVersion.text = [NSString stringWithFormat:@"%@ %@", LocalizedString(@"App version"), appVer];
     
 }
 

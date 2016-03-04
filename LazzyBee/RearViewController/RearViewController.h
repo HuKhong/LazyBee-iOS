@@ -30,8 +30,8 @@ typedef enum {
 } SUUPORT_SECTION_ITEM;
 
 typedef enum {
-    About_App = 0,
-    ShareSection_ShareFB,
+//    About_App = 0,
+    ShareSection_ShareFB = 0,
     ShareSection_Max
 } SHARE_SECTION_ITEM;
 

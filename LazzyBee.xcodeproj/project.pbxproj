@@ -90,6 +90,8 @@
 		551FB8721C03019800C8B18C /* note@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 551FB86F1C03019800C8B18C /* note@3x.png */; };
 		551FB8761C031A1800C8B18C /* NoteFullView.m in Sources */ = {isa = PBXBuildFile; fileRef = 551FB8731C031A1800C8B18C /* NoteFullView.m */; };
 		551FB8771C031A1800C8B18C /* NoteFullView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8751C031A1800C8B18C /* NoteFullView.xib */; };
+		552400E91C87D8E700F7D057 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552400E71C87D8E700F7D057 /* AboutTableViewCell.m */; };
+		552400EA1C87D8E700F7D057 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552400E81C87D8E700F7D057 /* AboutTableViewCell.xib */; };
 		552BD5691BA1362A00BF316C /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552BD5601BA1362A00BF316C /* GoogleMobileAds.framework */; };
 		552BD56A1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5671BA1362A00BF316C /* README.txt */; };
 		552BD56B1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5681BA1362A00BF316C /* README.txt */; };
@@ -462,6 +464,9 @@
 		551FB8731C031A1800C8B18C /* NoteFullView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoteFullView.m; path = Note/NoteFullView.m; sourceTree = "<group>"; };
 		551FB8741C031A1800C8B18C /* NoteFullView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteFullView.h; path = Note/NoteFullView.h; sourceTree = "<group>"; };
 		551FB8751C031A1800C8B18C /* NoteFullView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NoteFullView.xib; path = Note/NoteFullView.xib; sourceTree = "<group>"; };
+		552400E61C87D8E700F7D057 /* AboutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewCell.h; sourceTree = "<group>"; };
+		552400E71C87D8E700F7D057 /* AboutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewCell.m; sourceTree = "<group>"; };
+		552400E81C87D8E700F7D057 /* AboutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutTableViewCell.xib; sourceTree = "<group>"; };
 		55264C841C2401CA0059CF55 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		552BD5601BA1362A00BF316C /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		552BD5621BA1362A00BF316C /* GADMAdNetworkAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkAdapterProtocol.h; sourceTree = "<group>"; };
@@ -1380,6 +1385,9 @@
 				55B08BEC1BBE36D000693411 /* LevelPickerViewController.h */,
 				55B08BED1BBE36D000693411 /* LevelPickerViewController.m */,
 				55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */,
+				552400E61C87D8E700F7D057 /* AboutTableViewCell.h */,
+				552400E71C87D8E700F7D057 /* AboutTableViewCell.m */,
+				552400E81C87D8E700F7D057 /* AboutTableViewCell.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1831,6 +1839,7 @@
 				4DD3C3E21B6F218700B6DA71 /* avatarDefault@3x.png in Resources */,
 				5518CDC81C76CD9E00B38E02 /* bee_rotate_40@3x.png in Resources */,
 				55457CC31BA27DA100EFCD50 /* TimerViewController.xib in Resources */,
+				552400EA1C87D8E700F7D057 /* AboutTableViewCell.xib in Resources */,
 				55EBA3ED1C74137F006B4A5A /* ic_search_gray.png in Resources */,
 				559E67B31BEB135F00232439 /* big_logo.png in Resources */,
 				55452C6A1BC528F600D6E430 /* MHTabBarIndicator@2x.png in Resources */,
@@ -2111,6 +2120,7 @@
 				55C1B2231BF2F4F400D917EB /* MajorObject.m in Sources */,
 				557288D91BB25DAA00EA0CE9 /* GTLFramework.m in Sources */,
 				55524FF01C7E956E0027A4ED /* sha1.c in Sources */,
+				552400E91C87D8E700F7D057 /* AboutTableViewCell.m in Sources */,
 				557288E01BB25DAA00EA0CE9 /* GTLUtilities.m in Sources */,
 				557288EE1BB2844700EA0CE9 /* SVRadialGradientLayer.m in Sources */,
 				55F7E6771BFB014300EB27A2 /* NSArray+MK_Block.m in Sources */,
@@ -2261,7 +2271,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2289,7 +2299,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

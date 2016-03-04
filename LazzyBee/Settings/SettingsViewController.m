@@ -17,6 +17,8 @@
 #import "LevelPickerViewController.h"
 #import "SettingCustomTableViewCell.h"
 #import "ChangeLanguageViewController.h"
+#import "AboutTableViewCell.h"
+
 #import "TAGContainer.h"
 #import "SVProgressHUD.h"
 #import "TagManagerHelper.h"
@@ -85,6 +87,10 @@
 
 #pragma mark data source
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == SettingsTableViewSectionAbout) {
+        return 65;
+    }
+    
     return 40.0;
 }
 
@@ -120,6 +126,9 @@
         
     } else if (section == SettingsTableViewSectionBackup) {
         return BackupSectionMax;
+        
+    } else if (section == SettingsTableViewSectionAbout) {
+        return AboutMax;
     }
     
     
@@ -135,6 +144,9 @@
         
     } else if (section == SettingsTableViewSectionNotification) {
         return LocalizedString(@"Reminder");
+        
+    } else if (section == SettingsTableViewSectionAbout) {
+        return LocalizedString(@"App info");
     }
     
     return @"";
@@ -418,7 +430,15 @@
             switch (indexPath.row) {
                 case BackUpDatabase:
                 {
-                    norCell.textLabel.text = LocalizedString(@"Backup database");
+                    NSString *code = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_BACKUP_CODE];
+                    
+                    if (code && code.length > 0) {
+                        norCell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", LocalizedString(@"Backup database"), code];
+                        
+                    } else {
+                        norCell.textLabel.text = LocalizedString(@"Backup database");
+                    }
+
                     return norCell;
                 }
                     
@@ -427,11 +447,43 @@
                     norCell.textLabel.text = LocalizedString(@"Restore database");
                     return norCell;
                 }
+                    
                 default:
                     break;
             }
         }
             
+        case SettingsTableViewSectionAbout:
+            switch (indexPath.row) {
+                case About:
+                {
+                    NSString *aboutCell = @"AboutTableViewCell";
+                    
+                    AboutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:aboutCell];
+                    if (cell == nil) {
+                        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"AboutTableViewCell" owner:nil options:nil];
+                        cell = [nib objectAtIndex:0];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    
+                    cell.userInteractionEnabled = NO;
+                    
+                    NSString *appVer = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+                    
+                    cell.lbAppVersion.text = [NSString stringWithFormat:@"%@: %@", LocalizedString(@"App version"), appVer];
+                    
+                    NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
+                    
+                    cell.lbDBVersion.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"Database version"), (long)dbVersion];
+                    
+                    cell.lbCopyRight.text = LocalizedString(@"CopyRight");
+                    
+                    return cell;
+                }
+                    break;
+            }
+            
+            break;
         default:
             break;
     }
@@ -975,6 +1027,13 @@
     NSString *content = @"";
     NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString *code = [uniqueIdentifier substringFromIndex:(uniqueIdentifier.length - BACKUP_CODE_LENGTH)];
+    
+    [[Common sharedCommon] saveDataToUserDefaultStandard:code withKey:KEY_BACKUP_CODE];
+    //show code
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:UpdateDatabase inSection:SettingsTableViewSectionUpdate];
+    [settingsTableView beginUpdates];
+    [settingsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [settingsTableView endUpdates];
     
     content = [NSString stringWithFormat:@"%@:\n%@", LocalizedString(@"Your database will be archived on server in 7 days"), code];
     

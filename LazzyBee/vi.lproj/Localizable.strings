@@ -7,7 +7,10 @@
 */
 
 //Rear
-"Version" = "Phiên bản";
+"App info" = "Thông tin ứng dụng";
+"App version" = "Phiên bản";
+"Database version" = "Dữ liệu";
+"CopyRight" = "Copyright © 2016 Born2go";
 "Home" = "Trang chủ";
 "Economy" = "Kinh tế";
 "IELTS" = "IELTS";
@@ -94,7 +97,7 @@
 "Added" = "Đã thêm vào danh sách học";
 
 //Settings
-"Change language" = "Thay đổi ngôn ngữ hiển thị";
+"Change language" = "Change language";
 "Language" = "Ngôn ngữ";
 "Speaking speed" = "Tốc độ đọc";
 "Target" = "Mục tiêu";

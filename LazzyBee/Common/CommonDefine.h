@@ -50,6 +50,7 @@
 #define KEY_TIME_TO_SHOW_ANSWER @"TimeToShowAnswer"
 #define IS_FIRST_RUN @"IsFirstRun"
 #define KEY_SELECTED_MAJOR @"SelectedMajor"
+#define KEY_BACKUP_CODE @"BackupCode"
 @interface CommonDefine : NSObject
 
 

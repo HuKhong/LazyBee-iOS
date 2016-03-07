@@ -51,6 +51,10 @@
 #define IS_FIRST_RUN @"IsFirstRun"
 #define KEY_SELECTED_MAJOR @"SelectedMajor"
 #define KEY_BACKUP_CODE @"BackupCode"
+
+#define BACKUP_CODE_LENGTH 6
+#define NUMBER_OF_STREAK_TO_UPDATE 10
+
 @interface CommonDefine : NSObject
 
 

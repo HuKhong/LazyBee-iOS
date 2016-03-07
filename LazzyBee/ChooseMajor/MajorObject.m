@@ -74,6 +74,10 @@
         
         res = LocalizedString(@"Medicine");
         
+    }  else if ([[self.majorName lowercaseString] isEqualToString:@"toeic"]) {
+        
+        res = LocalizedString(@"Toeic");
+        
     } else if ([[self.majorName lowercaseString] isEqualToString:@"coming soon"]) {
         
         res = LocalizedString(@"Coming soon");

@@ -26,12 +26,14 @@
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
 
-#define BACKUP_CODE_LENGTH 6
+#import "UploadToServer.h"
 
 @interface SettingsViewController ()
 {
     TimerViewController *timerView;
     LevelPickerViewController *levelView;
+    
+    UploadToServer *uploadToSerVer;
 }
 @end
 
@@ -611,7 +613,13 @@
                     if ([[Common sharedCommon] networkIsActive]) {
                         [[CommonSqlite sharedCommonSqlite] backupData];
                         
-                        [self uploadDatabaseToServer];
+//                        [self uploadDatabaseToServer];//move to a common lib
+                        if (uploadToSerVer == nil) {
+                            uploadToSerVer = [[UploadToServer alloc] init];
+                            uploadToSerVer.delegate = (id)self;
+                        }
+                        
+                        [uploadToSerVer uploadDatabaseToServer];
                         
                     } else {
                         [self noConnectionAlert];
@@ -832,7 +840,8 @@
 
 
 #pragma mark backup and restore
-- (void)uploadDatabaseToServer{
+/* move to a common lib
+- (void)uploadDatabaseToServer {
     NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:pathZip]) {
@@ -840,6 +849,7 @@
     }
     
 }
+
 
 - (void)sendRequestToGetPostLink {
     [SVProgressHUD show];
@@ -850,8 +860,7 @@
         service.retryEnabled = YES;
         //[GTMHTTPFetcher setLoggingEnabled:YES];
     }
-    
-    [SVProgressHUD show];
+
     GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetUploadUrl];
     //TODO: Add waiting progress here
     [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiUploadTarget *object, NSError *error) {
@@ -859,6 +868,7 @@
             [self didReceivePostLink:object.url];
             
         } else {
+            [SVProgressHUD dismiss];
             [self failedToConnectToServerAlert];
         }
     }];
@@ -877,7 +887,7 @@
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
     [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
     
-    /* adding content as a body to post */
+    //adding content as a body to post
     
     NSMutableData *body = [NSMutableData data];
     
@@ -926,23 +936,10 @@
 }
 
 - (void)didPostingResponse:(NSData *)data {
-//    NSString *status = @"ok";
-//    NSString *err_msg = @"no error";
-//    
-//    NSString* test = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    NSLog(@"test ::: %@", test);
-//    
-//    NSError *error;
-//    NSDictionary *jsonObj = nil;
-//    if (data) {
-//        jsonObj = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-//        
-//        if (error == nil && [jsonObj count] > 0) {
-//            
-//        }
-//    }
+
     [self backupSuccessfullyAlert];
 }
+*/
 
 //restore
 - (void)downloadFileFromServerWithCode:(NSString *)code {

@@ -136,10 +136,14 @@
     
     [majorsArr addObject:ieltsObj];
     
-    //blank
-    MajorObject *blankObj = [[MajorObject alloc] initWithName:@"Coming soon" thumbnail:@"blank.png" andCheckFlag:NO];
-    blankObj.enabled = NO;
-    [majorsArr addObject:blankObj];
+    //toeicObj
+    MajorObject *toeicObj = [[MajorObject alloc] initWithName:@"TOEIC" thumbnail:@"toeic.png" andCheckFlag:NO];
+    
+    if ([[currentMajor lowercaseString]isEqualToString:@"toeic"]) {
+        toeicObj.checkFlag = YES;
+    }
+    
+    [majorsArr addObject:toeicObj];
     
     //blank
     MajorObject *blankObj2 = [[MajorObject alloc] initWithName:@"Coming soon" thumbnail:@"blank.png" andCheckFlag:NO];
@@ -211,6 +215,10 @@
         majorCell.alpha = 0.5;
     } else {
         majorCell.alpha = 1.0;
+    }
+    
+    if (majorObject.checkFlag == YES) {
+        [cv scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
     }
     
     return majorCell;

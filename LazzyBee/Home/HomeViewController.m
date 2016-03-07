@@ -21,6 +21,7 @@
 #import "PopupView.h"
 #import "LocalizeHelper.h"
 #import "MajorObject.h"
+#import "UploadToServer.h"
 
 @interface HomeViewController ()<GADInterstitialDelegate>
 {
@@ -31,6 +32,8 @@
     NSInteger hintCountDown;
     
     StudiedListViewController *searchHintViewController;
+    
+    UploadToServer *uploadToServer;
 }
 
 /// The interstitial ad.
@@ -104,6 +107,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(needToCheckReviewList)
                                                  name:@"NeedToCheckReviewList"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(needToBackupData)
+                                                 name:@"NeedToBackupData"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -447,6 +455,23 @@
             
             [self.navigationController pushViewController:studyViewController animated:YES];
         }
+        
+    } else if (alertView.tag == 5) { //confirm to backup data
+        if (buttonIndex != 0) {
+            if ([[Common sharedCommon] networkIsActive]) {
+                if (uploadToServer == nil) {
+                    uploadToServer = [[UploadToServer alloc] init];
+                    uploadToServer.delegate = (id)self;
+                }
+                
+                [[CommonSqlite sharedCommonSqlite] backupData];
+                
+                [uploadToServer uploadDatabaseToServer];
+                
+            } else {
+                [self noConnectionAlert];
+            }
+        }
     }
 }
 
@@ -511,6 +536,36 @@
     //show alert to congrat
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Oops!") message:LocalizedString(@"No more word. Click More Words") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)noConnectionAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check wifi/3G connection") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 6;
+    
+    [alert show];
+}
+
+#pragma mark to server delegate
+- (void)failedToConnectToServerAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Failed to connect to server") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 7;
+    
+    [alert show];
+}
+
+- (void)backupSuccessfullyAlert {
+    NSString *content = @"";
+    NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *code = [uniqueIdentifier substringFromIndex:(uniqueIdentifier.length - BACKUP_CODE_LENGTH)];
+    
+    [[Common sharedCommon] saveDataToUserDefaultStandard:code withKey:KEY_BACKUP_CODE];
+    
+    content = [NSString stringWithFormat:@"%@:\n%@", LocalizedString(@"Your database will be archived on server in 7 days"), code];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Successfully") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 8;
     
     [alert show];
 }
@@ -603,5 +658,14 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
         
         [alert show];
     }
+}
+
+- (void)needToBackupData {
+    NSString *alertContent = LocalizedString(@"Do you want to backup your learning progress?");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"No") otherButtonTitles:LocalizedString(@"Yes"), nil];
+    alert.tag = 5;
+    
+    [alert show];
+    
 }
 @end

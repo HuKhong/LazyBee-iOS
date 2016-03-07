@@ -175,5 +175,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToCheckReviewList" object:nil];
+    
+    NSInteger streakCount = [[Common sharedCommon] getCountOfStreak];
+    if (streakCount % NUMBER_OF_STREAK_TO_UPDATE == 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToBackupData" object:nil];
+    }
+    
 }
 @end

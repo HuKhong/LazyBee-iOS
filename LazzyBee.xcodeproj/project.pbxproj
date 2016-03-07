@@ -243,6 +243,10 @@
 		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; };
 		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; };
 		55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BF31BBE6FAF00693411 /* ReportViewController.xib */; };
+		55BA86EB1C8D32BA000221D7 /* UploadToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BA86EA1C8D32BA000221D7 /* UploadToServer.m */; };
+		55BA86EF1C8D6C4C000221D7 /* toeic.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86EC1C8D6C4C000221D7 /* toeic.png */; };
+		55BA86F01C8D6C4C000221D7 /* toeic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86ED1C8D6C4C000221D7 /* toeic@2x.png */; };
+		55BA86F11C8D6C4C000221D7 /* toeic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55BA86EE1C8D6C4C000221D7 /* toeic@3x.png */; };
 		55BDC8A61BC76FFF0015B199 /* TagManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC8A51BC76FFF0015B199 /* TagManagerHelper.m */; };
 		55C092321BCF4301005C78B5 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C092311BCF4301005C78B5 /* PopupView.m */; };
 		55C092341BCF431E005C78B5 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55C092331BCF431E005C78B5 /* PopupView.xib */; };
@@ -698,6 +702,11 @@
 		55B08BF11BBE6FAF00693411 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportViewController.h; path = Mainsreen/ReportViewController.h; sourceTree = "<group>"; };
 		55B08BF21BBE6FAF00693411 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportViewController.m; path = Mainsreen/ReportViewController.m; sourceTree = "<group>"; };
 		55B08BF31BBE6FAF00693411 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReportViewController.xib; path = Mainsreen/ReportViewController.xib; sourceTree = "<group>"; };
+		55BA86E91C8D32BA000221D7 /* UploadToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploadToServer.h; path = Common/UploadToServer.h; sourceTree = "<group>"; };
+		55BA86EA1C8D32BA000221D7 /* UploadToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploadToServer.m; path = Common/UploadToServer.m; sourceTree = "<group>"; };
+		55BA86EC1C8D6C4C000221D7 /* toeic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toeic.png; sourceTree = "<group>"; };
+		55BA86ED1C8D6C4C000221D7 /* toeic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toeic@2x.png"; sourceTree = "<group>"; };
+		55BA86EE1C8D6C4C000221D7 /* toeic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toeic@3x.png"; sourceTree = "<group>"; };
 		55BDC8A41BC76FFF0015B199 /* TagManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagManagerHelper.h; path = Common/TagManagerHelper.h; sourceTree = "<group>"; };
 		55BDC8A51BC76FFF0015B199 /* TagManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagManagerHelper.m; path = Common/TagManagerHelper.m; sourceTree = "<group>"; };
 		55C092301BCF4301005C78B5 /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupView.h; path = Popup/PopupView.h; sourceTree = "<group>"; };
@@ -1111,6 +1120,8 @@
 		4DD3C3B01B6F1A9C00B6DA71 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				55BA86E91C8D32BA000221D7 /* UploadToServer.h */,
+				55BA86EA1C8D32BA000221D7 /* UploadToServer.m */,
 				550289F71BF07C2A007181C3 /* PlaySound */,
 				55BDC8A41BC76FFF0015B199 /* TagManagerHelper.h */,
 				55BDC8A51BC76FFF0015B199 /* TagManagerHelper.m */,
@@ -1557,6 +1568,9 @@
 		55E106361BF1DF18008A6BEA /* majors */ = {
 			isa = PBXGroup;
 			children = (
+				55BA86EC1C8D6C4C000221D7 /* toeic.png */,
+				55BA86ED1C8D6C4C000221D7 /* toeic@2x.png */,
+				55BA86EE1C8D6C4C000221D7 /* toeic@3x.png */,
 				55F2FA971C1EC0130028F561 /* ielts@3x.png */,
 				55F2FA981C1EC0130028F561 /* ielts.png */,
 				55F2FA991C1EC0130028F561 /* ielts@2x.png */,
@@ -1878,6 +1892,7 @@
 				559E67A91BEB0A2600232439 /* button_short.png in Resources */,
 				4DD3C3DC1B6F218700B6DA71 /* ic_share@3x.png in Resources */,
 				55C1B2141BF2E21A00D917EB /* MajorCollectionViewCell.xib in Resources */,
+				55BA86F11C8D6C4C000221D7 /* toeic@3x.png in Resources */,
 				55DC326E1C2BCE7000D56D39 /* ic_alert_white.png in Resources */,
 				55F6C72F1BF5959C0084B369 /* it@2x.png in Resources */,
 				55F2FA9B1C1EC0130028F561 /* ielts.png in Resources */,
@@ -1931,11 +1946,13 @@
 				559E67BE1BEF526A00232439 /* streak_ring@3x.png in Resources */,
 				4DD3C3DD1B6F218700B6DA71 /* arrow_white.png in Resources */,
 				552BD5B61BA175E300BF316C /* ic_rabbit@2x.png in Resources */,
+				55BA86F01C8D6C4C000221D7 /* toeic@2x.png in Resources */,
 				550289FF1BF0820D007181C3 /* magic.mp3 in Resources */,
 				55F6C72D1BF5959C0084B369 /* science@2x.png in Resources */,
 				4DD3C3D91B6F218700B6DA71 /* ic_setting@3x.png in Resources */,
 				55E106421BF1E2DD008A6BEA /* ic_list.png in Resources */,
 				55028A0E1BF092C2007181C3 /* bee_rotate.png in Resources */,
+				55BA86EF1C8D6C4C000221D7 /* toeic.png in Resources */,
 				557288CB1BB25DAA00EA0CE9 /* GTMOAuth2ViewTouch.xib in Resources */,
 				4DD3C3D71B6F218700B6DA71 /* ic_setting.png in Resources */,
 				4DD3C3A11B6F191C00B6DA71 /* LICENSE in Resources */,
@@ -2102,6 +2119,7 @@
 				552BD5C31BA17A6900BF316C /* NotificationTableViewCell.m in Sources */,
 				4DD3C3BA1B6F1AA700B6DA71 /* CommonAlert.m in Sources */,
 				55F7E67B1BFB014300EB27A2 /* NSMutableArray+MK_Stack.m in Sources */,
+				55BA86EB1C8D32BA000221D7 /* UploadToServer.m in Sources */,
 				4DD3C3A31B6F191C00B6DA71 /* JASidePanelController.m in Sources */,
 				55524FF31C7E956E0027A4ED /* unzip.c in Sources */,
 				557288CA1BB25DAA00EA0CE9 /* GTMOAuth2ViewControllerTouch.m in Sources */,

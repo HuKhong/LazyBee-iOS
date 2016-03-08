@@ -117,6 +117,10 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     float speed = 2*[speedNumberObj floatValue];
     
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+        speed = speed/2;
+    }
+    
     NSString *strWordIconTag = @"<div style='float:left;width:90%%;text-align: center;'>\n"
                         "<strong style='font-size:18pt;'> %@ </strong>\n"   //%@ will be replaced by word.question
                         "</div>\n"
@@ -216,6 +220,11 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     float speed = 2*[speedNumberObj floatValue];
+
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+        speed = speed/2;
+    }
+    
     //create html
     
     NSString *strWordIconTag = @"<div style='float:left;width:10%%'>\n"

@@ -188,6 +188,12 @@
                             cell.accessoryType = UITableViewCellAccessoryNone;
                         }
                         
+                        NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
+                        
+                        if (speedNumberObj) {
+                            [cell.speedSlider setValue:[speedNumberObj floatValue]];
+                        }
+                        
                         return cell;
                     }
                     break;

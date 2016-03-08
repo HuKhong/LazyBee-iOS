@@ -470,6 +470,11 @@
     if ([autoPlayFlag boolValue]) {
         NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
         float speed = [speedNumberObj floatValue];
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+            speed = speed/2;
+        }
+        
         [[Common sharedCommon] textToSpeech:wordObj.question withRate:speed];
     }
     _isAnswerScreen = NO;

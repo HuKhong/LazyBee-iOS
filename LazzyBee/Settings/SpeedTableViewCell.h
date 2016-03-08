@@ -11,7 +11,9 @@
 @interface SpeedTableViewCell : UITableViewCell
 {
     
-    IBOutlet UISlider *speedSlider;
     
 }
+
+@property (strong, nonatomic) IBOutlet UISlider *speedSlider;
+
 @end

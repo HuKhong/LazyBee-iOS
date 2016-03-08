@@ -281,6 +281,13 @@
         
         cell.lbLevel.hidden = YES;
         
+        CGRect rect = cell.lbMeaning.frame;
+        CGRect rectLbLevel = cell.lbLevel.frame;
+        rect.size.width = rectLbLevel.origin.x + rectLbLevel.size.width;
+        
+        [cell.lbMeaning setFrame:rect];
+        
+        
     } else {
         wordObj = [wordList objectAtIndex:indexPath.row];
         

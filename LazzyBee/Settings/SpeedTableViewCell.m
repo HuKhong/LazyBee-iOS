@@ -20,7 +20,7 @@
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     
     if (speedNumberObj) {
-        [speedSlider setValue:[speedNumberObj floatValue]];
+        [_speedSlider setValue:[speedNumberObj floatValue]];
     }
 }
 
@@ -32,13 +32,19 @@
 
 
 - (IBAction)sliderchangeValue:(id)sender {
-    NSNumber *speedNumberObj = [NSNumber numberWithFloat:[speedSlider value]];
+    NSNumber *speedNumberObj = [NSNumber numberWithFloat:[_speedSlider value]];
     [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:KEY_SPEAKING_SPEED];
 
 }
 
 - (IBAction)valueChangeEnd:(id)sender {
-    [self textToSpeech:@"This is to adjust speaking speed. Thank you for using lazy bee application." withRate:[speedSlider value]];
+    float val = [_speedSlider value];
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+        val = val/2;
+    }
+    
+    [self textToSpeech:@"This is to adjust speaking speed. Thank you for using lazy bee application." withRate:val];
 }
 
 - (void)textToSpeech:(NSString *)text withRate:(float)rate {

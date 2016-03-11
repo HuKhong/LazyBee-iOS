@@ -1033,7 +1033,7 @@
     
     [[Common sharedCommon] saveDataToUserDefaultStandard:code withKey:KEY_BACKUP_CODE];
     //show code
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:UpdateDatabase inSection:SettingsTableViewSectionUpdate];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:BackUpDatabase inSection:SettingsTableViewSectionBackup];
     [settingsTableView beginUpdates];
     [settingsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [settingsTableView endUpdates];

@@ -30,7 +30,8 @@
 
 #define DATABASENAME @"english.db"
 #define DATABASENAME_NEW @"new_english.db"
-#define DATABASENAME_BACKUP @"backup.csv"
+#define DATABASENAME_BACKUP @"word.csv"
+#define STREAK_BACKUP @"streak.csv"
 #define DATABASENAME_BACKUPZIP @"backup.zip"
 
 #define BUFFER_SIZE 100
@@ -51,6 +52,7 @@
 #define IS_FIRST_RUN @"IsFirstRun"
 #define KEY_SELECTED_MAJOR @"SelectedMajor"
 #define KEY_BACKUP_CODE @"BackupCode"
+#define KEY_STREAK_INFO @"StreakInfo"
 
 #define BACKUP_CODE_LENGTH 6
 #define NUMBER_OF_STREAK_TO_UPDATE 10

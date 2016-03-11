@@ -1927,95 +1927,133 @@ static CommonSqlite* sharedCommonSqlite = nil;
                 encoding:NSUTF8StringEncoding
                    error:&error];
     NSLog(@"%@", error.description);
+}
+
+- (void)writeStreakToFile {
+    NSString *path = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:STREAK_BACKUP];
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:path];
     
-    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
-    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathZip];
-    [SSZipArchive createZipFileAtPath: pathZip withFilesAtPaths:[NSArray arrayWithObject:path]];
+    NSArray *streakArr = [[Common sharedCommon] loadStreak];
+    
+    NSMutableString *strData = [[NSMutableString alloc] init];
+    for (NSNumber *streak in streakArr) {
+        [strData appendFormat:@"%@,\n", streak];
+    }
+    NSError *error = nil;
+    [strData writeToFile:path
+              atomically:YES
+                encoding:NSUTF8StringEncoding
+                   error:&error];
+    NSLog(@"%@", error.description);
 }
 
 - (void)backupData {
     NSArray *data = [self fetchDataNeedToBackup];
     [self writeDataToFile:data];
+    
+    [self writeStreakToFile];
+    
+    NSString *pathWordFile = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
+    NSString *pathStreakFile = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:STREAK_BACKUP];
+    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathZip];
+    
+    [SSZipArchive createZipFileAtPath: pathZip withFilesAtPaths:[NSArray arrayWithObjects:pathWordFile, pathStreakFile, nil]];
+    
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathWordFile];
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathStreakFile];
 }
 
 - (BOOL)restoreData {
-    NSString *path = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
+    NSString *pathWordFile = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
+    NSString *pathStreakFile = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:STREAK_BACKUP];
+    
     //remove old file before unzipping for sure
-    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:path];
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathWordFile];
+    [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathStreakFile];
     
     
     //unzip
     NSString *pathZip = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:pathZip]) {
-        [SSZipArchive unzipFileAtPath:pathZip toDestination:[path stringByDeletingLastPathComponent]];
+        [SSZipArchive unzipFileAtPath:pathZip toDestination:[[Common sharedCommon] restoreFolder]];
         [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathZip];
         
-        //read file
-        NSString *fileContent = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-        
-        NSArray *rows = [fileContent componentsSeparatedByString:@",\n"];
-        
-        //open db
-        NSString *dbPath = [self getDatabasePath];
-        NSURL *storeURL = [NSURL URLWithString:dbPath];
-        
-        const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
-        sqlite3 *db;
-        int dbrc; //database return code
-        dbrc = sqlite3_open(dbFilePathUTF8, &db);
-        
-        if (dbrc) {
-            return NO;
-        }
-        sqlite3_stmt *dbps;
-        
-        NSString *strQuery = @"";
-        const char *charQuery = nil;
-        for (NSString *row in rows) {
-            NSArray *values = [row componentsSeparatedByString:@","];
-            //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote
+        //read word file
+        if ([[NSFileManager defaultManager] fileExistsAtPath:pathWordFile]) {
+            NSString *fileContent = [NSString stringWithContentsOfFile:pathWordFile encoding:NSASCIIStringEncoding error:nil];
             
-            if ([values count] == 7) {
-                NSString *userNote = [[values objectAtIndex:6] stringByReplacingOccurrencesOfString:@"*#*" withString:@","];
-                
-                strQuery = [NSString stringWithFormat:@"UPDATE 'vocabulary' SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, user_note = '%@' where gid = '%@'", [[values objectAtIndex:1] intValue], [[values objectAtIndex:2] intValue], [[values objectAtIndex:3] intValue], [[values objectAtIndex:4] intValue], [[values objectAtIndex:5] intValue], userNote, [values objectAtIndex:0]];
-                
-                charQuery = [strQuery UTF8String];
-                
-                sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-                
-                if(SQLITE_DONE != sqlite3_step(dbps)) {
-                    NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
-                }
-                
-                sqlite3_finalize(dbps);
-                
-                //for test
-//                strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = %@", [values objectAtIndex:0]];
-//                charQuery = [strQuery UTF8String];
-//                NSInteger count = 0;
-//                
-//                sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-//                
-//                if(SQLITE_DONE != sqlite3_step(dbps)) {
-//                    if (sqlite3_column_int(dbps, 0)) {
-//                        count = sqlite3_column_int(dbps, 0);
-//                    }
-//                }
-//                sqlite3_finalize(dbps);
-//                
-//                if (count == 0) {
-//                    NSLog(@"Error while updating. %@", values);
-//                }
-                
+            NSArray *rows = [fileContent componentsSeparatedByString:@",\n"];
+            
+            //open db
+            NSString *dbPath = [self getDatabasePath];
+            NSURL *storeURL = [NSURL URLWithString:dbPath];
+            
+            const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+            sqlite3 *db;
+            int dbrc; //database return code
+            dbrc = sqlite3_open(dbFilePathUTF8, &db);
+            
+            if (dbrc) {
+                return NO;
             }
+            sqlite3_stmt *dbps;
+            
+            NSString *strQuery = @"";
+            const char *charQuery = nil;
+            for (NSString *row in rows) {
+                NSArray *values = [row componentsSeparatedByString:@","];
+                //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote
+                
+                if ([values count] == 7) {
+                    NSString *userNote = [[values objectAtIndex:6] stringByReplacingOccurrencesOfString:@"*#*" withString:@","];
+                    
+                    strQuery = [NSString stringWithFormat:@"UPDATE 'vocabulary' SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, user_note = '%@' where gid = '%@'", [[values objectAtIndex:1] intValue], [[values objectAtIndex:2] intValue], [[values objectAtIndex:3] intValue], [[values objectAtIndex:4] intValue], [[values objectAtIndex:5] intValue], userNote, [values objectAtIndex:0]];
+                    
+                    charQuery = [strQuery UTF8String];
+                    
+                    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+                    
+                    if(SQLITE_DONE != sqlite3_step(dbps)) {
+                        NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+                    }
+                    
+                    sqlite3_finalize(dbps);
+                    
+                }
+            }
+            
+            sqlite3_close(db);
+            
+            //remove file after restore
+            [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathWordFile];
         }
         
-        sqlite3_close(db);
+        //read streak file
+        if ([[NSFileManager defaultManager] fileExistsAtPath:pathStreakFile]) {
+            NSString *fileContent = [NSString stringWithContentsOfFile:pathStreakFile encoding:NSASCIIStringEncoding error:nil];
+            
+            NSArray *rows = [fileContent componentsSeparatedByString:@",\n"];
+            NSMutableArray *streakArr = [[NSMutableArray alloc] init];
+            NSNumber *number = nil;
+            for (NSString *row in rows) {
+                if ([row longLongValue] > 0) {
+                    number = [NSNumber numberWithLongLong:[row longLongValue]];
+                    
+                    [streakArr addObject:number];
+                }
+            }
+            
+            NSData* archivedData = [NSKeyedArchiver archivedDataWithRootObject:streakArr];
+            
+            [[Common sharedCommon] saveDataToUserDefaultStandard:archivedData withKey:KEY_STREAK_INFO];
+            
+            //remove file after restore
+            [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathStreakFile];
+        }
         
-        //remove file after restore
-        [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:path];
     } else {
         return NO;
     }

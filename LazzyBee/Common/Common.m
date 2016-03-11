@@ -908,11 +908,11 @@
     
     NSData* archivedData = [NSKeyedArchiver archivedDataWithRootObject:streakArr];
     
-    [self saveDataToUserDefaultStandard:archivedData withKey:@"StreakInfo"];
+    [self saveDataToUserDefaultStandard:archivedData withKey:KEY_STREAK_INFO];
 }
 
 - (NSArray *)loadStreak {
-    NSData* archivedData = [self loadDataFromUserDefaultStandardWithKey:@"StreakInfo"];
+    NSData* archivedData = [self loadDataFromUserDefaultStandardWithKey:KEY_STREAK_INFO];
     
     NSArray *streakArr = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
     

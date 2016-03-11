@@ -194,6 +194,10 @@
     
     if (!speedNumberObj) {
         speedNumberObj = [NSNumber numberWithFloat:0.4];
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+            speedNumberObj = [NSNumber numberWithFloat:0.25];
+        }
 
         [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:KEY_SPEAKING_SPEED];
         

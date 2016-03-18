@@ -724,7 +724,6 @@
 		55C1B2211BF2F4F400D917EB /* MajorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MajorObject.h; path = ChooseMajor/MajorObject.h; sourceTree = "<group>"; };
 		55C1B2221BF2F4F400D917EB /* MajorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MajorObject.m; path = ChooseMajor/MajorObject.m; sourceTree = "<group>"; };
 		55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
-		55D686B81C2901AD003F82EA /* LazzyBee.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LazzyBee.entitlements; sourceTree = "<group>"; };
 		55DC32681C2BCE7000D56D39 /* ic_alert_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_alert_white.png; sourceTree = "<group>"; };
 		55DC32691C2BCE7000D56D39 /* ic_alert_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_alert_white@2x.png"; sourceTree = "<group>"; };
 		55DC326A1C2BCE7000D56D39 /* ic_alert_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_alert_white@3x.png"; sourceTree = "<group>"; };
@@ -882,7 +881,6 @@
 		4D35B3441B6BC7C600EA67C2 /* LazzyBee */ = {
 			isa = PBXGroup;
 			children = (
-				55D686B81C2901AD003F82EA /* LazzyBee.entitlements */,
 				551FB8671C03010600C8B18C /* Note */,
 				55E106301BF1AF86008A6BEA /* ChooseMajor */,
 				55C0922F1BCF42BF005C78B5 /* Popup */,

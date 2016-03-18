@@ -155,7 +155,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(taskQ, ^{
-        [NSThread sleepForTimeInterval:1.0];
+        [NSThread sleepForTimeInterval:0.3];
         dispatch_sync(dispatch_get_main_queue(), ^{
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             TAGContainer *container = appDelegate.container;

@@ -655,7 +655,7 @@
         wordObj = [wordList objectAtIndex:indexPath.row];
         
         //update queue value to 3 to consider this word as a new word in DB
-        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
+        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_AGAIN];
         
         if (wordObj.isFromServer) {
             [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];

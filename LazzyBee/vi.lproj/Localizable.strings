@@ -40,7 +40,7 @@
 "Oops!" = "Hết từ";
 "No more word. Click More Words" = "Bạn đã học hết từ ngày hôm nay. Ấn \"Thêm từ\" nếu bạn thực sự muốn học thêm.";
 "Still have some words need to review" = "Bạn vẫn còn một số từ cần phải ôn lại ngày hôm nay.";
-"Do you want to backup your learning progress?" = "Bạn có muốn sao lưu dữ liệu bây giờ?";
+"Do you want to backup your learning progress?" = "LazzyBee sẽ sao lưu dữ liệu học tập của bạn. Bạn có muốn thực hiện không?";
 
 //Major
 "Close" = "Đóng";

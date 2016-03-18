@@ -28,7 +28,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_logo.png" id="RYI-sT-16O">
-                    <rect key="frame" x="234" y="124" width="300" height="332"/>
+                    <rect key="frame" x="234" y="130" width="300" height="320"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="Gbu-YY-Ul2">
@@ -104,7 +104,7 @@
         </view>
     </objects>
     <resources>
-        <image name="big_logo.png" width="1024" height="1024"/>
+        <image name="big_logo.png" width="300" height="300"/>
         <image name="button_long_ipad.png" width="667" height="40"/>
         <image name="button_short_ipad.png" width="300" height="40"/>
         <image name="ic_search_gray.png" width="25" height="25"/>

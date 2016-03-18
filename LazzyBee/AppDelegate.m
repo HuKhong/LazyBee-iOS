@@ -78,6 +78,11 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
+
+    NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *code = [uniqueIdentifier substringFromIndex:(uniqueIdentifier.length - BACKUP_CODE_LENGTH)];
+    
+    [[Common sharedCommon] saveDataToUserDefaultStandard:code withKey:KEY_BACKUP_CODE];
     
     //prevent backup icloud
 //    NSString *dbPath = [[CommonSqlite sharedCommonSqlite] getDatabasePath];
@@ -241,7 +246,7 @@
     NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
     
     if (!targetNumberObj) {
-        targetNumberObj = [NSNumber numberWithInteger:10];
+        targetNumberObj = [NSNumber numberWithInteger:5];
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TARGET];
     }
     
@@ -274,7 +279,7 @@
     NSNumber *dbVersion = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION];
     
     if (!dbVersion) {
-        dbVersion = [NSNumber numberWithInteger:5];
+        dbVersion = [NSNumber numberWithInteger:6];
         [[Common sharedCommon] saveDataToUserDefaultStandard:dbVersion withKey:KEY_DB_VERSION];
     }
     

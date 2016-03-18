@@ -40,7 +40,7 @@
 "Oops!" = "Oops!";
 "No more word. Click More Words" = "There is no more word to learn today. Click \"More Words\" if you really want to learn more.";
 "Still have some words need to review" = "You still have a few words need to review today.";
-"Do you want to backup your learning progress?" = "Do you want to backup data?";
+"Do you want to backup your learning progress?" = "LazzyBee is going to backup data to save your progress. Proceed?";
 
 
 //Major

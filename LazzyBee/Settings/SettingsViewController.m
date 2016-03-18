@@ -1028,10 +1028,7 @@
 
 - (void)backupSuccessfullyAlert {
     NSString *content = @"";
-    NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    NSString *code = [uniqueIdentifier substringFromIndex:(uniqueIdentifier.length - BACKUP_CODE_LENGTH)];
-    
-    [[Common sharedCommon] saveDataToUserDefaultStandard:code withKey:KEY_BACKUP_CODE];
+    NSString *code = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_BACKUP_CODE];
     //show code
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:BackUpDatabase inSection:SettingsTableViewSectionBackup];
     [settingsTableView beginUpdates];

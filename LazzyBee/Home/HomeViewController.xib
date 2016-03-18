@@ -28,7 +28,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_logo.png" id="vXe-kW-w7z">
-                    <rect key="frame" x="85" y="103" width="150" height="180"/>
+                    <rect key="frame" x="70" y="103" width="180" height="180"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="3Ya-xE-VYf">
@@ -104,7 +104,7 @@
         </view>
     </objects>
     <resources>
-        <image name="big_logo.png" width="1024" height="1024"/>
+        <image name="big_logo.png" width="300" height="300"/>
         <image name="button_long.png" width="334" height="40"/>
         <image name="button_short.png" width="150" height="40"/>
         <image name="ic_search_gray.png" width="25" height="25"/>

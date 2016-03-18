@@ -787,7 +787,7 @@
         if (buttonIndex == AS_SEARCH_BTN_ADD_TO_LEARN) {
             NSLog(@"Add to learn");
             //update queue value to 3 to consider this word as a new word in DB
-            _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
+            _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_AGAIN];
             
             if (_wordObj.isFromServer) {
                 [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:_wordObj];

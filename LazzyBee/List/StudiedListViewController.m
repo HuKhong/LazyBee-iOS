@@ -525,10 +525,10 @@
                     [arr addObject:wordObj];
                     
                     [levelsDictionary setObject:arr forKey:wordObj.level];
-                    
-                    keyArr = [levelsDictionary allKeys];
-                    keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
                 }
+                
+                keyArr = [levelsDictionary allKeys];
+                keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
                 
                 lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
                 [wordsTableView reloadData];
@@ -663,16 +663,19 @@
             //because word-id is blank so need to get again after insert it into db
             wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:wordObj.question];
             
-            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
+        //    [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
             
         } else {
-            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
+        //    [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:wordObj];
             
             //remove from buffer
             [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
             
             [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
         }
+        
+        //update incoming list
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AddToLearn" object:wordObj];
         
         [SVProgressHUD showSuccessWithStatus:LocalizedString(@"Added")];
         

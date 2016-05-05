@@ -51,6 +51,8 @@
 - (NSString *)getBackupDatabasePath;
 
 - (NSString *)getDatabasePath;
+
+- (NSDictionary *)getCountOfWordByLevel;
 @end
 
 #endif

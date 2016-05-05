@@ -2060,4 +2060,49 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     return YES;
 }
+
+- (NSDictionary *)getCountOfWordByLevel {
+    NSMutableDictionary *resDict = [[NSMutableDictionary alloc] init];
+    
+    NSString *dbPath = [self getDatabasePath];
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return resDict;
+    }
+    sqlite3_stmt *dbps;
+    
+    NSString *strQuery = @"";
+    const char *charQuery = nil;
+    NSInteger count = 0;
+    
+    for (int level = 1; level <= 8; level++) {
+        count = 0;
+        strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE level = %d", level];
+        charQuery = [strQuery UTF8String];
+        
+        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+        
+        if(SQLITE_DONE != sqlite3_step(dbps)) {
+            if (sqlite3_column_int(dbps, 0)) {
+                count = sqlite3_column_int(dbps, 0);
+            }
+        }
+        
+        if (count <= 0 || level == 8) {
+            count = 5000;
+        }
+        
+        [resDict setObject:[NSNumber numberWithInteger:count] forKey:[NSString stringWithFormat:@"%d", level]];
+        
+        sqlite3_finalize(dbps);
+    }
+    
+    return resDict;
+}
 @end

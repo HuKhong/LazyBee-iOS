@@ -20,6 +20,7 @@ typedef enum {
     HomeSection_MajorList,
     HomeSection_Dictionary,
     HomeSection_Progress,
+    HomeSection_Testing,
     HomeSection_Max
 } ABOUT_SECTION_ITEM;
 

@@ -28,6 +28,8 @@
     NSMutableDictionary *levelsDictionary;
     NSMutableArray *wordList;
     NSArray *keyArr;
+    
+    NSDictionary *countWordDict;
 }
 @end
 
@@ -56,6 +58,7 @@
     // Do any additional setup after loading the view from its nib.
     levelsDictionary = [[NSMutableDictionary alloc] init];
     wordList = [[NSMutableArray alloc] init];
+    countWordDict = [[CommonSqlite sharedCommonSqlite] getCountOfWordByLevel];
     
     graphView.dataSource = (id)self;
     
@@ -148,9 +151,10 @@
 
 - (NSNumber *)valueForBarAtIndex:(NSInteger)index {
     NSInteger count = [[levelsDictionary objectForKey:[NSString stringWithFormat:@"%ld", (long)index +1]] count];
+    NSInteger countByLevel = [[countWordDict objectForKey:[NSString stringWithFormat:@"%ld", (long)index +1]] integerValue];
     
-    if (count > 0 && [wordList count] > 0) {
-        count = (int)(count*100/[wordList count]);
+    if (count > 0 && countByLevel > 0) {
+        count = (int)(count*100/countByLevel);
     }
     
     return [NSNumber numberWithInteger:count];

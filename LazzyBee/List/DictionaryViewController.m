@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 #import "MHTabBarController.h"
 #import "DictDetailContainerViewController.h"
+#import "StudiedListViewController.h"
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 
@@ -46,6 +47,8 @@
     
     [self setTitle:LocalizedString(@"Dictionary")];
     [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
+    
+    self.searchDisplayController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
     if (searchResults == nil) {
         searchResults = [[NSMutableArray alloc] init];
@@ -211,5 +214,13 @@
             }
         }
     }
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    StudiedListViewController *searchResultViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
+    searchResultViewController.screenType = List_SearchResult;
+    searchResultViewController.searchText = searchBar.text;
+    
+    [self.navigationController pushViewController:searchResultViewController animated:YES];
 }
 @end

@@ -25,11 +25,13 @@ typedef enum {
     IBOutlet UIView *viewShowAnswer;
     IBOutlet UIView *viewLearningInfo;
     
+    IBOutlet UIButton *btnDictionary;
     IBOutlet UIButton *btnAgain;
     IBOutlet UIButton *btnHard;
     IBOutlet UIButton *btnNorm;
     IBOutlet UIButton *btnEasy;
     IBOutlet UIButton *btnShowAnswer;
+    
     
     IBOutlet UILabel *lbNewCount;
     IBOutlet UILabel *lbAgainCount;

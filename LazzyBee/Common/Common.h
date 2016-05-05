@@ -114,5 +114,6 @@ typedef enum {
 - (NSArray *)loadStreak;
 - (NSInteger)getCountOfStreak;
 
+- (NSDictionary *)getCountOfWordByLevel;
 @end
 #endif

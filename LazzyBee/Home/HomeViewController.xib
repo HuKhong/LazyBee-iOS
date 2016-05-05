@@ -73,7 +73,7 @@
                             <rect key="frame" x="5" y="1" width="264" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="no" returnKeyType="search"/>
                             <connections>
                                 <action selector="textEditingChanged:" destination="-1" eventType="editingChanged" id="RqF-pQ-BhA"/>
                                 <action selector="textEditingChanged:" destination="-1" eventType="editingDidBegin" id="pLa-Js-xAe"/>

@@ -169,7 +169,7 @@
                     popupInt = 1;
                 }
                 
-                int randomIndex = arc4random() % (popupInt - 1);
+                int randomIndex = arc4random() % (popupInt);
                 popupText = [container stringForKey:[NSString stringWithFormat:@"popup_text%d", randomIndex + 1]];
                 popupURL = [container stringForKey:[NSString stringWithFormat:@"popup_url%d", randomIndex + 1]];
 //                NSLog(@"popupText :: %@", popupText);

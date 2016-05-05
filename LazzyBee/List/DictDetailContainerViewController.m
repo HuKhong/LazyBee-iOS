@@ -209,10 +209,10 @@
                 //because word-id is blank so need to get again after insert it into db
                 _wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:_wordObj.question];
                 
-                [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
+            //    [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
                 
             } else {
-                [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
+            //    [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
                 
                 //remove from buffer
                 [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:_wordObj];

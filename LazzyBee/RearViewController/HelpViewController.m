@@ -30,18 +30,29 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:LocalizedString(@"Help")];
-    
-    UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
-    self.navigationItem.leftBarButtonItem = btnCancel;
-    
-//    NSString *path = [[NSBundle mainBundle] bundlePath];
-//    NSURL *baseURL = [NSURL fileURLWithPath:path];
-    
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"lazzybee_guide" ofType:@"htm"];
-    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-
-    [webView loadHTMLString:htmlString baseURL:nil];
+    if (_helpScreenType == Help_Screen_Help) {
+        [self setTitle:LocalizedString(@"Help")];
+        
+        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:LocalizedString(@"Close") style:UIBarButtonItemStyleDone target:(id)self  action:@selector(cancelButtonClick)];
+        self.navigationItem.leftBarButtonItem = btnCancel;
+        
+        //    NSString *path = [[NSBundle mainBundle] bundlePath];
+        //    NSURL *baseURL = [NSURL fileURLWithPath:path];
+        
+        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"lazzybee_guide" ofType:@"htm"];
+        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+        
+        [webView loadHTMLString:htmlString baseURL:nil];
+        
+    } else if (_helpScreenType == Help_Screen_VocabTesting) {
+        [self setTitle:LocalizedString(@"Vocabulary testing")];
+        
+        NSString *urlAddress = @"http://www.lazzybee.com/testvocab?menu=0";
+        NSURL *url = [NSURL URLWithString:urlAddress];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        
+        [webView loadRequest:requestObj];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,7 +75,7 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (request.URL.path && request.URL.path.length > 0) {
+    if (request.URL.path && request.URL.path.length > 0 && _helpScreenType == Help_Screen_Help) {
         [[UIApplication sharedApplication] openURL:request.URL];
         
         return NO;

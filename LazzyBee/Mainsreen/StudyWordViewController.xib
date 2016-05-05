@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="adBanner" destination="vxi-5A-nRf" id="Ya4-Fj-l5w"/>
                 <outlet property="btnAgain" destination="8ID-5O-DH1" id="Ely-hs-gOt"/>
+                <outlet property="btnDictionary" destination="Mqd-wG-sim" id="R8H-J5-Byg"/>
                 <outlet property="btnEasy" destination="qJL-Ae-ZMZ" id="yeE-4c-g5m"/>
                 <outlet property="btnHard" destination="quq-gJ-D7i" id="Ibn-mv-Tf2"/>
                 <outlet property="btnNorm" destination="BTU-UK-4xW" id="d1Q-NL-76A"/>
@@ -30,30 +31,38 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="R1v-JI-ahT">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dKV-fp-xDc">
-                            <rect key="frame" x="8" y="4" width="76" height="21"/>
+                            <rect key="frame" x="8" y="8" width="76" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.3022726395" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Again: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cFQ-92-Eku">
-                            <rect key="frame" x="92" y="4" width="76" height="21"/>
+                            <rect key="frame" x="95" y="8" width="83" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.75808869950000002" green="0.0" blue="0.17734529260000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZy-ES-gsA">
-                            <rect key="frame" x="176" y="4" width="76" height="21"/>
+                            <rect key="frame" x="182" y="8" width="80" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Mqd-wG-sim">
+                            <rect key="frame" x="279" y="-1" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="ic_dictionary.png"/>
+                            <connections>
+                                <action selector="btnDictionaryClick:" destination="-1" eventType="touchUpInside" id="9vc-UX-pJr"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -63,7 +72,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <webView contentMode="scaleToFill" id="nfQ-5E-gvx">
-                    <rect key="frame" x="0.0" y="30" width="320" height="425"/>
+                    <rect key="frame" x="0.0" y="38" width="320" height="417"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -151,7 +160,7 @@ Again</string>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="b5w-Un-KDn" appends="YES" id="zAd-fZ-y7G"/>
             </connections>
-            <point key="canvasLocation" x="381" y="375"/>
+            <point key="canvasLocation" x="394" y="378"/>
         </view>
         <swipeGestureRecognizer direction="left" id="b5w-Un-KDn">
             <connections>
@@ -163,5 +172,6 @@ Again</string>
     <resources>
         <image name="button_long.png" width="334" height="40"/>
         <image name="button_square.png" width="75" height="50"/>
+        <image name="ic_dictionary.png" width="30" height="30"/>
     </resources>
 </document>

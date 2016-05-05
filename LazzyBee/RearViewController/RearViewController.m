@@ -117,7 +117,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+//    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     
 //    header.textLabel.textColor = [UIColor darkGrayColor];
 //    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
@@ -161,10 +161,14 @@
         } else if (indexPath.row == HomeSection_Dictionary) {
             text = LocalizedString(@"Dictionary");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_dictionary"];
-            
+          
         } else if (indexPath.row == HomeSection_Progress) {
             text = LocalizedString(@"Learning progress");
             cell.imgIcon.image = [UIImage imageNamed:@"ic_graph"];
+            
+        } else if (indexPath.row == HomeSection_Testing) {
+            text = LocalizedString(@"Vocabulary testing");
+            cell.imgIcon.image = [UIImage imageNamed:@"ic_extension"];
         }
         
     } else if(indexPath.section == RearTable_Section_Support) {
@@ -268,7 +272,7 @@
             self.sidePanelController.centerPanel = newFrontController;
             
             presentedCell = indexPath;  // <- store the presented row
-            
+         
         } else if (indexPath.row == HomeSection_Progress) {
 //            [self displayInformation];
             BarGraphViewController *barGraphViewController = [[BarGraphViewController alloc] initWithNibName:@"BarGraphViewController" bundle:nil];
@@ -279,6 +283,15 @@
             
             [self presentViewController:newFrontController animated:YES completion:nil];
             
+        } else if (indexPath.row == HomeSection_Testing) {
+            HelpViewController *helpViewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
+            helpViewController.helpScreenType = Help_Screen_VocabTesting;
+            
+            newFrontController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
+            
+            self.sidePanelController.centerPanel = newFrontController;
+            
+            presentedCell = indexPath;  // <- store the presented row
         }
         
     } else if (indexPath.section == RearTable_Section_Support) {
@@ -293,6 +306,8 @@
             
         }  else if (indexPath.row == SupportSection_Help) {
             HelpViewController *helpViewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
+            helpViewController.helpScreenType = Help_Screen_Help;
+            
             newFrontController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
             
             [newFrontController setModalPresentationStyle:UIModalPresentationFormSheet];

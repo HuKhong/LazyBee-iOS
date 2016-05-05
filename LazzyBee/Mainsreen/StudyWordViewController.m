@@ -478,6 +478,7 @@
         [[Common sharedCommon] textToSpeech:wordObj.question withRate:speed];
     }
     _isAnswerScreen = NO;
+    btnDictionary.enabled = NO;
 }
 
 - (void)timerHandler {
@@ -523,6 +524,7 @@
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
     
     _isAnswerScreen = YES;
+    btnDictionary.enabled = YES;
 }
 
 //only need to check sender in case click on Again button
@@ -633,6 +635,16 @@
 }
 
 #pragma mark buttons handle
+- (IBAction)btnDictionaryClick:(id)sender {
+    if (_isAnswerScreen) {
+        DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
+        dictDetailContainer.wordObj = _wordObj;
+        dictDetailContainer.showLazzyBeeTab = NO;
+        [self.navigationController pushViewController:dictDetailContainer animated:YES];
+    }
+}
+
+
 - (IBAction)btnShowAnswerClick:(id)sender {
     if (_wordObj) {
         [self displayAnswer:_wordObj];
@@ -942,16 +954,16 @@
         
         if (newWord) {
             BOOL found = NO;
-            for (WordObject *word in _nwordList) {
+            for (WordObject *word in _studyAgainList) {
                 if ([newWord.question isEqualToString:word.question]) {
                     found = YES;
                 }
             }
             
             if (found == NO) {
-                [_nwordList addObject:newWord];
+                [_studyAgainList addObject:newWord];
                 
-                lbNewCount.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"New"), (unsigned long)[_nwordList count]];
+                lbAgainCount.text = [NSString stringWithFormat:@"%@: %ld", LocalizedString(@"Again"), (unsigned long)[_studyAgainList count]];
             }
         }
     }

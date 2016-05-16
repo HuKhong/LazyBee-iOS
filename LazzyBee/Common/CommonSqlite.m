@@ -778,93 +778,17 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSString *strQuery = @"";
     const char *charQuery = nil;
 
-    //comment this because dont care what the current buffer is
-    //override the current buffer
-    /*
-    strQuery = @"SELECT value from \"system\" WHERE key = 'buffer'";
-    charQuery = [strQuery UTF8String];
-    
-    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-    NSString *strJson = @"";
-    
-    while(sqlite3_step(dbps) == SQLITE_ROW) {
-        if (sqlite3_column_text(dbps, 0)) {
-            strJson = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
-            //{"count":37,"card":["67","5","27","29","39","46","58","4","21","43","81","139","165","175","180","262","269","277","279","334","359","387","2","7","8","10","11","13","14","19","31","35","38","42","44","47","49"]}
-            
-        }
-    }
-    
-    sqlite3_finalize(dbps);
-    
-    //parse the result to get word-id list
-    NSString *strIDList = @"";
-    NSArray *idListArr = nil;
-    NSData *data = [strJson dataUsingEncoding:NSUTF8StringEncoding];
-    if (data) {
-        NSDictionary *dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        idListArr = [dictIDList valueForKey:@"card"];
-        
-        if (idListArr) {
-            strIDList = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:[idListArr description]];
-        }
-    }
-*/
     //pick up "amount" news word-ids from vocabulary that not included the old words
     NSMutableArray *resArr = [[NSMutableArray alloc] init];
     
-    /* comment old algorithm
-    NSArray *wordAmountByLevel = [[Algorithm sharedAlgorithm] distributeWordByLevel];
+    NSString *lowestLevel = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
+    NSString *highestLevel = @"6";
     
-    for (int i = 1; i < [wordAmountByLevel count]; i++) {
-        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE queue = 0 AND level = %d ORDER BY id LIMIT %d", i, [[wordAmountByLevel objectAtIndex:i] intValue]];
-        charQuery = [strQuery UTF8String];
-        
-        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-
-        while(sqlite3_step(dbps) == SQLITE_ROW) {
-            if (sqlite3_column_text(dbps, 0)) {
-                NSString *wordID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
-                
-                [resArr addObject:wordID];
-            }
-        }
-        
-        sqlite3_finalize(dbps);
+    if (![package isEqualToString:@"common"]) {
+        highestLevel = @"7";
     }
     
-    //if not enough "amount" words
-    int count = 0; //to prevent infinite loop
-    NSString *strIDList = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:[resArr description]];
-    while ([resArr count] < amount) {
-        NSInteger randomIndex = arc4random() % ([wordAmountByLevel count] - 1);
-        
-        if (randomIndex == 0) {
-            randomIndex ++;
-        }
-
-        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE queue = 0 AND level = %ld AND id NOT IN %@ ORDER BY id LIMIT %ld", (long)randomIndex, strIDList, amount - [resArr count]];
-        charQuery = [strQuery UTF8String];
-        
-        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-        
-        while(sqlite3_step(dbps) == SQLITE_ROW) {
-            if (sqlite3_column_text(dbps, 0)) {
-                NSString *wordID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
-                
-                [resArr addObject:wordID];
-            }
-        }
-        
-        sqlite3_finalize(dbps);
-        
-        count ++;
-        if (count == 10) {
-            break;
-        }
-    }*/
-    NSString *lowestLevel = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
-    strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND queue = %d AND level >= %@ ORDER BY level LIMIT %ld", package, QUEUE_UNKNOWN, lowestLevel, (long)amount];
+    strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND queue = %d AND level >= %@ AND level <= %@ ORDER BY level LIMIT %ld", package, QUEUE_UNKNOWN, lowestLevel, highestLevel, (long)amount];
     charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -881,7 +805,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
     //if the selected package is not enough, get more from common
     if ([resArr count] < amount) {
-        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND queue = %d AND level >= %@ ORDER BY level LIMIT %ld", @"common", package, QUEUE_UNKNOWN, lowestLevel, (long)(amount - [resArr count])];
+        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND queue = %d AND level >= %@ AND level <= %@ ORDER BY level LIMIT %ld", @"common", package, QUEUE_UNKNOWN, lowestLevel, highestLevel, (long)(amount - [resArr count])];
         charQuery = [strQuery UTF8String];
         
         sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);

@@ -217,6 +217,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
     NSString *strExplainIconTag = @"";
     NSString *strExampleIconTag = @"";
+    NSString *strNoteTag = @"";
     
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     float speed = 2*[speedNumberObj floatValue];
@@ -251,6 +252,15 @@ static HTMLHelper* sharedHTMLHelper = nil;
                             "   <p><a onclick='playText(\"%@\", %f);'><img src='ic_speaker.png'/></a></p>\n"  //%@ will be replaced by strExample
                             "</div>\n";
         strExampleIconTag = [NSString stringWithFormat:strExampleIconTag, strExample, plainExample, speed];
+    }
+    
+    if (word.userNote && word.userNote.length > 0) {
+        strNoteTag = @"<div style=\"width:90%%; font-size:12pt;\"><br><center><em>=============================</em></center></div>\n"
+        "<div style=\"width:90%%; font-size:12pt;\"><strong>User note: </strong></div>\n"
+        "<div style=\"width:90%%; font-size:14pt;\">"
+        "   <em>%@</em> \n" //%@ will be replaced by word.userNote
+        "</div>\n";
+        strNoteTag = [NSString stringWithFormat:strNoteTag, word.userNote];
     }
     
     htmlString = @"<html>\n"
@@ -313,15 +323,18 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
 
     "            %@ \n"     //%@ will be replaced by strExampleIconTag
-
+    
     "       <div style='width:90%%'>\n"
     "           <br><br><br><br><center>%@<font size='4' color='blue'><em style='margin-left: 10px'> %@ </em></font></center>\n"    //%@ will be replaced by meaning
     "       </div>\n"
     "   </div>\n"
+    
+    "            %@ \n"     //%@ will be replaced by strNoteTag
+    
     "   </body>"
     "</html>\n";
 
-    htmlString = [NSString stringWithFormat:htmlString, word.question, strWordIconTag, strPronounciation, imageLink, strExplainIconTag, strExampleIconTag, package, strMeaning];
+    htmlString = [NSString stringWithFormat:htmlString, word.question, strWordIconTag, strPronounciation, imageLink, strExplainIconTag, strExampleIconTag, package, strMeaning, strNoteTag];
     return htmlString;
     
 }

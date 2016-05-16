@@ -289,6 +289,13 @@
         isFirstRun = [NSNumber numberWithBool:YES];
         [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:IS_FIRST_RUN];
     }
+    
+    NSNumber *guideFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SHOW_GUIDE];
+    
+    if (!guideFlag) {
+        guideFlag = [NSNumber numberWithBool:YES];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:guideFlag withKey:KEY_SHOW_GUIDE];
+    }
 }
 
 - (void)scheduleNotification {

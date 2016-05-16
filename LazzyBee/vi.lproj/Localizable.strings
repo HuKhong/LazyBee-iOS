@@ -86,6 +86,8 @@
 "month" = "tháng";
 "year" = "năm";
 "10min" = "< 10 phút";
+"Learning guide" = "Tùy vào việc bạn tự đánh giá khả năng nhớ của bạn, ứng dụng sẽ đưa từ này ra ôn lại theo các khoảng thời gian tương ứng bên dưới.";
+"Got it" = "Đã hiểu";
 
 //List
 "Pull to re-fill" = "Kéo để cập nhật danh sách";

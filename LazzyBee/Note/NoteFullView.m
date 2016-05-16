@@ -89,6 +89,8 @@
     [[CommonSqlite sharedCommonSqlite] saveNoteForWord:_word withNewNote:txtView.text];
     
     [self.delegate btnSaveClick];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshStudyScreen" object:_word];
 }
 
 

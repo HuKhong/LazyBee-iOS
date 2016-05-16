@@ -220,6 +220,8 @@
 		5597EC411BCE090700E1F779 /* ic_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC3E1BCE090700E1F779 /* ic_about.png */; };
 		5597EC421BCE090700E1F779 /* ic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC3F1BCE090700E1F779 /* ic_about@2x.png */; };
 		5597EC431BCE090700E1F779 /* ic_about@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC401BCE090700E1F779 /* ic_about@3x.png */; };
+		5599E0651CE9AD4B00DF6B7F /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5599E0621CE9AD4B00DF6B7F /* GuideViewController.m */; };
+		5599E0661CE9AD4B00DF6B7F /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5599E0641CE9AD4B00DF6B7F /* GuideViewController.xib */; };
 		559B2AFC1BC61344009AA150 /* DictDetailContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559B2AFA1BC61344009AA150 /* DictDetailContainerViewController.m */; };
 		559B2AFD1BC61344009AA150 /* DictDetailContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559B2AFB1BC61344009AA150 /* DictDetailContainerViewController.xib */; };
 		559E67A71BEB0A2600232439 /* button_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 559E679E1BEB0A2600232439 /* button_long.png */; };
@@ -678,6 +680,9 @@
 		5597EC3E1BCE090700E1F779 /* ic_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_about.png; sourceTree = "<group>"; };
 		5597EC3F1BCE090700E1F779 /* ic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@2x.png"; sourceTree = "<group>"; };
 		5597EC401BCE090700E1F779 /* ic_about@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@3x.png"; sourceTree = "<group>"; };
+		5599E0621CE9AD4B00DF6B7F /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuideViewController.m; path = Mainsreen/GuideViewController.m; sourceTree = "<group>"; };
+		5599E0631CE9AD4B00DF6B7F /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuideViewController.h; path = Mainsreen/GuideViewController.h; sourceTree = "<group>"; };
+		5599E0641CE9AD4B00DF6B7F /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GuideViewController.xib; path = Mainsreen/GuideViewController.xib; sourceTree = "<group>"; };
 		559B2AF91BC61344009AA150 /* DictDetailContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictDetailContainerViewController.h; path = List/DictDetailContainerViewController.h; sourceTree = "<group>"; };
 		559B2AFA1BC61344009AA150 /* DictDetailContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictDetailContainerViewController.m; path = List/DictDetailContainerViewController.m; sourceTree = "<group>"; };
 		559B2AFB1BC61344009AA150 /* DictDetailContainerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DictDetailContainerViewController.xib; path = List/DictDetailContainerViewController.xib; sourceTree = "<group>"; };
@@ -1331,12 +1336,12 @@
 		551FB8671C03010600C8B18C /* Note */ = {
 			isa = PBXGroup;
 			children = (
-				551FB8731C031A1800C8B18C /* NoteFullView.m */,
 				551FB8741C031A1800C8B18C /* NoteFullView.h */,
+				551FB8731C031A1800C8B18C /* NoteFullView.m */,
 				551FB8751C031A1800C8B18C /* NoteFullView.xib */,
-				551FB8681C03014400C8B18C /* NoteThumbnail.xib */,
-				551FB8691C03014400C8B18C /* NoteThumbnail.m */,
 				551FB86A1C03014400C8B18C /* NoteThumbnail.h */,
+				551FB8691C03014400C8B18C /* NoteThumbnail.m */,
+				551FB8681C03014400C8B18C /* NoteThumbnail.xib */,
 			);
 			name = Note;
 			sourceTree = "<group>";
@@ -1521,6 +1526,9 @@
 		557D7ABF1B8589EF00834A44 /* Mainscreen */ = {
 			isa = PBXGroup;
 			children = (
+				5599E0631CE9AD4B00DF6B7F /* GuideViewController.h */,
+				5599E0621CE9AD4B00DF6B7F /* GuideViewController.m */,
+				5599E0641CE9AD4B00DF6B7F /* GuideViewController.xib */,
 				5543303D1B8C21D5001DFB6F /* SearchViewController.h */,
 				5543303E1B8C21D5001DFB6F /* SearchViewController.m */,
 				5543303F1B8C21D5001DFB6F /* SearchViewController.xib */,
@@ -1934,6 +1942,7 @@
 				551FB8541C02F2B800C8B18C /* StudyWordViewController_iPad.xib in Resources */,
 				4DD3C3E01B6F218700B6DA71 /* avatarDefault.png in Resources */,
 				553300DD1C1566730013D19F /* bee60@3x.png in Resources */,
+				5599E0661CE9AD4B00DF6B7F /* GuideViewController.xib in Resources */,
 				55F6C72E1BF5959C0084B369 /* medicine@2x.png in Resources */,
 				55E1062D1BF18B14008A6BEA /* LICENSE in Resources */,
 				55028A0F1BF092C2007181C3 /* bee_rotate@2x.png in Resources */,
@@ -2107,6 +2116,7 @@
 				559E67B91BEF4E8800232439 /* StreakViewController.m in Sources */,
 				557288CF1BB25DAA00EA0CE9 /* GTMHTTPFetchHistory.m in Sources */,
 				55524FEB1C7E956E0027A4ED /* entropy.c in Sources */,
+				5599E0651CE9AD4B00DF6B7F /* GuideViewController.m in Sources */,
 				55452C5C1BC513EF00D6E430 /* DictionaryViewController.m in Sources */,
 				557D7AC31B858BE300834A44 /* StudyWordViewController.m in Sources */,
 				55308B461BF03A7500FF0457 /* DayStatus.m in Sources */,

@@ -86,6 +86,8 @@
 "month" = "month(s)";
 "year" = "year(s)";
 "10min" = "< 10min";
+"Learning guide" = "Upon to your self-evaluation of memory quality, application will schedule this word to be reviewed respectively to the following spans.";
+"Got it" = "Got it";
 
 //List
 "Pull to re-fill" = "Pull to re-fill";

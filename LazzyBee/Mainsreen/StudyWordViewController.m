@@ -25,6 +25,7 @@
 #import "NoteFullView.h"
 #import "MajorObject.h"
 #import "LocalizeHelper.h"
+#import "GuideViewController.h"
 
 #define AS_TAG_SEARCH 1
 #define AS_TAG_LEARN 2
@@ -53,6 +54,8 @@
     
     NSTimer *timer;
     int countDown;
+    
+    GuideViewController *guideView;
 }
 
 @end
@@ -519,6 +522,8 @@
             noteView.delegate = (id)self;
             [webViewWord addSubview:noteView];
         }
+        
+        [self showGuide];
     }
 
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
@@ -1078,5 +1083,25 @@
     }];
 }
 
-
+- (void)showGuide {
+    NSNumber *guideFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SHOW_GUIDE];
+    
+    if (guideFlag && guideFlag.boolValue == YES) {
+        if (guideView == nil) {
+            guideView = [[GuideViewController alloc] initWithNibName:@"GuideViewController" bundle:nil];
+        }
+        guideView.view.alpha = 0;
+        
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        CGRect rect = appDelegate.window.frame;
+        [guideView.view setFrame:rect];
+        
+        [appDelegate.window addSubview:guideView.view];
+        
+        [UIView animateWithDuration:0.3 animations:^(void) {
+            guideView.view.alpha = 1;
+        }];
+    }
+}
 @end

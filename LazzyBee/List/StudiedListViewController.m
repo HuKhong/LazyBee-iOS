@@ -106,6 +106,10 @@
         [TagManagerHelper pushOpenScreenEvent:@"iSearchResultScreen"];
         
         [self setTitle:LocalizedString(@"Search Result")];
+        
+        refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(refreshSearchResult) forControlEvents:UIControlEventValueChanged];
+        [wordsTableView addSubview:refreshControl];
     }
     
     if (enableAds) {
@@ -710,6 +714,11 @@
 - (void)refreshIncomingTable {
     [refreshControl endRefreshing];
     [self prepareWordsToStudyingQueue];
+    [self tableReload];
+}
+
+- (void)refreshSearchResult {
+    [refreshControl endRefreshing];
     [self tableReload];
 }
 @end

@@ -16,7 +16,6 @@
 @interface GuideViewController ()
 {
     NSTimer *timer;
-    NSInteger count;
 }
 @end
 
@@ -47,7 +46,6 @@
     [btnClose setTitle:LocalizedString(@"Close") forState:UIControlStateNormal];
     [btnGotIt setTitle:LocalizedString(@"Got it") forState:UIControlStateNormal];
     
-    count = 100;
     timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blinkView) userInfo:nil repeats:YES];
     
     
@@ -103,20 +101,15 @@
 }
 
 - (void)blinkView {
-    count --;
-    
-    if (count > 0) {
+
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        viewButtonsPanel.alpha = 0;
+        
+    } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3 animations:^(void) {
-            viewButtonsPanel.alpha = 0;
+            viewButtonsPanel.alpha = 1;
             
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.3 animations:^(void) {
-                viewButtonsPanel.alpha = 1;
-                
-            }];
         }];
-    } else {
-        [timer invalidate];
-    }
+    }];
 }
 @end

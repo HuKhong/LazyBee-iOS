@@ -10,6 +10,7 @@
 #import "UIKit/UIKit.h"
 #import "sqlite3.h"
 #import "Common.h"
+#import "LocalizeHelper.h"
 
 // Singleton
 static HTMLHelper* sharedHTMLHelper = nil;
@@ -254,13 +255,17 @@ static HTMLHelper* sharedHTMLHelper = nil;
         strExampleIconTag = [NSString stringWithFormat:strExampleIconTag, strExample, plainExample, speed];
     }
     
-    if (word.userNote && word.userNote.length > 0) {
-        strNoteTag = @"<div style=\"width:90%%; font-size:12pt;\"><br><center><em>=============================</em></center></div>\n"
-        "<div style=\"width:90%%; font-size:12pt;\"><strong>User note: </strong></div>\n"
-        "<div style=\"width:90%%; font-size:14pt;\">"
+    NSString *userNote = word.userNote;
+    
+    if (userNote && userNote.length > 0) {
+        userNote = [userNote stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+        NSString *userNoteLabel = LocalizedString(@"User note");
+        strNoteTag = @"<div style=\"width:100%%; font-size:12pt;\"><br><center><hr></center></div>\n"
+        "<div style=\"width:100%%; font-size:12pt;\"><strong>%@: </strong></div>\n"
+        "<div style=\"width:100%%; font-size:14pt;\">"
         "   <em>%@</em> \n" //%@ will be replaced by word.userNote
         "</div>\n";
-        strNoteTag = [NSString stringWithFormat:strNoteTag, word.userNote];
+        strNoteTag = [NSString stringWithFormat:strNoteTag, userNoteLabel, userNote];
     }
     
     htmlString = @"<html>\n"
@@ -282,6 +287,12 @@ static HTMLHelper* sharedHTMLHelper = nil;
         "a {"
         "   margin-top:10px;"
         "}"
+        "hr {"
+            "border: 0;"
+            "border-top: 3px double #8c8c8c;"
+            "text-align:center;"
+        "}"
+
     "</style>\n"
     "<script>"
 

@@ -56,6 +56,7 @@
     int countDown;
     
     GuideViewController *guideView;
+    BOOL showGuideFlag;
 }
 
 @end
@@ -161,6 +162,7 @@
         }
         
         [self setTitle:title];
+        showGuideFlag = YES;
         
         btnAgain.titleLabel.textAlignment = NSTextAlignmentCenter;
         btnEasy.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -1086,7 +1088,7 @@
 - (void)showGuide {
     NSNumber *guideFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SHOW_GUIDE];
     
-    if (guideFlag && guideFlag.boolValue == YES) {
+    if (guideFlag && guideFlag.boolValue == YES && showGuideFlag == YES) {
         if (guideView == nil) {
             guideView = [[GuideViewController alloc] initWithNibName:@"GuideViewController" bundle:nil];
         }
@@ -1102,6 +1104,8 @@
         [UIView animateWithDuration:0.3 animations:^(void) {
             guideView.view.alpha = 1;
         }];
+        
+        showGuideFlag = NO;
     }
 }
 @end

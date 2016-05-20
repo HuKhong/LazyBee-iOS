@@ -7,6 +7,7 @@
 //
 
 #import "HelpViewController.h"
+#import "Common.h"
 #import "CommonDefine.h"
 #import "HTMLHelper.h"
 #import "LocalizeHelper.h"
@@ -47,11 +48,16 @@
     } else if (_helpScreenType == Help_Screen_VocabTesting) {
         [self setTitle:LocalizedString(@"Vocabulary testing")];
         
-        NSString *urlAddress = @"http://www.lazzybee.com/testvocab?menu=0";
-        NSURL *url = [NSURL URLWithString:urlAddress];
-        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-        
-        [webView loadRequest:requestObj];
+        if ([[Common sharedCommon] networkIsActive]) {
+            NSString *urlAddress = @"http://www.lazzybee.com/testvocab?menu=0";
+            NSURL *url = [NSURL URLWithString:urlAddress];
+            NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+            
+            [webView loadRequest:requestObj];
+            
+        } else {
+            [self noConnectionAlert];
+        }
     }
 }
 
@@ -84,5 +90,11 @@
     return YES;
 }
 
+- (void)noConnectionAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check wifi/3G connection") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 1;
+    
+    [alert show];
+}
 
 @end

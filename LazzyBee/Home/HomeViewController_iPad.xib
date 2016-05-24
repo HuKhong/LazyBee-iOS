@@ -10,6 +10,7 @@
                 <outlet property="adBanner" destination="cNc-Ou-6Yi" id="E0y-WP-JaN"/>
                 <outlet property="btnIncoming" destination="K0P-2z-oXD" id="REA-7a-Js8"/>
                 <outlet property="btnMore" destination="E9M-1w-NbD" id="8HZ-2X-tVV"/>
+                <outlet property="btnReverse" destination="vB5-bh-dSs" id="dtx-Zp-ZYQ"/>
                 <outlet property="btnStudy" destination="ENb-XN-REN" id="RgC-QT-ydm"/>
                 <outlet property="txtSearchbox" destination="dDX-fn-DnK" id="bnx-sA-tXC"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Nhc-yv-rys"/>
@@ -54,12 +55,21 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ENb-XN-REN">
-                            <rect key="frame" x="8" y="0.0" width="752" height="45"/>
+                            <rect key="frame" x="8" y="0.0" width="374" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <state key="normal" title="Start Learning" backgroundImage="button_long_ipad.png"/>
+                            <state key="normal" title="Start Learning" backgroundImage="button_short_ipad.png"/>
                             <connections>
                                 <action selector="btnStudyClick:" destination="-1" eventType="touchUpInside" id="jpY-aC-qqe"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vB5-bh-dSs">
+                            <rect key="frame" x="386" y="0.0" width="374" height="45"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" title="Reverse" backgroundImage="button_short_ipad_gray.png"/>
+                            <connections>
+                                <action selector="btnReverseClick:" destination="-1" eventType="touchUpInside" id="pjv-Wh-VAP"/>
                             </connections>
                         </button>
                     </subviews>
@@ -105,8 +115,8 @@
     </objects>
     <resources>
         <image name="big_logo.png" width="300" height="300"/>
-        <image name="button_long_ipad.png" width="667" height="40"/>
         <image name="button_short_ipad.png" width="300" height="40"/>
+        <image name="button_short_ipad_gray.png" width="300" height="40"/>
         <image name="ic_search_gray.png" width="25" height="25"/>
     </resources>
 </document>

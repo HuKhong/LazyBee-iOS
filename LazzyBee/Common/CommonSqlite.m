@@ -457,6 +457,38 @@ static CommonSqlite* sharedCommonSqlite = nil;
     return count;
 }
 
+- (NSInteger)getCountOfStudiedWord {
+    NSString *dbPath = [self getDatabasePath];
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return 0;
+    }
+    sqlite3_stmt *dbps;
+    
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM \"vocabulary\" where queue = %d OR queue = %d", QUEUE_REVIEW, QUEUE_DONE];
+    const char *charQuery = [strQuery UTF8String];
+    NSInteger count = 0;
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    
+    if(SQLITE_DONE != sqlite3_step(dbps)) {
+        if (sqlite3_column_int(dbps, 0)) {
+            count = sqlite3_column_int(dbps, 0);
+        }
+    }
+    
+    sqlite3_finalize(dbps);
+    sqlite3_close(db);
+    
+    return count;
+}
+
 - (BOOL)updateDatabaseWithPath:(NSString *)dbPath {
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     

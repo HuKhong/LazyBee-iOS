@@ -39,6 +39,7 @@
 - (NSInteger)getCountOfBuffer;
 - (NSInteger)getCountOfInreview;
 - (NSInteger)getCountOfStudyAgain;
+- (NSInteger)getCountOfStudiedWord;
 - (void)resetDateOfPickedWordList;
 - (BOOL)updateDatabaseWithPath:(NSString *)bdPath;
 - (NSArray *)getAllWords;

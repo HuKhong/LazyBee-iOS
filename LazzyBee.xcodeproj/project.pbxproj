@@ -170,6 +170,12 @@
 		55524FF31C7E956E0027A4ED /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 55524FE11C7E956E0027A4ED /* unzip.c */; };
 		55524FF41C7E956E0027A4ED /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 55524FE31C7E956E0027A4ED /* zip.c */; };
 		55524FF51C7E956E0027A4ED /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 55524FE61C7E956E0027A4ED /* SSZipArchive.m */; };
+		556481381CF45F6900DDD09C /* button_short_ipad_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481321CF45F6900DDD09C /* button_short_ipad_gray.png */; };
+		556481391CF45F6900DDD09C /* button_short_ipad_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481331CF45F6900DDD09C /* button_short_ipad_gray@2x.png */; };
+		5564813A1CF45F6900DDD09C /* button_short_ipad_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481341CF45F6900DDD09C /* button_short_ipad_gray@3x.png */; };
+		5564813B1CF45F6900DDD09C /* button_short_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481351CF45F6900DDD09C /* button_short_gray.png */; };
+		5564813C1CF45F6900DDD09C /* button_short_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481361CF45F6900DDD09C /* button_short_gray@2x.png */; };
+		5564813D1CF45F6900DDD09C /* button_short_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481371CF45F6900DDD09C /* button_short_gray@3x.png */; };
 		5570C8F11BCCA29900DD1EC6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 557288FD1BB28C7200EA0CE9 /* libz.tbd */; };
 		5570C8F21BCCA2A300DD1EC6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 557288FF1BB28C7C00EA0CE9 /* libsqlite3.tbd */; };
 		557288C81BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 557288961BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -596,6 +602,12 @@
 		55524FE51C7E956E0027A4ED /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
 		55524FE61C7E956E0027A4ED /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		55524FE71C7E956E0027A4ED /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		556481321CF45F6900DDD09C /* button_short_ipad_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_short_ipad_gray.png; sourceTree = "<group>"; };
+		556481331CF45F6900DDD09C /* button_short_ipad_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_ipad_gray@2x.png"; sourceTree = "<group>"; };
+		556481341CF45F6900DDD09C /* button_short_ipad_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_ipad_gray@3x.png"; sourceTree = "<group>"; };
+		556481351CF45F6900DDD09C /* button_short_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_short_gray.png; sourceTree = "<group>"; };
+		556481361CF45F6900DDD09C /* button_short_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_gray@2x.png"; sourceTree = "<group>"; };
+		556481371CF45F6900DDD09C /* button_short_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_gray@3x.png"; sourceTree = "<group>"; };
 		557288951BB25DAA00EA0CE9 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2Authentication.h; path = GTL/GTMOAuth2Authentication.h; sourceTree = "<group>"; };
 		557288961BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMOAuth2Authentication.m; path = GTL/GTMOAuth2Authentication.m; sourceTree = "<group>"; };
 		557288971BB25DAA00EA0CE9 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2SignIn.h; path = GTL/GTMOAuth2SignIn.h; sourceTree = "<group>"; };
@@ -1264,6 +1276,12 @@
 		4DD3C3CA1B6F218700B6DA71 /* others */ = {
 			isa = PBXGroup;
 			children = (
+				556481321CF45F6900DDD09C /* button_short_ipad_gray.png */,
+				556481331CF45F6900DDD09C /* button_short_ipad_gray@2x.png */,
+				556481341CF45F6900DDD09C /* button_short_ipad_gray@3x.png */,
+				556481351CF45F6900DDD09C /* button_short_gray.png */,
+				556481361CF45F6900DDD09C /* button_short_gray@2x.png */,
+				556481371CF45F6900DDD09C /* button_short_gray@3x.png */,
 				551FB86D1C03019700C8B18C /* note.png */,
 				551FB86E1C03019700C8B18C /* note@2x.png */,
 				551FB86F1C03019800C8B18C /* note@3x.png */,
@@ -1882,6 +1900,7 @@
 				55308B501BF0423A00FF0457 /* day_ring.png in Resources */,
 				551FB8771C031A1800C8B18C /* NoteFullView.xib in Resources */,
 				55F7E6751BFB014300EB27A2 /* LICENSE in Resources */,
+				556481391CF45F6900DDD09C /* button_short_ipad_gray@2x.png in Resources */,
 				4DD3C39C1B6F191C00B6DA71 /* FBAudienceNetwork.README.txt in Resources */,
 				55E1063D1BF1DF18008A6BEA /* medicine.png in Resources */,
 				557D7ABC1B8587AF00834A44 /* btnbg.png in Resources */,
@@ -1903,6 +1922,7 @@
 				557D7AB21B857DFD00834A44 /* english.db in Resources */,
 				4DD3C3D51B6F218700B6DA71 /* ic_heart@2x.png in Resources */,
 				4DD3C3DA1B6F218700B6DA71 /* ic_share.png in Resources */,
+				5564813A1CF45F6900DDD09C /* button_short_ipad_gray@3x.png in Resources */,
 				552BD5A71BA15FE600BF316C /* ic_home@3x.png in Resources */,
 				55452C621BC527CC00D6E430 /* DictDetailViewController.xib in Resources */,
 				4DD3C3E41B6F218700B6DA71 /* cancel@2x.png in Resources */,
@@ -1923,6 +1943,7 @@
 				551FB8641C02F75B00C8B18C /* button_long_ipad@3x.png in Resources */,
 				557288EC1BB2844700EA0CE9 /* SVProgressHUD.bundle in Resources */,
 				559E67A81BEB0A2600232439 /* button_long@2x.png in Resources */,
+				5564813C1CF45F6900DDD09C /* button_short_gray@2x.png in Resources */,
 				55308B4F1BF0423A00FF0457 /* day_ring_gray@3x.png in Resources */,
 				4DD3C3AF1B6F199B00B6DA71 /* HomeViewController.xib in Resources */,
 				55452C561BC5128700D6E430 /* ic_dictionary.png in Resources */,
@@ -1931,6 +1952,7 @@
 				551FB8601C02F75B00C8B18C /* button_short_ipad.png in Resources */,
 				55C1B21F1BF2F0C600D917EB /* uncheck@2x.png in Resources */,
 				55028A0A1BF08C17007181C3 /* HelpViewController.xib in Resources */,
+				5564813B1CF45F6900DDD09C /* button_short_gray.png in Resources */,
 				552BD5AE1BA1738D00BF316C /* SpeedTableViewCell.xib in Resources */,
 				554330411B8C21D5001DFB6F /* SearchViewController.xib in Resources */,
 				559E67C51BEF569100232439 /* hive.png in Resources */,
@@ -1998,6 +2020,7 @@
 				557D7ABE1B8587AF00834A44 /* btnbg@3x.png in Resources */,
 				553F78361BA6D39400D15876 /* rearBanner@3x.png in Resources */,
 				5597EC431BCE090700E1F779 /* ic_about@3x.png in Resources */,
+				556481381CF45F6900DDD09C /* button_short_ipad_gray.png in Resources */,
 				553300DC1C1566730013D19F /* bee60@2x.png in Resources */,
 				55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */,
 				4DD3C3761B6F18D700B6DA71 /* RearViewController.xib in Resources */,
@@ -2041,6 +2064,7 @@
 				5597EC421BCE090700E1F779 /* ic_about@2x.png in Resources */,
 				559E67AE1BEB0A2600232439 /* button_short@3x.png in Resources */,
 				55F2FA9C1C1EC0130028F561 /* ielts@2x.png in Resources */,
+				5564813D1CF45F6900DDD09C /* button_short_gray@3x.png in Resources */,
 				55308B511BF0423A00FF0457 /* day_ring@2x.png in Resources */,
 				55E1063E1BF1DF18008A6BEA /* science.png in Resources */,
 				4DD3C3A21B6F191C00B6DA71 /* README.txt in Resources */,

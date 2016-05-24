@@ -23,6 +23,8 @@
 #import "MajorObject.h"
 #import "UploadToServer.h"
 
+#define NUMBER_OF_WORD_TO_ACTIVATE_REVERSE 50
+
 @interface HomeViewController ()<GADInterstitialDelegate>
 {
     SearchViewController *searchView;
@@ -191,6 +193,16 @@
             }
         });
     });
+    
+    //check to activate reverse button
+    NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
+    
+    if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
+        [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short.png"] forState:UIControlStateNormal];
+        
+    } else {
+        [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short_gray.png"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -418,6 +430,23 @@
         if (self.interstitial.isReady) {
             [self.interstitial presentFromRootViewController:self];
         }
+    }
+}
+
+
+- (IBAction)btnReverseClick:(id)sender {
+    //check
+    NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
+    
+    if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
+        
+        
+    } else {
+        //need to show alert congratulation after unlocked new function
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Locked") message:LocalizedString(@"To unlock this function, you need to learn at lease 50 words.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:nil];
+        alert.tag = 9;
+        
+        [alert show];
     }
 }
 

@@ -56,11 +56,11 @@ static const NSInteger TagOffset = 1000;
     
     UISwipeGestureRecognizer *swipeGestRight = [[UISwipeGestureRecognizer alloc] initWithTarget:(id)self action:@selector(swipeGestureHandle:)];
     [swipeGestRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.view addGestureRecognizer:swipeGestRight];
+    [contentContainerView addGestureRecognizer:swipeGestRight];
     
     UISwipeGestureRecognizer *swipeGestLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:(id)self action:@selector(swipeGestureHandle:)];
     [swipeGestLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.view addGestureRecognizer:swipeGestLeft];
+    [contentContainerView addGestureRecognizer:swipeGestLeft];
 }
 
 - (void)viewWillLayoutSubviews

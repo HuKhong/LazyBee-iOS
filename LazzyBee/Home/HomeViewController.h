@@ -11,6 +11,7 @@
 
 @interface HomeViewController : UIViewController
 {
+    IBOutlet UIButton *btnReverse;
     IBOutlet UIButton *btnStudy;
     IBOutlet UIButton *btnIncoming;
     IBOutlet UIButton *btnMore;

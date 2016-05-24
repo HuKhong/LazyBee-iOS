@@ -21,6 +21,7 @@
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
 #import "AppDelegate.h"
+#import "Algorithm.h"
 
 @import GoogleMobileAds;
 
@@ -659,7 +660,7 @@
         wordObj = [wordList objectAtIndex:indexPath.row];
         
         //update queue value to 3 to consider this word as a new word in DB
-        wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_AGAIN];
+        //wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_AGAIN];     //call [[Algorithm sharedAlgorithm] updateWord] instead of
         
         if (wordObj.isFromServer) {
             [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
@@ -674,6 +675,9 @@
             
             //remove from buffer
             [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
+            
+            [[Algorithm sharedAlgorithm] updateWord:wordObj withEaseLevel:EASE_AGAIN];
+
             
             [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
         }

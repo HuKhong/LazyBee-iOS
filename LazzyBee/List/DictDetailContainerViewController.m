@@ -17,6 +17,7 @@
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
 #import "LocalizeHelper.h"
+#import "Algorithm.h"
 
 @interface DictDetailContainerViewController ()
 {
@@ -201,7 +202,7 @@
         if (_showLazzyBeeTab) {
             NSLog(@"Add to learn");
             //update queue value to 3 to consider this word as a new word in DB
-            _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_AGAIN];
+            //_wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_AGAIN];  //call [[Algorithm sharedAlgorithm] updateWord] instead of
             
             if (_wordObj.isFromServer) {
                 [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:_wordObj];
@@ -216,6 +217,8 @@
                 
                 //remove from buffer
                 [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:_wordObj];
+                
+                [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_AGAIN];
                 
                 [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
             }

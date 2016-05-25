@@ -208,6 +208,8 @@
 		557288EC1BB2844700EA0CE9 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 557288E51BB2844700EA0CE9 /* SVProgressHUD.bundle */; };
 		557288ED1BB2844700EA0CE9 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 557288E71BB2844700EA0CE9 /* SVProgressHUD.m */; };
 		557288EE1BB2844700EA0CE9 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 557288E91BB2844700EA0CE9 /* SVRadialGradientLayer.m */; };
+		5573939E1CF55CA8000F1E0A /* ReverseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5573939C1CF55CA8000F1E0A /* ReverseViewController.m */; };
+		5573939F1CF55CA8000F1E0A /* ReverseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5573939D1CF55CA8000F1E0A /* ReverseViewController.xib */; };
 		557526A41BDF5308007810C7 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557526A21BDF5308007810C7 /* InformationViewController.m */; };
 		557526A51BDF5308007810C7 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557526A31BDF5308007810C7 /* InformationViewController.xib */; };
 		557526A91BDF54BA007810C7 /* ic_graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 557526A61BDF54BA007810C7 /* ic_graph.png */; };
@@ -670,6 +672,9 @@
 		557288E91BB2844700EA0CE9 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		557288FD1BB28C7200EA0CE9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		557288FF1BB28C7C00EA0CE9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5573939B1CF55CA8000F1E0A /* ReverseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReverseViewController.h; path = Mainsreen/ReverseViewController.h; sourceTree = "<group>"; };
+		5573939C1CF55CA8000F1E0A /* ReverseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReverseViewController.m; path = Mainsreen/ReverseViewController.m; sourceTree = "<group>"; };
+		5573939D1CF55CA8000F1E0A /* ReverseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReverseViewController.xib; path = Mainsreen/ReverseViewController.xib; sourceTree = "<group>"; };
 		557526A11BDF5308007810C7 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationViewController.h; path = Home/InformationViewController.h; sourceTree = "<group>"; };
 		557526A21BDF5308007810C7 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationViewController.m; path = Home/InformationViewController.m; sourceTree = "<group>"; };
 		557526A31BDF5308007810C7 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationViewController.xib; path = Home/InformationViewController.xib; sourceTree = "<group>"; };
@@ -1557,6 +1562,9 @@
 				55B08BF11BBE6FAF00693411 /* ReportViewController.h */,
 				55B08BF21BBE6FAF00693411 /* ReportViewController.m */,
 				55B08BF31BBE6FAF00693411 /* ReportViewController.xib */,
+				5573939B1CF55CA8000F1E0A /* ReverseViewController.h */,
+				5573939C1CF55CA8000F1E0A /* ReverseViewController.m */,
+				5573939D1CF55CA8000F1E0A /* ReverseViewController.xib */,
 			);
 			name = Mainscreen;
 			sourceTree = "<group>";
@@ -1952,6 +1960,7 @@
 				551FB8601C02F75B00C8B18C /* button_short_ipad.png in Resources */,
 				55C1B21F1BF2F0C600D917EB /* uncheck@2x.png in Resources */,
 				55028A0A1BF08C17007181C3 /* HelpViewController.xib in Resources */,
+				5573939F1CF55CA8000F1E0A /* ReverseViewController.xib in Resources */,
 				5564813B1CF45F6900DDD09C /* button_short_gray.png in Resources */,
 				552BD5AE1BA1738D00BF316C /* SpeedTableViewCell.xib in Resources */,
 				554330411B8C21D5001DFB6F /* SearchViewController.xib in Resources */,
@@ -2105,6 +2114,7 @@
 				4DD3C3981B6F191C00B6DA71 /* LICENCE.md in Sources */,
 				557288CC1BB25DAA00EA0CE9 /* GTMGatherInputStream.m in Sources */,
 				3ED661881B8488C50030BB3F /* CommonSqlite.m in Sources */,
+				5573939E1CF55CA8000F1E0A /* ReverseViewController.m in Sources */,
 				551FB86C1C03014400C8B18C /* NoteThumbnail.m in Sources */,
 				552DC7741B871C9900770FA1 /* Algorithm.m in Sources */,
 				55524FF11C7E956E0027A4ED /* ioapi.c in Sources */,

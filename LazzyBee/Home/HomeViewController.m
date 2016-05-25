@@ -22,8 +22,8 @@
 #import "LocalizeHelper.h"
 #import "MajorObject.h"
 #import "UploadToServer.h"
+#import "ReverseViewController.h"
 
-#define NUMBER_OF_WORD_TO_ACTIVATE_REVERSE 50
 
 @interface HomeViewController ()<GADInterstitialDelegate>
 {
@@ -195,13 +195,29 @@
     });
     
     //check to activate reverse button
-    NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
+    NSNumber *reverseFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REVERSE_ENABLE];
     
-    if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
+    if (reverseFlag && [reverseFlag boolValue] == YES) {
         [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short.png"] forState:UIControlStateNormal];
         
     } else {
-        [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short_gray.png"] forState:UIControlStateNormal];
+        NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
+        
+        if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
+            reverseFlag = [NSNumber numberWithBool:YES];
+            [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short.png"] forState:UIControlStateNormal];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:LocalizedString(@"\"Reverse\" function have been unlocked. Try it now.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:LocalizedString(@"Try now"), nil];
+            alert.tag = 10;
+            
+            [alert show];
+            
+        } else {
+            reverseFlag = [NSNumber numberWithBool:NO];
+            [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short_gray.png"] forState:UIControlStateNormal];
+        }
+        
+        [[Common sharedCommon] saveDataToUserDefaultStandard:reverseFlag withKey:KEY_REVERSE_ENABLE];
     }
 }
 
@@ -436,18 +452,30 @@
 
 - (IBAction)btnReverseClick:(id)sender {
     //check
-    NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
+    NSNumber *reverseFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REVERSE_ENABLE];
     
-    if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
-        
+    if (reverseFlag && [reverseFlag boolValue] == YES) {
+        [self openReverseScreen];
         
     } else {
         //need to show alert congratulation after unlocked new function
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Locked") message:LocalizedString(@"To unlock this function, you need to learn at lease 50 words.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Locked") message:LocalizedString(@"To unlock this function, you need to learn at lease 50 words.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
         alert.tag = 9;
         
         [alert show];
     }
+}
+
+- (void)openReverseScreen {
+    ReverseViewController *reverseViewController = nil;
+    
+    if (IS_IPAD) {
+        reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController_iPad" bundle:nil];
+    } else {
+        reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController" bundle:nil];
+    }
+    
+    [self.navigationController pushViewController:reverseViewController animated:YES];
 }
 
 #pragma mark alert delegate

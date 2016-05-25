@@ -38,7 +38,7 @@
 "Congratulation" = "Congratulation";
 "OK" = "OK";
 "Oops!" = "Oops!";
-"No more word. Click More Words" = "There is no more word to learn today. Click \"More Words\" if you really want to learn more.";
+"No more word. Click More Words" = "There is no more word to learn today. Click \"More words\" if you really want to learn more.";
 "Still have some words need to review" = "You still have a few words need to review today.";
 "Do you want to backup your learning progress?" = "LazzyBee is going to backup data to save your progress. Proceed?";
 "Vocabulary testing" = "Vocabulary testing";
@@ -148,8 +148,9 @@
 "Input code that you achieved when backing up database" = "Input code that you achieved when backing up database";
 "Wrong code, please try again" = "Wrong code, please try again.";
 
-
-
-
-
+//reverse
+"Error" = "Error";
+"There was an error while loading page." = "There was an error while loading page. Please try again later.";
+"\"Reverse\" function have been unlocked. Try it now." = "\"Reverse\" function have been unlocked. Open it now?";
+"Try now" = "Open";
 

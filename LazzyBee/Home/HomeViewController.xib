@@ -55,7 +55,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sLV-yZ-Cel">
-                            <rect key="frame" x="163" y="47" width="149" height="38"/>
+                            <rect key="frame" x="163" y="0.0" width="149" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="More Words" backgroundImage="button_short.png"/>
@@ -64,7 +64,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vh1-6D-y6u">
-                            <rect key="frame" x="163" y="0.0" width="149" height="38"/>
+                            <rect key="frame" x="163" y="47" width="149" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Reverse" backgroundImage="button_short_gray.png"/>

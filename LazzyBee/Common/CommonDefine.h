@@ -53,11 +53,12 @@
 #define KEY_SELECTED_MAJOR @"SelectedMajor"
 #define KEY_BACKUP_CODE @"BackupCode"
 #define KEY_STREAK_INFO @"StreakInfo"
-
 #define KEY_SHOW_GUIDE @"ShowGuide"
+#define KEY_REVERSE_ENABLE @"ReverseEnable"
 
 #define BACKUP_CODE_LENGTH 6
 #define NUMBER_OF_STREAK_TO_UPDATE 10
+#define NUMBER_OF_WORD_TO_ACTIVATE_REVERSE 50
 
 @interface CommonDefine : NSObject
 

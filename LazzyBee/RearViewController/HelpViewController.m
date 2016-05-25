@@ -97,4 +97,20 @@
     [alert show];
 }
 
+- (void)unknownErrorAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Error") message:LocalizedString(@"There was an error while loading page.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:nil];
+    alert.tag = 2;
+    
+    [alert show];
+}
+
+-(void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
+    if (error.code == NSURLErrorNotConnectedToInternet) {
+        [self noConnectionAlert];
+        
+    } else {
+        [self unknownErrorAlert];
+    }
+}
+
 @end

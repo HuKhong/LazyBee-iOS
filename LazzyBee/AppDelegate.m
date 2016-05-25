@@ -296,6 +296,21 @@
         guideFlag = [NSNumber numberWithBool:YES];
         [[Common sharedCommon] saveDataToUserDefaultStandard:guideFlag withKey:KEY_SHOW_GUIDE];
     }
+    
+    NSNumber *reverseFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REVERSE_ENABLE];
+    
+    if (!reverseFlag) {
+        NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
+        
+        if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
+            reverseFlag = [NSNumber numberWithBool:YES];
+            
+        } else {
+            reverseFlag = [NSNumber numberWithBool:NO];
+        }
+        
+        [[Common sharedCommon] saveDataToUserDefaultStandard:reverseFlag withKey:KEY_REVERSE_ENABLE];
+    }
 }
 
 - (void)scheduleNotification {

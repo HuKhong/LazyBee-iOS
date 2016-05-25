@@ -136,7 +136,7 @@
 
 //back up and restore
 "Restoring" = "Khôi phục dữ liệu...";
-"Failed" = "Lỗi";
+"Failed" = "Thất bại";
 "Successfully" = "Thành công";
 "Try again" = "Thử lại";
 "Failed to connect to server" = "Lỗi kết nối. Không thể sao lưu dữ liệu, vui lòng thử lại.";
@@ -147,3 +147,8 @@
 "Restore database" = "Khôi phục dữ liệu";
 "Input code that you achieved when backing up database" = "Nhập mã bạn đã nhận được khi sao lưu dữ liệu";
 "Wrong code, please try again" = "Sai mã, vui lòng thử lại.";
+
+"Error" = "Lỗi";
+"There was an error while loading page." = "Đã có lỗi xảy ra trong quá trình tải trang. Vui lòng thử lại sau.";
+"\"Reverse\" function have been unlocked. Try it now." = "Tính năng \"Dịch ngược\" đã được mở khoá. Bạn có muốn mở ra bây giờ không?";
+"Try now" = "Mở luôn";

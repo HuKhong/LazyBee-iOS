@@ -38,6 +38,9 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnShowAnswerClick:" destination="-1" eventType="touchUpInside" id="KnC-qo-WgA"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,8 +52,18 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="Xxc-Vj-1sS" appends="YES" id="AaN-xx-xN2"/>
+            </connections>
             <point key="canvasLocation" x="231" y="312"/>
         </view>
+        <swipeGestureRecognizer direction="left" id="Xxc-Vj-1sS">
+            <connections>
+                <action selector="swipeHandle:" destination="-1" id="G2v-tm-7I7"/>
+                <outlet property="delegate" destination="-1" id="XyZ-NR-9fm"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="button_long.png" width="334" height="40"/>

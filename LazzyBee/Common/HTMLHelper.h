@@ -17,6 +17,7 @@
 // a singleton:
 + (HTMLHelper*) sharedHTMLHelper;
 
+- (NSString *)createHTMLForReverse:(WordObject *)word withPackage:(MajorObject *)majorObj;
 - (NSString *)createHTMLForQuestion:(WordObject *)word withPackage:(MajorObject *)majorObj;
 - (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(MajorObject *)majorObj;
 - (NSString *)createHTMLDict:(WordObject *)wordObj dictType:(NSString *)dictType;

@@ -63,12 +63,20 @@
     graphView.dataSource = (id)self;
     
     [self drawGraph];
+    
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:LocalizedString(@"2000 words/year with 5 minutes per day")];
+    [attributeString addAttribute:NSUnderlineStyleAttributeName
+                            value:[NSNumber numberWithInt:1]
+                            range:(NSRange){0,[attributeString length]}];
+    
+    [lbLink setAttributedText:attributeString];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     
@@ -231,6 +239,10 @@
             [SVProgressHUD dismiss];
         });
     });
+}
+
+- (IBAction)tapOnLinkHandle:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year"]];
 }
 
 @end

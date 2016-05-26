@@ -13,6 +13,7 @@
     IBOutlet UILabel *lbStreakCount;
     IBOutlet UILabel *lbCongratulation;
     IBOutlet UIImageView *imgRingStreak;
+    IBOutlet UILabel *lbLink;
     
     
     IBOutlet UIView *viewDayOne;

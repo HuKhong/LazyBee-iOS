@@ -13,6 +13,7 @@
 {
     IBOutlet UILabel *lbTotal;
     IBOutlet GKBarGraph *graphView;
+    IBOutlet UILabel *lbLink;
     
     IBOutlet UILabel *lbStreakCount;
     IBOutlet UIImageView *imgRingStreak;

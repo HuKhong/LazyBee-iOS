@@ -50,6 +50,13 @@
     lbCongratulation.text = [NSString stringWithFormat:LocalizedString(@"Streack congratulation"), (long)streakCount];
     
     [self displayDaysWithStreakStatus];
+    
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:LocalizedString(@"2000 words/year with 5 minutes per day")];
+    [attributeString addAttribute:NSUnderlineStyleAttributeName
+                            value:[NSNumber numberWithInt:1]
+                            range:(NSRange){0,[attributeString length]}];
+    
+    [lbLink setAttributedText:attributeString];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,6 +87,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 - (void)rotateImage:(UIImageView *)image duration:(NSTimeInterval)duration
               curve:(int)curve degrees:(CGFloat)degrees
@@ -181,5 +189,9 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToBackupData" object:nil];
     }
     
+}
+
+- (IBAction)tapOnLinkHandle:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year"]];
 }
 @end

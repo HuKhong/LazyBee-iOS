@@ -73,6 +73,10 @@
     
 //    [viewInformation setBackgroundColor:COMMON_COLOR];
     
+    //make avatar round
+    btnReverse.layer.cornerRadius = btnReverse.frame.size.width/2;
+    btnReverse.clipsToBounds = YES;
+    
     viewSearchContainer.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     viewSearchContainer.layer.borderWidth = 1.0f;
     
@@ -198,14 +202,14 @@
     NSNumber *reverseFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REVERSE_ENABLE];
     
     if (reverseFlag && [reverseFlag boolValue] == YES) {
-        [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short.png"] forState:UIControlStateNormal];
+        [btnReverse setBackgroundColor:COMMON_COLOR];
         
     } else {
         NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
         
         if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
             reverseFlag = [NSNumber numberWithBool:YES];
-            [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short.png"] forState:UIControlStateNormal];
+            [btnReverse setBackgroundColor:COMMON_COLOR];
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:LocalizedString(@"\"Reverse\" function have been unlocked. Try it now.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:LocalizedString(@"Try now"), nil];
             alert.tag = 10;
@@ -214,7 +218,7 @@
             
         } else {
             reverseFlag = [NSNumber numberWithBool:NO];
-            [btnReverse setBackgroundImage:[UIImage imageNamed:@"button_short_gray.png"] forState:UIControlStateNormal];
+            [btnReverse setBackgroundColor:[UIColor darkGrayColor]];
         }
         
         [[Common sharedCommon] saveDataToUserDefaultStandard:reverseFlag withKey:KEY_REVERSE_ENABLE];
@@ -467,15 +471,26 @@
 }
 
 - (void)openReverseScreen {
-    ReverseViewController *reverseViewController = nil;
+    NSNumber *completeTargetFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_COMPLETED_FLAG];
     
-    if (IS_IPAD) {
-        reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController_iPad" bundle:nil];
+    if ([completeTargetFlag boolValue]) {
+        ReverseViewController *reverseViewController = nil;
+        
+        if (IS_IPAD) {
+            reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController_iPad" bundle:nil];
+        } else {
+            reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController" bundle:nil];
+        }
+        
+        [self.navigationController pushViewController:reverseViewController animated:YES];
+        
     } else {
-        reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController" bundle:nil];
+        NSString *alertContent = LocalizedString(@"Please come back after finishing your daily target.");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Oops!") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles: nil];
+        alert.tag = 11;
+        
+        [alert show];
     }
-    
-    [self.navigationController pushViewController:reverseViewController animated:YES];
 }
 
 #pragma mark alert delegate
@@ -528,6 +543,10 @@
             } else {
                 [self noConnectionAlert];
             }
+        }
+    } else if (alertView.tag == 10) { //try now
+        if (buttonIndex != 0) {
+            dfdff
         }
     }
 }

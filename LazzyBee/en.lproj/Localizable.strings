@@ -34,7 +34,7 @@
 "Cancel" = "Cancel";
 "Learn now" = "Learn now";
 "Need to complete current taret" = "You still have a few words need to review. Complete them before adding more words.";
-"Learnt hard. Relax now" = "You have learnt very hard. Now is the time to relax.";
+"Learnt hard. Relax now" = "You have learned very hard. Now is the time to relax.";
 "Congratulation" = "Congratulation";
 "OK" = "OK";
 "Oops!" = "Oops!";
@@ -42,6 +42,7 @@
 "Still have some words need to review" = "You still have a few words need to review today.";
 "Do you want to backup your learning progress?" = "LazzyBee is going to backup data to save your progress. Proceed?";
 "Vocabulary testing" = "Vocabulary testing";
+"Please come back after finishing your daily target." = "Please come back after finishing your daily target.";
 
 //Major
 "Close" = "Close";
@@ -91,8 +92,8 @@
 
 //List
 "Pull to re-fill" = "Pull to re-fill";
-"Learnt List" = "Learnt List";
-"Search Result" = "Search Result";
+"Learnt List" = "Learned list";
+"Search Result" = "Search result";
 "word" = "word(s)";
 "Level" = "Level";
 "Total" = "Total";
@@ -128,6 +129,7 @@
 "Daily target completed" = "Daily target completed";
 "Streack congratulation" = "Congratulation!\nYou have got %ld day streak.";
 "Continue" = "Continue";
+"2000 words/year with 5 minutes per day" = "2000 từ/năm với 5 phút mỗi ngày";
 
 //note
 "User note" = "User note";
@@ -153,4 +155,6 @@
 "There was an error while loading page." = "There was an error while loading page. Please try again later.";
 "\"Reverse\" function have been unlocked. Try it now." = "\"Reverse\" function have been unlocked. Open it now?";
 "Try now" = "Open";
-
+"Next" = "Next";
+"Locked" = "Locked";
+"To unlock this function, you need to learn at lease 50 words." = "To unlock this function, you need to learn at lease 50 words.";

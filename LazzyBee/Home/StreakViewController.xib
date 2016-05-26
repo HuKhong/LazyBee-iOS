@@ -11,6 +11,7 @@
                 <outlet property="dayContainer" destination="FLt-wN-9Xj" id="cZu-IZ-c3x"/>
                 <outlet property="imgRingStreak" destination="Ayx-sE-qPh" id="v1O-Zn-Vol"/>
                 <outlet property="lbCongratulation" destination="WW7-nY-ENo" id="d0v-zb-UTV"/>
+                <outlet property="lbLink" destination="6y4-bM-ZRg" id="y1p-Ji-bzw"/>
                 <outlet property="lbStreakCount" destination="lIF-Qw-gAX" id="l1A-Ve-SKM"/>
                 <outlet property="scrollViewContainer" destination="uqs-ZJ-Dqe" id="nar-Db-yMJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -117,7 +118,7 @@ You have got 4 days streak.</string>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="K14-fp-W0y">
-                            <rect key="frame" x="85" y="418" width="150" height="38"/>
+                            <rect key="frame" x="85" y="426" width="150" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Continue" backgroundImage="button_short.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -126,12 +127,30 @@ You have got 4 days streak.</string>
                                 <action selector="btnContinueClick:" destination="-1" eventType="touchUpInside" id="Ibq-iA-TpF"/>
                             </connections>
                         </button>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2000 words/year with 5 minutes per day" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6y4-bM-ZRg">
+                            <rect key="frame" x="8" y="388" width="304" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <gestureRecognizers/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="rHo-o5-J8V" appends="YES" id="kyi-OM-bbU"/>
+                            </connections>
+                        </label>
                     </subviews>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="240" y="313"/>
         </view>
+        <tapGestureRecognizer id="rHo-o5-J8V">
+            <connections>
+                <action selector="tapOnLinkHandle:" destination="-1" id="9Tg-ni-yPf"/>
+                <outlet property="delegate" destination="-1" id="PLe-37-se1"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="bee60.png" width="60" height="60"/>

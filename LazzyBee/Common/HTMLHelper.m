@@ -139,6 +139,114 @@ static HTMLHelper* sharedHTMLHelper = nil;
     return htmlString;
 }
 
+- (NSString *)createHTMLForReverse:(WordObject *)word withPackage:(MajorObject *)majorObj {
+    NSString *package = @"";
+    NSString *packageLowcase = @"";
+    
+    if (majorObj) {
+        package = [NSString stringWithFormat:@"[%@]", [majorObj displayName]];
+        packageLowcase = [majorObj.majorName lowercaseString];
+        
+    } else {
+        packageLowcase = @"common";
+    }
+    
+    //parse the answer to dictionary object
+    NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    //A word may has many meanings corresponding to many fields (common, it, economic...)
+    //The meaning of each field is considered as a package
+    NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
+    NSDictionary *dictSinglePackage = [dictPackages valueForKey:packageLowcase];
+    
+    if (dictSinglePackage == nil) {
+        
+        package = @"";
+    }
+    
+    NSString *htmlString = @"<!DOCTYPE html>\n"
+    "<html>\n"
+    "<head>\n"
+    "<style>\n"
+    "figure {"
+    "   text-align: center;"
+    "   margin: auto;"
+    "}"
+    "figure.image img {"
+    "   width: 100%% !important;"
+    "   height: auto !important;"
+    "}"
+    "figcaption {"
+    "   font-size: 10px;"
+    "}"
+    "a {"
+    "   margin-top:10px;"
+    "}"
+    "</style>\n"
+    "<script>"
+    //play the text
+    "function playText(content, rate) {"
+    "   var speaker = new SpeechSynthesisUtterance();"
+    "   speaker.text = content;"
+    "   speaker.lang = 'en-US';"
+    "   speaker.rate = rate;" //0.1
+    "   speaker.pitch = 1.0;"
+    "   speaker.volume = 1.0;"
+    "   speechSynthesis.cancel();"
+    "   speechSynthesis.speak(speaker);"
+    "}"
+    //cancel speech
+    "function cancelSpeech() {"
+    "   speechSynthesis.pause();"
+    "   speechSynthesis.cancel();"
+    "}"
+    "</script>"
+    "</head>\n"
+    "<body>\n"
+    "<div style='width:100%%'>\n"
+    "%@\n"  //strWordIconTag
+    "</div>\n"
+    "</body>\n"
+    "</html>";
+    
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
+    float speed = 2*[speedNumberObj floatValue];
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+        speed = speed/2;
+    }
+    
+    NSString *strMeaning = @"";
+    
+    if ([dictSinglePackage valueForKey:@"meaning"]) {
+        strMeaning = [dictSinglePackage valueForKey:@"meaning"];
+        
+        if (strMeaning) {
+            //            strMeaning = [[Common sharedCommon] stringByRemovingHTMLTag:strMeaning];
+            //remove <p>, keep <br>
+            strMeaning = [strMeaning stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+            strMeaning = [strMeaning stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+            
+        } else {
+            strMeaning = @"";
+        }
+    }
+    
+    NSString *strWordIconTag = @"<div style='float:left;width:90%%;text-align: center;'>\n"
+    "<strong style='font-size:18pt;'> %@ </strong>\n"   //%@ will be replaced by word.question
+    "</div>\n"
+    "<div style='width:90%%'>"
+    "<center>%@</center>"
+    "</div>";
+    
+    strWordIconTag = [NSString stringWithFormat:strWordIconTag, strMeaning, package];
+    
+    htmlString = [NSString stringWithFormat:htmlString, strWordIconTag];
+    
+    return htmlString;
+}
+
 - (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(MajorObject *)majorObj {
     NSString *htmlString = @"";
     NSString *imageLink = @"";

@@ -42,6 +42,7 @@
 "Still have some words need to review" = "Bạn vẫn còn một số từ cần phải ôn lại ngày hôm nay.";
 "Do you want to backup your learning progress?" = "LazzyBee sẽ sao lưu dữ liệu học tập của bạn. Bạn có muốn thực hiện không?";
 "Vocabulary testing" = "Kiểm tra vốn từ";
+"Please come back after finishing your daily target." = "Vui lòng quay lại sau khi bạn đã hoàn thành mục tiêu hàng ngày.";
 
 //Major
 "Close" = "Đóng";
@@ -128,6 +129,7 @@
 "Daily target completed" = "Hoàn thành mục tiêu";
 "Streack congratulation" = "Chúc mừng bạn!\nBạn đã có %ld ngày hoàn thành mục tiêu.";
 "Continue" = "Tiếp tục";
+"2000 words/year with 5 minutes per day" = "2000 từ/năm với 5 phút mỗi ngày";
 
 //note
 "User note" = "Ghi chú";
@@ -148,7 +150,11 @@
 "Input code that you achieved when backing up database" = "Nhập mã bạn đã nhận được khi sao lưu dữ liệu";
 "Wrong code, please try again" = "Sai mã, vui lòng thử lại.";
 
+//reverse
 "Error" = "Lỗi";
 "There was an error while loading page." = "Đã có lỗi xảy ra trong quá trình tải trang. Vui lòng thử lại sau.";
 "\"Reverse\" function have been unlocked. Try it now." = "Tính năng \"Dịch ngược\" đã được mở khoá. Bạn có muốn mở ra bây giờ không?";
 "Try now" = "Mở luôn";
+"Next" = "Tiếp";
+"Locked" = "Khoá";
+"To unlock this function, you need to learn at lease 50 words." = "Để kích hoạt chức năng này, bạn cần học ít nhất 50 từ.";

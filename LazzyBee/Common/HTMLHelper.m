@@ -161,7 +161,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSDictionary *dictSinglePackage = [dictPackages valueForKey:packageLowcase];
     
     if (dictSinglePackage == nil) {
-        
+        dictSinglePackage = [dictPackages valueForKey:@"common"];
         package = @"";
     }
     

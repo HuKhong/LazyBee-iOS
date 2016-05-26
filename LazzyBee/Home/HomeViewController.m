@@ -74,8 +74,13 @@
 //    [viewInformation setBackgroundColor:COMMON_COLOR];
     
     //make avatar round
-    btnReverse.layer.cornerRadius = btnReverse.frame.size.width/2;
-    btnReverse.clipsToBounds = YES;
+//    btnReverse.layer.cornerRadius = btnReverse.frame.size.width/2;
+//    btnReverse.clipsToBounds = YES;
+    
+    btnReverse.layer.masksToBounds = NO;
+    btnReverse.layer.shadowOffset = CGSizeMake(-5, 10);
+    btnReverse.layer.shadowRadius = 5;
+    btnReverse.layer.shadowOpacity = 0.5;
     
     viewSearchContainer.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     viewSearchContainer.layer.borderWidth = 1.0f;
@@ -202,14 +207,14 @@
     NSNumber *reverseFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REVERSE_ENABLE];
     
     if (reverseFlag && [reverseFlag boolValue] == YES) {
-        [btnReverse setBackgroundColor:COMMON_COLOR];
+//        [btnReverse setBackgroundColor:COMMON_COLOR];
         
     } else {
         NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord];
         
         if (count >= NUMBER_OF_WORD_TO_ACTIVATE_REVERSE) {
             reverseFlag = [NSNumber numberWithBool:YES];
-            [btnReverse setBackgroundColor:COMMON_COLOR];
+//            [btnReverse setBackgroundColor:COMMON_COLOR];
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:LocalizedString(@"\"Reverse\" function have been unlocked. Try it now.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:LocalizedString(@"Try now"), nil];
             alert.tag = 10;
@@ -218,7 +223,7 @@
             
         } else {
             reverseFlag = [NSNumber numberWithBool:NO];
-            [btnReverse setBackgroundColor:[UIColor darkGrayColor]];
+//            [btnReverse setBackgroundColor:[UIColor darkGrayColor]];
         }
         
         [[Common sharedCommon] saveDataToUserDefaultStandard:reverseFlag withKey:KEY_REVERSE_ENABLE];
@@ -486,7 +491,7 @@
         
     } else {
         NSString *alertContent = LocalizedString(@"Please come back after finishing your daily target.");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Oops!") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Notice") message:alertContent delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles: nil];
         alert.tag = 11;
         
         [alert show];
@@ -546,7 +551,15 @@
         }
     } else if (alertView.tag == 10) { //try now
         if (buttonIndex != 0) {
-            dfdff
+            ReverseViewController *reverseViewController = nil;
+            
+            if (IS_IPAD) {
+                reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController_iPad" bundle:nil];
+            } else {
+                reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController" bundle:nil];
+            }
+            
+            [self.navigationController pushViewController:reverseViewController animated:YES];
         }
     }
 }

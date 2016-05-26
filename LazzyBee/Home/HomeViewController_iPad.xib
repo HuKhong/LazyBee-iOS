@@ -100,11 +100,11 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vB5-bh-dSs">
-                    <rect key="frame" x="700" y="896" width="60" height="60"/>
+                    <rect key="frame" x="697" y="890" width="71" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <state key="normal" image="bee.png"/>
+                    <state key="normal" image="ic_lightning.png"/>
                     <connections>
                         <action selector="btnReverseClick:" destination="-1" eventType="touchUpInside" id="pjv-Wh-VAP"/>
                     </connections>
@@ -115,10 +115,10 @@
         </view>
     </objects>
     <resources>
-        <image name="bee.png" width="40" height="40"/>
         <image name="big_logo.png" width="300" height="300"/>
         <image name="button_long_ipad.png" width="667" height="40"/>
         <image name="button_short_ipad.png" width="300" height="40"/>
+        <image name="ic_lightning.png" width="71" height="60"/>
         <image name="ic_search_gray.png" width="25" height="25"/>
     </resources>
 </document>

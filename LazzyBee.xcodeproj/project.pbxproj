@@ -138,6 +138,10 @@
 		553300DB1C1566730013D19F /* bee60.png in Resources */ = {isa = PBXBuildFile; fileRef = 553300D81C1566730013D19F /* bee60.png */; };
 		553300DC1C1566730013D19F /* bee60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553300D91C1566730013D19F /* bee60@2x.png */; };
 		553300DD1C1566730013D19F /* bee60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553300DA1C1566730013D19F /* bee60@3x.png */; };
+		553882821CF6EC5200E12EFC /* ReverseViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553882811CF6EC5200E12EFC /* ReverseViewController_iPad.xib */; };
+		553882861CF6FAD300E12EFC /* ic_lightning.png in Resources */ = {isa = PBXBuildFile; fileRef = 553882831CF6FAD300E12EFC /* ic_lightning.png */; };
+		553882871CF6FAD300E12EFC /* ic_lightning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553882841CF6FAD300E12EFC /* ic_lightning@2x.png */; };
+		553882881CF6FAD300E12EFC /* ic_lightning@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553882851CF6FAD300E12EFC /* ic_lightning@3x.png */; };
 		553F78301BA6D12800D15876 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553F782F1BA6D12800D15876 /* Images.xcassets */; };
 		553F78341BA6D39400D15876 /* rearBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 553F78311BA6D39400D15876 /* rearBanner.png */; };
 		553F78351BA6D39400D15876 /* rearBanner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553F78321BA6D39400D15876 /* rearBanner@2x.png */; };
@@ -547,6 +551,10 @@
 		553300D81C1566730013D19F /* bee60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bee60.png; sourceTree = "<group>"; };
 		553300D91C1566730013D19F /* bee60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee60@2x.png"; sourceTree = "<group>"; };
 		553300DA1C1566730013D19F /* bee60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee60@3x.png"; sourceTree = "<group>"; };
+		553882811CF6EC5200E12EFC /* ReverseViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReverseViewController_iPad.xib; path = Mainsreen/ReverseViewController_iPad.xib; sourceTree = "<group>"; };
+		553882831CF6FAD300E12EFC /* ic_lightning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_lightning.png; sourceTree = "<group>"; };
+		553882841CF6FAD300E12EFC /* ic_lightning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_lightning@2x.png"; sourceTree = "<group>"; };
+		553882851CF6FAD300E12EFC /* ic_lightning@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_lightning@3x.png"; sourceTree = "<group>"; };
 		553F782F1BA6D12800D15876 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		553F78311BA6D39400D15876 /* rearBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rearBanner.png; sourceTree = "<group>"; };
 		553F78321BA6D39400D15876 /* rearBanner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rearBanner@2x.png"; sourceTree = "<group>"; };
@@ -1281,6 +1289,9 @@
 		4DD3C3CA1B6F218700B6DA71 /* others */ = {
 			isa = PBXGroup;
 			children = (
+				553882831CF6FAD300E12EFC /* ic_lightning.png */,
+				553882841CF6FAD300E12EFC /* ic_lightning@2x.png */,
+				553882851CF6FAD300E12EFC /* ic_lightning@3x.png */,
 				556481321CF45F6900DDD09C /* button_short_ipad_gray.png */,
 				556481331CF45F6900DDD09C /* button_short_ipad_gray@2x.png */,
 				556481341CF45F6900DDD09C /* button_short_ipad_gray@3x.png */,
@@ -1565,6 +1576,7 @@
 				5573939B1CF55CA8000F1E0A /* ReverseViewController.h */,
 				5573939C1CF55CA8000F1E0A /* ReverseViewController.m */,
 				5573939D1CF55CA8000F1E0A /* ReverseViewController.xib */,
+				553882811CF6EC5200E12EFC /* ReverseViewController_iPad.xib */,
 			);
 			name = Mainscreen;
 			sourceTree = "<group>";
@@ -1875,6 +1887,7 @@
 				551B9B0B1CDAEEAB000403CE /* ic_extension.png in Resources */,
 				55028A041BF08BAB007181C3 /* ic_help@2x.png in Resources */,
 				55F6C72A1BF5959C0084B369 /* blank.png in Resources */,
+				553882881CF6FAD300E12EFC /* ic_lightning@3x.png in Resources */,
 				551FB8701C03019800C8B18C /* note.png in Resources */,
 				551B9B0D1CDAEEAB000403CE /* ic_extension@3x.png in Resources */,
 				553F78301BA6D12800D15876 /* Images.xcassets in Resources */,
@@ -1911,6 +1924,7 @@
 				556481391CF45F6900DDD09C /* button_short_ipad_gray@2x.png in Resources */,
 				4DD3C39C1B6F191C00B6DA71 /* FBAudienceNetwork.README.txt in Resources */,
 				55E1063D1BF1DF18008A6BEA /* medicine.png in Resources */,
+				553882821CF6EC5200E12EFC /* ReverseViewController_iPad.xib in Resources */,
 				557D7ABC1B8587AF00834A44 /* btnbg.png in Resources */,
 				552BD5B51BA175E300BF316C /* ic_rabbit.png in Resources */,
 				557D7ACD1B85B5B600834A44 /* ic_speaker@3x.png in Resources */,
@@ -2053,7 +2067,9 @@
 				552BD5B91BA175E300BF316C /* ic_turtle@2x.png in Resources */,
 				55EBA3E71C74126A006B4A5A /* ic_search.png in Resources */,
 				559E67B51BEB135F00232439 /* big_logo@3x.png in Resources */,
+				553882871CF6FAD300E12EFC /* ic_lightning@2x.png in Resources */,
 				551FB8611C02F75B00C8B18C /* button_short_ipad@2x.png in Resources */,
+				553882861CF6FAD300E12EFC /* ic_lightning.png in Resources */,
 				55C092341BCF431E005C78B5 /* PopupView.xib in Resources */,
 				550FD2761C771280009D7159 /* Default-568h@2x.png in Resources */,
 				55E106351BF1B0A5008A6BEA /* ChooseMajorViewController.xib in Resources */,

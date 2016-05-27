@@ -216,10 +216,10 @@
             reverseFlag = [NSNumber numberWithBool:YES];
 //            [btnReverse setBackgroundColor:COMMON_COLOR];
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:LocalizedString(@"\"Reverse\" function have been unlocked. Try it now.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:LocalizedString(@"Try now"), nil];
-            alert.tag = 10;
-            
-            [alert show];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Congratulation") message:LocalizedString(@"\"Reverse\" function have been unlocked. Try it now.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Close") otherButtonTitles:LocalizedString(@"Try now"), nil];
+//            alert.tag = 10;
+//            
+//            [alert show];
             
         } else {
             reverseFlag = [NSNumber numberWithBool:NO];
@@ -551,7 +551,7 @@
         }
     } else if (alertView.tag == 10) { //try now
         if (buttonIndex != 0) {
-            ReverseViewController *reverseViewController = nil;
+    /*        ReverseViewController *reverseViewController = nil;
             
             if (IS_IPAD) {
                 reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController_iPad" bundle:nil];
@@ -559,7 +559,7 @@
                 reverseViewController = [[ReverseViewController alloc] initWithNibName:@"ReverseViewController" bundle:nil];
             }
             
-            [self.navigationController pushViewController:reverseViewController animated:YES];
+            [self.navigationController pushViewController:reverseViewController animated:YES];*/
         }
     }
 }

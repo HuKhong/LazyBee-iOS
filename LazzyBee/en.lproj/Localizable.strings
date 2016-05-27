@@ -87,7 +87,7 @@
 "month" = "month(s)";
 "year" = "year(s)";
 "10min" = "< 10min";
-"Learning guide" = "Upon to your self-evaluation of memory quality, application will schedule this word to be reviewed respectively to the following spans.";
+"Learning guide" = "Upon to your self-evaluation of memory quality, please choose the most appropriate span for the next review.";
 "Got it" = "Got it";
 
 //List
@@ -151,6 +151,7 @@
 "Wrong code, please try again" = "Wrong code, please try again.";
 
 //reverse
+"Reverse" = "Reverse";
 "Error" = "Error";
 "There was an error while loading page." = "There was an error while loading page. Please try again later.";
 "\"Reverse\" function have been unlocked. Try it now." = "\"Reverse\" function have been unlocked. Open it now?";

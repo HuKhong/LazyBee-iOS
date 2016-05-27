@@ -87,7 +87,7 @@
 "month" = "tháng";
 "year" = "năm";
 "10min" = "< 10 phút";
-"Learning guide" = "Tùy vào việc bạn tự đánh giá khả năng nhớ của bạn, ứng dụng sẽ đưa từ này ra ôn lại theo các khoảng thời gian tương ứng bên dưới.";
+"Learning guide" = "Tùy vào việc tự đánh giá khả năng nhớ của bạn, hãy chọn một khoảng thời gian phù hợp để nhắc lại từ.";
 "Got it" = "Đã hiểu";
 
 //List
@@ -151,6 +151,7 @@
 "Wrong code, please try again" = "Sai mã, vui lòng thử lại.";
 
 //reverse
+"Reverse" = "Dịch ngược";
 "Error" = "Lỗi";
 "There was an error while loading page." = "Đã có lỗi xảy ra trong quá trình tải trang. Vui lòng thử lại sau.";
 "\"Reverse\" function have been unlocked. Try it now." = "Tính năng \"Dịch ngược\" đã được mở khoá. Bạn có muốn mở ra bây giờ không?";

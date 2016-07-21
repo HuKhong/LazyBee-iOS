@@ -29,11 +29,11 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_logo.png" id="vXe-kW-w7z">
-                    <rect key="frame" x="80" y="103" width="160" height="160"/>
+                    <rect key="frame" x="80" y="100" width="160" height="160"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="3Ya-xE-VYf">
-                    <rect key="frame" x="0.0" y="283" width="320" height="93"/>
+                    <rect key="frame" x="0.0" y="290" width="320" height="93"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Cyx-GS-o4g">

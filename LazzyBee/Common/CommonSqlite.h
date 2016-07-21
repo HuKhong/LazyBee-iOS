@@ -11,6 +11,10 @@
 #import <Foundation/Foundation.h>
 #import "WordObject.h"
 
+#define INREVIEW @"inreview"
+#define PICKEDWORD @"pickedword"
+#define BUFFER @"buffer"
+
 @interface CommonSqlite : NSObject
 
 // a singleton:

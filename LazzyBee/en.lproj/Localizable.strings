@@ -137,7 +137,7 @@
 "Note here" = "Note here...";
 
 //back up and restore
-"Restoring" = "Restoring...";
+"Restoring" = "It may take a few minutes to restore data. Please wait.";
 "Failed" = "Failed";
 "Successfully" = "Successfully";
 "Try again" = "Try again";

@@ -696,7 +696,7 @@
 
 #pragma mark alert delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+
     if (alertView.tag == 1) {
         if (buttonIndex != 0) {
         }
@@ -951,24 +951,32 @@
 - (void)downloadFileFromServerWithCode:(NSString *)code {
     [SVProgressHUD showWithStatus:LocalizedString(@"Restoring")];
     
-    static GTLServiceDataServiceApi *service = nil;
-    if (!service) {
-        service = [[GTLServiceDataServiceApi alloc] init];
-        service.retryEnabled = YES;
-        //[GTMHTTPFetcher setLoggingEnabled:YES];
-    }
-
-    GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetDownloadUrlWithCode:code];
-    //TODO: Add waiting progress here
-    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiDownloadTarget *object, NSError *error) {
-        if (object && object.url && object.url.length > 0){
-            [self didReceiveDownloadLink:object.url];
+    dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    dispatch_async(taskQ, ^{
+        [NSThread sleepForTimeInterval:0.5];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
             
-        } else {
-            [self wrongCodeAlert];
-        }
-        [SVProgressHUD dismiss];
-    }];
+            static GTLServiceDataServiceApi *service = nil;
+            if (!service) {
+                service = [[GTLServiceDataServiceApi alloc] init];
+                service.retryEnabled = YES;
+                //[GTMHTTPFetcher setLoggingEnabled:YES];
+            }
+            
+            GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetDownloadUrlWithCode:code];
+            //TODO: Add waiting progress here
+            [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiDownloadTarget *object, NSError *error) {
+                if (object && object.url && object.url.length > 0){
+                    [self didReceiveDownloadLink:object.url];
+                    
+                } else {
+                    [self wrongCodeAlert];
+                }
+                [SVProgressHUD dismiss];
+            }];
+        });
+    });
 }
 
 - (void)didReceiveDownloadLink:(NSString *)downloadLink {

@@ -69,6 +69,7 @@
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iStudyScreen"];
     
+    btnDictionary.hidden = YES;
     //border webview
 //    webViewWord.layer.borderColor = [UIColor darkGrayColor].CGColor;
 //    webViewWord.layer.borderWidth = 1.0f;
@@ -483,7 +484,7 @@
         [[Common sharedCommon] textToSpeech:wordObj.question withRate:speed];
     }
     _isAnswerScreen = NO;
-    btnDictionary.enabled = NO;
+    btnDictionary.hidden = YES;
 }
 
 - (void)timerHandler {
@@ -531,7 +532,7 @@
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
     
     _isAnswerScreen = YES;
-    btnDictionary.enabled = YES;
+    btnDictionary.hidden = NO;
 }
 
 //only need to check sender in case click on Again button

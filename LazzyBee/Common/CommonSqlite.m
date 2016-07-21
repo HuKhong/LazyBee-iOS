@@ -15,6 +15,10 @@
 #import "WordObject.h"
 #import "ZipArchive.h"
 #import "MajorObject.h"
+#import "SVProgressHUD.h"
+#import "GTMHTTPFetcher.h"
+#import "GTLDataServiceApi.h"
+#import "LocalizeHelper.h"
 
 // Singleton
 static CommonSqlite* sharedCommonSqlite = nil;
@@ -74,13 +78,13 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getNewWordsList {
-    NSArray *resArr = [self fetchWordsFromVocabularyForKey:@"pickedword"];
+    NSArray *resArr = [self fetchWordsFromVocabularyForKey:PICKEDWORD];
     
     return resArr;
 }
 
 - (NSArray *)getIncomingList {
-    NSArray *resArr = [self fetchWordsFromVocabularyForKey:@"buffer"];
+    NSArray *resArr = [self fetchWordsFromVocabularyForKey:BUFFER];
     
     return resArr;
 }
@@ -814,13 +818,13 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSMutableArray *resArr = [[NSMutableArray alloc] init];
     
     NSString *lowestLevel = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
-    NSString *highestLevel = @"6";
+    NSString *igniredLevel = @"7";
     
     if (![package isEqualToString:@"common"]) {
-        highestLevel = @"7";
+        igniredLevel = @"0";
     }
     
-    strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND queue = %d AND level >= %@ AND level <= %@ ORDER BY level LIMIT %ld", package, QUEUE_UNKNOWN, lowestLevel, highestLevel, (long)amount];
+    strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND queue = %d AND level >= %@ AND level <> %@ ORDER BY level LIMIT %ld", package, QUEUE_UNKNOWN, lowestLevel, igniredLevel, (long)amount];
     charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -837,7 +841,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
     //if the selected package is not enough, get more from common
     if ([resArr count] < amount) {
-        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND queue = %d AND level >= %@ AND level <= %@ ORDER BY level LIMIT %ld", @"common", package, QUEUE_UNKNOWN, lowestLevel, highestLevel, (long)(amount - [resArr count])];
+        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE package LIKE '%%,%@,%%' AND package NOT LIKE '%%,%@,%%' AND queue = %d AND level >= %@ AND level <> %@ ORDER BY level LIMIT %ld", @"common", package, QUEUE_UNKNOWN, lowestLevel, igniredLevel, (long)(amount - [resArr count])];
         charQuery = [strQuery UTF8String];
         
         sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -1225,7 +1229,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         NSDictionary *dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         strOldDate = [dictIDList valueForKey:@"date"];
         
-        if ([key isEqualToString:@"inreview"]) {
+        if ([key isEqualToString:INREVIEW]) {
             countNumber = [dictIDList valueForKey:@"count"];
         }
     }
@@ -1236,7 +1240,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     [dictNewWords setObject:strOldDate forKey:@"date"];
     [dictNewWords setObject:idListArr forKey:@"card"];
     
-    if ([key isEqualToString:@"inreview"]) {
+    if ([key isEqualToString:INREVIEW]) {
         [dictNewWords setObject:countNumber forKey:@"count"];   //keep this value even if removing a word from "card"
     }
     
@@ -1269,12 +1273,12 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 //update pickedword by wordArr
 - (void)updatePickedWordList:(NSArray *)wordsArr {
-    [self updateSystemTableForKey:@"pickedword" withArray:wordsArr];
+    [self updateSystemTableForKey:PICKEDWORD withArray:wordsArr];
 }
 
 //update inreview by wordArr
 - (void)updateInreviewWordList:(NSArray *)wordsArr {
-    [self updateSystemTableForKey:@"inreview" withArray:wordsArr];
+    [self updateSystemTableForKey:INREVIEW withArray:wordsArr];
 }
 
 - (void)createInreivewListForADay:(NSArray *)wordsArr {
@@ -1535,7 +1539,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     }
     
-    if ([key isEqualToString:@"inreview"]) {
+    if ([key isEqualToString:INREVIEW]) {
         if (dictIDList) {
             countNumber = [dictIDList valueForKey:@"count"];
             res = [countNumber integerValue];
@@ -1557,17 +1561,17 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 - (NSInteger)getCountOfPickedWord {
     //get word id from pickedword
-    return [self getCountOfWordByKey:@"pickedword"];
+    return [self getCountOfWordByKey:PICKEDWORD];
 }
 
 - (NSInteger)getCountOfBuffer {
     //get word id from buffer
-    return [self getCountOfWordByKey:@"buffer"];
+    return [self getCountOfWordByKey:BUFFER];
 }
 
 - (NSInteger)getCountOfInreview {
     //get word id from buffer
-    return [self getCountOfWordByKey:@"inreview"];
+    return [self getCountOfWordByKey:INREVIEW];
 }
 
 - (NSString *)getDatabasePath {
@@ -1806,7 +1810,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 - (NSArray *)fetchDataNeedToBackup {
     NSString *dbPath = [self getDatabasePath];
     
-    NSString *strQuery = @"SELECT queue, due, rev_count, last_ivl, e_factor, gid, user_note FROM 'vocabulary' WHERE queue = 1 OR queue = 2 OR queue = -1 OR queue = -2";
+    NSString *strQuery = @"SELECT queue, due, rev_count, last_ivl, e_factor, gid, user_note, level FROM 'vocabulary' WHERE queue = 1 OR queue = 2 OR queue = -1 OR queue = -2";
     
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -1858,6 +1862,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
             wordObj.userNote = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 6)];
         }
         
+        if (sqlite3_column_text(dbps, 7)) {
+            wordObj.level = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 7)];
+        }
+        
         [resArr addObject:wordObj];
     }
     
@@ -1875,7 +1883,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     for (WordObject *word in dataArr) {
         NSString *userNote = [word.userNote stringByReplacingOccurrencesOfString:@"," withString:@"*#*"];
         
-        [strData appendFormat:@"%@,%@,%@,%@,%@,%@,%@,\n", word.gid, word.queue, word.due,word.revCount, word.lastInterval, word.eFactor, userNote];
+        [strData appendFormat:@"%@,%@,%@,%@,%@,%@,%@,%@,\n", word.gid, word.queue, word.due,word.revCount, word.lastInterval, word.eFactor, userNote, word.level];
     }
     NSError *error = nil;
     [strData writeToFile:path
@@ -1959,9 +1967,11 @@ static CommonSqlite* sharedCommonSqlite = nil;
             
             NSString *strQuery = @"";
             const char *charQuery = nil;
+            NSMutableArray *missingWords = [[NSMutableArray alloc] init];
+            
             for (NSString *row in rows) {
                 NSArray *values = [row componentsSeparatedByString:@","];
-                //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote
+                //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote, word.level
                 
                 if ([values count] == 7) {
                     NSString *userNote = [[values objectAtIndex:6] stringByReplacingOccurrencesOfString:@"*#*" withString:@","];
@@ -1971,12 +1981,35 @@ static CommonSqlite* sharedCommonSqlite = nil;
                     charQuery = [strQuery UTF8String];
                     
                     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-                    
-                    if(SQLITE_DONE != sqlite3_step(dbps)) {
+                    NSInteger res = sqlite3_step(dbps);
+
+                    if(SQLITE_DONE != res) {
                         NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
                     }
                     
                     sqlite3_finalize(dbps);
+                    
+                } else if ([values count] == 8) {   //add a new field to backup data :: level
+                    NSString *level = [values objectAtIndex:7];
+                    if ([level isEqualToString:@"8"]) {
+                        [missingWords addObject:values];
+                        
+                    } else {
+                        NSString *userNote = [[values objectAtIndex:6] stringByReplacingOccurrencesOfString:@"*#*" withString:@","];
+                        
+                        strQuery = [NSString stringWithFormat:@"UPDATE 'vocabulary' SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, user_note = '%@' where gid = '%@'", [[values objectAtIndex:1] intValue], [[values objectAtIndex:2] intValue], [[values objectAtIndex:3] intValue], [[values objectAtIndex:4] intValue], [[values objectAtIndex:5] intValue], userNote, [values objectAtIndex:0]];
+                        
+                        charQuery = [strQuery UTF8String];
+                        
+                        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+                        NSInteger res = sqlite3_step(dbps);
+                        
+                        if(SQLITE_DONE != res) {
+                            NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+                        }
+                        
+                        sqlite3_finalize(dbps);
+                    }
                     
                 }
             }
@@ -1985,6 +2018,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
             
             //remove file after restore
             [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathWordFile];
+            
+            if ([missingWords count] > 0) {
+                [self downloadMissingWordsAndUpdate:missingWords];
+            }
         }
         
         //read streak file
@@ -2015,6 +2052,58 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     return YES;
+}
+
+- (void)downloadMissingWordsAndUpdate:(NSArray *)missingWords {    
+    for (NSArray *wordFields in missingWords) {
+        NSString *gid = [wordFields objectAtIndex:0];
+        
+        static GTLServiceDataServiceApi *service = nil;
+        if (!service) {
+            service = [[GTLServiceDataServiceApi alloc] init];
+            service.retryEnabled = YES;
+            //[GTMHTTPFetcher setLoggingEnabled:YES];
+        }
+        
+        GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByIdWithIdentifier:[gid longLongValue]];
+        //TODO: Add waiting progress here
+        [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
+            if (object != NULL){
+                NSLog(object.JSONString);
+                //TODO: Update word: q, a, level, package, (and ee, ev)
+                //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote, word.level
+                
+                WordObject *wordObj = [[WordObject alloc] init];
+                wordObj.question   = object.q;
+                wordObj.answers    = object.a;
+                wordObj.level      = [NSString stringWithFormat:@"%ld", (long)[object.level integerValue]];
+                wordObj.package    = object.packages;
+                wordObj.gid        = [NSString stringWithFormat:@"%@", object.gid];
+                
+                if (object.lEn && object.lEn.length > 0) {
+                    wordObj.langEN     = object.lEn;
+                }
+                
+                if (object.lVn && object.lVn.length > 0) {
+                    wordObj.langVN     = object.lVn;
+                }
+                
+                wordObj.package    = object.packages;
+                
+                //update info from backup data
+                wordObj.eFactor    = [wordFields objectAtIndex:5];
+                wordObj.queue      = [wordFields objectAtIndex:1];
+                //                wordObj.isFromServer = YES;   //set YES if dont insert this word to db right here //dont need to do this because we add it right here
+                wordObj.due        = [wordFields objectAtIndex:2];
+                wordObj.revCount   = [wordFields objectAtIndex:3];
+                wordObj.lastInterval = [wordFields objectAtIndex:4];
+                wordObj.userNote        = [wordFields objectAtIndex:6];
+                
+                //insert to db, no need to get from server next time
+                [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
+            }
+        }];
+    }
 }
 
 - (NSDictionary *)getCountOfWordByLevel {

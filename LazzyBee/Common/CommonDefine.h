@@ -32,7 +32,7 @@
 #define DATABASENAME_NEW @"new_english.db"
 #define DATABASENAME_BACKUP @"word.csv"
 #define STREAK_BACKUP @"streak.csv"
-#define DATABASENAME_BACKUPZIP @"backup.zip"
+#define DATABASENAME_BACKUPZIP [NSString stringWithFormat:@"%@.zip", [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_BACKUP_CODE]]
 
 #define BUFFER_SIZE 100
 #define TOTAL_WORDS_A_DAY_MAX [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET] integerValue]

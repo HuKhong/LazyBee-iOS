@@ -137,7 +137,7 @@
 "Note here" = "Ghi chú...";
 
 //back up and restore
-"Restoring" = "Khôi phục dữ liệu...";
+"Restoring" = "Quá trình khôi phục dữ liệu đang được thực hiện.\nVui lòng chờ trong ít phút.";
 "Failed" = "Thất bại";
 "Successfully" = "Thành công";
 "Try again" = "Thử lại";

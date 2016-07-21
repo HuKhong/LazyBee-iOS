@@ -433,7 +433,7 @@
         } else {
             BOOL found = NO;
             for (WordObject *wordObj in wordList) {
-                if ([wordObj.question isEqualToString:_searchText]) {
+                if ([[wordObj.question lowercaseString] isEqualToString:[_searchText lowercaseString]]) {
                     found = YES;
                     break;
                 }

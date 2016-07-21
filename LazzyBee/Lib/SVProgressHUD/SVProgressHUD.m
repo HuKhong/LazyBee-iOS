@@ -173,7 +173,12 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 }
 
 + (void)showWithStatus:(NSString*)status{
-    [self setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    if (status && status.length >0) {
+        [self setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+    } else {
+        [self setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    }
+    
     [self sharedView];
     [self showProgress:SVProgressHUDUndefinedProgress status:status];
 }

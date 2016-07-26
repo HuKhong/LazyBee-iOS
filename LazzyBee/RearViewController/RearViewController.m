@@ -29,6 +29,8 @@
 #import <FBSDKShareKit/FBSDKShareLinkContent.h>
 #import <FBSDKShareKit/FBSDKShareDialog.h>
 
+@import FirebaseAnalytics;
+
 @interface RearViewController()
 {
     NSIndexPath *presentedCell;
@@ -352,6 +354,9 @@
 #pragma mark - FBSDKSharingDelegate
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
     NSLog(@"completed share:%@", results);
+    
+    [FIRAnalytics logEventWithName:kFIREventShare parameters:@{
+                                                               }];
 }
 
 - (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error {

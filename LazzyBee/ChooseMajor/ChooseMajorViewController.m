@@ -13,6 +13,8 @@
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 #define COLLCECTIONVIEW_CELL_OFFSET 10
 #define CELL_WIDTH 125
 #define CELL_HEIGHT 160
@@ -166,6 +168,10 @@
         if (majorObj.checkFlag == YES) {
             found = YES;
             [[Common sharedCommon] savePersonalData:majorObj withKey:KEY_SELECTED_MAJOR];
+            
+            [FIRAnalytics logEventWithName:kFIREventSelectContent parameters:@{
+                                                                               kFIRParameterItemName:majorObj.majorName
+                                                                               }];
             break;
         }
     }

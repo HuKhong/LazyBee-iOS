@@ -10,6 +10,8 @@
 #import "Common.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 #define MAX_LEVEL 6
 #define MAX_TIME 11
 
@@ -71,12 +73,17 @@
 
 - (IBAction)btnDoneClick:(id)sender {
     if (_pickerType == LevelPicker) {
-        NSString *level = [NSString stringWithFormat:@"%d", [levelPicker selectedRowInComponent:0] + 1];
+        NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
         [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
+        
+        [FIRAnalytics logEventWithName:kFIREventLevelUp parameters:@{
+                                                                           kFIRParameterLevel:level
+                                                                           }];
 
     } else if (_pickerType == WaitingTimePicker) {
         NSString *time = [NSString stringWithFormat:@"%ld", (long)[levelPicker selectedRowInComponent:0]];
         [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
+
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];

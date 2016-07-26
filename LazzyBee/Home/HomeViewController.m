@@ -24,7 +24,6 @@
 #import "UploadToServer.h"
 #import "ReverseViewController.h"
 
-
 @interface HomeViewController ()<GADInterstitialDelegate>
 {
     SearchViewController *searchView;

@@ -13,6 +13,8 @@
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 #define NUMBER_OF_DAYS 7
 // This is defined in Math.h
 #define M_PI   3.14159265358979323846264338327950288   /* pi */
@@ -57,6 +59,10 @@
                             range:(NSRange){0,[attributeString length]}];
     
     [lbLink setAttributedText:attributeString];
+    
+    [FIRAnalytics logEventWithName:@"Streak" parameters:@{
+                                                          kFIRParameterScore:[NSNumber numberWithInteger:streakCount]
+                                                          }];
 }
 
 - (void)didReceiveMemoryWarning {

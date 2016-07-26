@@ -20,11 +20,15 @@
 #import "GTLDataServiceApi.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 // Singleton
 static CommonSqlite* sharedCommonSqlite = nil;
 
 @implementation CommonSqlite
-
+{
+    NSMutableArray *lostWords;
+}
 
 //-------------------------------------------------------------
 // allways return the same singleton
@@ -109,6 +113,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
         
         //save list to db (only word-id)
         [self createInreivewListForADay:resArr];
+        
+        [FIRAnalytics logEventWithName:@"Need to review per day" parameters:@{
+                                                                     kFIRParameterQuantity:[NSNumber numberWithInteger:[resArr count]]
+                                                                     }];
     }
     
     return resArr;
@@ -1974,6 +1982,28 @@ static CommonSqlite* sharedCommonSqlite = nil;
                 //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote, word.level
                 
                 if ([values count] == 7) {
+                    //for test - begin
+                    /*
+                    int count = 0;
+                    strQuery = [NSString stringWithFormat:@"SELECT COUNT(*) FROM 'vocabulary' WHERE gid = '%@'", [values objectAtIndex:0]];
+                    charQuery = [strQuery UTF8String];
+                    
+                    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+                    
+                    if(SQLITE_DONE != sqlite3_step(dbps)) {
+                        if (sqlite3_column_int(dbps, 0)) {
+                            count = sqlite3_column_int(dbps, 0);
+                        }
+                    }
+                    
+                    sqlite3_finalize(dbps);
+                    
+                    if (count <= 0) {
+                        [missingWords addObject:values];
+                    }
+                    //for test - end
+                     */
+                    
                     NSString *userNote = [[values objectAtIndex:6] stringByReplacingOccurrencesOfString:@"*#*" withString:@","];
                     
                     strQuery = [NSString stringWithFormat:@"UPDATE 'vocabulary' SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d, user_note = '%@' where gid = '%@'", [[values objectAtIndex:1] intValue], [[values objectAtIndex:2] intValue], [[values objectAtIndex:3] intValue], [[values objectAtIndex:4] intValue], [[values objectAtIndex:5] intValue], userNote, [values objectAtIndex:0]];
@@ -2018,7 +2048,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
             
             //remove file after restore
             [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathWordFile];
-            
+            lostWords = [[NSMutableArray alloc] init];
             if ([missingWords count] > 0) {
                 [self downloadMissingWordsAndUpdate:missingWords];
             }
@@ -2054,7 +2084,8 @@ static CommonSqlite* sharedCommonSqlite = nil;
     return YES;
 }
 
-- (void)downloadMissingWordsAndUpdate:(NSArray *)missingWords {    
+- (void)downloadMissingWordsAndUpdate:(NSMutableArray *)missingWords {
+
     for (NSArray *wordFields in missingWords) {
         NSString *gid = [wordFields objectAtIndex:0];
         
@@ -2069,7 +2100,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         //TODO: Add waiting progress here
         [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
             if (object != NULL){
-                NSLog(object.JSONString);
+                //NSLog(object.JSONString);
                 //TODO: Update word: q, a, level, package, (and ee, ev)
                 //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote, word.level
                 
@@ -2101,9 +2132,76 @@ static CommonSqlite* sharedCommonSqlite = nil;
                 
                 //insert to db, no need to get from server next time
                 [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
+                
+            } else {
+                 [lostWords addObject:gid];
+                NSLog(@"%@", lostWords);
             }
         }];
     }
+
+    /*
+    if ([missingWords count] > 0) {
+        NSArray *wordFields = [missingWords objectAtIndex:0];
+        NSString *gid = [wordFields objectAtIndex:0];
+        
+            static GTLServiceDataServiceApi *service = nil;
+            if (!service) {
+                service = [[GTLServiceDataServiceApi alloc] init];
+                service.retryEnabled = YES;
+                //[GTMHTTPFetcher setLoggingEnabled:YES];
+            }
+            
+            GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByIdWithIdentifier:[gid longLongValue]];
+            //TODO: Add waiting progress here
+        
+            [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
+                if (object != NULL){
+                    //NSLog(object.JSONString);
+                    //TODO: Update word: q, a, level, package, (and ee, ev)
+                    //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote, word.level
+                    
+                    WordObject *wordObj = [[WordObject alloc] init];
+                    wordObj.question   = object.q;
+                    wordObj.answers    = object.a;
+                    wordObj.level      = [NSString stringWithFormat:@"%ld", (long)[object.level integerValue]];
+                    wordObj.package    = object.packages;
+                    wordObj.gid        = [NSString stringWithFormat:@"%@", object.gid];
+                    
+                    if (object.lEn && object.lEn.length > 0) {
+                        wordObj.langEN     = object.lEn;
+                    }
+                    
+                    if (object.lVn && object.lVn.length > 0) {
+                        wordObj.langVN     = object.lVn;
+                    }
+                    
+                    wordObj.package    = object.packages;
+                    
+                    //update info from backup data
+                    wordObj.eFactor    = [wordFields objectAtIndex:5];
+                    wordObj.queue      = [wordFields objectAtIndex:1];
+                    //                wordObj.isFromServer = YES;   //set YES if dont insert this word to db right here //dont need to do this because we add it right here
+                    wordObj.due        = [wordFields objectAtIndex:2];
+                    wordObj.revCount   = [wordFields objectAtIndex:3];
+                    wordObj.lastInterval = [wordFields objectAtIndex:4];
+                    wordObj.userNote        = [wordFields objectAtIndex:6];
+                    
+                    //insert to db, no need to get from server next time
+                    [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
+                    
+                } else {
+                    [lostWords addObject:gid];
+                }
+                
+                [missingWords removeObjectAtIndex:0];
+                
+                if ([missingWords count] > 0) {
+                    [self downloadMissingWordsAndUpdate:missingWords];
+                }
+            }];
+    }*/
+    
 }
 
 - (NSDictionary *)getCountOfWordByLevel {

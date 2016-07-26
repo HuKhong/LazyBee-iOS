@@ -21,6 +21,8 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+@import Firebase;
+
 @interface AppDelegate () <UISplitViewControllerDelegate, TAGContainerOpenerNotifier>
 
 @end
@@ -115,6 +117,10 @@
                                    openType:kTAGOpenTypePreferFresh
                                     timeout:nil
                                    notifier:(id)self];
+    
+    [FIRApp configure];
+    
+    [FIRAnalytics logEventWithName:kFIREventAppOpen parameters:@{}];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];

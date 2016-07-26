@@ -10,6 +10,8 @@
 #import "Common.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 #define NEW_WORD_OPTION_MAX 5
 #define TOTAL_OPTION_MAX 5
 
@@ -99,10 +101,16 @@
         NSNumber *targetNumberObj = [NSNumber numberWithInteger:target];
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TARGET];
         
+        [FIRAnalytics logEventWithName:@"daily new word" parameters:@{kFIRParameterQuantity:targetNumberObj
+                                                                              }];
+        
     } else {
         NSInteger target = [self whatValueItIs:selectedIndexPath.row];
         NSNumber *targetNumberObj = [NSNumber numberWithInteger:target];
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TOTAL_TARGET];
+        
+        [FIRAnalytics logEventWithName:@"Daily total word" parameters:@{kFIRParameterQuantity:targetNumberObj
+                                                                       }];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];

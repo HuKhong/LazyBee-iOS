@@ -15,6 +15,8 @@
 #import "SVProgressHUD.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 #define NUMBER_OF_DAYS 7
 #define NUMBER_OF_BARS 8
 // This is defined in Math.h
@@ -148,6 +150,14 @@
     lbStreakCount.text = [NSString stringWithFormat:@"%ld %@", (long)streakCount, LocalizedString(@"day")];
 
     lbTotal.text = [NSString stringWithFormat:@"%@: %ld %@", LocalizedString(@"Total"), (long)[wordList count], LocalizedString(@"word")];
+    
+    [FIRAnalytics logEventWithName:kFIREventPostScore parameters:@{
+                                                                 kFIRParameterScore:[NSNumber numberWithInteger:[wordList count]]
+                                                                 }];
+    [FIRAnalytics logEventWithName:@"Streak" parameters:@{
+                                                          kFIRParameterScore:[NSNumber numberWithInteger:streakCount]
+                                                          }];
+    
 }
 
 
@@ -237,6 +247,9 @@
             }
             
             [SVProgressHUD dismiss];
+            
+            [FIRAnalytics logEventWithName:kFIREventShare parameters:@{
+                                                                         }];
         });
     });
 }

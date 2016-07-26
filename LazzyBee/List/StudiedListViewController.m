@@ -24,6 +24,7 @@
 #import "Algorithm.h"
 
 @import GoogleMobileAds;
+@import FirebaseAnalytics;
 
 @interface StudiedListViewController ()
 {
@@ -547,6 +548,11 @@
             if ([wordList count] == 0) {
                 viewNoresult.hidden = NO;
                 lbNoresult.text = [NSString stringWithFormat:LocalizedString(@"No result format"), _searchText];
+                
+                [FIRAnalytics logEventWithName:@"Search not found" parameters:@{
+                                                                      kFIRParameterSearchTerm:_searchText
+                                                                      }];
+                
             } else {
                 viewNoresult.hidden = YES;
             }

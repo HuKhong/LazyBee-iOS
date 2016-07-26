@@ -63,6 +63,8 @@
     [FIRAnalytics logEventWithName:@"Streak" parameters:@{
                                                           kFIRParameterScore:[NSNumber numberWithInteger:streakCount]
                                                           }];
+    
+    [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", streakCount] forName:@"Streak"];
 }
 
 - (void)didReceiveMemoryWarning {

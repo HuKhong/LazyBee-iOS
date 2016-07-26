@@ -169,9 +169,8 @@
             found = YES;
             [[Common sharedCommon] savePersonalData:majorObj withKey:KEY_SELECTED_MAJOR];
             
-            [FIRAnalytics logEventWithName:kFIREventSelectContent parameters:@{
-                                                                               kFIRParameterItemName:majorObj.majorName
-                                                                               }];
+            [FIRAnalytics setUserPropertyString:majorObj.majorName forName:@"Selected_major"];
+            
             break;
         }
     }

@@ -75,14 +75,14 @@
     if (_pickerType == LevelPicker) {
         NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
         [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
-        
-        [FIRAnalytics logEventWithName:kFIREventLevelUp parameters:@{
-                                                                           kFIRParameterLevel:level
-                                                                           }];
+
+        [FIRAnalytics setUserPropertyString:level forName:@"Selected_level"];
 
     } else if (_pickerType == WaitingTimePicker) {
         NSString *time = [NSString stringWithFormat:@"%ld", (long)[levelPicker selectedRowInComponent:0]];
         [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
+        
+        [FIRAnalytics setUserPropertyString:time forName:@"Selected_waiting_time"];
 
     }
     

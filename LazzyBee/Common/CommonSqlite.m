@@ -114,9 +114,11 @@ static CommonSqlite* sharedCommonSqlite = nil;
         //save list to db (only word-id)
         [self createInreivewListForADay:resArr];
         
-        [FIRAnalytics logEventWithName:@"Need to review per day" parameters:@{
+        [FIRAnalytics logEventWithName:@"Count_review_per_day" parameters:@{
                                                                      kFIRParameterQuantity:[NSNumber numberWithInteger:[resArr count]]
                                                                      }];
+        
+        [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)[resArr count]] forName:@"Count_review_per_day"];
     }
     
     return resArr;

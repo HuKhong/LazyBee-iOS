@@ -549,9 +549,11 @@
                 viewNoresult.hidden = NO;
                 lbNoresult.text = [NSString stringWithFormat:LocalizedString(@"No result format"), _searchText];
                 
-                [FIRAnalytics logEventWithName:@"Search not found" parameters:@{
+                [FIRAnalytics logEventWithName:@"Search_not_found" parameters:@{
                                                                       kFIRParameterSearchTerm:_searchText
                                                                       }];
+                
+                [FIRAnalytics setUserPropertyString:_searchText forName:@"Search_not_found"];
                 
             } else {
                 viewNoresult.hidden = YES;

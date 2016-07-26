@@ -120,8 +120,6 @@
     
     [FIRApp configure];
     
-    [FIRAnalytics logEventWithName:kFIREventAppOpen parameters:@{}];
-    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
 }

@@ -158,6 +158,8 @@
                                                           kFIRParameterScore:[NSNumber numberWithInteger:streakCount]
                                                           }];
     
+    [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", [wordList count]] forName:@"Total_learning_word"];
+    
 }
 
 

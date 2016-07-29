@@ -21,6 +21,7 @@
 #import "SVProgressHUD.h"
 #import "Algorithm.h"
 
+@import FirebaseAnalytics;
 
 #define AS_REVERSE_BTN_LEARN_AGAIN 0
 #define AS_REVERSE_BTN_DICTIONARY  1
@@ -44,6 +45,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iReverseScreen"];
+    [FIRAnalytics logEventWithName:@"Open_iReverseScreen" parameters:@{
+                                                              kFIRParameterQuantity:@(1)
+                                                              }];
     
     //border webview
     //    webViewWord.layer.borderColor = [UIColor darkGrayColor].CGColor;

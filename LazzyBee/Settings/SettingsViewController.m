@@ -28,6 +28,8 @@
 
 #import "UploadToServer.h"
 
+@import FirebaseAnalytics;
+
 @interface SettingsViewController ()
 {
     TimerViewController *timerView;
@@ -43,6 +45,9 @@
     [super viewDidLoad];
     
     [TagManagerHelper pushOpenScreenEvent:@"iSettings"];
+    [FIRAnalytics logEventWithName:@"Open_iSettings" parameters:@{
+                                                                       kFIRParameterQuantity:@(1)
+                                                                       }];
     // Do any additional setup after loading the view from its nib.
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
@@ -663,8 +668,13 @@
         
         if (sw.isOn) {
             autoPlayNumberObj = [NSNumber numberWithBool:YES];
+            
+            [FIRAnalytics setUserPropertyString:@"on" forName:PROPERTY_AUTOPLAY_SOUND];
+            
         } else {
             autoPlayNumberObj = [NSNumber numberWithBool:NO];
+            
+            [FIRAnalytics setUserPropertyString:@"off" forName:PROPERTY_AUTOPLAY_SOUND];
         }
         
         [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayNumberObj withKey:KEY_AUTOPLAY];
@@ -674,8 +684,13 @@
         
         if (sw.isOn) {
             displayMeaningNumberObj = [NSNumber numberWithBool:YES];
+            
+            [FIRAnalytics setUserPropertyString:@"on" forName:PROPERTY_DISPLAY_MEANING];
+            
         } else {
             displayMeaningNumberObj = [NSNumber numberWithBool:NO];
+            
+            [FIRAnalytics setUserPropertyString:@"off" forName:PROPERTY_DISPLAY_MEANING];
         }
         
         [[Common sharedCommon] saveDataToUserDefaultStandard:displayMeaningNumberObj withKey:KEY_DISPLAYMEANING];
@@ -686,8 +701,13 @@
         
         if (sw.isOn) {
             reminderNumberObj = [NSNumber numberWithBool:YES];
+            
+            [FIRAnalytics setUserPropertyString:@"on" forName:PROPERTY_NOTIFICATION_STATUS];
+            
         } else {
             reminderNumberObj = [NSNumber numberWithBool:NO];
+            
+            [FIRAnalytics setUserPropertyString:@"off" forName:PROPERTY_NOTIFICATION_STATUS];
         }
         
         [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:KEY_REMINDER_ONOFF];

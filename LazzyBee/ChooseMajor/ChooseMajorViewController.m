@@ -33,6 +33,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iChooseMajor"];
+    [FIRAnalytics logEventWithName:@"Open_iChooseMajor" parameters:@{
+                                                                      kFIRParameterQuantity:@(1)
+                                                                      }];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {
@@ -169,7 +172,7 @@
             found = YES;
             [[Common sharedCommon] savePersonalData:majorObj withKey:KEY_SELECTED_MAJOR];
             
-            [FIRAnalytics setUserPropertyString:majorObj.majorName forName:@"Selected_major"];
+            [FIRAnalytics setUserPropertyString:majorObj.majorName forName:PROPERTY_SELECTED_MAJOR];
             
             break;
         }
@@ -177,6 +180,8 @@
     
     if (found == NO) {
         [[Common sharedCommon] clearUserDefaultStandardWithKey:KEY_SELECTED_MAJOR];
+        
+        [FIRAnalytics setUserPropertyString:@"common" forName:PROPERTY_SELECTED_MAJOR];
     }
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];

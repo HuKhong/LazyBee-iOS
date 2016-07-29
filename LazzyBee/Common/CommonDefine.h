@@ -60,6 +60,23 @@
 #define NUMBER_OF_STREAK_TO_UPDATE 10
 #define NUMBER_OF_WORD_TO_ACTIVATE_REVERSE 50
 
+//firebase
+#define PROPERTY_SELECTED_LANG @"Selected_language"
+#define PROPERTY_SELECTED_MAJOR @"Selected_major"
+#define PROPERTY_DAILY_NEW_WORD @"Daily_new_word"
+#define PROPERTY_DAILY_TOTAL_WORD @"Daily_total_word"
+#define PROPERTY_SELECTED_LEVEL @"Selected_level"
+#define PROPERTY_SELECTED_WAITING_TIME @"Selected_waiting_time"
+#define PROPERTY_AUTOPLAY_SOUND @"Autoplay_sound"
+#define PROPERTY_DISPLAY_MEANING @"Display_meaning"
+#define PROPERTY_NOTIFICATION_STATUS @"notification_status"
+
+#define EVENT_COUNT_REVIEW_W_PER_DAY @"Count_review_per_day"
+#define EVENT_DAILY_NEW_WORD @"Daily_new_word"
+#define EVENT_DAILY_TOTAL_WORD @"Daily_total_word"
+#define EVENT_STREAK @"Streak"
+#define EVENT_SEARCH_NOT_FOUND @"Search_not_found"
+
 @interface CommonDefine : NSObject
 
 

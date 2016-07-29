@@ -188,17 +188,23 @@
 
 - (void)initialConfiguration {
     NSString *curLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLanguageInApp"];
+    
     if (curLang == nil) {
         LocalizationSetLanguage(@"vi");
-        [[NSUserDefaults standardUserDefaults] setObject:@"vi" forKey:@"CurrentLanguageInApp"];
+        curLang = @"vi";
+        [[NSUserDefaults standardUserDefaults] setObject:curLang forKey:@"CurrentLanguageInApp"];
+        
     } else {
         if ([curLang isEqualToString:@"vi"]) {
             LocalizationSetLanguage(@"vi");
+            
         } else if ([curLang isEqualToString:@"en"]) {
             LocalizationSetLanguage(@"en");
         }
     }
+    [FIRAnalytics setUserPropertyString:curLang forName:PROPERTY_SELECTED_LANG];
     
+    //speed
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     
     if (!speedNumberObj) {
@@ -212,6 +218,7 @@
         
     }
     
+    //time to remind
     NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
     
     if (!remindTime) {
@@ -219,41 +226,67 @@
         [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:KEY_REMIND_TIME];
     }
     
+    //level
     NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
     
     if (!level) {
         level = @"2";
         [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
     }
+    [FIRAnalytics setUserPropertyString:level forName:PROPERTY_SELECTED_LEVEL];
     
+    //reminder on/off
     NSNumber *reminderNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMINDER_ONOFF];
     
     if (!reminderNumberObj) {
         reminderNumberObj = [NSNumber numberWithBool:YES];
         [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:KEY_REMINDER_ONOFF];
     }
+    if ([reminderNumberObj boolValue] == YES) {
+        [FIRAnalytics setUserPropertyString:@"on" forName:PROPERTY_NOTIFICATION_STATUS];
+        
+    } else {
+        [FIRAnalytics setUserPropertyString:@"off" forName:PROPERTY_NOTIFICATION_STATUS];
+    }
     
+    //autoplay sound
     NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_AUTOPLAY];
     
     if (!autoPlayFlag) {
         autoPlayFlag = [NSNumber numberWithBool:YES];
         [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayFlag withKey:KEY_AUTOPLAY];
     }
+    if ([autoPlayFlag boolValue] == YES) {
+        [FIRAnalytics setUserPropertyString:@"on" forName:PROPERTY_AUTOPLAY_SOUND];
+        
+    } else {
+        [FIRAnalytics setUserPropertyString:@"off" forName:PROPERTY_AUTOPLAY_SOUND];
+    }
     
+    //display meaning
     NSNumber *displayMeaningFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DISPLAYMEANING];
     
     if (!displayMeaningFlag) {
         displayMeaningFlag = [NSNumber numberWithBool:YES];
         [[Common sharedCommon] saveDataToUserDefaultStandard:displayMeaningFlag withKey:KEY_DISPLAYMEANING];
     }
+    if ([displayMeaningFlag boolValue] == YES) {
+        [FIRAnalytics setUserPropertyString:@"on" forName:PROPERTY_DISPLAY_MEANING];
+        
+    } else {
+        [FIRAnalytics setUserPropertyString:@"off" forName:PROPERTY_DISPLAY_MEANING];
+    }
     
+    //new word target
     NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
     
     if (!targetNumberObj) {
         targetNumberObj = [NSNumber numberWithInteger:5];
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TARGET];
     }
+    [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)[targetNumberObj integerValue]] forName:PROPERTY_DAILY_NEW_WORD];
     
+    //total target
     NSNumber *totalWordObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET];
     
     if (!totalWordObj) {
@@ -272,13 +305,16 @@
             
         }
     }
+    [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)[totalWordObj integerValue]] forName:PROPERTY_DAILY_TOTAL_WORD];
     
+    //time to show answer
     NSNumber *timeShowAnswer = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_TIME_TO_SHOW_ANSWER];
     
     if (!timeShowAnswer) {
         timeShowAnswer = [NSNumber numberWithInteger:3];
         [[Common sharedCommon] saveDataToUserDefaultStandard:timeShowAnswer withKey:KEY_TIME_TO_SHOW_ANSWER];
     }
+    [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)[timeShowAnswer integerValue]] forName:PROPERTY_SELECTED_WAITING_TIME];
     
     NSNumber *dbVersion = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION];
     

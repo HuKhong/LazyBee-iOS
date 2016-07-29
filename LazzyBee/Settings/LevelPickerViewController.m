@@ -76,13 +76,13 @@
         NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
         [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
 
-        [FIRAnalytics setUserPropertyString:level forName:@"Selected_level"];
+        [FIRAnalytics setUserPropertyString:level forName:PROPERTY_SELECTED_LEVEL];
 
     } else if (_pickerType == WaitingTimePicker) {
         NSString *time = [NSString stringWithFormat:@"%ld", (long)[levelPicker selectedRowInComponent:0]];
         [[Common sharedCommon] saveDataToUserDefaultStandard:time withKey:KEY_TIME_TO_SHOW_ANSWER];
         
-        [FIRAnalytics setUserPropertyString:time forName:@"Selected_waiting_time"];
+        [FIRAnalytics setUserPropertyString:time forName:PROPERTY_SELECTED_WAITING_TIME];
 
     }
     

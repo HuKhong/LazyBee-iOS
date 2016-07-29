@@ -11,6 +11,8 @@
 #import "Common.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 @interface AboutViewController ()
 
 @end
@@ -20,6 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [TagManagerHelper pushOpenScreenEvent:@"iAbout"];
+    [FIRAnalytics logEventWithName:@"Open_iAbout" parameters:@{
+                                                             kFIRParameterQuantity:@(1)
+                                                             }];
     // Do any additional setup after loading the view from its nib.
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)

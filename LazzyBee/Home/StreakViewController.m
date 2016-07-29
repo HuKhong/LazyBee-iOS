@@ -31,6 +31,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [TagManagerHelper pushOpenScreenEvent:@"iStreakCongratulation"];
+    [FIRAnalytics logEventWithName:@"Open_iStreakCongratulation" parameters:@{
+                                                                  kFIRParameterQuantity:@(1)
+                                                                  }];
+    
     // Do any additional setup after loading the view from its nib.
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
@@ -60,11 +64,9 @@
     
     [lbLink setAttributedText:attributeString];
     
-    [FIRAnalytics logEventWithName:@"Streak" parameters:@{
-                                                          kFIRParameterScore:[NSNumber numberWithInteger:streakCount]
+    [FIRAnalytics logEventWithName:EVENT_STREAK parameters:@{
+                                                          kFIRParameterQuantity:@(streakCount)
                                                           }];
-    
-    [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", streakCount] forName:@"Streak"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -17,6 +17,8 @@
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 @interface DictionaryViewController ()
 {
     NSMutableArray *wordsArray;
@@ -31,6 +33,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iDictionaryScreen"];
+    [FIRAnalytics logEventWithName:@"Open_iDictionaryScreen" parameters:@{
+                                                                                  kFIRParameterQuantity:@(1)
+                                                                                  }];
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)

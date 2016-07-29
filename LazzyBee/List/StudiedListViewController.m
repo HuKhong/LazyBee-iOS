@@ -79,6 +79,9 @@
     // Do any additional setup after loading the view from its nib.
     if (_screenType == List_Incoming) {
         [TagManagerHelper pushOpenScreenEvent:@"iIncomingScreen"];
+        [FIRAnalytics logEventWithName:@"Open_iIncomingScreen" parameters:@{
+                                                                                  kFIRParameterQuantity:@(1)
+                                                                                  }];
         
         [self setTitle:LocalizedString(@"Incoming list")];
         
@@ -89,23 +92,36 @@
         
     } else if (_screenType == List_StudiedList) {
         [TagManagerHelper pushOpenScreenEvent:@"iLearntScreen"];
+        [FIRAnalytics logEventWithName:@"Open_iLearntScreen" parameters:@{
+                                                                            kFIRParameterQuantity:@(1)
+                                                                            }];
         
         [self setTitle:LocalizedString(@"Learnt List")];
         
     } else if (_screenType == List_SearchHint) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
+        [FIRAnalytics logEventWithName:@"Open_iSearchHintScreen" parameters:@{
+                                                                          kFIRParameterQuantity:@(1)
+                                                                          }];
         
     } else if (_screenType == List_SearchHintHome) {
         [self.view.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
         [self.view.layer setBorderWidth:1];
         
         [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
+        [FIRAnalytics logEventWithName:@"Open_iSearchHintHomeScreen" parameters:@{
+                                                                              kFIRParameterQuantity:@(1)
+                                                                              }];
+        
         [wordsTableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeNone];
         
         enableAds = NO;
         
     } else if (_screenType == List_SearchResult) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchResultScreen"];
+        [FIRAnalytics logEventWithName:@"Open_iSearchResultScreen" parameters:@{
+                                                                                  kFIRParameterQuantity:@(1)
+                                                                                  }];
         
         [self setTitle:LocalizedString(@"Search Result")];
         
@@ -549,12 +565,10 @@
                 viewNoresult.hidden = NO;
                 lbNoresult.text = [NSString stringWithFormat:LocalizedString(@"No result format"), _searchText];
                 
-                [FIRAnalytics logEventWithName:@"Search_not_found" parameters:@{
+                [FIRAnalytics logEventWithName:EVENT_SEARCH_NOT_FOUND parameters:@{
                                                                       kFIRParameterSearchTerm:_searchText
                                                                       }];
-                
-                [FIRAnalytics setUserPropertyString:_searchText forName:@"Search_not_found"];
-                
+                                
             } else {
                 viewNoresult.hidden = YES;
             }

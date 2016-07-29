@@ -40,6 +40,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [TagManagerHelper pushOpenScreenEvent:@"iBarGraphView"];
+    [FIRAnalytics logEventWithName:@"Open_iBarGraphView" parameters:@{
+                                                          kFIRParameterQuantity:@(1)
+                                                          }];
     // Do any additional setup after loading the view from its nib.
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
@@ -149,17 +152,7 @@
     
     lbStreakCount.text = [NSString stringWithFormat:@"%ld %@", (long)streakCount, LocalizedString(@"day")];
 
-    lbTotal.text = [NSString stringWithFormat:@"%@: %ld %@", LocalizedString(@"Total"), (long)[wordList count], LocalizedString(@"word")];
-    
-    [FIRAnalytics logEventWithName:kFIREventPostScore parameters:@{
-                                                                 kFIRParameterScore:[NSNumber numberWithInteger:[wordList count]]
-                                                                 }];
-    [FIRAnalytics logEventWithName:@"Streak" parameters:@{
-                                                          kFIRParameterScore:[NSNumber numberWithInteger:streakCount]
-                                                          }];
-    
-    [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", [wordList count]] forName:@"Total_learning_word"];
-    
+    lbTotal.text = [NSString stringWithFormat:@"%@: %ld %@", LocalizedString(@"Total"), (long)[wordList count], LocalizedString(@"word")];    
 }
 
 
@@ -250,7 +243,7 @@
             
             [SVProgressHUD dismiss];
             
-            [FIRAnalytics logEventWithName:kFIREventShare parameters:@{
+            [FIRAnalytics logEventWithName:kFIREventShare parameters:@{kFIRParameterQuantity:@(1)
                                                                          }];
         });
     });

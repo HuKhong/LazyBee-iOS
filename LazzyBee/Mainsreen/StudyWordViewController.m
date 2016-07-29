@@ -27,6 +27,8 @@
 #import "LocalizeHelper.h"
 #import "GuideViewController.h"
 
+@import FirebaseAnalytics;
+
 #define AS_TAG_SEARCH 1
 #define AS_TAG_LEARN 2
 
@@ -68,6 +70,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iStudyScreen"];
+    [FIRAnalytics logEventWithName:@"Open_iStudyScreen" parameters:@{
+                                                                            kFIRParameterQuantity:@(1)
+                                                                            }];
     
     btnDictionary.hidden = YES;
     //border webview

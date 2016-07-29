@@ -107,18 +107,17 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSArray *resArr = [self getReviewListFromSystem];
     
     //if it is yesterday, get new review list from vocabulary
-    //resArr could be empty in case had completed daily target (so can learn after have completed daily target
+    //resArr could be empty after completed daily target (so can learn after have completed daily target
     if (resArr == nil || [resArr count] == 0) {
         resArr = [self getReviewListFromVocabulary];
         
         //save list to db (only word-id)
         [self createInreivewListForADay:resArr];
         
-        [FIRAnalytics logEventWithName:@"Count_review_per_day" parameters:@{
-                                                                     kFIRParameterQuantity:[NSNumber numberWithInteger:[resArr count]]
+        [FIRAnalytics logEventWithName:EVENT_COUNT_REVIEW_W_PER_DAY parameters:@{
+                                                                     kFIRParameterQuantity:@([resArr count])
                                                                      }];
         
-        [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)[resArr count]] forName:@"Count_review_per_day"];
     }
     
     return resArr;

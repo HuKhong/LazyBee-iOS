@@ -154,8 +154,13 @@
                 NSString *currentMajor = [curMajorObj displayName];
                 
                 text = [NSString stringWithFormat:@"%@ (%@)", LocalizedString(@"Majors list"), currentMajor];
+                
+                [FIRAnalytics setUserPropertyString:curMajorObj.majorName forName:PROPERTY_SELECTED_MAJOR];
+                
             } else {
                 text = LocalizedString(@"Majors list");
+                
+                [FIRAnalytics setUserPropertyString:@"common" forName:PROPERTY_SELECTED_MAJOR];
             }
             
             cell.imgIcon.image = [UIImage imageNamed:@"ic_list"];
@@ -355,7 +360,7 @@
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
     NSLog(@"completed share:%@", results);
     
-    [FIRAnalytics logEventWithName:kFIREventShare parameters:@{
+    [FIRAnalytics logEventWithName:kFIREventShare parameters:@{kFIRParameterQuantity:@(1)
                                                                }];
 }
 

@@ -8,6 +8,7 @@
 
 #import "ChangeLanguageViewController.h"
 #import "LocalizeHelper.h"
+#import "CommonDefine.h"
 
 @import FirebaseAnalytics;
 
@@ -110,7 +111,7 @@
             LocalizationSetLanguage(@"en");
             [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"CurrentLanguageInApp"];
             
-            [FIRAnalytics setUserPropertyString:@"en" forName:@"Selected_language"];
+            [FIRAnalytics setUserPropertyString:@"en" forName:PROPERTY_SELECTED_LANG];
             
             break;
             
@@ -118,7 +119,7 @@
             LocalizationSetLanguage(@"vi");
             [[NSUserDefaults standardUserDefaults] setObject:@"vi" forKey:@"CurrentLanguageInApp"];
             
-            [FIRAnalytics setUserPropertyString:@"vi" forName:@"Selected_language"];
+            [FIRAnalytics setUserPropertyString:@"vi" forName:PROPERTY_SELECTED_LANG];
             
             break;
             

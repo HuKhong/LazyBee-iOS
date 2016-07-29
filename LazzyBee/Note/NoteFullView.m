@@ -11,6 +11,8 @@
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
 
+@import FirebaseAnalytics;
+
 #define TEXT_PLACEHOLDER LocalizedString(@"Note here")
 
 @implementation NoteFullView
@@ -80,6 +82,10 @@
 
 - (IBAction)btnSaveClick:(id)sender {
     [TagManagerHelper pushOpenScreenEvent:@"iNote"];
+    
+    [FIRAnalytics logEventWithName:@"Open_iNote" parameters:@{
+                                                                          kFIRParameterQuantity:@(1)
+                                                                          }];
     
     if ([txtView.text isEqualToString:TEXT_PLACEHOLDER]) {
         txtView.text = @"";

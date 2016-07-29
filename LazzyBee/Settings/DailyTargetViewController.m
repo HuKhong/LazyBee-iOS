@@ -101,14 +101,22 @@
         NSNumber *targetNumberObj = [NSNumber numberWithInteger:target];
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TARGET];
         
-        [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)target] forName:@"Daily_new_word"];
+        [FIRAnalytics logEventWithName:EVENT_DAILY_NEW_WORD parameters:@{
+                                                                       kFIRParameterValue:@(target)
+                                                                       }];
+        
+        [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)target] forName:PROPERTY_DAILY_NEW_WORD];
         
     } else {
         NSInteger target = [self whatValueItIs:selectedIndexPath.row];
         NSNumber *targetNumberObj = [NSNumber numberWithInteger:target];
         [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TOTAL_TARGET];
-
-        [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)target] forName:@"Daily_total_word"];
+        
+        [FIRAnalytics logEventWithName:EVENT_DAILY_TOTAL_WORD parameters:@{
+                                                                      kFIRParameterValue:@(target)
+                                                                      }];
+        
+        [FIRAnalytics setUserPropertyString:[NSString stringWithFormat:@"%ld", (long)target] forName:PROPERTY_DAILY_TOTAL_WORD];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];

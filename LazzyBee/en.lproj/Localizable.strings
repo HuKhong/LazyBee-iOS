@@ -147,7 +147,7 @@
 "Can not restore database" = "Can not restore database, please try again.";
 "Your database have been restored successfully" = "Your database have been restored successfully.";
 "Restore database" = "Restore database";
-"Input code that you achieved when backing up database" = "Input code that you achieved when backing up database";
+"Enter the code that you received when backing up database" = "Enter the code that you received when backing up database";
 "Wrong code, please try again" = "Wrong code, please try again.";
 
 //reverse

@@ -46,7 +46,7 @@
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iReverseScreen"];
     [FIRAnalytics logEventWithName:@"Open_iReverseScreen" parameters:@{
-                                                              kFIRParameterQuantity:@(1)
+                                                              kFIRParameterValue:@(1)
                                                               }];
     
     //border webview

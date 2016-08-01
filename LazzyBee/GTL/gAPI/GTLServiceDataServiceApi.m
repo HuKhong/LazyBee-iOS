@@ -26,6 +26,7 @@
   NSArray *classes = @[
     [GTLQueryDataServiceApi class],
     [GTLDataServiceApiDownloadTarget class],
+    [GTLDataServiceApiGroupVoca class],
     [GTLDataServiceApiUploadTarget class],
     [GTLDataServiceApiVoca class],
     [GTLDataServiceApiVocaCollection class]

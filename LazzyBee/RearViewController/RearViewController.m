@@ -360,7 +360,7 @@
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
     NSLog(@"completed share:%@", results);
     
-    [FIRAnalytics logEventWithName:kFIREventShare parameters:@{kFIRParameterQuantity:@(1)
+    [FIRAnalytics logEventWithName:kFIREventShare parameters:@{kFIRParameterValue:@(1)
                                                                }];
 }
 

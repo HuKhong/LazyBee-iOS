@@ -84,7 +84,7 @@
     [TagManagerHelper pushOpenScreenEvent:@"iNote"];
     
     [FIRAnalytics logEventWithName:@"Open_iNote" parameters:@{
-                                                                          kFIRParameterQuantity:@(1)
+                                                                          kFIRParameterValue:@(1)
                                                                           }];
     
     if ([txtView.text isEqualToString:TEXT_PLACEHOLDER]) {

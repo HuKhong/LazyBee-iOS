@@ -16,6 +16,7 @@
 #import "GTLDataServiceApiConstants.h"
 
 #import "GTLDataServiceApiDownloadTarget.h"
+#import "GTLDataServiceApiGroupVoca.h"
 #import "GTLDataServiceApiUploadTarget.h"
 #import "GTLDataServiceApiVoca.h"
 #import "GTLDataServiceApiVocaCollection.h"

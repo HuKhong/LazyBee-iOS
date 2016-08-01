@@ -71,7 +71,7 @@
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iStudyScreen"];
     [FIRAnalytics logEventWithName:@"Open_iStudyScreen" parameters:@{
-                                                                            kFIRParameterQuantity:@(1)
+                                                                            kFIRParameterValue:@(1)
                                                                             }];
     
     btnDictionary.hidden = YES;

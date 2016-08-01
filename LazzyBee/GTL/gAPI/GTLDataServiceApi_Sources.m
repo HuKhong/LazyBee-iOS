@@ -19,6 +19,7 @@
 #import "GTLDataServiceApiConstants.m"
 
 #import "GTLDataServiceApiDownloadTarget.m"
+#import "GTLDataServiceApiGroupVoca.m"
 #import "GTLDataServiceApiUploadTarget.m"
 #import "GTLDataServiceApiVoca.m"
 #import "GTLDataServiceApiVocaCollection.m"

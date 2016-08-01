@@ -34,7 +34,7 @@
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iDictionaryScreen"];
     [FIRAnalytics logEventWithName:@"Open_iDictionaryScreen" parameters:@{
-                                                                                  kFIRParameterQuantity:@(1)
+                                                                                  kFIRParameterValue:@(1)
                                                                                   }];
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000

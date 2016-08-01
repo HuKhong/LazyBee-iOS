@@ -41,7 +41,7 @@
     [super viewDidLoad];
     [TagManagerHelper pushOpenScreenEvent:@"iBarGraphView"];
     [FIRAnalytics logEventWithName:@"Open_iBarGraphView" parameters:@{
-                                                          kFIRParameterQuantity:@(1)
+                                                          kFIRParameterValue:@(1)
                                                           }];
     // Do any additional setup after loading the view from its nib.
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
@@ -243,7 +243,7 @@
             
             [SVProgressHUD dismiss];
             
-            [FIRAnalytics logEventWithName:kFIREventShare parameters:@{kFIRParameterQuantity:@(1)
+            [FIRAnalytics logEventWithName:kFIREventShare parameters:@{kFIRParameterValue:@(1)
                                                                          }];
         });
     });

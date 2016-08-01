@@ -32,7 +32,7 @@
     [super viewDidLoad];
     [TagManagerHelper pushOpenScreenEvent:@"iStreakCongratulation"];
     [FIRAnalytics logEventWithName:@"Open_iStreakCongratulation" parameters:@{
-                                                                  kFIRParameterQuantity:@(1)
+                                                                  kFIRParameterValue:@(1)
                                                                   }];
     
     // Do any additional setup after loading the view from its nib.
@@ -65,7 +65,7 @@
     [lbLink setAttributedText:attributeString];
     
     [FIRAnalytics logEventWithName:EVENT_STREAK parameters:@{
-                                                          kFIRParameterQuantity:@(streakCount)
+                                                          kFIRParameterValue:@(streakCount)
                                                           }];
 }
 

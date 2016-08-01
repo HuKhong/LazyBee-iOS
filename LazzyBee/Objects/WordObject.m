@@ -44,6 +44,7 @@
         self.langEN = @"";
         self.langVN = @"";
         self.userNote = @"";
+        self.priority = 0;
         self.isFromServer = NO;
     }
     return self;
@@ -68,6 +69,7 @@
     [encoder encodeObject:self.langVN forKey:@"langVN"];
     [encoder encodeObject:self.langEN forKey:@"langEN"];
     [encoder encodeObject:self.userNote forKey:@"userNote"];
+    [encoder encodeInteger:self.priority forKey:@"priority"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -89,6 +91,7 @@
         self.langVN = [decoder decodeObjectForKey:@"langVN"];
         self.langEN = [decoder decodeObjectForKey:@"langEN"];
         self.userNote = [decoder decodeObjectForKey:@"userNote"];
+        self.priority = [decoder decodeIntegerForKey:@"priority"];
     }
     
     return self;

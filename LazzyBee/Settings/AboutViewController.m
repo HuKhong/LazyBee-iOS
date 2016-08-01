@@ -23,7 +23,7 @@
     [super viewDidLoad];
     [TagManagerHelper pushOpenScreenEvent:@"iAbout"];
     [FIRAnalytics logEventWithName:@"Open_iAbout" parameters:@{
-                                                             kFIRParameterQuantity:@(1)
+                                                             kFIRParameterValue:@(1)
                                                              }];
     // Do any additional setup after loading the view from its nib.
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000

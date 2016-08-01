@@ -147,7 +147,7 @@
 "Can not restore database" = "Không thể khôi phục dữ liệu, vui lòng thử lại.";
 "Your database have been restored successfully" = "Dữ liệu của bạn đã được khôi phục thành công.";
 "Restore database" = "Khôi phục dữ liệu";
-"Input code that you achieved when backing up database" = "Nhập mã bạn đã nhận được khi sao lưu dữ liệu";
+"Enter the code that you received when backing up database" = "Nhập mã bạn đã nhận được khi sao lưu dữ liệu";
 "Wrong code, please try again" = "Sai mã, vui lòng thử lại.";
 
 //reverse

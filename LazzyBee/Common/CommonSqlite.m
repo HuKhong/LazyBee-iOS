@@ -115,7 +115,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         [self createInreivewListForADay:resArr];
         
         [FIRAnalytics logEventWithName:EVENT_COUNT_REVIEW_W_PER_DAY parameters:@{
-                                                                     kFIRParameterQuantity:@([resArr count])
+                                                                     kFIRParameterValue:@([resArr count])
                                                                      }];
         
     }
@@ -640,6 +640,16 @@ static CommonSqlite* sharedCommonSqlite = nil;
     sqlite3_finalize(dbps);
     
     strQuery = @"ALTER TABLE 'vocabulary' ADD COLUMN l_en TEXT";
+    charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    if(SQLITE_DONE != sqlite3_step(dbps)) {
+        NSLog(@"Error while altering table: %s", sqlite3_errmsg(db));
+    }
+    
+    sqlite3_finalize(dbps);
+    
+    strQuery = @"ALTER TABLE 'vocabulary' ADD COLUMN priority INTEGER";
     charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -2140,68 +2150,6 @@ static CommonSqlite* sharedCommonSqlite = nil;
             }
         }];
     }
-
-    /*
-    if ([missingWords count] > 0) {
-        NSArray *wordFields = [missingWords objectAtIndex:0];
-        NSString *gid = [wordFields objectAtIndex:0];
-        
-            static GTLServiceDataServiceApi *service = nil;
-            if (!service) {
-                service = [[GTLServiceDataServiceApi alloc] init];
-                service.retryEnabled = YES;
-                //[GTMHTTPFetcher setLoggingEnabled:YES];
-            }
-            
-            GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByIdWithIdentifier:[gid longLongValue]];
-            //TODO: Add waiting progress here
-        
-            [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
-                if (object != NULL){
-                    //NSLog(object.JSONString);
-                    //TODO: Update word: q, a, level, package, (and ee, ev)
-                    //word.question, word.queue, word.due, word.revCount, word.lastInterval, word.eFactor, word.userNote, word.level
-                    
-                    WordObject *wordObj = [[WordObject alloc] init];
-                    wordObj.question   = object.q;
-                    wordObj.answers    = object.a;
-                    wordObj.level      = [NSString stringWithFormat:@"%ld", (long)[object.level integerValue]];
-                    wordObj.package    = object.packages;
-                    wordObj.gid        = [NSString stringWithFormat:@"%@", object.gid];
-                    
-                    if (object.lEn && object.lEn.length > 0) {
-                        wordObj.langEN     = object.lEn;
-                    }
-                    
-                    if (object.lVn && object.lVn.length > 0) {
-                        wordObj.langVN     = object.lVn;
-                    }
-                    
-                    wordObj.package    = object.packages;
-                    
-                    //update info from backup data
-                    wordObj.eFactor    = [wordFields objectAtIndex:5];
-                    wordObj.queue      = [wordFields objectAtIndex:1];
-                    //                wordObj.isFromServer = YES;   //set YES if dont insert this word to db right here //dont need to do this because we add it right here
-                    wordObj.due        = [wordFields objectAtIndex:2];
-                    wordObj.revCount   = [wordFields objectAtIndex:3];
-                    wordObj.lastInterval = [wordFields objectAtIndex:4];
-                    wordObj.userNote        = [wordFields objectAtIndex:6];
-                    
-                    //insert to db, no need to get from server next time
-                    [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
-                    
-                } else {
-                    [lostWords addObject:gid];
-                }
-                
-                [missingWords removeObjectAtIndex:0];
-                
-                if ([missingWords count] > 0) {
-                    [self downloadMissingWordsAndUpdate:missingWords];
-                }
-            }];
-    }*/
     
 }
 

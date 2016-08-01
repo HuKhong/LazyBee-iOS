@@ -46,7 +46,7 @@
     
     [TagManagerHelper pushOpenScreenEvent:@"iSettings"];
     [FIRAnalytics logEventWithName:@"Open_iSettings" parameters:@{
-                                                                       kFIRParameterQuantity:@(1)
+                                                                       kFIRParameterValue:@(1)
                                                                        }];
     // Do any additional setup after loading the view from its nib.
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
@@ -1079,7 +1079,7 @@
 }
 - (void)inputCodeToDownloadAlert {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Restore database")
-                                                        message:LocalizedString(@"Input code that you achieved when backing up database")
+                                                        message:LocalizedString(@"Enter the code that you achieved when backing up database")
                                                        delegate:self
                                               cancelButtonTitle:LocalizedString(@"Cancel")
                                               otherButtonTitles:LocalizedString(@"OK"), nil];

@@ -13,18 +13,19 @@
 // Description:
 //   This is an API
 // Classes:
-//   GTLQueryDataServiceApi (10 custom class methods, 5 custom properties)
+//   GTLQueryDataServiceApi (11 custom class methods, 6 custom properties)
 
 #import "GTLQueryDataServiceApi.h"
 
 #import "GTLDataServiceApiDownloadTarget.h"
+#import "GTLDataServiceApiGroupVoca.h"
 #import "GTLDataServiceApiUploadTarget.h"
 #import "GTLDataServiceApiVoca.h"
 #import "GTLDataServiceApiVocaCollection.h"
 
 @implementation GTLQueryDataServiceApi
 
-@dynamic code, fields, identifier, orderSearch, q;
+@dynamic code, cursorStr, fields, identifier, orderSearch, q;
 
 + (NSDictionary *)parameterNameMap {
   NSDictionary *map = @{
@@ -64,6 +65,14 @@
   return query;
 }
 
++ (instancetype)queryForGetGroupVocaWithIdentifier:(long long)identifier {
+  NSString *methodName = @"dataServiceApi.getGroupVoca";
+  GTLQueryDataServiceApi *query = [self queryWithMethodName:methodName];
+  query.identifier = identifier;
+  query.expectedObjectClass = [GTLDataServiceApiGroupVoca class];
+  return query;
+}
+
 + (instancetype)queryForGetUploadUrl {
   NSString *methodName = @"dataServiceApi.getUploadUrl";
   GTLQueryDataServiceApi *query = [self queryWithMethodName:methodName];
@@ -87,9 +96,10 @@
   return query;
 }
 
-+ (instancetype)queryForListVoca {
++ (instancetype)queryForListVocaWithCursorStr:(NSString *)cursorStr {
   NSString *methodName = @"dataServiceApi.listVoca";
   GTLQueryDataServiceApi *query = [self queryWithMethodName:methodName];
+  query.cursorStr = cursorStr;
   query.expectedObjectClass = [GTLDataServiceApiVocaCollection class];
   return query;
 }

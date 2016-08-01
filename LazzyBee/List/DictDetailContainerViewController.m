@@ -34,7 +34,7 @@
     // Do any additional setup after loading the view from its nib.
     [TagManagerHelper pushOpenScreenEvent:@"iDictionaryViewWordScreen"];
     [FIRAnalytics logEventWithName:@"Open_iDictionaryViewWordScreen" parameters:@{
-                                                                      kFIRParameterQuantity:@(1)
+                                                                      kFIRParameterValue:@(1)
                                                                       }];
     
     [self setTitle:_wordObj.question];

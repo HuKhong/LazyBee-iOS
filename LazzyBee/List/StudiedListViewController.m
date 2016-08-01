@@ -32,6 +32,10 @@
     NSMutableArray *wordList;
     NSArray *keyArr;
     
+    NSMutableArray *missingWords;
+    NSMutableArray *customList;
+    NSInteger countNew;
+    
     UIRefreshControl *refreshControl;
     
     IBOutlet GADBannerView *adBanner;
@@ -80,7 +84,7 @@
     if (_screenType == List_Incoming) {
         [TagManagerHelper pushOpenScreenEvent:@"iIncomingScreen"];
         [FIRAnalytics logEventWithName:@"Open_iIncomingScreen" parameters:@{
-                                                                                  kFIRParameterQuantity:@(1)
+                                                                                  kFIRParameterValue:@(1)
                                                                                   }];
         
         [self setTitle:LocalizedString(@"Incoming list")];
@@ -90,10 +94,14 @@
         [refreshControl addTarget:self action:@selector(refreshIncomingTable) forControlEvents:UIControlEventValueChanged];
         [wordsTableView addSubview:refreshControl];
         
+        UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddOptions:)];
+        
+        self.navigationItem.rightBarButtonItems = @[actionButton];
+        
     } else if (_screenType == List_StudiedList) {
         [TagManagerHelper pushOpenScreenEvent:@"iLearntScreen"];
         [FIRAnalytics logEventWithName:@"Open_iLearntScreen" parameters:@{
-                                                                            kFIRParameterQuantity:@(1)
+                                                                            kFIRParameterValue:@(1)
                                                                             }];
         
         [self setTitle:LocalizedString(@"Learnt List")];
@@ -101,7 +109,7 @@
     } else if (_screenType == List_SearchHint) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
         [FIRAnalytics logEventWithName:@"Open_iSearchHintScreen" parameters:@{
-                                                                          kFIRParameterQuantity:@(1)
+                                                                          kFIRParameterValue:@(1)
                                                                           }];
         
     } else if (_screenType == List_SearchHintHome) {
@@ -110,7 +118,7 @@
         
         [TagManagerHelper pushOpenScreenEvent:@"iSearchHintScreen"];
         [FIRAnalytics logEventWithName:@"Open_iSearchHintHomeScreen" parameters:@{
-                                                                              kFIRParameterQuantity:@(1)
+                                                                              kFIRParameterValue:@(1)
                                                                               }];
         
         [wordsTableView setKeyboardDismissMode:UIScrollViewKeyboardDismissModeNone];
@@ -120,7 +128,7 @@
     } else if (_screenType == List_SearchResult) {
         [TagManagerHelper pushOpenScreenEvent:@"iSearchResultScreen"];
         [FIRAnalytics logEventWithName:@"Open_iSearchResultScreen" parameters:@{
-                                                                                  kFIRParameterQuantity:@(1)
+                                                                                  kFIRParameterValue:@(1)
                                                                                   }];
         
         [self setTitle:LocalizedString(@"Search Result")];
@@ -144,6 +152,8 @@
     
     levelsDictionary = [[NSMutableDictionary alloc] init];
     wordList = [[NSMutableArray alloc] init];
+    missingWords = [[NSMutableArray alloc] init];
+    customList = [[NSMutableArray alloc] init];
     
     [self tableReload];
     
@@ -505,7 +515,7 @@
         //TODO: Add waiting progress here
         [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
             if (object != nil){
-                NSLog(object.JSONString);
+//                NSLog(object.JSONString);
                 //TODO: Update word: q, a, level, package, (and ee, ev)
                 WordObject *wordObj = [[WordObject alloc] init];
                 wordObj.question   = object.q;
@@ -747,4 +757,191 @@
     [refreshControl endRefreshing];
     [self tableReload];
 }
+
+#pragma mark add custom list
+- (void)showAddOptions:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:LocalizedString(@"Add custom list") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Create new list"), LocalizedString(@"Add from existed list"), nil];
+
+    
+    actionSheet.tag = 1;
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+
+    if (IS_IPAD) {
+        [actionSheet showFromBarButtonItem:sender animated:YES];
+    } else {
+        [actionSheet showInView:self.view];
+    }
+}
+
+- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (actionSheet.tag == 1) {
+        if (buttonIndex == 0) {			
+            NSLog(@"Create new list");
+            
+        } else if (buttonIndex == 1) {
+            NSLog(@"Add from existed list");
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Enter code")
+                                                                message:LocalizedString(@"Enter the code that you received when creating the custom word list by web browser")
+                                                               delegate:self
+                                                      cancelButtonTitle:LocalizedString(@"Cancel")
+                                                      otherButtonTitles:LocalizedString(@"OK"), nil];
+            
+            alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+            alertView.tag = 1;
+            [alertView show];
+            
+        } else {
+            NSLog(@"Cancel");
+        }
+    }
+}
+
+#pragma mark alert delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (alertView.tag == 1) {
+        if (buttonIndex != 0) {
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            
+            [self downloadWordListFromServerWithCode:textField.text];
+        }
+    }
+    
+    return;
+}
+
+- (void)downloadWordListFromServerWithCode:(NSString *)stringCode {
+    [SVProgressHUD showWithStatus:LocalizedString(@"Downloading data from server")];
+    
+    [missingWords removeAllObjects];
+    [customList removeAllObjects];
+    countNew = 0;
+    
+    dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    dispatch_async(taskQ, ^{
+        [NSThread sleepForTimeInterval:0.5];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            static GTLServiceDataServiceApi *service = nil;
+            if (!service) {
+                service = [[GTLServiceDataServiceApi alloc] init];
+                service.retryEnabled = YES;
+                //[GTMHTTPFetcher setLoggingEnabled:YES];
+            }
+            long long code = [stringCode integerValue];
+            
+            if (code != 0) {
+                GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetGroupVocaWithIdentifier:code];
+                //TODO: Add waiting progress here
+                [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiGroupVoca *object, NSError *error) {
+                    if (object){
+                        NSString *wordsString  = object.listVoca;
+                        
+                        NSArray *wordsArr = [wordsString componentsSeparatedByString:@"\n"];
+                        
+                        if ([wordsArr count] > 0) {
+                            [customList addObjectsFromArray:wordsArr];
+                            countNew = [customList count];
+                            
+                            [self downloadWordFromServer:[customList objectAtIndex:0]];
+                            
+                        } else {
+                            [self noWordFoundAlert];
+                        }
+
+                        
+                    } else {
+                        [self wrongCodeAlert];
+                        [SVProgressHUD dismiss];
+                    }
+                }];
+                
+            } else {
+                [self wrongCodeAlert];
+                [SVProgressHUD dismiss];
+            }
+            
+        });
+    });
+}
+
+- (void)wrongCodeAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Failed") message:LocalizedString(@"Wrong code, please try again") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") otherButtonTitles:LocalizedString(@"Try again"), nil];
+    alert.tag = 2;
+    
+    [alert show];
+}
+
+- (void)noWordFoundAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Completed") message:LocalizedString(@"There is no word in the custom list.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
+    alert.tag = 3;
+    
+    [alert show];
+}
+
+- (void)downloadWordFromServer:(NSString *)word {
+    static GTLServiceDataServiceApi *service = nil;
+    if (!service) {
+        service = [[GTLServiceDataServiceApi alloc] init];
+        service.retryEnabled = YES;
+        //[GTMHTTPFetcher setLoggingEnabled:YES];
+    }
+    
+    GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByQWithQ:word];
+    //TODO: Add waiting progress here
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
+        if (object != nil) {
+            //TODO: Update word: q, a, level, package, (and ee, ev)
+            WordObject *wordObj = [[WordObject alloc] init];
+            wordObj.question   = object.q;
+            wordObj.answers    = object.a;
+            wordObj.level      = [NSString stringWithFormat:@"%ld", (long)[object.level integerValue]];
+            wordObj.package    = object.packages;
+            wordObj.gid        = [NSString stringWithFormat:@"%@", object.gid];
+            
+            if (object.lEn && object.lEn.length > 0) {
+                wordObj.langEN     = object.lEn;
+            }
+            
+            if (object.lVn && object.lVn.length > 0) {
+                wordObj.langVN     = object.lVn;
+            }
+            
+            wordObj.package    = object.packages;
+            wordObj.eFactor    = @"2500";
+            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_UNKNOWN];
+            wordObj.priority = 1;
+            
+            //insert to db, no need to get from server next time
+            [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
+            
+            //next word
+            [customList removeObject:word];
+            [missingWords addObject:word];
+            if ([customList count] > 0) {
+                [self downloadWordFromServer:[customList objectAtIndex:0]];
+                
+            } else {
+                NSString *content = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"New words"), countNew - [missingWords count]];
+                content = [NSString stringWithFormat:@"%@\n%@: %lu", content, LocalizedString(@"Not found"), [missingWords count]];
+                
+                for (NSString *w in missingWords) {
+                    content = [NSString stringWithFormat:@"%@\n%@", content, w];
+                }
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Completed") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
+                alert.tag = 3;
+                
+                [alert show];
+            }
+            
+        } else {
+            [missingWords addObject:word];
+        }
+    }];
+}
+
 @end

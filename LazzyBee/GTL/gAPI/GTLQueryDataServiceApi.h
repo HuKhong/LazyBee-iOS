@@ -13,7 +13,7 @@
 // Description:
 //   This is an API
 // Classes:
-//   GTLQueryDataServiceApi (10 custom class methods, 5 custom properties)
+//   GTLQueryDataServiceApi (11 custom class methods, 6 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLQuery.h"
@@ -36,6 +36,7 @@
 // Method-specific parameters; see the comments below for more information.
 //
 @property (nonatomic, copy) NSString *code;
+@property (nonatomic, copy) NSString *cursorStr;
 // identifier property maps to 'id' in JSON (to avoid Objective C's 'id').
 @property (nonatomic, assign) long long identifier;
 @property (nonatomic, assign) BOOL orderSearch;
@@ -64,6 +65,12 @@
 // Fetches a GTLDataServiceApiDownloadTarget.
 + (instancetype)queryForGetDownloadUrlWithCode:(NSString *)code;
 
+// Method: dataServiceApi.getGroupVoca
+//  Authorization scope(s):
+//   kGTLAuthScopeDataServiceApiUserinfoEmail
+// Fetches a GTLDataServiceApiGroupVoca.
++ (instancetype)queryForGetGroupVocaWithIdentifier:(long long)identifier;
+
 // Method: dataServiceApi.getUploadUrl
 //  Authorization scope(s):
 //   kGTLAuthScopeDataServiceApiUserinfoEmail
@@ -86,7 +93,7 @@
 //  Authorization scope(s):
 //   kGTLAuthScopeDataServiceApiUserinfoEmail
 // Fetches a GTLDataServiceApiVocaCollection.
-+ (instancetype)queryForListVoca;
++ (instancetype)queryForListVocaWithCursorStr:(NSString *)cursorStr;
 
 // Method: dataServiceApi.saveVoca
 //  Authorization scope(s):

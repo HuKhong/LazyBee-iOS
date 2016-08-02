@@ -22,6 +22,7 @@
 #import "GTLDataServiceApi.h"
 #import "AppDelegate.h"
 #import "Algorithm.h"
+#import "ImportWordReport.h"
 
 @import GoogleMobileAds;
 @import FirebaseAnalytics;
@@ -41,6 +42,7 @@
     IBOutlet GADBannerView *adBanner;
     IBOutlet UIView *viewHeaderContainer;
     
+    ImportWordReport *reportView;
 }
 @end
 
@@ -760,7 +762,7 @@
 
 #pragma mark add custom list
 - (void)showAddOptions:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:LocalizedString(@"Add custom list") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Create new list"), LocalizedString(@"Add from existed list"), nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:LocalizedString(@"Import custom list") delegate:(id)self cancelButtonTitle:LocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedString(@"Create new list"), LocalizedString(@"Import from existed list"), nil];
 
     
     actionSheet.tag = 1;
@@ -920,26 +922,58 @@
             
             //next word
             [customList removeObject:word];
-            [missingWords addObject:word];
+
             if ([customList count] > 0) {
                 [self downloadWordFromServer:[customList objectAtIndex:0]];
                 
             } else {
-                NSString *content = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"New words"), countNew - [missingWords count]];
-                content = [NSString stringWithFormat:@"%@\n%@: %lu", content, LocalizedString(@"Not found"), [missingWords count]];
+                [SVProgressHUD dismiss];
+
+                reportView = [[ImportWordReport alloc] initWithNibName:@"ImportWordReport" bundle:nil];
+                reportView.newWordCount = countNew - [missingWords count];
+                reportView.notFoundArray = missingWords;
                 
-                for (NSString *w in missingWords) {
-                    content = [NSString stringWithFormat:@"%@\n%@", content, w];
-                }
+                reportView.view.alpha = 0;
                 
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Completed") message:content delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
-                alert.tag = 3;
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 
-                [alert show];
+                CGRect rect = appDelegate.window.frame;
+                [reportView.view setFrame:rect];
+                
+                [appDelegate.window addSubview:reportView.view];
+                
+                [UIView animateWithDuration:0.3 animations:^(void) {
+                    reportView.view.alpha = 1;
+                }];
             }
             
         } else {
+            [customList removeObject:word];
             [missingWords addObject:word];
+            
+            if ([customList count] > 0) {
+                [self downloadWordFromServer:[customList objectAtIndex:0]];
+                
+            } else {
+                [SVProgressHUD dismiss];
+                
+                reportView = [[ImportWordReport alloc] initWithNibName:@"ImportWordReport" bundle:nil];
+                reportView.newWordCount = countNew - [missingWords count];
+                reportView.notFoundArray = missingWords;
+                
+                reportView.view.alpha = 0;
+                
+                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                
+                CGRect rect = appDelegate.window.frame;
+                [reportView.view setFrame:rect];
+                
+                [appDelegate.window addSubview:reportView.view];
+                
+                [UIView animateWithDuration:0.3 animations:^(void) {
+                    reportView.view.alpha = 1;
+                }];
+            }
         }
     }];
 }

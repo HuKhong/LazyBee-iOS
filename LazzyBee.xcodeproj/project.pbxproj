@@ -180,6 +180,12 @@
 		5564813B1CF45F6900DDD09C /* button_short_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481351CF45F6900DDD09C /* button_short_gray.png */; };
 		5564813C1CF45F6900DDD09C /* button_short_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481361CF45F6900DDD09C /* button_short_gray@2x.png */; };
 		5564813D1CF45F6900DDD09C /* button_short_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 556481371CF45F6900DDD09C /* button_short_gray@3x.png */; };
+		55679C6E1D509EE300074DCE /* CreateCustomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55679C6C1D509EE300074DCE /* CreateCustomListViewController.m */; };
+		55679C6F1D509EE300074DCE /* CreateCustomListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55679C6D1D509EE300074DCE /* CreateCustomListViewController.xib */; };
+		55679C731D50AB1B00074DCE /* AddWordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55679C701D50AB1B00074DCE /* AddWordCell.m */; };
+		55679C741D50AB1B00074DCE /* AddWordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55679C721D50AB1B00074DCE /* AddWordCell.xib */; };
+		55679C781D50ACC000074DCE /* AddMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55679C751D50ACC000074DCE /* AddMoreCell.xib */; };
+		55679C791D50ACC000074DCE /* AddMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55679C771D50ACC000074DCE /* AddMoreCell.m */; };
 		5570C8F11BCCA29900DD1EC6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 557288FD1BB28C7200EA0CE9 /* libz.tbd */; };
 		5570C8F21BCCA2A300DD1EC6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 557288FF1BB28C7C00EA0CE9 /* libsqlite3.tbd */; };
 		557288C81BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 557288961BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -279,6 +285,8 @@
 		55C1B21F1BF2F0C600D917EB /* uncheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55C1B21A1BF2F0C600D917EB /* uncheck@2x.png */; };
 		55C1B2201BF2F0C600D917EB /* uncheck@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55C1B21B1BF2F0C600D917EB /* uncheck@3x.png */; };
 		55C1B2231BF2F4F400D917EB /* MajorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C1B2221BF2F4F400D917EB /* MajorObject.m */; };
+		55C3BAA91D50536B00628318 /* ImportWordReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C3BAA71D50536B00628318 /* ImportWordReport.m */; };
+		55C3BAAA1D50536B00628318 /* ImportWordReport.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55C3BAA81D50536B00628318 /* ImportWordReport.xib */; };
 		55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */ = {isa = PBXBuildFile; fileRef = 55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */; };
 		55DC326E1C2BCE7000D56D39 /* ic_alert_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 55DC32681C2BCE7000D56D39 /* ic_alert_white.png */; };
 		55DC326F1C2BCE7000D56D39 /* ic_alert_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55DC32691C2BCE7000D56D39 /* ic_alert_white@2x.png */; };
@@ -625,6 +633,15 @@
 		556481351CF45F6900DDD09C /* button_short_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_short_gray.png; sourceTree = "<group>"; };
 		556481361CF45F6900DDD09C /* button_short_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_gray@2x.png"; sourceTree = "<group>"; };
 		556481371CF45F6900DDD09C /* button_short_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_short_gray@3x.png"; sourceTree = "<group>"; };
+		55679C6B1D509EE300074DCE /* CreateCustomListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCustomListViewController.h; path = List/CreateCustomListViewController.h; sourceTree = "<group>"; };
+		55679C6C1D509EE300074DCE /* CreateCustomListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateCustomListViewController.m; path = List/CreateCustomListViewController.m; sourceTree = "<group>"; };
+		55679C6D1D509EE300074DCE /* CreateCustomListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreateCustomListViewController.xib; path = List/CreateCustomListViewController.xib; sourceTree = "<group>"; };
+		55679C701D50AB1B00074DCE /* AddWordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddWordCell.m; path = List/AddWordCell.m; sourceTree = "<group>"; };
+		55679C711D50AB1B00074DCE /* AddWordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddWordCell.h; path = List/AddWordCell.h; sourceTree = "<group>"; };
+		55679C721D50AB1B00074DCE /* AddWordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddWordCell.xib; path = List/AddWordCell.xib; sourceTree = "<group>"; };
+		55679C751D50ACC000074DCE /* AddMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddMoreCell.xib; path = List/AddMoreCell.xib; sourceTree = "<group>"; };
+		55679C761D50ACC000074DCE /* AddMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddMoreCell.h; path = List/AddMoreCell.h; sourceTree = "<group>"; };
+		55679C771D50ACC000074DCE /* AddMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddMoreCell.m; path = List/AddMoreCell.m; sourceTree = "<group>"; };
 		557288951BB25DAA00EA0CE9 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2Authentication.h; path = GTL/GTMOAuth2Authentication.h; sourceTree = "<group>"; };
 		557288961BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMOAuth2Authentication.m; path = GTL/GTMOAuth2Authentication.m; sourceTree = "<group>"; };
 		557288971BB25DAA00EA0CE9 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMOAuth2SignIn.h; path = GTL/GTMOAuth2SignIn.h; sourceTree = "<group>"; };
@@ -769,6 +786,9 @@
 		55C1B21B1BF2F0C600D917EB /* uncheck@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uncheck@3x.png"; sourceTree = "<group>"; };
 		55C1B2211BF2F4F400D917EB /* MajorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MajorObject.h; path = ChooseMajor/MajorObject.h; sourceTree = "<group>"; };
 		55C1B2221BF2F4F400D917EB /* MajorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MajorObject.m; path = ChooseMajor/MajorObject.m; sourceTree = "<group>"; };
+		55C3BAA61D50536B00628318 /* ImportWordReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportWordReport.h; sourceTree = "<group>"; };
+		55C3BAA71D50536B00628318 /* ImportWordReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportWordReport.m; sourceTree = "<group>"; };
+		55C3BAA81D50536B00628318 /* ImportWordReport.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImportWordReport.xib; sourceTree = "<group>"; };
 		55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
 		55DC32681C2BCE7000D56D39 /* ic_alert_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_alert_white.png; sourceTree = "<group>"; };
 		55DC32691C2BCE7000D56D39 /* ic_alert_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_alert_white@2x.png"; sourceTree = "<group>"; };
@@ -932,6 +952,7 @@
 		4D35B3441B6BC7C600EA67C2 /* LazzyBee */ = {
 			isa = PBXGroup;
 			children = (
+				55C3BAA51D50536B00628318 /* CustomView */,
 				551FB8671C03010600C8B18C /* Note */,
 				55E106301BF1AF86008A6BEA /* ChooseMajor */,
 				55C0922F1BCF42BF005C78B5 /* Popup */,
@@ -1479,6 +1500,15 @@
 		552DC7751B8728F700770FA1 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				55679C761D50ACC000074DCE /* AddMoreCell.h */,
+				55679C771D50ACC000074DCE /* AddMoreCell.m */,
+				55679C751D50ACC000074DCE /* AddMoreCell.xib */,
+				55679C711D50AB1B00074DCE /* AddWordCell.h */,
+				55679C701D50AB1B00074DCE /* AddWordCell.m */,
+				55679C721D50AB1B00074DCE /* AddWordCell.xib */,
+				55679C6B1D509EE300074DCE /* CreateCustomListViewController.h */,
+				55679C6C1D509EE300074DCE /* CreateCustomListViewController.m */,
+				55679C6D1D509EE300074DCE /* CreateCustomListViewController.xib */,
 				552DC7761B87292F00770FA1 /* StudiedListViewController.h */,
 				552DC7771B87292F00770FA1 /* StudiedListViewController.m */,
 				552DC7781B87292F00770FA1 /* StudiedListViewController.xib */,
@@ -1607,6 +1637,16 @@
 				55C092331BCF431E005C78B5 /* PopupView.xib */,
 			);
 			name = Popup;
+			sourceTree = "<group>";
+		};
+		55C3BAA51D50536B00628318 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				55C3BAA61D50536B00628318 /* ImportWordReport.h */,
+				55C3BAA71D50536B00628318 /* ImportWordReport.m */,
+				55C3BAA81D50536B00628318 /* ImportWordReport.xib */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		55E106271BF18B14008A6BEA /* MGSwipeTableCell */ = {
@@ -1975,6 +2015,7 @@
 				4DD3C3D51B6F218700B6DA71 /* ic_heart@2x.png in Resources */,
 				4DD3C3DA1B6F218700B6DA71 /* ic_share.png in Resources */,
 				5564813A1CF45F6900DDD09C /* button_short_ipad_gray@3x.png in Resources */,
+				55C3BAAA1D50536B00628318 /* ImportWordReport.xib in Resources */,
 				552BD5A71BA15FE600BF316C /* ic_home@3x.png in Resources */,
 				55452C621BC527CC00D6E430 /* DictDetailViewController.xib in Resources */,
 				4DD3C3E41B6F218700B6DA71 /* cancel@2x.png in Resources */,
@@ -2047,6 +2088,7 @@
 				55E106421BF1E2DD008A6BEA /* ic_list.png in Resources */,
 				55028A0E1BF092C2007181C3 /* bee_rotate.png in Resources */,
 				55BA86EF1C8D6C4C000221D7 /* toeic.png in Resources */,
+				55679C741D50AB1B00074DCE /* AddWordCell.xib in Resources */,
 				557288CB1BB25DAA00EA0CE9 /* GTMOAuth2ViewTouch.xib in Resources */,
 				4DD3C3D71B6F218700B6DA71 /* ic_setting.png in Resources */,
 				4DD3C3A11B6F191C00B6DA71 /* LICENSE in Resources */,
@@ -2094,7 +2136,9 @@
 				553300DB1C1566730013D19F /* bee60.png in Resources */,
 				55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */,
 				5588BCEA1D4601A80093363D /* GoogleService-Info.plist in Resources */,
+				55679C781D50ACC000074DCE /* AddMoreCell.xib in Resources */,
 				551FB8621C02F75B00C8B18C /* button_square_ipad.png in Resources */,
+				55679C6F1D509EE300074DCE /* CreateCustomListViewController.xib in Resources */,
 				552BD5B91BA175E300BF316C /* ic_turtle@2x.png in Resources */,
 				55EBA3E71C74126A006B4A5A /* ic_search.png in Resources */,
 				559E67B51BEB135F00232439 /* big_logo@3x.png in Resources */,
@@ -2247,6 +2291,7 @@
 				55524FEB1C7E956E0027A4ED /* entropy.c in Sources */,
 				5599E0651CE9AD4B00DF6B7F /* GuideViewController.m in Sources */,
 				55452C5C1BC513EF00D6E430 /* DictionaryViewController.m in Sources */,
+				55C3BAA91D50536B00628318 /* ImportWordReport.m in Sources */,
 				557D7AC31B858BE300834A44 /* StudyWordViewController.m in Sources */,
 				55308B461BF03A7500FF0457 /* DayStatus.m in Sources */,
 				55F7E6791BFB014300EB27A2 /* NSMutableArray+MK_Misc.m in Sources */,
@@ -2264,6 +2309,7 @@
 				55F7E67E1BFB014300EB27A2 /* GKLineGraph.m in Sources */,
 				55524FED1C7E956E0027A4ED /* hmac.c in Sources */,
 				55F7E67F1BFB014300EB27A2 /* UIColor+GraphKit.m in Sources */,
+				55679C6E1D509EE300074DCE /* CreateCustomListViewController.m in Sources */,
 				55F7E66C1BFB014300EB27A2 /* NSString+FontAwesome.m in Sources */,
 				552BD5C31BA17A6900BF316C /* NotificationTableViewCell.m in Sources */,
 				4DD3C3BA1B6F1AA700B6DA71 /* CommonAlert.m in Sources */,
@@ -2272,9 +2318,11 @@
 				4DD3C3A31B6F191C00B6DA71 /* JASidePanelController.m in Sources */,
 				55524FF31C7E956E0027A4ED /* unzip.c in Sources */,
 				557288CA1BB25DAA00EA0CE9 /* GTMOAuth2ViewControllerTouch.m in Sources */,
+				55679C731D50AB1B00074DCE /* AddWordCell.m in Sources */,
 				55BDC8A61BC76FFF0015B199 /* TagManagerHelper.m in Sources */,
 				4D35B3481B6BC7C600EA67C2 /* main.m in Sources */,
 				552BD59E1BA15F7200BF316C /* AboutViewController.m in Sources */,
+				55679C791D50ACC000074DCE /* AddMoreCell.m in Sources */,
 				552DC77E1B872A4F00770FA1 /* StudiedTableViewCell.m in Sources */,
 				557D7AC71B85AF6500834A44 /* HTMLHelper.m in Sources */,
 				55524FEE1C7E956E0027A4ED /* prng.c in Sources */,

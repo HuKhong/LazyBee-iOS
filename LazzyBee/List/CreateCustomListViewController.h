@@ -10,6 +10,7 @@
 
 @interface CreateCustomListViewController : UIViewController
 {
+    IBOutlet UITableView *wordsTableView;
     
 }
 

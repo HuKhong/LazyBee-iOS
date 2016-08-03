@@ -38,8 +38,8 @@
     lbNewWord.text = LocalizedString(@"New word:");
     lbNotFound.text = LocalizedString(@"Not found:");
     
-    lbNewWordCount.text = [NSString stringWithFormat:@"%ld %@", (long)_newWordCount, LocalizedString(@"word(s)")];
-    lbNotFoundCount.text = [NSString stringWithFormat:@"%ld %@", (long)[_notFoundArray count], LocalizedString(@"word(s)")];
+    lbNewWordCount.text = [NSString stringWithFormat:@"%ld %@", (long)_newWordCount, LocalizedString(@"word")];
+    lbNotFoundCount.text = [NSString stringWithFormat:@"%ld %@", (long)[_notFoundArray count], LocalizedString(@"word")];
     
     if ([_notFoundArray count] > 0) {
         NSString *content = @"";
@@ -103,6 +103,8 @@
     [UIView animateWithDuration:0.3 animations:^(void) {
         self.view.alpha = 0;
     } completion:^(BOOL finished) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissImportReport" object:nil];
+        
         [self.view removeFromSuperview];
     }];
 }

@@ -7,8 +7,10 @@
 //
 
 #import "CreateCustomListViewController.h"
+#import "CommonDefine.h"
 #import "AddMoreCell.h"
 #import "AddWordCell.h"
+#import "LocalizeHelper.h"
 
 @interface CreateCustomListViewController ()
 
@@ -19,10 +21,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        [self.navigationController.navigationBar setTranslucent:NO];
+    }
+#endif
+    [self.navigationController.navigationBar setBarTintColor:COMMON_COLOR];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    [self setTitle:LocalizedString(@"Edit")];
     
     if (_wordsArray == nil) {
         _wordsArray = [[NSMutableArray alloc] init];
     }
+    
+    [wordsTableView setEditing:YES animated:YES];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardDidShow:)
+//                                                 name:@"UIKeyboardDidShowNotification"
+//                                               object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHide:)
+//                                                 name:@"UIKeyboardWillHideNotification"
+//                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,6 +134,45 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.row < [_wordsArray count]) {
+        
+        
+    } else {
+        //add new phone
+        [_wordsArray addObject:@""];
+        
+        [tableView beginUpdates];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+    }
  
+}
+
+//Edit table
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == [_wordsArray count]) {
+        return UITableViewCellEditingStyleInsert;
+    } else {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // If row is deleted, remove it from the list.
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        [_wordsArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    } else {
+        //add new phone
+        [_wordsArray addObject:@""];
+        
+        [tableView beginUpdates];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+    }
 }
 @end

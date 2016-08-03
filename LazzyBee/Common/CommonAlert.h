@@ -16,7 +16,7 @@
 + (CommonAlert*) sharedCommonAlert;
 
 - (void)showServerCommonErrorAlert;
-
+- (void)noConnectionAlert;
 @end
 
 #endif

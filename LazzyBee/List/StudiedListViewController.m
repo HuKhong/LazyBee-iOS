@@ -22,7 +22,8 @@
 #import "GTLDataServiceApi.h"
 #import "AppDelegate.h"
 #import "Algorithm.h"
-#import "ImportWordReport.h"
+
+#import "EditWordListViewController.h"
 
 @import GoogleMobileAds;
 @import FirebaseAnalytics;
@@ -33,16 +34,10 @@
     NSMutableArray *wordList;
     NSArray *keyArr;
     
-    NSMutableArray *missingWords;
-    NSMutableArray *customList;
-    NSInteger countNew;
-    
     UIRefreshControl *refreshControl;
     
     IBOutlet GADBannerView *adBanner;
     IBOutlet UIView *viewHeaderContainer;
-    
-    ImportWordReport *reportView;
 }
 @end
 
@@ -57,7 +52,7 @@
     GADRequest *request = [GADRequest request];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-    
+
     BOOL enableAds = YES;
     
     NSString *pub_id = [container stringForKey:@"admob_pub_id"];
@@ -68,7 +63,7 @@
     adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
     
     adBanner.rootViewController = self;
-    
+
     request.testDevices = @[
                             @"687f0b503566ebb7d84524c1f15e1d16",
                             kGADSimulatorID
@@ -154,8 +149,6 @@
     
     levelsDictionary = [[NSMutableDictionary alloc] init];
     wordList = [[NSMutableArray alloc] init];
-    missingWords = [[NSMutableArray alloc] init];
-    customList = [[NSMutableArray alloc] init];
     
     [self tableReload];
     
@@ -168,6 +161,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeMajor)
                                                  name:@"ChangeMajor"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dismissImportReport)
+                                                 name:@"DismissImportReport"
                                                object:nil];
 }
 
@@ -220,8 +218,7 @@
         return [[levelsDictionary allKeys] count];
         
     } else {
-        
-        return 1;
+        return [[levelsDictionary allKeys] count];
     }
 }
 
@@ -240,8 +237,25 @@
         }
         
         return headerTitle;
+        
     } else {
-        return nil;
+        
+        if ([keyArr count] > 1) {
+            NSString *headerTitle = @"";
+            NSString *key = [keyArr objectAtIndex:section];
+            
+            if (section == 0) {
+                
+                headerTitle = [NSString stringWithFormat:@"%@ : %lu %@", LocalizedString(@"Custom list"), [[levelsDictionary objectForKey:key] count], LocalizedString(@"word")];
+                
+            } else {
+                headerTitle = [NSString stringWithFormat:@"%@ : %lu %@", LocalizedString(@"Normal list"), [[levelsDictionary objectForKey:key] count], LocalizedString(@"word")];
+            }
+            
+            return headerTitle;
+        } else {
+            return nil;
+        }
     }
 }
 
@@ -249,7 +263,8 @@
     if (_screenType == List_StudiedList ||
        _screenType == List_SearchHint ||
         _screenType == List_SearchHintHome ||
-       _screenType == List_SearchResult) {
+        _screenType == List_SearchResult ||
+        _screenType == List_Incoming) {
         
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
         
@@ -270,7 +285,8 @@
     if (_screenType == List_StudiedList ||
         _screenType == List_SearchHint ||
         _screenType == List_SearchHintHome ||
-        _screenType == List_SearchResult) {
+        _screenType == List_SearchResult ||
+        _screenType == List_Incoming) {
         
         if (section < [keyArr count]) {
             NSString *key = [keyArr objectAtIndex:section];
@@ -323,7 +339,11 @@
         
         
     } else {
-        wordObj = [wordList objectAtIndex:indexPath.row];
+//        wordObj = [wordList objectAtIndex:indexPath.row];
+        NSString *key = [keyArr objectAtIndex:indexPath.section];
+        
+        NSArray *arrWords = [levelsDictionary objectForKey:key];
+        wordObj = [arrWords objectAtIndex:indexPath.row];
         
         cell.lbLevel.hidden = NO;
     }
@@ -410,7 +430,12 @@
         wordObj = [arrWords objectAtIndex:indexPath.row];
         
     } else {
-        wordObj = [wordList objectAtIndex:indexPath.row];
+        NSString *key = [keyArr objectAtIndex:indexPath.section];
+        
+        NSArray *arrWords = [levelsDictionary objectForKey:key];
+        wordObj = [arrWords objectAtIndex:indexPath.row];
+        
+//        wordObj = [wordList objectAtIndex:indexPath.row];
     }
     
     if (_screenType == List_SearchHint || _screenType == List_SearchHintHome) {
@@ -474,7 +499,25 @@
         }
     }
     
-    if (_screenType != List_Incoming) {
+    if (_screenType == List_Incoming) {
+        //group by priority
+        for (WordObject *wordObj in wordList) {
+            NSMutableArray *arr = [levelsDictionary objectForKey:[NSString stringWithFormat:@"%ld", wordObj.priority]];
+            
+            if (arr == nil) {
+                arr = [[NSMutableArray alloc] init];
+            }
+            [arr addObject:wordObj];
+            
+            [levelsDictionary setObject:arr forKey:[NSString stringWithFormat:@"%ld", wordObj.priority]];
+        }
+        
+        keyArr = [levelsDictionary allKeys];
+        NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self"
+                                                                    ascending: NO];
+        keyArr = [keyArr sortedArrayUsingDescriptors:@[sortOrder]];
+        
+    } else {
         //group by level
         for (WordObject *wordObj in wordList) {
             NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
@@ -780,6 +823,14 @@
     if (actionSheet.tag == 1) {
         if (buttonIndex == 0) {			
             NSLog(@"Create new list");
+            EditWordListViewController *createView = [[EditWordListViewController alloc] initWithNibName:@"EditWordListViewController" bundle:nil];
+            createView.wordsArray = nil;
+            
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createView];
+            [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+            [nav setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+            
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
             
         } else if (buttonIndex == 1) {
             NSLog(@"Add from existed list");
@@ -791,6 +842,9 @@
                                                       otherButtonTitles:LocalizedString(@"OK"), nil];
             
             alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+            UITextField * alertTextField = [alertView textFieldAtIndex:0];
+            alertTextField.keyboardType = UIKeyboardTypeNumberPad;
+            
             alertView.tag = 1;
             [alertView show];
             
@@ -807,7 +861,12 @@
         if (buttonIndex != 0) {
             UITextField *textField = [alertView textFieldAtIndex:0];
             
-            [self downloadWordListFromServerWithCode:textField.text];
+            if ([[Common sharedCommon] networkIsActive]) {
+                [self downloadWordListFromServerWithCode:textField.text];
+                
+            } else {
+                [self noConnectionAlert];
+            }
         }
     }
     
@@ -815,11 +874,7 @@
 }
 
 - (void)downloadWordListFromServerWithCode:(NSString *)stringCode {
-    [SVProgressHUD showWithStatus:LocalizedString(@"Downloading data from server")];
-    
-    [missingWords removeAllObjects];
-    [customList removeAllObjects];
-    countNew = 0;
+    [SVProgressHUD show];
     
     dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(taskQ, ^{
@@ -845,15 +900,20 @@
                         NSArray *wordsArr = [wordsString componentsSeparatedByString:@"\n"];
                         
                         if ([wordsArr count] > 0) {
-                            [customList addObjectsFromArray:wordsArr];
-                            countNew = [customList count];
+                            EditWordListViewController *createView = [[EditWordListViewController alloc] initWithNibName:@"EditWordListViewController" bundle:nil];
+                            createView.wordsArray = wordsArr;
                             
-                            [self downloadWordFromServer:[customList objectAtIndex:0]];
+                            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createView];
+                            [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                            [nav setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+                            
+                            [self.navigationController presentViewController:nav animated:YES completion:nil];
                             
                         } else {
                             [self noWordFoundAlert];
                         }
-
+                        
+                        [SVProgressHUD dismiss];
                         
                     } else {
                         [self wrongCodeAlert];
@@ -878,104 +938,23 @@
 }
 
 - (void)noWordFoundAlert {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Completed") message:LocalizedString(@"There is no word in the custom list.") delegate:(id)self cancelButtonTitle:LocalizedString(@"Continue") otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"Attention") message:LocalizedString(@"There is no word in the custom list.") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
     alert.tag = 3;
     
     [alert show];
 }
 
-- (void)downloadWordFromServer:(NSString *)word {
-    static GTLServiceDataServiceApi *service = nil;
-    if (!service) {
-        service = [[GTLServiceDataServiceApi alloc] init];
-        service.retryEnabled = YES;
-        //[GTMHTTPFetcher setLoggingEnabled:YES];
-    }
+- (void)noConnectionAlert {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LocalizedString(@"No connection") message:LocalizedString(@"Please double check wifi/3G connection") delegate:(id)self cancelButtonTitle:LocalizedString(@"OK") otherButtonTitles:nil];
+    alert.tag = 4;
     
-    GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByQWithQ:word];
-    //TODO: Add waiting progress here
-    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
-        if (object != nil) {
-            //TODO: Update word: q, a, level, package, (and ee, ev)
-            WordObject *wordObj = [[WordObject alloc] init];
-            wordObj.question   = object.q;
-            wordObj.answers    = object.a;
-            wordObj.level      = [NSString stringWithFormat:@"%ld", (long)[object.level integerValue]];
-            wordObj.package    = object.packages;
-            wordObj.gid        = [NSString stringWithFormat:@"%@", object.gid];
-            
-            if (object.lEn && object.lEn.length > 0) {
-                wordObj.langEN     = object.lEn;
-            }
-            
-            if (object.lVn && object.lVn.length > 0) {
-                wordObj.langVN     = object.lVn;
-            }
-            
-            wordObj.package    = object.packages;
-            wordObj.eFactor    = @"2500";
-            wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_UNKNOWN];
-            wordObj.priority = 1;
-            
-            //insert to db, no need to get from server next time
-            [[CommonSqlite sharedCommonSqlite] insertWordToDatabase:wordObj];
-            
-            //next word
-            [customList removeObject:word];
-
-            if ([customList count] > 0) {
-                [self downloadWordFromServer:[customList objectAtIndex:0]];
-                
-            } else {
-                [SVProgressHUD dismiss];
-
-                reportView = [[ImportWordReport alloc] initWithNibName:@"ImportWordReport" bundle:nil];
-                reportView.newWordCount = countNew - [missingWords count];
-                reportView.notFoundArray = missingWords;
-                
-                reportView.view.alpha = 0;
-                
-                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                
-                CGRect rect = appDelegate.window.frame;
-                [reportView.view setFrame:rect];
-                
-                [appDelegate.window addSubview:reportView.view];
-                
-                [UIView animateWithDuration:0.3 animations:^(void) {
-                    reportView.view.alpha = 1;
-                }];
-            }
-            
-        } else {
-            [customList removeObject:word];
-            [missingWords addObject:word];
-            
-            if ([customList count] > 0) {
-                [self downloadWordFromServer:[customList objectAtIndex:0]];
-                
-            } else {
-                [SVProgressHUD dismiss];
-                
-                reportView = [[ImportWordReport alloc] initWithNibName:@"ImportWordReport" bundle:nil];
-                reportView.newWordCount = countNew - [missingWords count];
-                reportView.notFoundArray = missingWords;
-                
-                reportView.view.alpha = 0;
-                
-                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                
-                CGRect rect = appDelegate.window.frame;
-                [reportView.view setFrame:rect];
-                
-                [appDelegate.window addSubview:reportView.view];
-                
-                [UIView animateWithDuration:0.3 animations:^(void) {
-                    reportView.view.alpha = 1;
-                }];
-            }
-        }
-    }];
+    [alert show];
 }
 
+- (void)dismissImportReport {
+    if (_screenType == List_Incoming) {
+        [self prepareWordsToStudyingQueue];
+        [self tableReload];
+    }
+}
 @end

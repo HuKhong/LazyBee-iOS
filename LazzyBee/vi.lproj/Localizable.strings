@@ -147,7 +147,7 @@
 "Can not restore database" = "Không thể khôi phục dữ liệu, vui lòng thử lại.";
 "Your database have been restored successfully" = "Dữ liệu của bạn đã được khôi phục thành công.";
 "Restore database" = "Khôi phục dữ liệu";
-"Enter the code that you received when backing up database" = "Nhập mã bạn đã nhận được khi sao lưu dữ liệu";
+"Enter the code that you received when backing up database" = "Nhập mã mà bạn đã nhận được khi sao lưu dữ liệu";
 "Wrong code, please try again" = "Sai mã, vui lòng thử lại.";
 
 //reverse
@@ -159,3 +159,23 @@
 "Next" = "Tiếp";
 "Locked" = "Khoá";
 "To unlock this function, you need to learn at lease 50 words." = "Để kích hoạt chức năng này, bạn cần học ít nhất 50 từ.";
+
+//custom list
+"Edit" = "Soạn thảo";
+"Import" = "Nhập";
+"Please add words that you want to learn. These words will be added to learn first." = "Xin mời thêm các từ mà bạn muốn học. Những từ này sẽ được ưu tiên để học trước.";
+"(Separate words by comma, break line)" = "(Các từ cách nhau bằng dấu phải hoặc xuống dòng)";
+"Downloading data from server" = "Dữ liệu đang được tải từ máy chủ";
+"Attention" = "Chú ý";
+"There is no word in the custom list." = "Không có từ nào trong danh sách.";
+"Import completed"= "Nhập dữ liệu hoàn thành";
+"New word:" = "Từ mới:";
+"Not found:" = "Không tìm thấy:";
+"Your custom list has been imported successfully." = "Danh sách từ của bạn đã được nhập vào thành công.";
+"Enter code" = "Nhập mã";
+"Enter the code that you received when creating the custom word list by web browser" = "Nhập mã mà bạn đã nhận được khi tạo danh sách từ mới bằng trình duyệt web.";
+"Import custom list" = "Nhập danh sách từ";
+"Create new list" = "Tạo danh sách từ";
+"Import from existed list" = "Nhập từ danh sách đã có";
+"Are you sure you want to cancel?" = "Bạn có chắc chắn muốn huỷ?";
+

@@ -160,6 +160,8 @@
 		55452C6A1BC528F600D6E430 /* MHTabBarIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55452C671BC528F600D6E430 /* MHTabBarIndicator@2x.png */; };
 		55457CC21BA27DA100EFCD50 /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55457CC01BA27DA100EFCD50 /* TimerViewController.m */; };
 		55457CC31BA27DA100EFCD50 /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55457CC11BA27DA100EFCD50 /* TimerViewController.xib */; };
+		554821591D51A14800ACE70D /* EditWordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 554821571D51A14800ACE70D /* EditWordListViewController.m */; };
+		5548215A1D51A14800ACE70D /* EditWordListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 554821581D51A14800ACE70D /* EditWordListViewController.xib */; };
 		55524FE81C7E956E0027A4ED /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 55524FC71C7E956E0027A4ED /* aescrypt.c */; };
 		55524FE91C7E956E0027A4ED /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 55524FC81C7E956E0027A4ED /* aeskey.c */; };
 		55524FEA1C7E956E0027A4ED /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 55524FCA1C7E956E0027A4ED /* aestab.c */; };
@@ -593,6 +595,9 @@
 		55457CBF1BA27DA100EFCD50 /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		55457CC01BA27DA100EFCD50 /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		55457CC11BA27DA100EFCD50 /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
+		554821561D51A14800ACE70D /* EditWordListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditWordListViewController.h; path = List/EditWordListViewController.h; sourceTree = "<group>"; };
+		554821571D51A14800ACE70D /* EditWordListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditWordListViewController.m; path = List/EditWordListViewController.m; sourceTree = "<group>"; };
+		554821581D51A14800ACE70D /* EditWordListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditWordListViewController.xib; path = List/EditWordListViewController.xib; sourceTree = "<group>"; };
 		55524FC51C7E956E0027A4ED /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		55524FC61C7E956E0027A4ED /* aes_via_ace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_via_ace.h; sourceTree = "<group>"; };
 		55524FC71C7E956E0027A4ED /* aescrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
@@ -1524,6 +1529,9 @@
 				559B2AF91BC61344009AA150 /* DictDetailContainerViewController.h */,
 				559B2AFA1BC61344009AA150 /* DictDetailContainerViewController.m */,
 				559B2AFB1BC61344009AA150 /* DictDetailContainerViewController.xib */,
+				554821561D51A14800ACE70D /* EditWordListViewController.h */,
+				554821571D51A14800ACE70D /* EditWordListViewController.m */,
+				554821581D51A14800ACE70D /* EditWordListViewController.xib */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -2015,6 +2023,7 @@
 				4DD3C3D51B6F218700B6DA71 /* ic_heart@2x.png in Resources */,
 				4DD3C3DA1B6F218700B6DA71 /* ic_share.png in Resources */,
 				5564813A1CF45F6900DDD09C /* button_short_ipad_gray@3x.png in Resources */,
+				5548215A1D51A14800ACE70D /* EditWordListViewController.xib in Resources */,
 				55C3BAAA1D50536B00628318 /* ImportWordReport.xib in Resources */,
 				552BD5A71BA15FE600BF316C /* ic_home@3x.png in Resources */,
 				55452C621BC527CC00D6E430 /* DictDetailViewController.xib in Resources */,
@@ -2319,6 +2328,7 @@
 				55524FF31C7E956E0027A4ED /* unzip.c in Sources */,
 				557288CA1BB25DAA00EA0CE9 /* GTMOAuth2ViewControllerTouch.m in Sources */,
 				55679C731D50AB1B00074DCE /* AddWordCell.m in Sources */,
+				554821591D51A14800ACE70D /* EditWordListViewController.m in Sources */,
 				55BDC8A61BC76FFF0015B199 /* TagManagerHelper.m in Sources */,
 				4D35B3481B6BC7C600EA67C2 /* main.m in Sources */,
 				552BD59E1BA15F7200BF316C /* AboutViewController.m in Sources */,

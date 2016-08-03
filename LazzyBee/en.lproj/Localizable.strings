@@ -159,3 +159,31 @@
 "Next" = "Next";
 "Locked" = "Locked";
 "To unlock this function, you need to learn at lease 50 words." = "To unlock this function, you need to learn at lease 50 words.";
+
+//edit list
+"Edit" = "Edit";
+"Import" = "Import";
+"Please add words that you want to learn. These words will be added to learn first." = "Please add words that you want to learn. These words will be added to learn first.";
+"(Separate words by comma, break line)" = "(Separate words by comma, break line)";
+"Downloading data from server" = "Downloading data from server";
+"Attention" = "Attention";
+"There is no word in the custom list." = "There is no word in the custom list.";
+"Import completed"= "Import completed";
+"New word:" = "New word:";
+"Not found:" = "Not found:";
+"Your custom list has been imported successfully." = "Your custom list has been imported successfully.";
+"Enter code" = "Enter code";
+"Enter the code that you received when creating the custom word list by web browser" = "Enter the code that you received when creating the custom word list by web browser";
+"Import custom list" = "Import custom list";
+"Create new list" = "Create new list";
+"Import from existed list" = "Import from existed list";
+"Are you sure you want to cancel?" = "Are you sure you want to cancel?";
+
+
+
+
+
+
+
+
+

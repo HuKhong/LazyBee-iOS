@@ -11,12 +11,12 @@
 #import "MHTabBarController.h"
 #import "TagManagerHelper.h"
 #import "CommonSqlite.h"
+#import "LocalizeHelper.h"
 #import "AppDelegate.h"
 #import "Common.h"
 #import "SVProgressHUD.h"
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
-#import "LocalizeHelper.h"
 #import "Algorithm.h"
 
 @import FirebaseAnalytics;
@@ -278,7 +278,7 @@
         //TODO: Add waiting progress here
         [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
             if (object != NULL){
-                NSLog(object.JSONString);
+//                NSLog(object.JSONString);
                 //TODO: Update word: q, a, level, package, (and ee, ev)
                 _wordObj.question   = object.q;
                 _wordObj.answers    = object.a;

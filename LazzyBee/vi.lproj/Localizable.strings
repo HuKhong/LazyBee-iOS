@@ -164,7 +164,7 @@
 "Edit" = "Soạn thảo";
 "Import" = "Nhập";
 "Please add words that you want to learn. These words will be added to learn first." = "Xin mời thêm các từ mà bạn muốn học. Những từ này sẽ được ưu tiên để học trước.";
-"(Separate words by comma, break line)" = "(Các từ cách nhau bằng dấu phải hoặc xuống dòng)";
+"(Separate words by comma, break line)" = "(Các từ cách nhau bằng dấu phẩy hoặc xuống dòng)";
 "Downloading data from server" = "Dữ liệu đang được tải từ máy chủ";
 "Attention" = "Chú ý";
 "There is no word in the custom list." = "Không có từ nào trong danh sách.";
@@ -178,4 +178,6 @@
 "Create new list" = "Tạo danh sách từ";
 "Import from existed list" = "Nhập từ danh sách đã có";
 "Are you sure you want to cancel?" = "Bạn có chắc chắn muốn huỷ?";
+"No" = "Không";
+"Yes" = "Có";
 

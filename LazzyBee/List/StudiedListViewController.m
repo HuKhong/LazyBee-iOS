@@ -167,6 +167,7 @@
                                              selector:@selector(dismissImportReport)
                                                  name:@"DismissImportReport"
                                                object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -270,7 +271,8 @@
         
         header.textLabel.textColor = [UIColor whiteColor];
         header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-        CGRect headerFrame = header.frame;
+        CGRect headerFrame = header.textLabel.frame;
+        headerFrame.size.width = header.frame.size.width;
         header.textLabel.frame = headerFrame;
         header.textLabel.textAlignment = NSTextAlignmentLeft;
         
@@ -697,34 +699,50 @@
     if (_screenType == List_Incoming) {
         WordObject *wordObj = nil;
         NSIndexPath *indexPath = [wordsTableView indexPathForCell:cell];
+        NSString *key = [keyArr objectAtIndex:indexPath.section];
+        
+        NSMutableArray *arrWords = [[NSMutableArray alloc] initWithArray:[levelsDictionary objectForKey:key]];
+        wordObj = [arrWords objectAtIndex:indexPath.row];
+        
         if (direction == MGSwipeDirectionRightToLeft && index == 0) {   //Done
             NSLog(@"Done");
             //update queue value in DB
-            indexPath = [wordsTableView indexPathForCell:cell];
-            wordObj = [wordList objectAtIndex:indexPath.row];
-            
             wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_DONE];
             
         } else if (direction == MGSwipeDirectionRightToLeft && index == 1) {   //Ignore
             NSLog(@"Ignore");
             //update queue value in DB
-            indexPath = [wordsTableView indexPathForCell:cell];
-            wordObj = [wordList objectAtIndex:indexPath.row];
-            
             wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_SUSPENDED];
         }
         
-        if (wordList) {
-            [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
+
+        [[CommonSqlite sharedCommonSqlite] updateWord:wordObj];
+        
+        //remove from buffer
+        [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
+        
+        [wordList removeObject:wordObj];
+        [arrWords removeObject:wordObj];
+        
+        [levelsDictionary setObject:arrWords forKey:key];
+        
+        lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
+        [wordsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        UITableViewHeaderFooterView *header = [wordsTableView headerViewForSection:indexPath.section];
+        
+        if (indexPath.section == 0) {
             
-            //remove from buffer
-            [[CommonSqlite sharedCommonSqlite] removeWordFromBuffer:wordObj];
+            header.textLabel.text = [NSString stringWithFormat:@"%@ : %lu %@", LocalizedString(@"Custom list"), [[levelsDictionary objectForKey:key] count], LocalizedString(@"word")];
             
-            [wordList removeObject:wordObj];
+        } else {
+            header.textLabel.text = [NSString stringWithFormat:@"%@ : %lu %@", LocalizedString(@"Normal list"), [[levelsDictionary objectForKey:key] count], LocalizedString(@"word")];
             
-            lbHeaderInfo.text = [NSString stringWithFormat:@"%@: %lu", LocalizedString(@"Total"), (unsigned long)[wordList count]];
-            [wordsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
+        
+        CGRect headerFrame = header.textLabel.frame;
+        headerFrame.size.width = header.frame.size.width;
+        header.textLabel.frame = headerFrame;
         
     } else if (_screenType == List_SearchResult ||
                _screenType == List_SearchHint ||
@@ -823,14 +841,20 @@
     if (actionSheet.tag == 1) {
         if (buttonIndex == 0) {			
             NSLog(@"Create new list");
-            EditWordListViewController *createView = [[EditWordListViewController alloc] initWithNibName:@"EditWordListViewController" bundle:nil];
-            createView.wordsArray = nil;
-            
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createView];
-            [nav setModalPresentationStyle:UIModalPresentationFormSheet];
-            [nav setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-            
-            [self.navigationController presentViewController:nav animated:YES completion:nil];
+            dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+            dispatch_async(taskQ, ^{
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    EditWordListViewController *createView = [[EditWordListViewController alloc] initWithNibName:@"EditWordListViewController" bundle:nil];
+                    createView.wordsArray = nil;
+                    
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createView];
+                    [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                    [nav setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+                    
+                    [self.navigationController presentViewController:nav animated:YES completion:nil];
+                });
+            });
             
         } else if (buttonIndex == 1) {
             NSLog(@"Add from existed list");

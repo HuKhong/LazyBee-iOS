@@ -13,4 +13,6 @@
     IBOutlet UITableView *dictTableView;
     
 }
+
+@property (strong, nonatomic) UISearchController *searchController;
 @end

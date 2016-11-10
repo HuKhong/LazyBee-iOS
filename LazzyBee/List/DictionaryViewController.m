@@ -37,23 +37,29 @@
                                                                                   kFIRParameterValue:@(1)
                                                                                   }];
     
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-    {
-        [self.navigationController.navigationBar setTranslucent:NO];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-#endif
+    [self.navigationController.navigationBar setTranslucent:NO];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
     
     [self.navigationController.navigationBar setBarTintColor:COMMON_COLOR];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     [self setTitle:LocalizedString(@"Dictionary")];
-    [self.searchDisplayController.searchBar setPlaceholder:LocalizedString(@"Search")];
     
-    self.searchDisplayController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = (id)self;
+    
+    self.searchController.searchBar.delegate = (id)self;
+    self.searchController.delegate = (id)self;
+    self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
+    
+    dictTableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    
+    [self.searchController.searchBar sizeToFit];
+    [self.searchController.searchBar setPlaceholder:LocalizedString(@"Search")];
+    
+    self.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
     if (searchResults == nil) {
         searchResults = [[NSMutableArray alloc] init];
@@ -127,7 +133,7 @@
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
    
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.active && self.searchController.searchBar.text.length > 0 ) {
         return [searchResults count];
         
     } else {
@@ -154,7 +160,7 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     WordObject *wordObj;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if ([searchResults count] > 0) {
         wordObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
@@ -174,7 +180,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     WordObject *wordObj;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if ([searchResults count] > 0) {
         wordObj = [searchResults objectAtIndex:indexPath.row];
         
     } else {
@@ -188,31 +194,38 @@
     
 }
 
-#pragma mark - UISearchDisplayController Delegate Methods
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    [self->searchResults removeAllObjects]; // First clear the filtered array.
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
     
-    if (searchString == nil || searchString.length == 0) {
-        self->searchResults = [wordsArray mutableCopy];
-        
-    } else {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"question CONTAINS[cd] %@", searchString];
-//        NSArray *keys = [dataDic allKeys];
-//        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
-//        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
-        NSArray *filterKeys = [wordsArray filteredArrayUsingPredicate:filterPredicate];
-        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
-    }
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
+    StudiedListViewController *searchResultViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
+    searchResultViewController.screenType = List_SearchResult;
+    searchResultViewController.searchText = searchBar.text;
+    
+    [self.navigationController pushViewController:searchResultViewController animated:YES];
 }
 
-- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
-    self.searchDisplayController.searchBar.showsCancelButton = YES;
+
+#pragma mark - UISearchControllerDelegate
+
+// Called after the search controller's search bar has agreed to begin editing or when
+// 'active' is set to YES.
+// If you choose not to present the controller yourself or do not implement this method,
+// a default presentation is performed on your behalf.
+//
+// Implement this method if the default presentation is not adequate for your purposes.
+//
+- (void)presentSearchController:(UISearchController *)searchController {
     
-    for (UIView *subView in self.searchDisplayController.searchBar.subviews){
+}
+
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    // do something before the search controller is presented
+    searchController.searchBar.showsCancelButton = YES;
+    
+    for (UIView *subView in searchController.searchBar.subviews){
         for (UIView *subView2 in subView.subviews){
             if([subView2 isKindOfClass:[UIButton class]]){
                 [(UIButton*)subView2 setTitle:LocalizedString(@"Cancel") forState:UIControlStateNormal];
@@ -221,11 +234,36 @@
     }
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    StudiedListViewController *searchResultViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
-    searchResultViewController.screenType = List_SearchResult;
-    searchResultViewController.searchText = searchBar.text;
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    // do something after the search controller is presented
+}
+
+- (void)willDismissSearchController:(UISearchController *)searchController {
+    // do something before the search controller is dismissed
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    // do something after the search controller is dismissed
+}
+
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    // update the filtered array based on the search text
+    NSString *searchString = self.searchController.searchBar.text;
     
-    [self.navigationController pushViewController:searchResultViewController animated:YES];
+    [self->searchResults removeAllObjects]; // First clear the filtered array.
+    
+    if (searchString == nil || searchString.length == 0) {
+        self->searchResults = [wordsArray mutableCopy];
+        
+    } else {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"question CONTAINS[cd] %@", searchString];
+        
+        NSArray *filterKeys = [wordsArray filteredArrayUsingPredicate:filterPredicate];
+        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
+    }
+    
+    [dictTableView reloadData];
 }
 @end

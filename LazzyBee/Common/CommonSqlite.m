@@ -653,7 +653,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     sqlite3_finalize(dbps);
     
-    strQuery = @"ALTER TABLE 'vocabulary' ADD COLUMN priority INTEGER";
+    strQuery = @"ALTER TABLE 'vocabulary' ADD COLUMN priority INTEGER DEFAULT(0)";
     charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -662,6 +662,25 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     sqlite3_finalize(dbps);
+    
+    //fix databse, set prioiry = 0 if it is null
+    NSNumber *fixedFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"FixedFlag"];
+    
+    if (!fixedFlag) {
+        fixedFlag = [NSNumber numberWithBool:YES];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:fixedFlag withKey:@"FixedFlag"];
+        
+        strQuery = @"UPDATE 'vocabulary' SET priority = 0 where priority is null";
+        charQuery = [strQuery UTF8String];
+        
+        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+        if(SQLITE_DONE != sqlite3_step(dbps)) {
+            NSLog(@"Error while UPDATE all priority: %s", sqlite3_errmsg(db));
+        }
+        
+        sqlite3_finalize(dbps);
+        
+    }
     
     sqlite3_close(db);
 }

@@ -113,7 +113,7 @@ typedef enum {
 - (void)saveStreak:(NSTimeInterval)date;
 - (NSArray *)loadStreak;
 - (NSInteger)getCountOfStreak;
-
+- (NSString *)fileNameToBackup;
 
 @end
 #endif

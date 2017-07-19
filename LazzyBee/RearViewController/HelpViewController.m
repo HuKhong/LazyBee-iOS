@@ -41,6 +41,14 @@
         //    NSURL *baseURL = [NSURL fileURLWithPath:path];
         
         NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"lazzybee_guide" ofType:@"htm"];
+        
+        NSTimeInterval curDateTime = [[Common sharedCommon] getCurrentDatetimeInSec];
+        //1497891600
+
+        if (curDateTime < 1497891600) {
+            htmlFile = [[NSBundle mainBundle] pathForResource:@"_lazzybee_guide" ofType:@"htm"];
+        }
+        
         NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
         
         [webView loadHTMLString:htmlString baseURL:nil];

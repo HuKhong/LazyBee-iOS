@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 HuKhong. All rights reserved.
 //
 
+#import "CommonSqlite.h"
 #import <Foundation/Foundation.h>
 #import "Common.h"
 #import "Reachability.h"
@@ -214,7 +215,7 @@
     NSLocale* currentLocale = [NSLocale currentLocale];
     [[NSDate date] descriptionWithLocale:currentLocale];
     
-    NSTimeInterval nextTimeInterval = [self getCurrentDatetimeInSec] + 24*3600;
+    NSTimeInterval nextTimeInterval = [self getCurrentDatetimeInSec] + SECONDS_OF_DAY;
     NSDate *nextDate = [NSDate dateWithTimeIntervalSince1970:nextTimeInterval];
     
     dateString = [self dateStringFromDate:nextDate withFormat:formatString];
@@ -847,8 +848,8 @@
     return image;
 }
 
-- (UIImage *)createImageFromView:(UIView *)view {
-    UIGraphicsBeginImageContext(view.bounds.size);
+- (UIImage *)createImageFromView:(UIScrollView *)view {
+    UIGraphicsBeginImageContext(view.contentSize);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -923,26 +924,58 @@
     NSTimeInterval curDate = [self getBeginOfDayInSec];
     NSArray *streakArr = [self loadStreak];
     NSInteger count = 0;
+    int nextInd = 2;
     NSTimeInterval streakDate = 0;
     
     if ([streakArr count] > 0) {
         //the last date in streak could be current date or yesterday
         streakDate = [[streakArr objectAtIndex:[streakArr count] - 1] doubleValue];
-        NSTimeInterval offset = curDate - streakDate;
-        if (offset == 24 * 3600 || offset == 0) {
-            count++;
+        NSTimeInterval offset = 0;
+        
+        if (curDate >= streakDate) {
+            offset = curDate - streakDate;
+            
         } else {
-            return count;
+            offset = streakDate - curDate;
+        }
+        
+//        if (offset == 24 * 3600 || offset == 0) {
+        if (offset < SECONDS_OF_DAY + SECONDS_OF_HALFDAY) {
+            count++;
+            
+        } else {
+            if ([streakArr count] > 1) {
+                streakDate = [[streakArr objectAtIndex:[streakArr count] - 2] doubleValue];
+                if (curDate >= streakDate) {
+                    offset = curDate - streakDate;
+                    
+                } else {
+                    offset = streakDate - curDate;
+                }
+                
+                if (offset < SECONDS_OF_DAY + SECONDS_OF_HALFDAY) {
+                    count++;
+                    nextInd = 3;
+                    
+                } else {
+                    return count;
+                }
+                
+            } else {
+                return count;
+            }
         }
         
         curDate = streakDate;
         
-        for (int i = ((int)[streakArr count] - 2); i >=0; i--) {
+        for (int i = ((int)[streakArr count] - nextInd); i >=0; i--) {
             streakDate = [[streakArr objectAtIndex:i] doubleValue];
-            NSTimeInterval offset = curDate - streakDate;
+            offset = curDate - streakDate;
             
-            if (offset == 24 * 3600) {
+//            if (offset == 24 * 3600) {
+            if (offset <= SECONDS_OF_DAY*2) {
                 count++;
+                
             } else {
                 break;
             }
@@ -953,4 +986,11 @@
     
     return count;
 }
+
+- (NSString *)fileNameToBackup {
+    NSString *res = [NSString stringWithFormat:@"%@_%lu.zip", [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_BACKUP_CODE], (unsigned long)[[CommonSqlite sharedCommonSqlite] getCountOfStudiedWord]];
+    
+    return res;
+}
+
 @end

@@ -240,6 +240,7 @@
 		5588BCEA1D4601A80093363D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5588BCE91D4601A80093363D /* GoogleService-Info.plist */; };
 		5588BCEC1D46044D0093363D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5588BCEB1D46044D0093363D /* CoreMotion.framework */; };
 		5588BCEE1D4604530093363D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5588BCED1D4604530093363D /* AdSupport.framework */; };
+		558B4B811EEFBC9600A3C123 /* _lazzybee_guide.htm in Resources */ = {isa = PBXBuildFile; fileRef = 558B4B801EEFBC9600A3C123 /* _lazzybee_guide.htm */; };
 		5597EC411BCE090700E1F779 /* ic_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC3E1BCE090700E1F779 /* ic_about.png */; };
 		5597EC421BCE090700E1F779 /* ic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC3F1BCE090700E1F779 /* ic_about@2x.png */; };
 		5597EC431BCE090700E1F779 /* ic_about@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC401BCE090700E1F779 /* ic_about@3x.png */; };
@@ -733,6 +734,7 @@
 		5588BCE91D4601A80093363D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5588BCEB1D46044D0093363D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		5588BCED1D4604530093363D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		558B4B801EEFBC9600A3C123 /* _lazzybee_guide.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = _lazzybee_guide.htm; path = Resource/_lazzybee_guide.htm; sourceTree = "<group>"; };
 		55969EA61C27BF17000F537E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5597EC3E1BCE090700E1F779 /* ic_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_about.png; sourceTree = "<group>"; };
 		5597EC3F1BCE090700E1F779 /* ic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@2x.png"; sourceTree = "<group>"; };
@@ -1223,6 +1225,7 @@
 		4DD3C3BD1B6F217000B6DA71 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				558B4B801EEFBC9600A3C123 /* _lazzybee_guide.htm */,
 				552CBC011BF48FEF00120B2C /* lazzybee_guide.htm */,
 				550289FB1BF081D2007181C3 /* Sound */,
 				552BD5A81BA1621500BF316C /* About.txt */,
@@ -2113,6 +2116,7 @@
 				55F7E66E1BFB014300EB27A2 /* FontAwesome.ttf in Resources */,
 				55F6C7301BF5959C0084B369 /* economic@2x.png in Resources */,
 				4DD3C39A1B6F191C00B6DA71 /* FacebookSDK.strings in Resources */,
+				558B4B811EEFBC9600A3C123 /* _lazzybee_guide.htm in Resources */,
 				559E67C41BEF569100232439 /* hive@3x.png in Resources */,
 				55F6C72B1BF5959C0084B369 /* blank@2x.png in Resources */,
 				551FB8651C02F75B00C8B18C /* button_square_ipad@3x.png in Resources */,
@@ -2490,6 +2494,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 23G9UAL37D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2518,6 +2523,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 23G9UAL37D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

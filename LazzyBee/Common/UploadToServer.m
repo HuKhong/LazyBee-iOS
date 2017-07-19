@@ -14,6 +14,7 @@
 #import "TAGContainer.h"
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
+#import "CommonSqlite.h"
 #import "CommonDefine.h"
 // Singleton
 static UploadToServer* sharedUploadToServer = nil;
@@ -45,7 +46,7 @@ static UploadToServer* sharedUploadToServer = nil;
 }
 
 - (void)uploadDatabaseToServer {
-    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:[[Common sharedCommon] fileNameToBackup]];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:pathZip]) {
         [self sendRequestToGetPostLink];
@@ -94,11 +95,11 @@ static UploadToServer* sharedUploadToServer = nil;
     NSMutableData *body = [NSMutableData data];
     
     //data files
-    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:[[Common sharedCommon] fileNameToBackup]];
     NSData *dataZip = [NSData dataWithContentsOfFile:pathZip];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", DATABASENAME_BACKUPZIP]] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", [[Common sharedCommon] fileNameToBackup]]] dataUsingEncoding:NSUTF8StringEncoding]];
     //[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", view.txtCaption.text]
     
     [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];

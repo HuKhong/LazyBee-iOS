@@ -428,7 +428,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 - (NSTimeInterval)getEndOfDayInSec {
     NSTimeInterval datetime = [[Common sharedCommon] getBeginOfDayInSec];
     
-    datetime = datetime + 24*3600;
+    datetime = datetime + SECONDS_OF_DAY;
     
     return datetime;
 }
@@ -751,8 +751,16 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     //compare current date
     NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];   //just get time at the begin of day
+    NSTimeInterval offset = 0;
     
-    if (oldDate == curDate) {     //get if it is new. If review list is old, get review list from vocabulary table
+    if (curDate >= oldDate) {
+        offset = curDate - oldDate;
+        
+    } else {
+        offset = oldDate - curDate;
+    }
+    
+    if (offset < SECONDS_OF_DAY) {     //get if it is new. If review list is old, get review list from vocabulary table
         //get word object  from vocabulary with id from system
         strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note, priority from \"vocabulary\" WHERE id IN %@", strIDList];
         charQuery = [strQuery UTF8String];
@@ -995,9 +1003,29 @@ static CommonSqlite* sharedCommonSqlite = nil;
     //compare current date
     NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];   //just get time at the begin of day
     
-    if (force == YES || (oldDate == 0 || curDate != oldDate)) {
+    NSTimeInterval offset = 0;
+    
+    if (curDate >= oldDate) {
+        offset = curDate - oldDate;
+        
+    } else {
+        offset = oldDate - curDate;
+    }
+    
+    if (
+            force == YES ||
+            (
+                oldDate == 0 ||
+                offset > SECONDS_OF_HALFDAY
+            )
+        ) {
+        
         //reset flag if it's new day
-        if ((oldDate == 0 || curDate != oldDate)) {
+        if (
+            oldDate == 0 ||
+            offset > SECONDS_OF_HALFDAY
+            )
+        {
             [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:KEY_COMPLETED_FLAG];
         }
         
@@ -1642,7 +1670,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSString *)getBackupDatabasePath {
-    NSString *dbPath = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSString *dbPath = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:[[Common sharedCommon] fileNameToBackup]];
     
     return dbPath;
 }
@@ -1969,7 +1997,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     NSString *pathWordFile = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUP];
     NSString *pathStreakFile = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:STREAK_BACKUP];
-    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSString *pathZip = [[[Common sharedCommon] backupFolder] stringByAppendingPathComponent:[[Common sharedCommon] fileNameToBackup]];
     
     [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:pathZip];
     
@@ -1989,7 +2017,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     
     //unzip
-    NSString *pathZip = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:DATABASENAME_BACKUPZIP];
+    NSString *pathZip = [[[Common sharedCommon] restoreFolder] stringByAppendingPathComponent:[[Common sharedCommon] fileNameToBackup]];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:pathZip]) {
         [SSZipArchive unzipFileAtPath:pathZip toDestination:[[Common sharedCommon] restoreFolder]];

@@ -34,6 +34,9 @@
 #define STREAK_BACKUP @"streak.csv"
 #define DATABASENAME_BACKUPZIP [NSString stringWithFormat:@"%@.zip", [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_BACKUP_CODE]]
 
+#define SECONDS_OF_DAY (24*3600)
+#define SECONDS_OF_HALFDAY (12*3600)
+
 #define BUFFER_SIZE 100
 #define TOTAL_WORDS_A_DAY_MAX [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TOTAL_TARGET] integerValue]
 

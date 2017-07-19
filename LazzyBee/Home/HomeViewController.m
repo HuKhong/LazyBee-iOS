@@ -572,13 +572,32 @@
         //so need to compare current date with date in pickedword
         NSTimeInterval oldDate = [[CommonSqlite sharedCommonSqlite] getDateInBuffer];
         NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];
+        NSTimeInterval offset = 0;
         
+        if (curDate >= oldDate) {
+            offset = curDate - oldDate;
+            
+        } else {
+            offset = oldDate - curDate;
+        }
         
-        if (curDate == oldDate) {
+//        if (curDate == oldDate) {
+        if (offset < SECONDS_OF_DAY) {
             [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:YES] withKey:KEY_COMPLETED_FLAG];
             
             //save streak info
-            [[Common sharedCommon] saveStreak:curDate];
+            NSArray *streakArr = [[Common sharedCommon] loadStreak];
+            NSNumber *streakNumber = [streakArr objectAtIndex:[streakArr count] - 1];
+            if (curDate >= [streakNumber doubleValue]) {
+                offset = curDate - [streakNumber doubleValue];
+                
+            } else {
+                offset = [streakNumber doubleValue] - curDate;
+            }
+            
+            if (offset > SECONDS_OF_HALFDAY) {
+                [[Common sharedCommon] saveStreak:curDate];
+            }
             
             //show streak view
             StreakViewController *streak = [[StreakViewController alloc] initWithNibName:@"StreakViewController" bundle:nil];

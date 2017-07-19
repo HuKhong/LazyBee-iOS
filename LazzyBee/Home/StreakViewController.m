@@ -135,17 +135,26 @@
 //        NSLog(@"day: %@", [[Common sharedCommon] getDayOfWeek:date]);
         
         BOOL status = NO;
+        NSTimeInterval offset = 0;
         
-        for (int j = 0; j < NUMBER_OF_DAYS; j++) {
-            if ([streakArr count] > j) {
-                streakNumber = [streakArr objectAtIndex:[streakArr count] - 1 - j];
+//        for (int j = i; j < NUMBER_OF_DAYS; j++) {
+            if ([streakArr count] > i) {
+                streakNumber = [streakArr objectAtIndex:[streakArr count] - 1 - i];
                 
-                if ([streakNumber doubleValue] == dayInInterval) {
+                
+                if (dayInInterval >= [streakNumber doubleValue]) {
+                    offset = dayInInterval - [streakNumber doubleValue];
+                    
+                } else {
+                    offset = [streakNumber doubleValue] - dayInInterval;
+                }
+                
+                if (offset < SECONDS_OF_DAY + SECONDS_OF_HALFDAY) {
                     status = YES;
-                    break;
+//                    break;
                 }
             }
-        }
+//        }
         
         if (NUMBER_OF_DAYS - 1 - i == 0) {
             statusView = [[DayStatus alloc] initWithFrame:viewDayOne.frame];
@@ -185,7 +194,7 @@
         
         [dayStatusViewArray addObject:statusView];
         
-        dayInInterval = dayInInterval - 24*3600;
+        dayInInterval = dayInInterval - SECONDS_OF_DAY;
     }
 }
 

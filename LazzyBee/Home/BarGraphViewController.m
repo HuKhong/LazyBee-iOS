@@ -87,7 +87,7 @@
     
     CGRect rect = scrollViewContainer.frame;
     
-    rect.size.height = btnShare.frame.origin.y + btnShare.frame.size.height + 10;
+    rect.size.height = btnShare.frame.origin.y + btnShare.frame.size.height + 20;
     [scrollViewContainer setContentSize:rect.size];
     
     [self rotateImage:imgRingStreak duration:2.0
@@ -208,21 +208,27 @@
     [SVProgressHUD show];
     dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(taskQ, ^{
-        NSString * message = @"My learning progress with Lazzy Bee app.\n\n"
-                            "http://www.lazzybee.com/blog/release_notes";
+        NSString * message = @"My learning progress with Lazzy Bee app.";
         btnShare.hidden = YES;
-        UILabel *lbTemp = [[UILabel alloc] initWithFrame:btnShare.frame];
+        
+        CGRect rect = btnShare.frame;
+        rect.origin.y = rect.origin.y - 10;
+        
+        UILabel *lbTemp = [[UILabel alloc] initWithFrame:rect];
         lbTemp.text = @"www.lazzybee.com";
         lbTemp.textAlignment = NSTextAlignmentCenter;
         [scrollViewContainer addSubview:lbTemp];
 
+        [scrollViewContainer setContentOffset:CGPointZero animated:NO];
         UIImage * image = [[Common sharedCommon] createImageFromView:scrollViewContainer];
         
         [lbTemp removeFromSuperview];
         btnShare.hidden = NO;
         
+        NSURL *urlToShare = [NSURL URLWithString:@"http://www.lazzybee.com/blog/release_notes"];
+        
         dispatch_sync(dispatch_get_main_queue(), ^{
-            NSArray * shareItems = @[message, image];
+            NSArray * shareItems = @[message, urlToShare, image];
             
             UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
             avc.excludedActivityTypes = @[ UIActivityTypeAssignToContact, UIActivityTypePrint ];

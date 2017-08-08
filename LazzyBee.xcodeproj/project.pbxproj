@@ -95,7 +95,6 @@
 		551FB8771C031A1800C8B18C /* NoteFullView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FB8751C031A1800C8B18C /* NoteFullView.xib */; };
 		552400E91C87D8E700F7D057 /* AboutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552400E71C87D8E700F7D057 /* AboutTableViewCell.m */; };
 		552400EA1C87D8E700F7D057 /* AboutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552400E81C87D8E700F7D057 /* AboutTableViewCell.xib */; };
-		552BD5691BA1362A00BF316C /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552BD5601BA1362A00BF316C /* GoogleMobileAds.framework */; };
 		552BD56A1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5671BA1362A00BF316C /* README.txt */; };
 		552BD56B1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5681BA1362A00BF316C /* README.txt */; };
 		552BD59E1BA15F7200BF316C /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552BD5991BA15F7200BF316C /* AboutViewController.m */; };
@@ -241,6 +240,8 @@
 		5588BCEC1D46044D0093363D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5588BCEB1D46044D0093363D /* CoreMotion.framework */; };
 		5588BCEE1D4604530093363D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5588BCED1D4604530093363D /* AdSupport.framework */; };
 		558B4B811EEFBC9600A3C123 /* _lazzybee_guide.htm in Resources */ = {isa = PBXBuildFile; fileRef = 558B4B801EEFBC9600A3C123 /* _lazzybee_guide.htm */; };
+		55947A681F341DF600EC81A1 /* AdsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55947A661F341DF600EC81A1 /* AdsViewController.m */; };
+		55947A691F341DF600EC81A1 /* AdsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55947A671F341DF600EC81A1 /* AdsViewController.xib */; };
 		5597EC411BCE090700E1F779 /* ic_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC3E1BCE090700E1F779 /* ic_about.png */; };
 		5597EC421BCE090700E1F779 /* ic_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC3F1BCE090700E1F779 /* ic_about@2x.png */; };
 		5597EC431BCE090700E1F779 /* ic_about@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5597EC401BCE090700E1F779 /* ic_about@3x.png */; };
@@ -268,6 +269,7 @@
 		559E67C41BEF569100232439 /* hive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559E67C11BEF569100232439 /* hive@3x.png */; };
 		559E67C51BEF569100232439 /* hive.png in Resources */ = {isa = PBXBuildFile; fileRef = 559E67C21BEF569100232439 /* hive.png */; };
 		559E67C61BEF569100232439 /* hive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559E67C31BEF569100232439 /* hive@2x.png */; };
+		55A7F33C1F34301A00AEFCEA /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A7F33B1F34301A00AEFCEA /* GoogleMobileAds.framework */; };
 		55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BED1BBE36D000693411 /* LevelPickerViewController.m */; };
 		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; };
 		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; };
@@ -291,6 +293,11 @@
 		55C3BAA91D50536B00628318 /* ImportWordReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C3BAA71D50536B00628318 /* ImportWordReport.m */; };
 		55C3BAAA1D50536B00628318 /* ImportWordReport.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55C3BAA81D50536B00628318 /* ImportWordReport.xib */; };
 		55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */ = {isa = PBXBuildFile; fileRef = 55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */; };
+		55D068191F397C9B00FBE762 /* SaveStreakView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D068161F397C9B00FBE762 /* SaveStreakView.m */; };
+		55D0681A1F397C9B00FBE762 /* SaveStreakView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D068171F397C9B00FBE762 /* SaveStreakView.xib */; };
+		55D0681E1F397E7400FBE762 /* ic_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 55D0681B1F397E7400FBE762 /* ic_clear.png */; };
+		55D0681F1F397E7400FBE762 /* ic_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55D0681C1F397E7400FBE762 /* ic_clear@2x.png */; };
+		55D068201F397E7400FBE762 /* ic_clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55D0681D1F397E7400FBE762 /* ic_clear@3x.png */; };
 		55DC326E1C2BCE7000D56D39 /* ic_alert_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 55DC32681C2BCE7000D56D39 /* ic_alert_white.png */; };
 		55DC326F1C2BCE7000D56D39 /* ic_alert_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55DC32691C2BCE7000D56D39 /* ic_alert_white@2x.png */; };
 		55DC32701C2BCE7000D56D39 /* ic_alert_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55DC326A1C2BCE7000D56D39 /* ic_alert_white@3x.png */; };
@@ -363,7 +370,8 @@
 		55FE8EA11BCF69AD00059AA7 /* bee.png in Resources */ = {isa = PBXBuildFile; fileRef = 55FE8E9E1BCF69AD00059AA7 /* bee.png */; };
 		55FE8EA21BCF69AD00059AA7 /* bee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55FE8E9F1BCF69AD00059AA7 /* bee@2x.png */; };
 		55FE8EA31BCF69AD00059AA7 /* bee@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55FE8EA01BCF69AD00059AA7 /* bee@3x.png */; };
-		F99E243F9B604D0379290A86 /* libPods-LazzyBee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B69F71DB11F25461D3266F /* libPods-LazzyBee.a */; };
+		C8BF4857B3360471999729BE /* libPods-LazzyBee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CCF8F6BD656F06293F6285F /* libPods-LazzyBee.a */; };
+		F6A229F99E9A3E63D8EE3E36 /* libPods-LazzyBeeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0611CD4E101C773A08713ABD /* libPods-LazzyBeeTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -390,11 +398,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		000FEC25AC72B4572A53C452 /* Pods-LazzyBee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LazzyBee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LazzyBee/Pods-LazzyBee.debug.xcconfig"; sourceTree = "<group>"; };
+		0037627D66B60A46B3A8ED17 /* Pods-LazzyBee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LazzyBee.release.xcconfig"; path = "Pods/Target Support Files/Pods-LazzyBee/Pods-LazzyBee.release.xcconfig"; sourceTree = "<group>"; };
+		0611CD4E101C773A08713ABD /* libPods-LazzyBeeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LazzyBeeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0856E7CCC408949028A3F3D9 /* Pods-LazzyBee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LazzyBee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LazzyBee/Pods-LazzyBee.debug.xcconfig"; sourceTree = "<group>"; };
+		2CCF8F6BD656F06293F6285F /* libPods-LazzyBee.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LazzyBee.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED661861B8488C50030BB3F /* CommonSqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonSqlite.h; path = Common/CommonSqlite.h; sourceTree = "<group>"; };
 		3ED661871B8488C50030BB3F /* CommonSqlite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommonSqlite.m; path = Common/CommonSqlite.m; sourceTree = "<group>"; };
-		4249B1AF238DE86549B2CD59 /* Pods-LazzyBee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LazzyBee.release.xcconfig"; path = "Pods/Target Support Files/Pods-LazzyBee/Pods-LazzyBee.release.xcconfig"; sourceTree = "<group>"; };
-		46B69F71DB11F25461D3266F /* libPods-LazzyBee.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LazzyBee.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D35B3421B6BC7C600EA67C2 /* LazzyBee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LazzyBee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D35B3461B6BC7C600EA67C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D35B3471B6BC7C600EA67C2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -735,6 +744,9 @@
 		5588BCEB1D46044D0093363D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		5588BCED1D4604530093363D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		558B4B801EEFBC9600A3C123 /* _lazzybee_guide.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = _lazzybee_guide.htm; path = Resource/_lazzybee_guide.htm; sourceTree = "<group>"; };
+		55947A651F341DF600EC81A1 /* AdsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdsViewController.h; path = List/AdsViewController.h; sourceTree = "<group>"; };
+		55947A661F341DF600EC81A1 /* AdsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AdsViewController.m; path = List/AdsViewController.m; sourceTree = "<group>"; };
+		55947A671F341DF600EC81A1 /* AdsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AdsViewController.xib; path = List/AdsViewController.xib; sourceTree = "<group>"; };
 		55969EA61C27BF17000F537E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5597EC3E1BCE090700E1F779 /* ic_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_about.png; sourceTree = "<group>"; };
 		5597EC3F1BCE090700E1F779 /* ic_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_about@2x.png"; sourceTree = "<group>"; };
@@ -766,6 +778,7 @@
 		559E67C11BEF569100232439 /* hive@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hive@3x.png"; sourceTree = "<group>"; };
 		559E67C21BEF569100232439 /* hive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hive.png; sourceTree = "<group>"; };
 		559E67C31BEF569100232439 /* hive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hive@2x.png"; sourceTree = "<group>"; };
+		55A7F33B1F34301A00AEFCEA /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		55B08BEC1BBE36D000693411 /* LevelPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPickerViewController.h; sourceTree = "<group>"; };
 		55B08BED1BBE36D000693411 /* LevelPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPickerViewController.m; sourceTree = "<group>"; };
 		55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelPickerViewController.xib; sourceTree = "<group>"; };
@@ -797,6 +810,12 @@
 		55C3BAA71D50536B00628318 /* ImportWordReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportWordReport.m; sourceTree = "<group>"; };
 		55C3BAA81D50536B00628318 /* ImportWordReport.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImportWordReport.xib; sourceTree = "<group>"; };
 		55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
+		55D068161F397C9B00FBE762 /* SaveStreakView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveStreakView.m; sourceTree = "<group>"; };
+		55D068171F397C9B00FBE762 /* SaveStreakView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaveStreakView.xib; sourceTree = "<group>"; };
+		55D068181F397C9B00FBE762 /* SaveStreakView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveStreakView.h; sourceTree = "<group>"; };
+		55D0681B1F397E7400FBE762 /* ic_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_clear.png; sourceTree = "<group>"; };
+		55D0681C1F397E7400FBE762 /* ic_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@2x.png"; sourceTree = "<group>"; };
+		55D0681D1F397E7400FBE762 /* ic_clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clear@3x.png"; sourceTree = "<group>"; };
 		55DC32681C2BCE7000D56D39 /* ic_alert_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_alert_white.png; sourceTree = "<group>"; };
 		55DC32691C2BCE7000D56D39 /* ic_alert_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_alert_white@2x.png"; sourceTree = "<group>"; };
 		55DC326A1C2BCE7000D56D39 /* ic_alert_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_alert_white@3x.png"; sourceTree = "<group>"; };
@@ -894,6 +913,8 @@
 		55FE8E9E1BCF69AD00059AA7 /* bee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bee.png; sourceTree = "<group>"; };
 		55FE8E9F1BCF69AD00059AA7 /* bee@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee@2x.png"; sourceTree = "<group>"; };
 		55FE8EA01BCF69AD00059AA7 /* bee@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bee@3x.png"; sourceTree = "<group>"; };
+		6E2770BD55E30487DE596E2D /* Pods-LazzyBeeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LazzyBeeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LazzyBeeTests/Pods-LazzyBeeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7A2CF7093588F77C3A413859 /* Pods-LazzyBeeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LazzyBeeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LazzyBeeTests/Pods-LazzyBeeTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -901,6 +922,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55A7F33C1F34301A00AEFCEA /* GoogleMobileAds.framework in Frameworks */,
 				5588BCEE1D4604530093363D /* AdSupport.framework in Frameworks */,
 				5588BCEC1D46044D0093363D /* CoreMotion.framework in Frameworks */,
 				5570C8F21BCCA2A300DD1EC6 /* libsqlite3.tbd in Frameworks */,
@@ -909,13 +931,12 @@
 				4D7C28591BABCC27005B274E /* SystemConfiguration.framework in Frameworks */,
 				4D7C28571BABCC13005B274E /* CoreData.framework in Frameworks */,
 				4DD3C3991B6F191C00B6DA71 /* Bolts.framework in Frameworks */,
-				552BD5691BA1362A00BF316C /* GoogleMobileAds.framework in Frameworks */,
 				4DD3C39D1B6F191C00B6DA71 /* FBSDKCoreKit.framework in Frameworks */,
 				4DD3C3A01B6F191C00B6DA71 /* FBSDKShareKit.framework in Frameworks */,
 				4DD3C39F1B6F191C00B6DA71 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				4DD3C39E1B6F191C00B6DA71 /* FBSDKLoginKit.framework in Frameworks */,
 				4DD3C39B1B6F191C00B6DA71 /* FBAudienceNetwork.framework in Frameworks */,
-				F99E243F9B604D0379290A86 /* libPods-LazzyBee.a in Frameworks */,
+				C8BF4857B3360471999729BE /* libPods-LazzyBee.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +944,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6A229F99E9A3E63D8EE3E36 /* libPods-LazzyBeeTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,7 +965,7 @@
 				4D35B3611B6BC7C600EA67C2 /* LazzyBeeTests */,
 				55264C831C2401CA0059CF55 /* Frameworks */,
 				4D35B3431B6BC7C600EA67C2 /* Products */,
-				70A43719B8E4C06D5C1B98B3 /* Pods */,
+				7DE5F8C709C256C9BDC4D44F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1250,6 +1272,9 @@
 		4DD3C3BF1B6F218700B6DA71 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				55D0681B1F397E7400FBE762 /* ic_clear.png */,
+				55D0681C1F397E7400FBE762 /* ic_clear@2x.png */,
+				55D0681D1F397E7400FBE762 /* ic_clear@3x.png */,
 				551B9B081CDAEEAB000403CE /* ic_extension.png */,
 				551B9B091CDAEEAB000403CE /* ic_extension@2x.png */,
 				551B9B0A1CDAEEAB000403CE /* ic_extension@3x.png */,
@@ -1427,11 +1452,13 @@
 		55264C831C2401CA0059CF55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55A7F33B1F34301A00AEFCEA /* GoogleMobileAds.framework */,
 				5588BCED1D4604530093363D /* AdSupport.framework */,
 				5588BCEB1D46044D0093363D /* CoreMotion.framework */,
 				55969EA61C27BF17000F537E /* UIKit.framework */,
 				55264C841C2401CA0059CF55 /* NotificationCenter.framework */,
-				46B69F71DB11F25461D3266F /* libPods-LazzyBee.a */,
+				2CCF8F6BD656F06293F6285F /* libPods-LazzyBee.a */,
+				0611CD4E101C773A08713ABD /* libPods-LazzyBeeTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1535,6 +1562,9 @@
 				554821561D51A14800ACE70D /* EditWordListViewController.h */,
 				554821571D51A14800ACE70D /* EditWordListViewController.m */,
 				554821581D51A14800ACE70D /* EditWordListViewController.xib */,
+				55947A651F341DF600EC81A1 /* AdsViewController.h */,
+				55947A661F341DF600EC81A1 /* AdsViewController.m */,
+				55947A671F341DF600EC81A1 /* AdsViewController.xib */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -1653,6 +1683,9 @@
 		55C3BAA51D50536B00628318 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				55D068161F397C9B00FBE762 /* SaveStreakView.m */,
+				55D068171F397C9B00FBE762 /* SaveStreakView.xib */,
+				55D068181F397C9B00FBE762 /* SaveStreakView.h */,
 				55C3BAA61D50536B00628318 /* ImportWordReport.h */,
 				55C3BAA71D50536B00628318 /* ImportWordReport.m */,
 				55C3BAA81D50536B00628318 /* ImportWordReport.xib */,
@@ -1862,11 +1895,13 @@
 			path = LineGraph;
 			sourceTree = "<group>";
 		};
-		70A43719B8E4C06D5C1B98B3 /* Pods */ = {
+		7DE5F8C709C256C9BDC4D44F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				000FEC25AC72B4572A53C452 /* Pods-LazzyBee.debug.xcconfig */,
-				4249B1AF238DE86549B2CD59 /* Pods-LazzyBee.release.xcconfig */,
+				0856E7CCC408949028A3F3D9 /* Pods-LazzyBee.debug.xcconfig */,
+				0037627D66B60A46B3A8ED17 /* Pods-LazzyBee.release.xcconfig */,
+				6E2770BD55E30487DE596E2D /* Pods-LazzyBeeTests.debug.xcconfig */,
+				7A2CF7093588F77C3A413859 /* Pods-LazzyBeeTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1878,13 +1913,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D35B3681B6BC7C600EA67C2 /* Build configuration list for PBXNativeTarget "LazzyBee" */;
 			buildPhases = (
-				FC1EBE477FBBDB9F154CE470 /* Check Pods Manifest.lock */,
+				C4451BC0B223C6299348EEC3 /* [CP] Check Pods Manifest.lock */,
 				4D35B33E1B6BC7C600EA67C2 /* Sources */,
 				4D35B33F1B6BC7C600EA67C2 /* Frameworks */,
 				4D35B3401B6BC7C600EA67C2 /* Resources */,
 				55264C941C2401CA0059CF55 /* Embed App Extensions */,
-				FAAC1B4F27DC52D7C7F805EB /* Embed Pods Frameworks */,
-				5652103AC0924F8BA044C5FE /* Copy Pods Resources */,
+				AE9D28107A2D731F504BBFB1 /* [CP] Embed Pods Frameworks */,
+				EC70D0E66AC272645F231F9B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1899,9 +1934,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D35B36B1B6BC7C600EA67C2 /* Build configuration list for PBXNativeTarget "LazzyBeeTests" */;
 			buildPhases = (
+				0DDE6CE8B187AA7DE1FC13E0 /* [CP] Check Pods Manifest.lock */,
 				4D35B35A1B6BC7C600EA67C2 /* Sources */,
 				4D35B35B1B6BC7C600EA67C2 /* Frameworks */,
 				4D35B35C1B6BC7C600EA67C2 /* Resources */,
+				0F9AFF2D8D7AB5411C3780F5 /* [CP] Embed Pods Frameworks */,
+				88A7B9B9A8FF589AAC01FAE3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2003,6 +2041,7 @@
 				551FB8771C031A1800C8B18C /* NoteFullView.xib in Resources */,
 				55F7E6751BFB014300EB27A2 /* LICENSE in Resources */,
 				556481391CF45F6900DDD09C /* button_short_ipad_gray@2x.png in Resources */,
+				55D068201F397E7400FBE762 /* ic_clear@3x.png in Resources */,
 				4DD3C39C1B6F191C00B6DA71 /* FBAudienceNetwork.README.txt in Resources */,
 				55E1063D1BF1DF18008A6BEA /* medicine.png in Resources */,
 				553882821CF6EC5200E12EFC /* ReverseViewController_iPad.xib in Resources */,
@@ -2056,6 +2095,7 @@
 				55028A101BF092C2007181C3 /* bee_rotate@3x.png in Resources */,
 				551FB8601C02F75B00C8B18C /* button_short_ipad.png in Resources */,
 				55C1B21F1BF2F0C600D917EB /* uncheck@2x.png in Resources */,
+				55D0681A1F397C9B00FBE762 /* SaveStreakView.xib in Resources */,
 				55028A0A1BF08C17007181C3 /* HelpViewController.xib in Resources */,
 				5573939F1CF55CA8000F1E0A /* ReverseViewController.xib in Resources */,
 				5564813B1CF45F6900DDD09C /* button_short_gray.png in Resources */,
@@ -2106,6 +2146,7 @@
 				4DD3C3A11B6F191C00B6DA71 /* LICENSE in Resources */,
 				55DCB8931C2D20A700ADEF18 /* Localizable.strings in Resources */,
 				55452C571BC5128700D6E430 /* ic_dictionary@2x.png in Resources */,
+				55D0681E1F397E7400FBE762 /* ic_clear.png in Resources */,
 				552BD59F1BA15F7200BF316C /* AboutViewController.xib in Resources */,
 				55EBA3EE1C74137F006B4A5A /* ic_search_gray@2x.png in Resources */,
 				55308B4E1BF0423A00FF0457 /* day_ring_gray@2x.png in Resources */,
@@ -2157,6 +2198,8 @@
 				559E67B51BEB135F00232439 /* big_logo@3x.png in Resources */,
 				553882871CF6FAD300E12EFC /* ic_lightning@2x.png in Resources */,
 				551FB8611C02F75B00C8B18C /* button_short_ipad@2x.png in Resources */,
+				55947A691F341DF600EC81A1 /* AdsViewController.xib in Resources */,
+				55D0681F1F397E7400FBE762 /* ic_clear@2x.png in Resources */,
 				553882861CF6FAD300E12EFC /* ic_lightning.png in Resources */,
 				55C092341BCF431E005C78B5 /* PopupView.xib in Resources */,
 				550FD2761C771280009D7159 /* Default-568h@2x.png in Resources */,
@@ -2196,29 +2239,59 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5652103AC0924F8BA044C5FE /* Copy Pods Resources */ = {
+		0DDE6CE8B187AA7DE1FC13E0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LazzyBee/Pods-LazzyBee-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		FAAC1B4F27DC52D7C7F805EB /* Embed Pods Frameworks */ = {
+		0F9AFF2D8D7AB5411C3780F5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LazzyBeeTests/Pods-LazzyBeeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88A7B9B9A8FF589AAC01FAE3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LazzyBeeTests/Pods-LazzyBeeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE9D28107A2D731F504BBFB1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2226,19 +2299,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LazzyBee/Pods-LazzyBee-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FC1EBE477FBBDB9F154CE470 /* Check Pods Manifest.lock */ = {
+		C4451BC0B223C6299348EEC3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EC70D0E66AC272645F231F9B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LazzyBee/Pods-LazzyBee-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2257,6 +2345,7 @@
 				557288C81BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m in Sources */,
 				55F7E6831BFB036400EB27A2 /* BarGraphViewController.m in Sources */,
 				55F7E66B1BFB014300EB27A2 /* BButton.m in Sources */,
+				55947A681F341DF600EC81A1 /* AdsViewController.m in Sources */,
 				557288D31BB25DAA00EA0CE9 /* GTMReadMonitorInputStream.m in Sources */,
 				4DD3C3A41B6F191C00B6DA71 /* UIViewController+JASidePanel.m in Sources */,
 				557288D61BB25DAA00EA0CE9 /* GTLBatchResult.m in Sources */,
@@ -2354,6 +2443,7 @@
 				557288EE1BB2844700EA0CE9 /* SVRadialGradientLayer.m in Sources */,
 				55F7E6771BFB014300EB27A2 /* NSArray+MK_Block.m in Sources */,
 				55F7E6741BFB014300EB27A2 /* README.md in Sources */,
+				55D068191F397C9B00FBE762 /* SaveStreakView.m in Sources */,
 				557288DD1BB25DAA00EA0CE9 /* GTLRuntimeCommon.m in Sources */,
 				552E2B7A1C31151A0074E49D /* ChangeLanguageViewController.m in Sources */,
 				55E1062E1BF18B14008A6BEA /* MGSwipeButton.m in Sources */,
@@ -2488,7 +2578,7 @@
 		};
 		4D35B3691B6BC7C600EA67C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000FEC25AC72B4572A53C452 /* Pods-LazzyBee.debug.xcconfig */;
+			baseConfigurationReference = 0856E7CCC408949028A3F3D9 /* Pods-LazzyBee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2500,6 +2590,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LazzyBee/Lib/FacebookSDK",
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
+					"$(PROJECT_DIR)/Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2517,7 +2608,7 @@
 		};
 		4D35B36A1B6BC7C600EA67C2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4249B1AF238DE86549B2CD59 /* Pods-LazzyBee.release.xcconfig */;
+			baseConfigurationReference = 0037627D66B60A46B3A8ED17 /* Pods-LazzyBee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2529,6 +2620,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LazzyBee/Lib/FacebookSDK",
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
+					"$(PROJECT_DIR)/Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2546,6 +2638,7 @@
 		};
 		4D35B36C1B6BC7C600EA67C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E2770BD55E30487DE596E2D /* Pods-LazzyBeeTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2566,6 +2659,7 @@
 		};
 		4D35B36D1B6BC7C600EA67C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A2CF7093588F77C3A413859 /* Pods-LazzyBeeTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

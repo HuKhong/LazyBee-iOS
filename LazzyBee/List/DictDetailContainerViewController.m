@@ -18,12 +18,14 @@
 #import "GTMHTTPFetcher.h"
 #import "GTLDataServiceApi.h"
 #import "Algorithm.h"
+#import "AdsViewController.h"
 
 @import FirebaseAnalytics;
 
 @interface DictDetailContainerViewController ()
 {
     MHTabBarController *tabViewController;
+    BOOL enableAds;
 }
 @end
 
@@ -56,8 +58,6 @@
     GADRequest *request = [GADRequest request];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-
-    BOOL enableAds = YES;
     
     //if it is the learning screen, show default ads
     //else show dictionary ads
@@ -89,6 +89,8 @@
     
     [self.adBanner loadRequest:request];
     
+    enableAds = YES;
+    
     if (pub_id == nil || pub_id.length == 0 ||
         adv_id == nil || adv_id.length == 0 ||
         ![[Common sharedCommon] networkIsActive]) {
@@ -116,12 +118,15 @@
     lazzyViewController.wordObj = _wordObj;
     lazzyViewController.title = @"Lazzy Bee";
     
+    AdsViewController *adsViewController = [[AdsViewController alloc] initWithNibName:@"AdsViewController" bundle:nil];
+    adsViewController.title = @"Sponsor";
+    
     NSArray *viewControllers = nil;
     
     if (_showLazzyBeeTab) {
         viewControllers = @[vnViewController, enViewController, lazzyViewController];
     } else {
-        viewControllers = @[vnViewController, enViewController];
+        viewControllers = @[vnViewController, enViewController, adsViewController];
     }
     
     tabViewController = [[MHTabBarController alloc] init];
@@ -322,5 +327,42 @@
     } else {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/lazzybees"]];
     }
+}
+
+#pragma mark Tab delegate
+- (BOOL)mh_tabBarController:(MHTabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index {
+    
+    if (index == tabBarController.viewControllers.count - 1 ) {
+        CGRect rect;
+
+        rect = self.view.frame;
+        rect.origin.y = 0;
+        
+        [viewContainer setFrame:rect];
+        
+        _adBanner.hidden = YES;
+        
+    } else {
+        if (enableAds) {
+            _adBanner.hidden = NO;
+        } else {
+            _adBanner.hidden = YES;
+        }
+        
+        CGRect rect;
+        
+        if (_adBanner.hidden == NO) {
+            rect = self.view.frame;
+            rect.origin.y = 0;
+            rect.size.height = _adBanner.frame.origin.y - 3;
+            
+        } else {
+            rect = self.view.frame;
+            rect.origin.y = 0;
+        }
+        
+        [viewContainer setFrame:rect];
+    }
+    return YES;
 }
 @end

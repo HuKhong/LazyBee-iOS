@@ -12,8 +12,11 @@
 #import "PlaySoundLib.h"
 #import "TagManagerHelper.h"
 #import "LocalizeHelper.h"
+#import "AppDelegate.h"
+#import "SaveStreakView.h"
 
 @import FirebaseAnalytics;
+@import GoogleMobileAds;
 
 #define NUMBER_OF_DAYS 7
 // This is defined in Math.h
@@ -23,7 +26,12 @@
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
 
 @interface StreakViewController ()
-
+{
+    GADInterstitial *interstitial;
+    NSMutableArray *missingDays;
+    
+    SaveStreakView *saveStreakView;
+}
 @end
 
 @implementation StreakViewController
@@ -49,6 +57,38 @@
     [self setTitle:LocalizedString(@"Daily target completed")];
     [btnContinue setTitle:LocalizedString(@"Continue") forState:UIControlStateNormal];
     
+    missingDays = [[NSMutableArray alloc] init];
+    
+    [self displayContent];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showAdsContent)
+                                                 name:@"WatchAds"
+                                               object:nil];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [self playEffect];
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (void)displayContent {
     NSInteger streakCount = [[Common sharedCommon] getCountOfStreak];
     
     lbStreakCount.text = [NSString stringWithFormat:@"%ld %@", (long)streakCount, LocalizedString(@"day")];
@@ -65,18 +105,11 @@
     [lbLink setAttributedText:attributeString];
     
     [FIRAnalytics logEventWithName:EVENT_STREAK parameters:@{
-                                                          kFIRParameterValue:@(streakCount)
-                                                          }];
+                                                             kFIRParameterValue:@(streakCount)
+                                                             }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-    
+- (void)playEffect {
     CGRect rect = scrollViewContainer.frame;
     
     rect.size.height = btnContinue.frame.origin.y + btnContinue.frame.size.height + 10;
@@ -87,17 +120,6 @@
     
     [[PlaySoundLib sharedPlaySoundLib] playFileInResource:@"magic.mp3"];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 - (void)rotateImage:(UIImageView *)image duration:(NSTimeInterval)duration
               curve:(int)curve degrees:(CGFloat)degrees
@@ -137,9 +159,9 @@
         BOOL status = NO;
         NSTimeInterval offset = 0;
         
-//        for (int j = i; j < NUMBER_OF_DAYS; j++) {
-            if ([streakArr count] > i) {
-                streakNumber = [streakArr objectAtIndex:[streakArr count] - 1 - i];
+        for (int j = i; j < NUMBER_OF_DAYS; j++) {
+            if ([streakArr count] > j) {
+                streakNumber = [streakArr objectAtIndex:[streakArr count] - 1 - j];
                 
                 
                 if (dayInInterval >= [streakNumber doubleValue]) {
@@ -151,10 +173,10 @@
                 
                 if (offset < SECONDS_OF_DAY + SECONDS_OF_HALFDAY) {
                     status = YES;
-//                    break;
+                    break;
                 }
             }
-//        }
+        }
         
         if (NUMBER_OF_DAYS - 1 - i == 0) {
             statusView = [[DayStatus alloc] initWithFrame:viewDayOne.frame];
@@ -192,9 +214,64 @@
         statusView.strDay = [[Common sharedCommon] getDayOfWeek:date];
         statusView.streakStatus = status;
         
+        if (status == NO) {
+            
+            [missingDays addObject:[NSNumber numberWithInteger:dayInInterval]]; //save expected day
+        }
+        
         [dayStatusViewArray addObject:statusView];
         
         dayInInterval = dayInInterval - SECONDS_OF_DAY;
+    }
+    
+    //check missing days
+    BOOL found = NO;
+    NSTimeInterval day = 0;
+    NSMutableArray *tmps = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [missingDays count]; i++) {
+        day = [[missingDays objectAtIndex:i] doubleValue];
+        found = NO;
+        
+        for (int j = 0; j < NUMBER_OF_DAYS; j++) {
+            if ([streakArr count] > j) {
+                if (day >= [[streakArr objectAtIndex:[streakArr count] - 1 - j] doubleValue]) {
+                    found = YES;
+                    break;
+                }
+            }
+        }
+        
+        if (found == NO) {
+            [tmps addObject:[missingDays objectAtIndex:i]];
+        }
+    }
+    
+    if ([tmps count] > 0) {
+        [missingDays removeObjectsInArray:tmps];
+    }
+    
+    [self showStreakSaver];
+}
+
+- (void)showStreakSaver {
+    if ([missingDays count] > 0) {
+        if (saveStreakView == nil) {
+            saveStreakView = [[SaveStreakView alloc] initWithNibName:@"SaveStreakView" bundle:nil];
+            
+            saveStreakView.view.alpha = 0;
+            
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            CGRect rect = appDelegate.window.frame;
+            [saveStreakView.view setFrame:rect];
+            
+            [appDelegate.window addSubview:saveStreakView.view];
+            
+            [UIView animateWithDuration:0.3 animations:^(void) {
+                saveStreakView.view.alpha = 1;
+            }];
+        }
     }
 }
 
@@ -212,5 +289,88 @@
 
 - (IBAction)tapOnLinkHandle:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.lazzybee.com/blog/can_you_learn_2000_words_per_year"]];
+}
+
+#pragma mark admob
+- (void)createAndLoadInterstitial {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+
+    NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"admob_pub_id"],[container stringForKey:@"adv_fullscreen_id"] ];
+
+    interstitial = [[GADInterstitial alloc] initWithAdUnitID:advStr]; //@"ca-app-pub-3940256099942544/4411468910"
+    interstitial.delegate = (id)self;
+    
+    GADRequest *request = [GADRequest request];
+    // Request test ads on devices you specify. Your test device ID is printed to the console when
+    // an ad request is made. GADInterstitial automatically returns test ads when running on a
+    // simulator.
+    request.testDevices = @[
+                            @"687f0b503566ebb7d84524c1f15e1d16",
+                            kGADSimulatorID
+                            ];
+    [interstitial loadRequest:request];
+}
+
+- (void)interstitial:(GADInterstitial *)interstitial
+didFailToReceiveAdWithError:(GADRequestError *)error {
+    NSLog(@"interstitialDidFailToReceiveAdWithError: %@", [error localizedDescription]);
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+    NSLog(@"interstitialDidDismissScreen");
+}
+
+- (void)prepareRewardedVideo {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+    
+    NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"admob_pub_id"],[container stringForKey:@"streak_saver"] ];
+    
+    [GADRewardBasedVideoAd sharedInstance].delegate = (id)self;
+    [[GADRewardBasedVideoAd sharedInstance] loadRequest:[GADRequest request]
+                                           withAdUnitID:advStr];
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+   didRewardUserWithReward:(GADAdReward *)reward {
+//    NSString *rewardMessage = [NSString stringWithFormat:@"Reward received with currency %@ , amount %lf",
+//     reward.type,
+//     [reward.amount doubleValue]];
+//    NSLog(@"%@", rewardMessage);
+}
+
+- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is received.");
+}
+
+- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Opened reward based video ad.");
+}
+
+- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad started playing.");
+}
+
+- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is closed.");
+}
+
+- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad will leave application.");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+    didFailToLoadWithError:(NSError *)error {
+    NSLog(@"Reward based video ad failed to load.");
+}
+
+- (void)showAdsContent {
+    if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
+        
+    } else if (interstitial.isReady) {
+        [interstitial presentFromRootViewController:self];
+    }
 }
 @end

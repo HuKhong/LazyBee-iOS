@@ -907,6 +907,10 @@
     
     [streakArr addObject:number];
     
+    NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self"
+                                                                ascending: YES];
+
+    [streakArr sortUsingDescriptors:@[sortOrder]];
     NSData* archivedData = [NSKeyedArchiver archivedDataWithRootObject:streakArr];
     
     [self saveDataToUserDefaultStandard:archivedData withKey:KEY_STREAK_INFO];
@@ -973,7 +977,7 @@
             offset = curDate - streakDate;
             
 //            if (offset == 24 * 3600) {
-            if (offset <= SECONDS_OF_DAY*2) {
+            if (offset < SECONDS_OF_DAY+ SECONDS_OF_HALFDAY) {
                 count++;
                 
             } else {

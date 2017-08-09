@@ -12,7 +12,11 @@
 {
     IBOutlet UIButton *btnSubmit;
 
-    IBOutlet UIView *viewContainer;
+    IBOutlet UILabel *lbSaveStreakTitle;
+    IBOutlet UILabel *saveStreakGuide;
+//    IBOutlet UIView *viewContainer;
 }
 
+@property (strong, nonatomic) IBOutlet UIView *viewContainer;
+@property (assign, nonatomic) NSInteger missingCount;
 @end

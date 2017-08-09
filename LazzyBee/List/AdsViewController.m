@@ -32,7 +32,7 @@
     
     NSString *pub_id = [container stringForKey:pubKey];
     NSString *adv_id = [container stringForKey:adsKey];
-//    adv_id = @"4954513019";
+    adv_id = @"4954513019";
     NSString *advStr = [NSString stringWithFormat:@"%@/%@", pub_id,adv_id ];
     
     GADRequest *request = [GADRequest request];
@@ -40,10 +40,10 @@
     bannerView.adUnitID = advStr;//@"ca-app-pub-3940256099942544/4954513019";
     bannerView.rootViewController = self;
     
-    request.testDevices = @[
-                            @"687f0b503566ebb7d84524c1f15e1d16",
-                            kGADSimulatorID
-                            ];
+//    request.testDevices = @[
+//                            @"687f0b503566ebb7d84524c1f15e1d16",
+//                            kGADSimulatorID
+//                            ];
     
     [bannerView loadRequest:request];
     

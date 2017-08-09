@@ -45,7 +45,7 @@
         NSTimeInterval curDateTime = [[Common sharedCommon] getCurrentDatetimeInSec];
         //1497891600
 
-        if (curDateTime < 1497891600) {
+        if (curDateTime < 1502873962) {
             htmlFile = [[NSBundle mainBundle] pathForResource:@"_lazzybee_guide" ofType:@"htm"];
         }
         

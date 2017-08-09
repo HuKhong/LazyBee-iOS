@@ -8,7 +8,7 @@
 
 #import "SaveStreakView.h"
 #import "LocalizeHelper.h"
-
+#import "CommonDefine.h"
 
 #define TEXT_PLACEHOLDER LocalizedString(@"Comment")
 
@@ -19,20 +19,28 @@
 @end
 
 @implementation SaveStreakView
+@synthesize viewContainer = _viewContainer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-    viewContainer.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    viewContainer.layer.borderWidth = 1.0f;
-    viewContainer.layer.cornerRadius = 5.0f;
-    viewContainer.clipsToBounds = YES;
+    _viewContainer.layer.borderColor = COMMON_COLOR.CGColor;
+    _viewContainer.layer.borderWidth = 1.0f;
+    _viewContainer.layer.cornerRadius = 5.0f;
+    _viewContainer.clipsToBounds = YES;
     
-    viewContainer.layer.masksToBounds = NO;
-    viewContainer.layer.shadowOffset = CGSizeMake(-5, 10);
-    viewContainer.layer.shadowRadius = 5;
-    viewContainer.layer.shadowOpacity = 0.5;
+    _viewContainer.layer.masksToBounds = NO;
+    _viewContainer.layer.shadowOffset = CGSizeMake(-5, 10);
+    _viewContainer.layer.shadowRadius = 5;
+    _viewContainer.layer.shadowOpacity = 0.5;
+    
+    NSString *content = LocalizedString(@"Watch ads to save streak");
+    content = [NSString stringWithFormat:content, _missingCount];
+    
+    [btnSubmit setTitle:LocalizedString(@"Watch Ads") forState:UIControlStateNormal];
+    saveStreakGuide.text = content;
+    lbSaveStreakTitle.text = LocalizedString(@"Save streak");
 
 }
 

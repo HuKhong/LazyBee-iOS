@@ -693,10 +693,10 @@
         // Request test ads on devices you specify. Your test device ID is printed to the console when
         // an ad request is made. GADInterstitial automatically returns test ads when running on a
         // simulator.
-        request.testDevices = @[
-                                @"687f0b503566ebb7d84524c1f15e1d16",
-                                kGADSimulatorID
-                                ];
+//        request.testDevices = @[
+//                                @"687f0b503566ebb7d84524c1f15e1d16",
+//                                kGADSimulatorID
+//                                ];
         [self.interstitial loadRequest:request];
 //    }
 }

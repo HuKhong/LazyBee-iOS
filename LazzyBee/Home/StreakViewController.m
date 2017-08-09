@@ -65,6 +65,9 @@
                                              selector:@selector(showAdsContent)
                                                  name:@"WatchAds"
                                                object:nil];
+    
+    [self createAndLoadInterstitial];
+    [self prepareRewardedVideo];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,6 +98,7 @@
     
     lbCongratulation.text = [NSString stringWithFormat:LocalizedString(@"Streack congratulation"), (long)streakCount];
     
+    [missingDays removeAllObjects];
     [self displayDaysWithStreakStatus];
     
     NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:LocalizedString(@"2000 words/year with 5 minutes per day")];
@@ -140,6 +144,35 @@
 }
 
 - (void)displayDaysWithStreakStatus {
+    //remove subviews
+    if ([viewDayOne.subviews count] > 0) {
+        [[viewDayOne.subviews objectAtIndex:0] removeFromSuperview];
+    }
+    
+    if ([viewDayTwo.subviews count] > 0) {
+        [[viewDayTwo.subviews objectAtIndex:0] removeFromSuperview];
+    }
+    
+    if ([viewDayThree.subviews count] > 0) {
+        [[viewDayThree.subviews objectAtIndex:0] removeFromSuperview];
+    }
+    
+    if ([viewDayFour.subviews count] > 0) {
+        [[viewDayFour.subviews objectAtIndex:0] removeFromSuperview];
+    }
+    
+    if ([viewDayFive.subviews count] > 0) {
+        [[viewDayFive.subviews objectAtIndex:0] removeFromSuperview];
+    }
+    
+    if ([viewDaySix.subviews count] > 0) {
+        [[viewDaySix.subviews objectAtIndex:0] removeFromSuperview];
+    }
+    
+    if ([viewDaySeven.subviews count] > 0) {
+        [[viewDaySeven.subviews objectAtIndex:0] removeFromSuperview];
+    }
+    
     NSArray *streakArr = [[Common sharedCommon] loadStreak];
     NSMutableArray *dayStatusViewArray = [[NSMutableArray alloc] init];
 //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -159,7 +192,7 @@
         BOOL status = NO;
         NSTimeInterval offset = 0;
         
-        for (int j = i; j < NUMBER_OF_DAYS; j++) {
+        for (int j = 0; j < NUMBER_OF_DAYS; j++) {
             if ([streakArr count] > j) {
                 streakNumber = [streakArr objectAtIndex:[streakArr count] - 1 - j];
                 
@@ -171,12 +204,13 @@
                     offset = [streakNumber doubleValue] - dayInInterval;
                 }
                 
-                if (offset < SECONDS_OF_DAY + SECONDS_OF_HALFDAY) {
+                if (offset < SECONDS_OF_HALFDAY) {
                     status = YES;
                     break;
                 }
             }
         }
+        
         
         if (NUMBER_OF_DAYS - 1 - i == 0) {
             statusView = [[DayStatus alloc] initWithFrame:viewDayOne.frame];
@@ -233,7 +267,7 @@
         day = [[missingDays objectAtIndex:i] doubleValue];
         found = NO;
         
-        for (int j = 0; j < NUMBER_OF_DAYS; j++) {
+        for (int j = 0; j <= NUMBER_OF_DAYS; j++) {
             if ([streakArr count] > j) {
                 if (day >= [[streakArr objectAtIndex:[streakArr count] - 1 - j] doubleValue]) {
                     found = YES;
@@ -258,8 +292,10 @@
     if ([missingDays count] > 0) {
         if (saveStreakView == nil) {
             saveStreakView = [[SaveStreakView alloc] initWithNibName:@"SaveStreakView" bundle:nil];
+            saveStreakView.missingCount = [missingDays count];
             
             saveStreakView.view.alpha = 0;
+            saveStreakView.viewContainer.alpha = 0;
             
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             
@@ -270,6 +306,11 @@
             
             [UIView animateWithDuration:0.3 animations:^(void) {
                 saveStreakView.view.alpha = 1;
+                
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.3 animations:^(void) {
+                    saveStreakView.viewContainer.alpha = 0.9;
+                }];
             }];
         }
     }
@@ -305,10 +346,10 @@
     // Request test ads on devices you specify. Your test device ID is printed to the console when
     // an ad request is made. GADInterstitial automatically returns test ads when running on a
     // simulator.
-    request.testDevices = @[
-                            @"687f0b503566ebb7d84524c1f15e1d16",
-                            kGADSimulatorID
-                            ];
+//    request.testDevices = @[
+//                            @"687f0b503566ebb7d84524c1f15e1d16",
+//                            kGADSimulatorID
+//                            ];
     [interstitial loadRequest:request];
 }
 
@@ -325,7 +366,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
     
-    NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"admob_pub_id"],[container stringForKey:@"streak_saver"] ];
+    NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"admob_pub_id"], @"9736066402" ];
     
     [GADRewardBasedVideoAd sharedInstance].delegate = (id)self;
     [[GADRewardBasedVideoAd sharedInstance] loadRequest:[GADRequest request]
@@ -366,11 +407,22 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 }
 
 - (void)showAdsContent {
+    //update one day streak
+    NSNumber *missingday = nil;
+    
+    if ([missingDays count] > 0) {
+        missingday = [missingDays objectAtIndex:0];
+        
+        [[Common sharedCommon] saveStreak:[missingday doubleValue]];
+    }
+    
     if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
         [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
         
     } else if (interstitial.isReady) {
         [interstitial presentFromRootViewController:self];
     }
+    
+    [self displayContent];
 }
 @end

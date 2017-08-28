@@ -26,6 +26,7 @@
 #import "MajorObject.h"
 #import "LocalizeHelper.h"
 #import "GuideViewController.h"
+//#import "OpenEarObject.h"
 
 @import FirebaseAnalytics;
 
@@ -46,6 +47,7 @@
 #define NOTE_WIDTH 200
 #define NOTE_HEIGHT 180
 #define NOTE_THUMBNAIL_SIZE 70
+#define EAR_THUMBNAIL_SIZE 50
 
 @interface StudyWordViewController ()
 {
@@ -59,6 +61,8 @@
     
     GuideViewController *guideView;
     BOOL showGuideFlag;
+    
+//    OpenEarObject *openEar;
 }
 
 @end
@@ -237,6 +241,7 @@
             [self displayQuestion:_wordObj];
             
             [self showHideButtonsPanel:NO];
+            
         } else {
             [self.navigationController popViewControllerAnimated:YES];
             
@@ -274,6 +279,11 @@
                                                  selector:@selector(swipeToBackToPrevious)
                                                      name:@"swipeToBackToPrevious"
                                                    object:nil];
+        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(openEarCommandHandle:)
+//                                                     name:@"OpenEarSendCommand"
+//                                                   object:nil];
     }
 }
 
@@ -286,6 +296,23 @@
     
     [self stopPlaySoundOnWebview];
 }
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    //Open Ear
+//    if (openEar == nil) {
+//        openEar = [[OpenEarObject alloc] initWithFrame:CGRectMake(webViewWord.frame.size.width -  EAR_THUMBNAIL_SIZE, webViewWord.frame.size.height - EAR_THUMBNAIL_SIZE -NOTE_THUMBNAIL_SIZE, EAR_THUMBNAIL_SIZE, EAR_THUMBNAIL_SIZE)];
+//        openEar.delegate = (id)self;
+//        [webViewWord addSubview:openEar];
+//    } else {
+//        
+//        [openEar startListening];
+//    }
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+////    [openEar removeFromSuperview];
+//    [openEar stopListening];
+//}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
@@ -1113,5 +1140,58 @@
         
         showGuideFlag = NO;
     }
+}
+/*
+- (void)openEarCommandHandle:(NSNotification *)notification {
+    NSString *command = (NSString *)notification.object;
+    NSLog(@"%@", [NSString stringWithFormat:@"command :: %@", command]);
+    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+//                                                    message:command
+//                                                   delegate:nil
+//                                          cancelButtonTitle:@"OK"
+//                                          otherButtonTitles:nil];
+//    [alert show];
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
+    float speed = 2*[speedNumberObj floatValue];
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+        speed = speed/2;
+    }
+    
+    if ([command isEqualToString:COMMAND_EXAMPLE]) {
+
+        
+    } else if ([command isEqualToString:COMMAND_MEANING]) {
+        
+    } else if ([command isEqualToString:COMMAND_SHOW_ANSWER]) {
+        if (_isAnswerScreen == NO) {
+            [self btnShowAnswerClick:btnShowAnswer];
+        }
+        
+    } else if ([command isEqualToString:COMMAND_LEARN_AGAIN]) {
+        [self btnAgainClick:btnAgain];
+        
+    } else if ([command isEqualToString:COMMAND_EASY]) {
+        [self btnEasyClick:btnEasy];
+        
+    } else if ([command isEqualToString:COMMAND_NORMAL]) {
+        [self btnNormClick:btnNorm];
+        
+    } else if ([command isEqualToString:COMMAND_HARD]) {
+        [self btnHardClick:btnHard];
+        
+    } else if ([command isEqualToString:COMMAND_PRONOUNCE]) {
+        NSString * jsCallBack = [NSString stringWithFormat:@"playText(\'%@\', \'%f\')", _wordObj.question, speed];
+        [webViewWord stringByEvaluatingJavaScriptFromString:jsCallBack];
+    }
+}
+*/
+- (void)dealloc {
+//    [openEar stopListening];
+//    [openEar removeFromSuperview];
+//    openEar.delegate = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

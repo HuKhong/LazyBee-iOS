@@ -130,6 +130,9 @@
 "Streack congratulation" = "Congratulation!\nYou have got %ld day streak.";
 "Continue" = "Continue";
 "2000 words/year with 5 minutes per day" = "2000 từ/năm với 5 phút mỗi ngày";
+"Watch ads to save streak" = "You had missed %d day(s) in the last seven days.\nWatch Ads to save one day streak.";
+"Save streak" = "Save streak";
+"Watch Ads" = "Watch Ads";
 
 //note
 "User note" = "User note";

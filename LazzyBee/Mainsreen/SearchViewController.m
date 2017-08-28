@@ -147,4 +147,8 @@
 - (void)didSelectRowFromSearch:(NSNotification *)notification {
     [self.view removeFromSuperview];
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end

@@ -124,7 +124,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getSearchHintList:(NSString *)searchText {
-    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note, priority FROM \"vocabulary\" where question like '%@%%' OR question like '%% %@%%' ORDER BY level", searchText, searchText];
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid, user_note, priority FROM \"vocabulary\" where question like '%@%%' OR question like '%% %@%%' ORDER BY level LIMIT 20", searchText, searchText];
     
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];

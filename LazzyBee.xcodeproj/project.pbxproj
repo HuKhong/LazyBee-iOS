@@ -270,6 +270,10 @@
 		559E67C51BEF569100232439 /* hive.png in Resources */ = {isa = PBXBuildFile; fileRef = 559E67C21BEF569100232439 /* hive.png */; };
 		559E67C61BEF569100232439 /* hive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 559E67C31BEF569100232439 /* hive@2x.png */; };
 		55A7F33C1F34301A00AEFCEA /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A7F33B1F34301A00AEFCEA /* GoogleMobileAds.framework */; };
+		55A9C0271F3D87D600DDFC12 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 55A9C0241F3D87D600DDFC12 /* AcousticModelEnglish.bundle */; };
+		55A9C0331F3D8D5800DDFC12 /* ic_ear.png in Resources */ = {isa = PBXBuildFile; fileRef = 55A9C0301F3D8D5800DDFC12 /* ic_ear.png */; };
+		55A9C0341F3D8D5800DDFC12 /* ic_ear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55A9C0311F3D8D5800DDFC12 /* ic_ear@2x.png */; };
+		55A9C0351F3D8D5800DDFC12 /* ic_ear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55A9C0321F3D8D5800DDFC12 /* ic_ear@3x.png */; };
 		55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BED1BBE36D000693411 /* LevelPickerViewController.m */; };
 		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; };
 		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; };
@@ -330,6 +334,9 @@
 		55F2FA9A1C1EC0130028F561 /* ielts@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA971C1EC0130028F561 /* ielts@3x.png */; };
 		55F2FA9B1C1EC0130028F561 /* ielts.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA981C1EC0130028F561 /* ielts.png */; };
 		55F2FA9C1C1EC0130028F561 /* ielts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F2FA991C1EC0130028F561 /* ielts@2x.png */; };
+		55F3216D1F4181A800849166 /* ic_ear_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F3216A1F4181A800849166 /* ic_ear_off.png */; };
+		55F3216E1F4181A800849166 /* ic_ear_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F3216B1F4181A800849166 /* ic_ear_off@2x.png */; };
+		55F3216F1F4181A800849166 /* ic_ear_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F3216C1F4181A800849166 /* ic_ear_off@3x.png */; };
 		55F6C72A1BF5959C0084B369 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F6C71F1BF5959C0084B369 /* blank.png */; };
 		55F6C72B1BF5959C0084B369 /* blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F6C7201BF5959C0084B369 /* blank@2x.png */; };
 		55F6C72C1BF5959C0084B369 /* blank@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F6C7211BF5959C0084B369 /* blank@3x.png */; };
@@ -779,6 +786,12 @@
 		559E67C21BEF569100232439 /* hive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hive.png; sourceTree = "<group>"; };
 		559E67C31BEF569100232439 /* hive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hive@2x.png"; sourceTree = "<group>"; };
 		55A7F33B1F34301A00AEFCEA /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework"; sourceTree = "<group>"; };
+		55A9C0241F3D87D600DDFC12 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		55A9C0251F3D87D600DDFC12 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		55A9C0261F3D87D600DDFC12 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		55A9C0301F3D8D5800DDFC12 /* ic_ear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_ear.png; sourceTree = "<group>"; };
+		55A9C0311F3D8D5800DDFC12 /* ic_ear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_ear@2x.png"; sourceTree = "<group>"; };
+		55A9C0321F3D8D5800DDFC12 /* ic_ear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_ear@3x.png"; sourceTree = "<group>"; };
 		55B08BEC1BBE36D000693411 /* LevelPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPickerViewController.h; sourceTree = "<group>"; };
 		55B08BED1BBE36D000693411 /* LevelPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPickerViewController.m; sourceTree = "<group>"; };
 		55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelPickerViewController.xib; sourceTree = "<group>"; };
@@ -855,6 +868,9 @@
 		55F2FA971C1EC0130028F561 /* ielts@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ielts@3x.png"; sourceTree = "<group>"; };
 		55F2FA981C1EC0130028F561 /* ielts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ielts.png; sourceTree = "<group>"; };
 		55F2FA991C1EC0130028F561 /* ielts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ielts@2x.png"; sourceTree = "<group>"; };
+		55F3216A1F4181A800849166 /* ic_ear_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_ear_off.png; sourceTree = "<group>"; };
+		55F3216B1F4181A800849166 /* ic_ear_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_ear_off@2x.png"; sourceTree = "<group>"; };
+		55F3216C1F4181A800849166 /* ic_ear_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_ear_off@3x\U001d.png"; sourceTree = "<group>"; };
 		55F6C71F1BF5959C0084B369 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		55F6C7201BF5959C0084B369 /* blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank@2x.png"; sourceTree = "<group>"; };
 		55F6C7211BF5959C0084B369 /* blank@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blank@3x.png"; sourceTree = "<group>"; };
@@ -1126,6 +1142,7 @@
 		4DD3C3791B6F191C00B6DA71 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				55A9C0231F3D87D600DDFC12 /* OpenEar */,
 				55524FC31C7E956E0027A4ED /* SSZipArchive */,
 				55F7E6381BFB014300EB27A2 /* GraphKit */,
 				55E106271BF18B14008A6BEA /* MGSwipeTableCell */,
@@ -1272,6 +1289,12 @@
 		4DD3C3BF1B6F218700B6DA71 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				55F3216A1F4181A800849166 /* ic_ear_off.png */,
+				55F3216B1F4181A800849166 /* ic_ear_off@2x.png */,
+				55F3216C1F4181A800849166 /* ic_ear_off@3x.png */,
+				55A9C0301F3D8D5800DDFC12 /* ic_ear.png */,
+				55A9C0311F3D8D5800DDFC12 /* ic_ear@2x.png */,
+				55A9C0321F3D8D5800DDFC12 /* ic_ear@3x.png */,
 				55D0681B1F397E7400FBE762 /* ic_clear.png */,
 				55D0681C1F397E7400FBE762 /* ic_clear@2x.png */,
 				55D0681D1F397E7400FBE762 /* ic_clear@3x.png */,
@@ -1670,6 +1693,16 @@
 			name = Mainscreen;
 			sourceTree = "<group>";
 		};
+		55A9C0231F3D87D600DDFC12 /* OpenEar */ = {
+			isa = PBXGroup;
+			children = (
+				55A9C0241F3D87D600DDFC12 /* AcousticModelEnglish.bundle */,
+				55A9C0251F3D87D600DDFC12 /* OpenEars.framework */,
+				55A9C0261F3D87D600DDFC12 /* Slt.framework */,
+			);
+			path = OpenEar;
+			sourceTree = "<group>";
+		};
 		55C0922F1BCF42BF005C78B5 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
@@ -2033,10 +2066,13 @@
 				559E67B31BEB135F00232439 /* big_logo.png in Resources */,
 				55452C6A1BC528F600D6E430 /* MHTabBarIndicator@2x.png in Resources */,
 				552BD5A91BA1621500BF316C /* About.txt in Resources */,
+				55A9C0341F3D8D5800DDFC12 /* ic_ear@2x.png in Resources */,
 				559E67AC1BEB0A2600232439 /* button_square@2x.png in Resources */,
 				55028A031BF08BAB007181C3 /* ic_help.png in Resources */,
+				55F3216F1F4181A800849166 /* ic_ear_off@3x.png in Resources */,
 				55308B4D1BF0423A00FF0457 /* day_ring_gray.png in Resources */,
 				4DD3C3D81B6F218700B6DA71 /* ic_setting@2x.png in Resources */,
+				55F3216D1F4181A800849166 /* ic_ear_off.png in Resources */,
 				55308B501BF0423A00FF0457 /* day_ring.png in Resources */,
 				551FB8771C031A1800C8B18C /* NoteFullView.xib in Resources */,
 				55F7E6751BFB014300EB27A2 /* LICENSE in Resources */,
@@ -2095,6 +2131,7 @@
 				55028A101BF092C2007181C3 /* bee_rotate@3x.png in Resources */,
 				551FB8601C02F75B00C8B18C /* button_short_ipad.png in Resources */,
 				55C1B21F1BF2F0C600D917EB /* uncheck@2x.png in Resources */,
+				55F3216E1F4181A800849166 /* ic_ear_off@2x.png in Resources */,
 				55D0681A1F397C9B00FBE762 /* SaveStreakView.xib in Resources */,
 				55028A0A1BF08C17007181C3 /* HelpViewController.xib in Resources */,
 				5573939F1CF55CA8000F1E0A /* ReverseViewController.xib in Resources */,
@@ -2130,10 +2167,12 @@
 				55E1063B1BF1DF18008A6BEA /* economic.png in Resources */,
 				55308B521BF0423A00FF0457 /* day_ring@3x.png in Resources */,
 				55452C581BC5128700D6E430 /* ic_dictionary@3x.png in Resources */,
+				55A9C0351F3D8D5800DDFC12 /* ic_ear@3x.png in Resources */,
 				559E67BE1BEF526A00232439 /* streak_ring@3x.png in Resources */,
 				4DD3C3DD1B6F218700B6DA71 /* arrow_white.png in Resources */,
 				552BD5B61BA175E300BF316C /* ic_rabbit@2x.png in Resources */,
 				55BA86F01C8D6C4C000221D7 /* toeic@2x.png in Resources */,
+				55A9C0331F3D8D5800DDFC12 /* ic_ear.png in Resources */,
 				550289FF1BF0820D007181C3 /* magic.mp3 in Resources */,
 				55F6C72D1BF5959C0084B369 /* science@2x.png in Resources */,
 				4DD3C3D91B6F218700B6DA71 /* ic_setting@3x.png in Resources */,
@@ -2193,6 +2232,7 @@
 				55679C781D50ACC000074DCE /* AddMoreCell.xib in Resources */,
 				551FB8621C02F75B00C8B18C /* button_square_ipad.png in Resources */,
 				55679C6F1D509EE300074DCE /* CreateCustomListViewController.xib in Resources */,
+				55A9C0271F3D87D600DDFC12 /* AcousticModelEnglish.bundle in Resources */,
 				552BD5B91BA175E300BF316C /* ic_turtle@2x.png in Resources */,
 				55EBA3E71C74126A006B4A5A /* ic_search.png in Resources */,
 				559E67B51BEB135F00232439 /* big_logo@3x.png in Resources */,
@@ -2591,6 +2631,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/FacebookSDK",
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
 					"$(PROJECT_DIR)/Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks",
+					"$(PROJECT_DIR)/LazzyBee/Lib/OpenEar",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2621,6 +2662,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/FacebookSDK",
 					"$(PROJECT_DIR)/LazzyBee/Lib/GoogleMobileAdsSdkiOS-7.4.1",
 					"$(PROJECT_DIR)/Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks",
+					"$(PROJECT_DIR)/LazzyBee/Lib/OpenEar",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

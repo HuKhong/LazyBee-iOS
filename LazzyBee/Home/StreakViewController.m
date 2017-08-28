@@ -322,7 +322,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToCheckReviewList" object:nil];
     
     NSInteger streakCount = [[Common sharedCommon] getCountOfStreak];
-    if (streakCount % NUMBER_OF_STREAK_TO_UPDATE == 0) {
+    if (streakCount % NUMBER_OF_STREAK_TO_BACKUP == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NeedToBackupData" object:nil];
     }
     
@@ -424,5 +424,9 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     }
     
     [self displayContent];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

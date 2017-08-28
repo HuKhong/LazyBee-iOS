@@ -78,7 +78,7 @@ static Algorithm* sharedAlgorithm = nil;
         str =  LocalizedString(@"10min");
     
     else {
-        int day = ivl / SECONDS_PERDAY;
+        float day = ivl / SECONDS_PERDAY;
         if (day <= 30)
             str = [NSString stringWithFormat:@"%d %@", (int)round(day), LocalizedString(@"day")];
         else {

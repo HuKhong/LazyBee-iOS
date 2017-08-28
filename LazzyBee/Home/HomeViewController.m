@@ -775,4 +775,8 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     [alert show];
     
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end

@@ -1095,4 +1095,8 @@
     
     [alert show];
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end
